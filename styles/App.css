@@ -39,11 +39,7 @@ header img {
   padding: 10vh 0rem 0rem 5vw;
 }
 
-section {
-  display: flex;
-  flex-direction: column;
-  padding: 4rem 0 3rem 0;
-}
+
 .nav {
   display: none;
 }
@@ -71,7 +67,14 @@ section {
   font-size: 5vh;
 }
 
-.cards-container {
+
+.main-body{
+  display: flex;
+  flex-direction: column;
+  gap: 70px;
+}
+
+.stack {
   display: flex;
   flex-direction: row;
   gap: 0.5vw;
@@ -107,14 +110,14 @@ section {
   width: 45vw;
   font-weight: 100;
   padding: 3rem;
-  height: 2vh;
+ 
 }
 
 /* Define the animation keyframes */
-@keyframes text-change-animation {
+@keyframes text{
   0%,
   100% {
-    content: "Commemorative Services: George Wood Foundation, originally known as George Wood Caskets, has been transforming funeral practices in the Southeast since 1984, ensuring dignified send-offs that are financially accessible.";
+    content: "filler";
   }
   25% {
     content: "Enduring Commitment: With 40 years of dedicated service, the foundation pledges to maintain its high standards and expand its offerings to support those in mourning.";
@@ -130,7 +133,7 @@ section {
 /* Apply the animation to the pseudo-element */
 .text-change1::after {
   content: "";
-  animation: text-change-animation 25s infinite;
+  animation: text 25s infinite;
 }
 
 .services {
@@ -183,6 +186,10 @@ section {
   
 }
 
+.no-big{
+  display: none;
+}
+
 .text-change2 {
   font-size: 0.9rem;
   height: 37vh;
@@ -190,7 +197,7 @@ section {
 }
 
 /* Define the animation keyframes */
-@keyframes text-change-animation {
+@keyframes text-change {
   0%,
   100% {
     content: "Commemorative Services: George Wood Foundation, originally known as George Wood Caskets, has been transforming funeral practices in the Southeast since 1984, ensuring dignified send-offs that are financially accessible.";
@@ -209,7 +216,7 @@ section {
 /* Apply the animation to the pseudo-element */
 .text-change2::after {
   content: "";
-  animation: text-change-animation 25s infinite;
+  animation: text-change 25s infinite;
 }
 
 .main-page {
@@ -243,9 +250,9 @@ section {
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  height: 20vh;
-  background-image: url(images/icons/achievements.png);
-  background-size: contain;
+  height: 250px;
+  overflow-x: auto;
+  
 }
 
 .achievements span {
@@ -253,8 +260,8 @@ section {
   background-size: contain;
   border-radius: 20px;
   padding: 1rem;
-  width: 8vw;
-  height: 11vh;
+  min-width: 120px;
+  height: 120px;
   border-style: none;
   display: flex;
   align-items: center;
@@ -264,25 +271,24 @@ section {
   backdrop-filter: blur(5px);
   transition: all 0.5s ease;
 }
+
 .achievements span:hover {
-  width: 10vw;
-  height: 15vh;
-  all: 7;
+transform: scale(1.5);
 }
+
+.achievements span:active {
+  transform: scale(1.5);
+  }
 
 .achievements span h1 {
-  font-size: 3.7vw;
+  font-size: 2rem;
   padding: 0;
   margin: 0;
-  transition: all 0.5s ease;
 }
 
-.achievements span:hover > h1 {
-  font-size: 4.5vw;
-}
 
 .achievements span h4 {
-  font-size: 1.1vw;
+  font-size: 1rem;
   padding: 0;
   margin: 0;
 }
@@ -307,6 +313,7 @@ section {
   flex-direction: column;
   align-items: center;
   gap: 3rem;
+  width: 100%;
 }
 
 .product-line h2 {
@@ -319,7 +326,7 @@ section {
   display: flex;
   flex-direction: row;
   width: 100%;
-  justify-content: space-evenly;
+ justify-content: space-evenly;
 }
 .search-div p{
   font-size: 1.5rem;
@@ -331,8 +338,9 @@ section {
 }
 .search-bar {
   height: 3rem;
-  background-color: #ffffffb5;
-  border-style: none;
+  background-color: transparent;
+  border-style: solid;
+  border-color: #a37e2c;
   border-radius: 10px 0px 0px 10px;
   width: 300px;
 }
@@ -345,7 +353,7 @@ section {
   background-color: #a37d2cfb;
   font-size: 1.5rem;
   width: 150px;
-  font-family: "Times New Roman", Times, serif;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .product {
@@ -354,25 +362,7 @@ section {
   padding: 0rem 0rem 3rem 0rem;
 }
 
-.product span {
-  height: 350px;
-  width: 250px;
-  background-color: #a37d2c5a;
-  border-radius: 30px;
-  padding: 1rem;
-  display: flex;
-}
 
-.product span button {
-  height: 2.4rem;
-  width: 10rem;
-  background-color: #a37d2c;
-  color: #ffffff;
-  font-family: "Times New Roman", Times, serif;
-  border-radius: 20px;
-  border-style: none;
-  align-self: flex-end;
-}
 
 .foundation {
   display: flex;
@@ -467,27 +457,28 @@ section {
 .about-us {
   display: flex;
   flex-direction: row;
-  padding: 2vw;
-  gap: 2vw;
+  padding: 20px;
+  gap: 20px;
 }
 
 .Founders-message {
   background-color: #558c7331;
   border-radius: 30px;
   display: flex;
+  height: 500px;
  
 }
 
 .Founders-message img {
-  width: 25vw;
+  width: 400px;
   border-radius: 30px 0px 0px 30px;
 }
 
 .Founders-message article {
-  width: 40vw;
+  width: 30vw;
   padding-inline: 2rem;
   width: 100%;
-  display: grid;
+  height: 100%;
 }
 
 .Founders-message article h2 {
@@ -497,26 +488,25 @@ section {
 
 .Founders-message article p {
   text-indent: 3vw;
-  place-self: center;
 }
 
 .side-bar {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  width: 50vw;
 }
 
 .book-of-life {
   background-color: wheat;
-  height: 42%;
-  border-radius: 30px;
-  padding: 1vw;
+  height: 200px;
+  border-radius: 20px;
+  padding: 1rem;
   color: black;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  width: 27vw;
 }
 
 .book-of-life h3 {
@@ -525,7 +515,6 @@ section {
 }
 
 .book-of-life button {
-  width: 12vw;
   height: 5vh;
   border-style: none;
   background-color: #135b3a;
@@ -536,14 +525,13 @@ section {
 
 .inquiry {
   background-color: #a37e2c;
-  height: 42%;
+  height: 200px;
   border-radius: 30px;
-  padding: 0.5rem;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  width: 27vw;
   color: #ffffff;
   text-align: start;
 }
@@ -554,12 +542,12 @@ section {
   border-style: none;
   border-radius: 10px;
   height: 5rem;
-  width: 70%;
+  width: 100%;
 }
 
 .inquiry button {
-  width: 12vw;
-  height: 5vh;
+  padding: 0px 40px 0px 40px;
+  height: 40px;
   border-style: none;
   background-color: #135b3a;
   color: #ffffff;
@@ -569,26 +557,33 @@ section {
 
 .one {
   display: flex;
-  align-items: center;
   height: 50%;
+  width: 100%;
 }
 
 .name-email {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
   height: 100%;
+  width: 100%;
 }
 
 #message {
-  height: 9vh;
-  width: 24vw;
+  height: 40%;
+  width: 100%;
+}
+
+
+footer{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 footer img {
-  width: 25vw;
-  padding: 5vh;
-  padding-top: 0;
+  width: 300px;
+  padding-inline: 20px;
 }
 
 .material-symbols-outlined {

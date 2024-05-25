@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>George Wood</title>
     <link rel="icon" href="Images/logos/Official logo Gold.png" />
-    <link rel="stylesheet" href="App.css" />
+    <link rel="stylesheet" href="styles/App.css" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
+    <link rel="stylesheet" href="styles/mobile.css" />
+    <link rel="stylesheet" href="styles/cards.css" />
   </head>
 
   <body>
@@ -17,7 +19,7 @@
       <a href="index.html"
         ><img src="images/logos/Official logo Gold.png" alt="" />
       </a>
-      <div>
+      <div class="hambuger_menu">
         <a href="services.html">SERVICES</a>
         <a href="order.html">TRACK ORDER</a>
         <a href="xclucive.html">XCLUSIVE</a>
@@ -38,13 +40,13 @@
             <!--Cards-->
             <div class="card">
               <div class="card-content">
-                <h3 class="title"> caskets </h3>
+                <h3 class="title">caskets</h3>
               </div>
             </div>
 
             <div class="card">
               <div class="card-content">
-                <h3 class="title"> Ambulance</h3>
+                <h3 class="title">Ambulance</h3>
               </div>
             </div>
 
@@ -59,7 +61,6 @@
                 <h3 class="title">Giving</h3>
               </div>
             </div>
-
           </div>
           <!--First changing text-->
           <span class="text-change1"></span>
@@ -148,6 +149,7 @@
       <!--Last munite chnage, product is a seperate section-->
       <section class="product-line">
         <div>
+          <hr />
           <h2>Most Viewed</h2>
         </div>
         <div class="search-div">
@@ -158,13 +160,41 @@
           </div>
         </div>
         <div class="product">
-          <span class="casket-card">
-            <h1></h1>
-            <p></p>
-            <img src="" alt="casket" />
-            <p></p>
-            <button>Order Now</button>
-          </span>
+          <div class="product-card">
+            <div class="image-holder">
+              <img src="Images/products/IMG_0890 (1).PNG" />
+              <b class="ghost-text">EMPE</b>
+            </div>
+            <article>
+              <div class="title">
+                <h1>EMPEROR CASKET</h1>
+                <h3 class="xclusive">XCLUSIVE COLLECTION</h3>
+              </div>
+
+              <div class="size">
+                <h3>SIZE</h3>
+                <div class="size-container">
+                  <div class="size-6">6.0"</div>
+                  <div class="size-6-5">6.5"</div>
+                  <div class="size-6-8">6.8"</div>
+                  <div class="size-7">7.0"</div>
+                </div>
+              </div>
+
+              <div>
+                <h3>COLOR</h3>
+                <div class="color-selector">
+                  <div class="color-brown"></div>
+                  <div class="color-white"></div>
+                  <div class="color-gold"></div>
+                  <div class="color-cream"></div>
+                </div>
+              </div>
+
+              <button type="submit">Order Now</button>
+            </article>
+          </div>
+
           <span class="xclusive-card">
             <h1></h1>
             <img src="" alt="xclusive casket" />

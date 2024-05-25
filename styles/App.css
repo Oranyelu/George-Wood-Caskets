@@ -1,0 +1,597 @@
+body {
+  margin: 0;
+  border: 0;
+  background-color: #031e10;
+  color: white;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  background-color: #135b3a;
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 2;
+  height: 4rem;
+  box-shadow: rgba(0, 0, 0, 0.8) 0px 15px 25px -5px;
+}
+
+a {
+  text-decoration: none;
+}
+
+header a {
+  color: white;
+  padding-right: 0.5rem 0.75rem;
+  margin-right: 5vw;
+  font-size: 0.95rem;
+  font-weight: 900;
+
+}
+header img {
+  width: 6rem;
+  align-self: baseline;
+  padding: 10vh 0rem 0rem 5vw;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  padding: 4rem 0 3rem 0;
+}
+.nav {
+  display: none;
+}
+
+
+.hero-page {
+  background-image: radial-gradient(#135b3a 0%, #031e10 50%);
+  display: flex;
+  flex-direction: row;
+  height: 80vh;
+  width: 100%;
+}
+
+.celebrating-life {
+  display: flex;
+  flex-direction: column;
+  padding: 2vw;
+  height: 100%;
+  width: 60%;
+  justify-content: end;
+}
+
+.celebrating-life h1 {
+  color: #a37d2c;
+  font-size: 5vh;
+}
+
+.cards-container {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5vw;
+}
+
+.card {
+  background-color: antiquewhite;
+  width: 6vw;
+  height: 35vh;
+  border-radius: 30px;
+  display: flex;
+  transition: flex-grow 0.5s ease;
+  color: #031e10;
+}
+
+.card:hover {
+  flex-grow: 1;
+}
+
+.card-content > .title {
+  margin-left: 10px;
+  translate: 0 100%;
+  opacity: 0;
+}
+
+.card:hover .title {
+  opacity: 1;
+  translate: 0 0;
+}
+
+.text-change1 {
+  font-size: 0.8rem;
+  width: 45vw;
+  font-weight: 100;
+  padding: 3rem;
+  height: 2vh;
+}
+
+/* Define the animation keyframes */
+@keyframes text-change-animation {
+  0%,
+  100% {
+    content: "Commemorative Services: George Wood Foundation, originally known as George Wood Caskets, has been transforming funeral practices in the Southeast since 1984, ensuring dignified send-offs that are financially accessible.";
+  }
+  25% {
+    content: "Enduring Commitment: With 40 years of dedicated service, the foundation pledges to maintain its high standards and expand its offerings to support those in mourning.";
+  }
+  50% {
+    content: "Community Investment: The foundation’s 723 projects reflect a deep investment in the community, honoring the lives of the departed while fostering a legacy of giving back.";
+  }
+  75% {
+    content: "Biographical Tributes: Through “The Book of Life,” the foundation shares the stories of individuals who have been part of their journey, celebrating the impact they’ve made on the world.";
+  }
+}
+
+/* Apply the animation to the pseudo-element */
+.text-change1::after {
+  content: "";
+  animation: text-change-animation 25s infinite;
+}
+
+.services {
+  width: 20vw;
+  height: 6vh;
+  background: none;
+  border-style: solid;
+  border-width: 0.01rem;
+  border-radius: 10px;
+  border-color: #a37e2c;
+  color: #a37e2c;
+  font-size: 1.5vw;
+  font-weight: 100;
+  align-self: flex-end;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.celebrating-40-years {
+  background-color: #a37d2c5a;
+  width: 40%;
+  box-shadow: rgba(0, 0, 0, 0.8) 0px 15px 25px -5px;
+  padding:2vw;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: end;
+}
+.celebrating-40-years h1 {
+  font-size: 5vh;
+  font-weight: 100;
+}
+
+.celebrating-40-years h2 {
+  font-weight: 100;
+  color: #031e10;
+}
+
+.giving {
+  width: 20vw;
+  height: 6vh;
+  background: none;
+  border-style: solid;
+  border-width: 0.01rem;
+  border-radius: 10px;
+  border-color: #ffffff;
+  color: #ffffff;
+  font-size: 1.5vw;
+  font-weight: 100;
+  font-family: "Times New Roman", Times, serif;
+  
+}
+
+.text-change2 {
+  font-size: 0.9rem;
+  height: 37vh;
+  font-weight: 100;
+}
+
+/* Define the animation keyframes */
+@keyframes text-change-animation {
+  0%,
+  100% {
+    content: "Commemorative Services: George Wood Foundation, originally known as George Wood Caskets, has been transforming funeral practices in the Southeast since 1984, ensuring dignified send-offs that are financially accessible.";
+  }
+  25% {
+    content: "Enduring Commitment: With 40 years of dedicated service, the foundation pledges to maintain its high standards and expand its offerings to support those in mourning.";
+  }
+  50% {
+    content: "Community Investment: The foundation’s 723 projects reflect a deep investment in the community, honoring the lives of the departed while fostering a legacy of giving back.";
+  }
+  75% {
+    content: "Biographical Tributes: Through “The Book of Life,” the foundation shares the stories of individuals who have been part of their journey, celebrating the impact they’ve made on the world.";
+  }
+}
+
+/* Apply the animation to the pseudo-element */
+.text-change2::after {
+  content: "";
+  animation: text-change-animation 25s infinite;
+}
+
+.main-page {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+.perks {
+  display: flex;
+  flex-direction: row;
+  background-color: #0000003e;
+  border-radius: 20px;
+  justify-content: space-evenly;
+  border-style: solid;
+  border-color: #a37d2c;
+}
+.perks div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 1vh;
+}
+.perks div img {
+  width: 6vw;
+}
+.perks div p {
+  font-size: 1.4vw;
+}
+.achievements {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 20vh;
+  background-image: url(images/icons/achievements.png);
+  background-size: contain;
+}
+
+.achievements span {
+  background-color: #a37d2c5a;
+  background-size: contain;
+  border-radius: 20px;
+  padding: 1rem;
+  width: 8vw;
+  height: 11vh;
+  border-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  box-shadow: rgba(0, 0, 0, 0.8) 0px 15px 25px -5px;
+  backdrop-filter: blur(5px);
+  transition: all 0.5s ease;
+}
+.achievements span:hover {
+  width: 10vw;
+  height: 15vh;
+  all: 7;
+}
+
+.achievements span h1 {
+  font-size: 3.7vw;
+  padding: 0;
+  margin: 0;
+  transition: all 0.5s ease;
+}
+
+.achievements span:hover > h1 {
+  font-size: 4.5vw;
+}
+
+.achievements span h4 {
+  font-size: 1.1vw;
+  padding: 0;
+  margin: 0;
+}
+
+.directory {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.directory span {
+  height: 15rem;
+  width: 30%;
+  background-color: #a37d2c;
+  border-radius: 30px;
+  padding: 1%;
+}
+
+.product-line {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+}
+
+.product-line h2 {
+  font-size: 3rem;
+  padding: 0;
+  margin: 0;
+}
+
+.search-div {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-evenly;
+}
+.search-div p{
+  font-size: 1.5rem;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+}
+.search-bar {
+  height: 3rem;
+  background-color: #ffffffb5;
+  border-style: none;
+  border-radius: 10px 0px 0px 10px;
+  width: 300px;
+}
+
+.search-button {
+  height: 3rem;
+  border-style: none;
+  border-radius: 0px 10px 10px 0px;
+  color: #ffffff;
+  background-color: #a37d2cfb;
+  font-size: 1.5rem;
+  width: 150px;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.product {
+  display: flex;
+  gap: 1rem;
+  padding: 0rem 0rem 3rem 0rem;
+}
+
+.product span {
+  height: 350px;
+  width: 250px;
+  background-color: #a37d2c5a;
+  border-radius: 30px;
+  padding: 1rem;
+  display: flex;
+}
+
+.product span button {
+  height: 2.4rem;
+  width: 10rem;
+  background-color: #a37d2c;
+  color: #ffffff;
+  font-family: "Times New Roman", Times, serif;
+  border-radius: 20px;
+  border-style: none;
+  align-self: flex-end;
+}
+
+.foundation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.george-wood-foundation {
+  display: flex;
+  flex-direction: column;
+  
+  background-color: #a37d2c5a;
+  height: 50vh;
+  border-radius: 30px;
+  padding: 2vw;
+  width: 90%;
+}
+
+.george-wood-foundation a {
+  align-self: flex-end;
+  color: white;
+}
+
+.same-line-foundation {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.text-change3 {
+  display: flex;
+  font-size: 1rem;
+  height: 20vh;
+  width: 70%;
+  padding-bottom: 4rem;
+}
+
+/* Define the animation keyframes */
+@keyframes text-change-animation {
+  0%,
+  100% {
+    content: "Commemorative Services: George Wood Foundation, originally known as George Wood Caskets, has been transforming funeral practices in the Southeast since 1984, ensuring dignified send-offs that are financially accessible.";
+  }
+  25% {
+    content: "Enduring Commitment: With 40 years of dedicated service, the foundation pledges to maintain its high standards and expand its offerings to support those in mourning.";
+  }
+  50% {
+    content: "Community Investment: The foundation’s 723 projects reflect a deep investment in the community, honoring the lives of the departed while fostering a legacy of giving back.";
+  }
+  75% {
+    content: "Biographical Tributes: Through “The Book of Life,” the foundation shares the stories of individuals who have been part of their journey, celebrating the impact they’ve made on the world.";
+  }
+}
+
+/* Apply the animation to the pseudo-element */
+.text-change3::after {
+  content: "";
+  animation: text-change-animation 25s infinite;
+}
+
+.pictures {
+  display: flex;
+  flex-direction: row;
+  gap: 1%;
+  width: 30%;
+}
+
+.card-foundation {
+  background-color: antiquewhite;
+  height: 25vh;
+  border-radius: 30px;
+  display: flex;
+  transition: flex-grow 0.5s ease;
+  min-width: 7vw;
+}
+
+.card-foundation:hover {
+  flex-grow: 1;
+}
+
+.card-content-foundation > .title-foundation {
+  margin-left: 10px;
+  translate: 0 100%;
+  opacity: 0;
+}
+
+.card-foudation:hover .title-foundation {
+  opacity: 1;
+  translate: 0 0;
+}
+
+.about-us {
+  display: flex;
+  flex-direction: row;
+  padding: 2vw;
+  gap: 2vw;
+}
+
+.Founders-message {
+  background-color: #558c7331;
+  border-radius: 30px;
+  display: flex;
+ 
+}
+
+.Founders-message img {
+  width: 25vw;
+  border-radius: 30px 0px 0px 30px;
+}
+
+.Founders-message article {
+  width: 40vw;
+  padding-inline: 2rem;
+  width: 100%;
+  display: grid;
+}
+
+.Founders-message article h2 {
+  color: #a37e2c;
+  font-size: 2rem;
+}
+
+.Founders-message article p {
+  text-indent: 3vw;
+  place-self: center;
+}
+
+.side-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.book-of-life {
+  background-color: wheat;
+  height: 42%;
+  border-radius: 30px;
+  padding: 1vw;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 27vw;
+}
+
+.book-of-life h3 {
+  color: #135b3a;
+  font-size: 2vw;
+}
+
+.book-of-life button {
+  width: 12vw;
+  height: 5vh;
+  border-style: none;
+  background-color: #135b3a;
+  color: #ffffff;
+  border-radius: 10px;
+  align-self: flex-end;
+}
+
+.inquiry {
+  background-color: #a37e2c;
+  height: 42%;
+  border-radius: 30px;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  width: 27vw;
+  color: #ffffff;
+  text-align: start;
+}
+
+.inquiry input {
+  color: white;
+  background-color: #0000003e;
+  border-style: none;
+  border-radius: 10px;
+  height: 5rem;
+  width: 70%;
+}
+
+.inquiry button {
+  width: 12vw;
+  height: 5vh;
+  border-style: none;
+  background-color: #135b3a;
+  color: #ffffff;
+  border-radius: 10px;
+  align-self: flex-end;
+}
+
+.one {
+  display: flex;
+  align-items: center;
+  height: 50%;
+}
+
+.name-email {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 100%;
+}
+
+#message {
+  height: 9vh;
+  width: 24vw;
+}
+
+footer img {
+  width: 25vw;
+  padding: 5vh;
+  padding-top: 0;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+  place-content: center;
+}

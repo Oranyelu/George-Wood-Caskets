@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>George Wood</title>
     <link rel="icon" href="Images/logos/Official logo Gold.png" />
-    <link rel="stylesheet" href="App.css" />
+    <link rel="stylesheet" href="styles/App.css" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
@@ -29,5 +29,45 @@
     </header>
 
 
-</body>
+    <nav class="nav-menu">
+      <a href="#">Home</a>
+      <a href="#">About</a>
+      <a href="#">Services</a>
+      <a href="#">Contact</a>
+    </nav>
+
+    <style>
+      .nav-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #333;
+  padding: 50px;
+  transform: translateX(-100%);
+  transition: all 0.3s ease-in-out;
+  z-index: 99;
+}
+
+.nav-menu.open {
+  transform: translateX(0);
+}
+
+.nav-menu a {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+    </style>
+<script>
+  const hambugerMenu = document.querySelector('.hambuger_menu');
+
+hambugerMenu.addEventListener('click', () => {
+  hambugerMenu.classList.toggle('open');
+});
+</script>
+  </body>
 </html>

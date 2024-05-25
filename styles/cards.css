@@ -1,0 +1,130 @@
+
+  .product-card {
+    height: 350px;
+    width: 217.39px;
+    background-color: #ffffff;
+    border-radius: 20px;
+  }
+  
+  .image-holder {
+    height: 45%;
+    background-image: linear-gradient(#135b3a, #28c17b);
+    border-radius: 20px 20px 0px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    position: relative;
+    text-align: center;
+  }
+  .product-card img{
+    width: 100%;
+    height: auto;
+    align-self: center;
+    
+  }
+  .ghost-text {
+    color: black;
+    opacity: 10%;
+    font-weight: 900;
+    font-size: 5rem;
+    line-height: 0.99;
+    position: absolute;
+    top: 50%; /* Adjust as necessary */
+    left: 50%; /* Adjust as necessary */
+    transform: translate(-50%, -0%);
+  }
+  
+  .product-card article {
+    padding: 0rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    border: none;
+  }
+  .product-card h1 {
+    font-size: 1rem;
+    color: #011309;
+  }
+  .product-card h3 {
+    font-size: 0.5rem;
+    color: #135b3a;
+  }
+  .product-card .xclusive {
+    color: #b68f02;
+    opacity: 70%;
+    line-height: 0;
+  }
+  .product-card .size-container {
+    display: flex;
+    flex-direction: row;
+    color: black;
+    justify-content: space-between;
+  }
+  
+  .size-6,
+  .size-6-5,
+  .size-6-8,
+  .size-7 {
+    width: 20%;
+    border: black;
+    border-width: 1px;
+    border-style: solid;
+    text-align: center;
+    border-radius: 5px;
+    padding: 2px;
+    font-size: 0.5rem;
+  }
+  
+  .size-6:hover,
+  .size-6-5:hover,
+  .size-6-8:hover,
+  .size-7:hover {
+    background-color: #e4c659;
+    border: none;
+    transition: 1s;
+  }
+  
+  .size-6:active,
+  .size-6-5:active,
+  .size-6-8:active,
+  .size-7:active{
+    background-color: #e4c659;
+    transition: 1s;
+    border: none;
+  }
+  
+  .color-selector{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+  }
+  
+  .color-white, .color-brown, .color-cream, .color-gold{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+  }
+  
+  .color-white{
+    background-color: #FFFFFF;
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
+  }
+  .color-brown{
+    background-color: #9D7142;
+  }
+  .color-cream {
+    background-color: rgb(246, 234, 193);
+  }
+  .color-gold{
+    background-color: #e4c659;
+  }
+  
+  .product-card button{
+    width: 50%;
+    height: 30px;
+    border-radius: 10px;
+    border-style: none;
+    background-color: #9D7142;
+    color: white;
+    align-self: flex-end;
+    justify-self: right;
+  }

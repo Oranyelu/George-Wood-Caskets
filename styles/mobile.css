@@ -25,8 +25,8 @@ gap: 20px;
     transform: translate(-50%, -50%);
     top: 50%;
     left: 50%;
-    width: 300px;
-    height: 186.335px;
+    width: 250px;
+    height: 155.28px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -126,7 +126,7 @@ gap: 20px;
   }
 
   .Founders-message img {
-    width: 45vw;
+    width: 40vw;
     border-radius: 20px 0px 0px 20px;
   }
 

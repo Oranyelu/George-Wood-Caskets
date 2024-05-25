@@ -82,7 +82,7 @@ header img {
 }
 
 .card {
-  background-color: antiquewhite;
+  background-color: transparent;
   width: 5vw;
   height: 35vh;
   border-radius: 30px;
@@ -145,7 +145,7 @@ header img {
   border-radius: 10px;
   border-color: #a37e2c;
   color: #a37e2c;
-  font-size: 1.5vw;
+  font-size: 1.5rem;
   font-weight: 100;
   align-self: flex-end;
   font-family: "Times New Roman", Times, serif;

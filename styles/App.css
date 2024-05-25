@@ -59,7 +59,7 @@ header img {
   padding: 2vw;
   height: 100%;
   width: 60%;
-  justify-content: end;
+  justify-content: space-between;
 }
 
 .celebrating-life h1 {
@@ -72,17 +72,18 @@ header img {
   display: flex;
   flex-direction: column;
   gap: 70px;
+  padding-top: 4.5rem;
 }
 
 .stack {
   display: flex;
   flex-direction: row;
-  gap: 0.5vw;
+  gap: 4px;
 }
 
 .card {
   background-color: antiquewhite;
-  width: 6vw;
+  width: 5vw;
   height: 35vh;
   border-radius: 30px;
   display: flex;
@@ -106,8 +107,7 @@ header img {
 }
 
 .text-change1 {
-  font-size: 0.8rem;
-  width: 45vw;
+  font-size: 1rem;
   font-weight: 100;
   padding: 3rem;
  
@@ -117,16 +117,16 @@ header img {
 @keyframes text{
   0%,
   100% {
-    content: "filler";
+    content: "George Wood Funeral Services: Compassion and dignity in every farewell.";
   }
   25% {
-    content: "Enduring Commitment: With 40 years of dedicated service, the foundation pledges to maintain its high standards and expand its offerings to support those in mourning.";
+    content: "Trust George Wood Funeral Services to honor your loved ones with grace and reverence.";
   }
   50% {
-    content: "Community Investment: The foundation’s 723 projects reflect a deep investment in the community, honoring the lives of the departed while fostering a legacy of giving back.";
+    content: "Experience the supportive care of George Wood Funeral Services, where memories are cherished.";
   }
   75% {
-    content: "Biographical Tributes: Through “The Book of Life,” the foundation shares the stories of individuals who have been part of their journey, celebrating the impact they’ve made on the world.";
+    content: "Choose George Wood Funeral Services for a heartfelt tribute to a life well-lived.";
   }
 }
 
@@ -162,13 +162,14 @@ header img {
   justify-content: end;
 }
 .celebrating-40-years h1 {
-  font-size: 5vh;
+  font-size: 3rem;
   font-weight: 100;
 }
 
 .celebrating-40-years h2 {
   font-weight: 100;
   color: #031e10;
+  font-size: 1.86rem;
 }
 
 .giving {
@@ -191,7 +192,7 @@ header img {
 }
 
 .text-change2 {
-  font-size: 0.9rem;
+  font-size: 1.157rem;
   height: 37vh;
   font-weight: 100;
 }
@@ -216,7 +217,7 @@ header img {
 /* Apply the animation to the pseudo-element */
 .text-change2::after {
   content: "";
-  animation: text-change 25s infinite;
+  animation: text-change 40s infinite;
 }
 
 .main-page {
@@ -392,36 +393,6 @@ transform: scale(1.5);
   justify-content: space-between;
 }
 
-.text-change3 {
-  display: flex;
-  font-size: 1rem;
-  height: 20vh;
-  width: 70%;
-  padding-bottom: 4rem;
-}
-
-/* Define the animation keyframes */
-@keyframes text-change-animation {
-  0%,
-  100% {
-    content: "Commemorative Services: George Wood Foundation, originally known as George Wood Caskets, has been transforming funeral practices in the Southeast since 1984, ensuring dignified send-offs that are financially accessible.";
-  }
-  25% {
-    content: "Enduring Commitment: With 40 years of dedicated service, the foundation pledges to maintain its high standards and expand its offerings to support those in mourning.";
-  }
-  50% {
-    content: "Community Investment: The foundation’s 723 projects reflect a deep investment in the community, honoring the lives of the departed while fostering a legacy of giving back.";
-  }
-  75% {
-    content: "Biographical Tributes: Through “The Book of Life,” the foundation shares the stories of individuals who have been part of their journey, celebrating the impact they’ve made on the world.";
-  }
-}
-
-/* Apply the animation to the pseudo-element */
-.text-change3::after {
-  content: "";
-  animation: text-change-animation 25s infinite;
-}
 
 .pictures {
   display: flex;
@@ -466,6 +437,7 @@ transform: scale(1.5);
   border-radius: 30px;
   display: flex;
   height: 500px;
+  width: 70vw;
  
 }
 
@@ -475,10 +447,13 @@ transform: scale(1.5);
 }
 
 .Founders-message article {
-  width: 30vw;
-  padding-inline: 2rem;
   width: 100%;
+  padding-inline: 2rem;
+  display: flex;
+  flex-direction: column;
   height: 100%;
+  align-items: center;
+  justify-content: center;
 }
 
 .Founders-message article h2 {
@@ -494,7 +469,7 @@ transform: scale(1.5);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 50vw;
+  width: 30vw;
 }
 
 .book-of-life {

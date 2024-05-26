@@ -13,7 +13,7 @@ function moveCard() {
     setTimeout(() => {
       lastCard.classList.remove("swap");
       stack.insertBefore(lastCard, stack.firstElementChild);
-    }, 1200);
+    }, 900);
   }
 }
 
@@ -26,13 +26,13 @@ stack.addEventListener("click", function (e) {
       card.classList.remove("swap");
       stack.insertBefore(card, stack.firstElementChild);
       resetAutoplay();
-    }, 1200);
+    }, 900);
   }
 });
 
-let autoplayInterval = setInterval(moveCard, 4000);
+let autoplayInterval = setInterval(moveCard, 8000);
 
 function resetAutoplay() {
   clearInterval(autoplayInterval);
-  autoplayInterval = setInterval(moveCard, 4000);
+  autoplayInterval = setInterval(moveCard, 8000);
 }

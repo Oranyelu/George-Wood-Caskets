@@ -64,7 +64,7 @@ header img {
 
 .celebrating-life h1 {
   color: #a37d2c;
-  font-size: 5vh;
+  font-size: 3rem;
 }
 
 
@@ -74,44 +74,71 @@ header img {
   gap: 70px;
   padding-top: 4.5rem;
 }
-
-.stack {
-  display: flex;
-  flex-direction: row;
-  gap: 4px;
-}
-
 .card {
-  background-color: transparent;
-  width: 5vw;
-  height: 35vh;
-  filter: grayscale(70%);
-  overflow-x: hidden;
-  border-radius: 30px;
-  display: flex;
-  transition: flex-grow 1s ease;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 35%;
+  width: 40vw;
+  height: 45vh;
+  border-radius: 40px;
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.25),
+    0 15px 20px 0 rgba(0, 0, 0, 0.125);
+  transition: transform 0.6s;
+  user-select: none;
+}
+.card:nth-last-child(n + 5) {
+  --x: calc(-50% + 90px);
+  transform: translate(var(--x), -50%) scale(0.85);
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.01);
 }
 
-.card:hover {
-  flex-grow: 1;
-  filter: grayscale(0%);
+.card:nth-last-child(4) {
+  --x: calc(-50% + 60px);
+  transform: translate(var(--x), -50%) scale(0.9);
 }
 
-.card-content > .title {
-  margin-left: 10px;
-  translate: 0 100%;
-  opacity: 0;
+.card:nth-last-child(3) {
+  --x: calc(-50% + 30px);
+  transform: translate(var(--x), -50%) scale(0.95);
 }
 
-.card:hover .title {
-  opacity: 1;
-  translate: 0 0;
+.card:nth-last-child(2) {
+  --x: calc(-50%);
+  transform: translate(var(--x), -50%) scale(1);
 }
+
+.card:nth-last-child(1) {
+  --x: calc(-50% - 30px);
+  transform: translate(var(--x), -50%) scale(1.05);
+}
+.card img{
+width: 100%;
+height: 100%;
+}
+.swap {
+  animation: swap 1.3s ease-out forwards;
+}
+
+@keyframes swap {
+  30% {
+    transform: translate(calc(var(--x) - 250px), -50%) scale(0.85)
+      rotate(-5deg) rotateY(65deg);
+    animation-timing-function: ease-in;
+  }
+  100% {
+    transform: translate(calc(var(--x) - 30px), -50%) scale(0.5);
+    z-index: -1;
+  }
+}
+
 
 .text-change1 {
+  position: absolute;
   font-size: 1rem;
   font-weight: 100;
   padding: 3rem;
+  top: 72%;
  
 }
 
@@ -150,8 +177,18 @@ header img {
   font-size: 1.5rem;
   font-weight: 100;
   align-self: flex-end;
-  font-family: "Times New Roman", Times, serif;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
+
+.services:hover{
+  scale: 1.1;
+  transition: 1s;
+}
+.giving:hover{
+  scale: 1.1;
+  transition: 1s;
+}
+
 
 .celebrating-40-years {
   background-color: #a37d2c5a;
@@ -185,7 +222,7 @@ header img {
   color: #ffffff;
   font-size: 1.5vw;
   font-weight: 100;
-  font-family: "Times New Roman", Times, serif;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   
 }
 
@@ -236,60 +273,12 @@ header img {
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 1vh;
 }
 .perks div img {
   width: 6vw;
 }
 .perks div p {
   font-size: 1.4vw;
-}
-.achievements {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-  height: 250px;
-  overflow-x: auto;
-  
-}
-
-.achievements span {
-  background-color: #a37d2c5a;
-  background-size: contain;
-  border-radius: 20px;
-  padding: 1rem;
-  min-width: 120px;
-  height: 120px;
-  border-style: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  box-shadow: rgba(0, 0, 0, 0.8) 0px 15px 25px -5px;
-  backdrop-filter: blur(5px);
-  transition: all 0.5s ease;
-}
-
-.achievements span:hover {
-transform: scale(1.5);
-}
-
-.achievements span:active {
-  transform: scale(1.5);
-  }
-
-.achievements span h1 {
-  font-size: 2rem;
-  padding: 0;
-  margin: 0;
-}
-
-
-.achievements span h4 {
-  font-size: 1rem;
-  padding: 0;
-  margin: 0;
 }
 
 .directory {
@@ -299,13 +288,6 @@ transform: scale(1.5);
   justify-content: space-evenly;
 }
 
-.directory span {
-  height: 15rem;
-  width: 30%;
-  background-color: #a37d2c;
-  border-radius: 30px;
-  padding: 1%;
-}
 
 .product-line {
   display: flex;
@@ -313,6 +295,10 @@ transform: scale(1.5);
   align-items: center;
   gap: 3rem;
   width: 100%;
+}
+.product {
+  width: 95vw;
+  overflow-x: scroll;
 }
 
 .product-line h2 {
@@ -466,12 +452,13 @@ transform: scale(1.5);
 .side-bar {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 35px;
   width: 30vw;
 }
 
 .book-of-life {
-  background-color: wheat;
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Clouds_Blue_Sky_001.jpg/1200px-Clouds_Blue_Sky_001.jpg?20050813154042);
+  background-size: cover;
   height: 200px;
   border-radius: 20px;
   padding: 1rem;
@@ -484,7 +471,7 @@ transform: scale(1.5);
 
 .book-of-life h3 {
   color: #135b3a;
-  font-size: 2vw;
+  font-size: 2rem;
 }
 
 .book-of-life button {
@@ -499,7 +486,7 @@ transform: scale(1.5);
 .inquiry {
   background-color: #a37e2c;
   height: 200px;
-  border-radius: 30px;
+  border-radius: 20px;
   padding: 1rem;
   display: flex;
   flex-direction: column;
@@ -507,6 +494,7 @@ transform: scale(1.5);
   justify-content: flex-end;
   color: #ffffff;
   text-align: start;
+  gap: 10px;
 }
 
 .inquiry input {
@@ -516,6 +504,11 @@ transform: scale(1.5);
   border-radius: 10px;
   height: 5rem;
   width: 100%;
+}
+
+.inquiry input::placeholder{
+  color: #c2c4c3;
+  padding-left: 10px;
 }
 
 .inquiry button {
@@ -532,6 +525,7 @@ transform: scale(1.5);
   display: flex;
   height: 50%;
   width: 100%;
+  gap: 10px;
 }
 
 .name-email {
@@ -539,6 +533,7 @@ transform: scale(1.5);
   flex-direction: column;
   height: 100%;
   width: 100%;
+  gap: 10px;
 }
 
 #message {

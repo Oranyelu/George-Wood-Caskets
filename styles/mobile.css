@@ -20,6 +20,7 @@
   }
   .card {
     position: absolute;
+    filter: grayscale(0%);
     transform: translate(-50%, -50%);
     top: 50%;
     left: 45%;

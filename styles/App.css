@@ -85,14 +85,16 @@ header img {
   background-color: transparent;
   width: 5vw;
   height: 35vh;
+  filter: grayscale(70%);
+  overflow-x: hidden;
   border-radius: 30px;
   display: flex;
-  transition: flex-grow 0.5s ease;
-  color: #031e10;
+  transition: flex-grow 1s ease;
 }
 
 .card:hover {
   flex-grow: 1;
+  filter: grayscale(0%);
 }
 
 .card-content > .title {

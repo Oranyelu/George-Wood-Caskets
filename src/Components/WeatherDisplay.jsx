@@ -1,13 +1,15 @@
 import React from 'react';
+import '../index.css'
 
 const WeatherDisplay = ({ location, temperature, unit, time }) => {
   return (
-    <div className="bg-[#00000049] rounded-lg text-center text-white w-48 mx-auto shadow-lg">
-    <div className="text-2xl font-bold mb-2">{location}</div>
-    <div className="text-4xl mb-2">
-      {temperature}° <span className="text-lg">{unit}</span>
-    </div>
-    <div className="text-base text-gray-600">{time}</div>
+    <div className="text-center text-white w-fit">
+    <div className="text-[50px] font-bold mb-2">{location}</div>
+    <div className="text-[120px] mb-2">
+      {temperature}° 
+      </div>
+      <span className="text-[20px]">{unit}</span>
+    <div className="text-white text-[50px]">{time}</div>
   </div>
   );
 };

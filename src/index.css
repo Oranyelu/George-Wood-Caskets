@@ -1,5 +1,36 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+.slick-slide {
+  transition: transform 0.3s ease-in-out;
+}
+
+.slick-slide:not(.slick-center) {
+  transform: scale(0.8);
+  filter: blur(2px);
+  opacity: 0.6;
+}
+
+.slick-center {
+  transform: scale(1);
+  filter: blur(0);
+  opacity: 1;
+}
+
+.slick-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px; /* Adjust the height as needed */
+  width: 300px; /* Adjust the width as needed */
+  padding: 10px;
+}
+
+.weather-clock {
+  border-radius: 20px;
+  background: linear-gradient(145deg, #ae872f, #937128);
+  box-shadow: 14px 14px 29px #755b20, -14px -14px 29px #d1a138;
+}

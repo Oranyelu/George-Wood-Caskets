@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { ProductContext } from "../ProductProvider";
 import { Link } from "react-router-dom";
-import OtherService from "./OtherService";
 import Products from '../assets/product-api'; // Importing the product data
 import Services from '../assets/service-api'; // Importing the service data
 

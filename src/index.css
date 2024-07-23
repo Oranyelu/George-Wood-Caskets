@@ -30,6 +30,7 @@
 }
 
 .weather-clock {
+    width: 80%;
   border-radius: 20px;
   background: linear-gradient(145deg, #ae872f, #937128);
   box-shadow: 14px 14px 29px #755b20, -14px -14px 29px #d1a138;

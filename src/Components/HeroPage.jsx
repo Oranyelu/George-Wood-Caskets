@@ -12,7 +12,7 @@ function HeroPage() {
           <p className=" text-[25px] text-[#FFFFFF]">Established in 1984</p>
         </article>
       </main>
-      <aside className="bg-[#A37E2C] w-[30vw] h-[100%] flex flex-col justify-center items-center">
+      <aside className="bg-[#A37E2C] w-[100%] h-[100%] flex flex-col justify-center items-center">
         <div className="weather-clock">
           <Weather />
         </div>

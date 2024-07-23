@@ -23,7 +23,7 @@ function Header() {
         </main>
         <div className="flex justify-center items-center">
           <div className="hidden sm:block">
-            <span className=" w-[60vw] flex justify-evenly ">
+            <span className=" w-[60vw] flex justify-evenly text-white ">
               <Link to="./">HOME</Link>
               <Link to="/services">SERVICES</Link>
               <Link to="/about-us">ABOUT US</Link>

@@ -25,6 +25,10 @@ const ProductProvider = ({ children }) => {
     setCart((prevCart) => [...prevCart, product]);
   };
 
+  const removeFromCart = (product) => {
+    setCart((prevCart) => prevCart.filter(item => item.id !== product.id));
+  };
+
   const clearCart = () => {
     setCart([]);
   };
@@ -39,8 +43,12 @@ const ProductProvider = ({ children }) => {
     clearCart();
   };
 
+  const getTotalPrice = () => {
+    return cart.reduce((total, item) => total + item.price, 0);
+  };
+
   return (
-    <ProductContext.Provider value={{ cart, addToCart, checkout, orderHistory }}>
+    <ProductContext.Provider value={{ cart, addToCart, removeFromCart, clearCart, checkout, getTotalPrice, orderHistory }}>
       {children}
     </ProductContext.Provider>
   );

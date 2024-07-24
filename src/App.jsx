@@ -3,6 +3,7 @@ import Footer from './Components/Footer';
 import Header from './Components/Header';
 import HeroPage from './Components/HeroPage';
 import Home from './Components/Home';
+import GWFoundation from './Components/GWFoundation';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <main className="flex-grow">
         <HeroPage />
         <Home />
+        <GWFoundation />
       </main>
       <Footer />
     </div>

@@ -24,7 +24,7 @@ function Header() {
         <div className="flex justify-center items-center">
           <div className="hidden sm:block">
             <span className=" w-[60vw] flex justify-evenly text-white ">
-              <Link to="./">HOME</Link>
+              <Link to="/">HOME</Link>
               <Link to="/services">SERVICES</Link>
               <Link to="/about-us">ABOUT US</Link>
               <Link to="/giving">GIVING</Link>
@@ -67,8 +67,7 @@ function Header() {
                 </clipPath>
               </defs>
             </svg>
-
-            <svg
+            <Link to="/cart"> <svg
               width="16"
               height="16"
               viewBox="0 0 16 16"
@@ -91,7 +90,8 @@ function Header() {
                   />
                 </clipPath>
               </defs>
-            </svg>
+            </svg></Link>
+           
           </div>
           <span className="ml-4 block sm:hidden">
             <HamburgerMenu />

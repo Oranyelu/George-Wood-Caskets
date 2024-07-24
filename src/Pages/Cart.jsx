@@ -33,7 +33,7 @@ const Cart = () => {
       </section>
       <section className="mt-[100px]">
         <nav className="h-[50px] flex items-center text-white pl-40 gap-5">
-          <Link to="./">Home</Link>
+          <Link to="/">Home</Link>
           <svg
             width="10"
             height="16"
@@ -48,7 +48,7 @@ const Cart = () => {
               fill="#FFFFFF"
             />
           </svg>
-          <Link to="/product">Products</Link>
+          <Link to="/products">Products</Link>
           <svg
             width="10"
             height="16"

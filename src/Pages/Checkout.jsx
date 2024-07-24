@@ -15,7 +15,7 @@ const Checkout = () => {
       </section>
       <section className="mt-[100px]">
         <nav className="h-[50px] flex items-center text-white pl-40 gap-5">
-          <Link to="./">Home</Link>
+          <Link to="/">Home</Link>
           <svg
             width="10"
             height="16"

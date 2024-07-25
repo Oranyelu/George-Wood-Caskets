@@ -34,3 +34,14 @@
   background: linear-gradient(145deg, #ae872f, #937128);
   box-shadow: 14px 14px 29px #755b20, -14px -14px 29px #d1a138;
 }
+
+
+@media only screen and (max-width: 1000px) {
+ 
+  #weather-app{
+display: none;
+  }
+  #slides{
+    width: 100%;
+  }
+}

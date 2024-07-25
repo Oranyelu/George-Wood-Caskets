@@ -4,15 +4,15 @@ import Carousel from "./Carousel";
 
 function HeroPage() {
   return (
-    <div className="flex h-[100vh] items-center">
-      <main className="flex flex-col justify-center w-[70vw] h-[100%]">
+    <div className="flex h-[100vh] items-center w-[100%]">
+      <main className="flex flex-col justify-center w-[70vw] h-[100%]" id="slides">
         <Carousel />
         <article className="pl-7 pt-20">
           <h1 className=" text-[50px] text-[#A37E2C]">40 Years</h1>
           <p className=" text-[25px] text-[#FFFFFF]">Established in 1984</p>
         </article>
       </main>
-      <aside className="bg-[#A37E2C] w-[100%] h-[100%] flex flex-col justify-center items-center">
+      <aside className="bg-[#A37E2C] w-[100%] h-[100%] flex flex-col justify-center items-center" id="weather-app">
         <div className="weather-clock">
           <Weather />
         </div>

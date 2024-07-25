@@ -36,12 +36,27 @@
 }
 
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 900px) {
  
-  #weather-app{
-display: none;
+  
+}
+
+.meme{
+  background-image: url(https://wallpapercave.com/wp/wp4348559.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+@keyframes slideIn {
+  from {
+    right: -40%;
   }
-  #slides{
-    width: 100%;
+  to {
+    right: 0;
   }
+}
+
+.animate-slideIn {
+  animation: slideIn 1s ease-in-out forwards;
+  animation-delay: 2s;
 }

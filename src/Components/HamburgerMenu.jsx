@@ -12,9 +12,9 @@ const HamburgerMenu = () => {
   return (
     <div>
       <div className="flex flex-col justify-around w-8 h-8 cursor-pointer z-10" onClick={toggleMenu}>
-        <div className="w-8 h-1 bg-[#A37E2C]"></div>
-        <div className="w-8 h-1 bg-[#A37E2C]"></div>
-        <div className="w-8 h-1 bg-[#A37E2C]"></div>
+        <div className="w-8 h-1 bg-white"></div>
+        <div className="w-8 h-1 bg-white"></div>
+        <div className="w-8 h-1 bg-white"></div>
       </div>
       <div className={`flex flex-col items-start absolute top-16 right-0 bg-[#135B3A] w-48 p-2 rounded ${isOpen ? 'block' : 'hidden'}`}>
         <Link to="/" className="text-white p-2 w-full hover:bg-[#A37E2C]">HOME</Link>

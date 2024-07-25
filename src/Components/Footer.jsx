@@ -44,19 +44,19 @@ function Footer() {
             <input 
               type="email" 
               placeholder="Your Email" 
-              className="w-[321px] h-[58px] rounded-l-[5px] pl-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#A37E2C]" 
+              className="w-[250px] h-[58px] rounded-l-[5px] pl-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#A37E2C]" 
             />
-            <button className="bg-[#135B3A] w-[117px] h-[58px] rounded-r-[5px] text-white hover:bg-[#0e4a2f]">
+            <button className="bg-[#135B3A] w-[100px] h-[58px] rounded-r-[5px] text-white hover:bg-[#0e4a2f]">
               Send
             </button>
           </form>
         </div>
       </footer>
-      <p className="flex items-center justify-center bg-[#135B3A] p-2 text-white">
-        George Wood Caskets | All Rights Reserved | Made by
+      <p className="flex text-center justify-between bg-[#135B3A] p-2 text-white">
+       <p>George Wood Caskets</p>  |<p>All Rights Reserved</p>  |<p>Made by
         <a href="https://georgechiemeriechime.netlify.app/" target="blank" className="text-[#A37E2C] pl-1 hover:text-[#d4a041]">
           George Chime
-        </a>
+        </a></p> 
       </p>
     </div>
   );

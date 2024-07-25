@@ -28,9 +28,9 @@ function Home() {
         </div>
       )}
       <section className="products-section pt-[40px]">
-        <header className="flex flex-col items-center">
+        <header className="flex flex-col text-center">
           <h2 className="text-[24.8px] text-white">Featured Products</h2>
-          <h1 className="text-[40px] text-[#A37E2C] font-bold text-center">
+          <h1 className="text-[40px] text-[#A37E2C] font-bold">
             BESTSELLER PRODUCTS
           </h1>
           <p className="text-[15px] text-gray-50 pb-7">
@@ -74,9 +74,9 @@ function Home() {
       </section>
 
       <section className="achievements-section pt-[40px]">
-        <header className="flex flex-col items-center">
+        <header className="flex flex-col text-center">
           <h2 className="text-[24.8px] text-white">Our Services</h2>
-          <h1 className="text-[40px] text-[#011309] font-bold text-center">
+          <h1 className="text-[40px] text-[#011309] font-bold ">
             THE BEST SERVICES
           </h1>
           <p className="text-[15px] text-gray-50 pb-7">

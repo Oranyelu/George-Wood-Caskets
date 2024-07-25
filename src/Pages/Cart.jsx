@@ -6,7 +6,7 @@ import Services from "../assets/service-api";
 import Footer from "../Components/Footer";
 
 const Cart = () => {
-  const { cart, removeFromCart } = useContext(ProductContext);
+  const { cart, addToCart, removeFromCart } = useContext(ProductContext);
   const { servicesData } = Services;
 
   // Group items by ID and calculate the total price
@@ -26,13 +26,15 @@ const Cart = () => {
   const vat = 0;
   const finalTotal = totalPrice + deliveryFee + vat;
 
+  const handleBookNowClick = (service) => {
+    addToCart(service);
+  };
+
   return (
     <div className="bg-custom-gradient min-h-screen flex flex-col font-montserrat">
-      <section>
-        <Header />
-      </section>
+      <Header />
       <section className="mt-[100px]">
-        <nav className="h-[50px] flex items-center text-white pl-40 gap-5">
+        <nav className="h-[50px] flex items-center text-white pl-5 sm:pl-40 gap-5">
           <Link to="/">Home</Link>
           <svg
             width="10"
@@ -68,11 +70,11 @@ const Cart = () => {
           </Link>
         </nav>
       </section>
-      <section className="flex flex-row flex-wrap justify-between p-5 gap-10">
-        <main className="bg-white w-[654px] p-10">
+      <section className="flex flex-col lg:flex-row flex-wrap justify-between p-5 gap-10">
+        <main className="bg-white md:w-[654px] p-5">
           <h1 className="text-[24px] font-bold">Shopping Cart</h1>
           <div className="bg-[#135B3A] text-white flex justify-around h-12 items-center">
-            <p>Item Details</p>
+            <p>Item</p>
             <p>Quantity</p>
             <p>Price</p>
           </div>
@@ -80,7 +82,7 @@ const Cart = () => {
             {groupedCart.map((item, index) => (
               <li
                 key={index}
-                className="flex justify-between items-center py-4"
+                className="flex flex-row justify-between items-center py-4"
               >
                 <div className="flex items-center gap-4">
                   <img
@@ -91,13 +93,16 @@ const Cart = () => {
                   <p>{item.name}</p>
                 </div>
                 <p>{item.quantity}</p>
-                <p>{item.price}</p>
-                <button
-                  onClick={() => removeFromCart(item)}
-                  className="bg-red-500 text-white px-3 py-1 rounded"
-                >
-                  Remove
-                </button>
+                <div className="flex items-center gap-1">
+                
+                  <p>{item.price.toLocaleString()} NGN</p>
+                  <button
+                    onClick={() => removeFromCart(item)}
+                    className="bg-red-500 text-white px-3 py-1 rounded mt-2 sm:mt-0"
+                  >
+                    -
+                  </button>
+                </div>
               </li>
             ))}
             <hr />
@@ -142,10 +147,19 @@ const Cart = () => {
         <div>
           <ul className="flex flex-wrap gap-4 justify-center">
             {servicesData.map((service) => (
-              <div key={service.id} className="w-[232.69px] bg-white border border-gray-200 p-4 rounded-lg">
-                <img src={service.thumbnail} alt={service.name} className="w-full h-auto object-cover" />
+              <div
+                key={service.id}
+                className="w-[232.69px] bg-white border border-gray-200 p-4 rounded-lg"
+              >
+                <img
+                  src={service.thumbnail}
+                  alt={service.name}
+                  className="w-full h-auto object-cover"
+                />
                 <div>
-                  <h1 className="text-[#011309] font-semibold text-lg">{service.name}</h1>
+                  <h1 className="text-[#011309] font-semibold text-lg">
+                    {service.name}
+                  </h1>
                   <p>{service.description}</p>
                   <p>Color: {service.color}</p>
                   <p>Price: {service.price.toLocaleString()} NGN</p>

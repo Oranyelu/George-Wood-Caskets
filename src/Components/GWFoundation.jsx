@@ -2,7 +2,7 @@ import React from "react";
 
 function GWFoundation() {
   return (
-    <div className="flex flex-col items-center p-4 text-white bg-[#00000041] mt-8 mb-5 h-[640px] justify-around">
+    <div className="flex flex-col text-center items-center p-4 text-white bg-[#00000041] mt-8 mb-5 h-[640px] justify-around">
       <h3 className="text-[#A37E2C] text-[24.8px]">Celebrating Life and Legacy</h3>
       <h1 className="text-[40px] text-[#135B3A] font-bold">GEORGE WOOD FOUNDATION</h1>
       <p>

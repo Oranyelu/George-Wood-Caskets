@@ -29,16 +29,16 @@ function Home() {
       )}
       <section className="products-section pt-[40px]">
         <header className="flex flex-col items-center">
-          <h2 className="text-[31px] text-white">Featured Products</h2>
-          <h1 className="text-[50px] text-[#A37E2C] font-bold">
+          <h2 className="text-[24.8px] text-white">Featured Products</h2>
+          <h1 className="text-[40px] text-[#A37E2C] font-bold text-center">
             BESTSELLER PRODUCTS
           </h1>
-          <p className="text-[19px] text-gray-50">
+          <p className="text-[15px] text-gray-50 pb-7">
             Make your choice based on popular demand...
           </p>
         </header>
         <div>
-          <ul className="flex flex-wrap gap-4 justify-center">
+          <ul className="flex flex-wrap gap-1 justify-center">
             {productData.map((product) => (
               <div
                 key={product.id}
@@ -70,27 +70,21 @@ function Home() {
               </div>
             ))}
           </ul>
-          <Link
-            to="/cart"
-            className="text-blue-500 hover:underline mt-4 inline-block"
-          >
-            Go to Cart
-          </Link>
         </div>
       </section>
 
       <section className="achievements-section pt-[40px]">
         <header className="flex flex-col items-center">
-          <h2 className="text-[31px] text-white">Our Services</h2>
-          <h1 className="text-[50px] text-[#011309] font-bold">
+          <h2 className="text-[24.8px] text-white">Our Services</h2>
+          <h1 className="text-[40px] text-[#011309] font-bold text-center">
             THE BEST SERVICES
           </h1>
-          <p className="text-[19px] text-gray-50">
+          <p className="text-[15px] text-gray-50 pb-7">
             Explore our range of services...
           </p>
         </header>
         <div>
-          <ul className="flex flex-wrap gap-4 justify-center">
+          <ul className="flex flex-wrap gap-1 justify-center">
             {servicesData.map((service) => (
               <div
                 key={service.id}

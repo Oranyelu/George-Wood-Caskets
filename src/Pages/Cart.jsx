@@ -71,7 +71,7 @@ const Cart = () => {
         </nav>
       </section>
       <section className="flex flex-col lg:flex-row flex-wrap justify-between p-5 gap-10">
-        <main className="bg-white sm:w-[654px] w-[300px] p-5">
+        <main className="bg-white sm:w-[654px] w-full p-5">
           <h1 className="text-[24px] font-bold">Shopping Cart</h1>
           <div className="bg-[#135B3A] text-white flex justify-around h-12 items-center">
             <p>Item</p>
@@ -108,7 +108,7 @@ const Cart = () => {
             <hr />
           </ul>
         </main>
-        <aside className="sm:w-[486px] w-[300px] bg-white p-5 flex flex-col justify-between">
+        <aside className="sm:w-[486px] w-full bg-white p-5 flex flex-col justify-between">
           <div className="flex justify-between">
             <h2 className="text-[19px] font-bold">Order Summary</h2>
             <p>{cart.length} items</p>

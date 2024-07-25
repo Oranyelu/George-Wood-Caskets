@@ -42,7 +42,7 @@ function Home() {
             {productData.map((product) => (
               <div
                 key={product.id}
-                className="w-[232.69px] bg-white border border-gray-200 p-4 rounded-lg"
+                className="w-[200px] bg-white border border-gray-200 p-4 rounded-lg"
               >
                 <Link to={`/product/${product.id}`}>
                   <img
@@ -57,7 +57,6 @@ function Home() {
                     {product.name}
                   </h1>
                   <h2 className="text-[#135B3A]">{product.label}</h2>
-                  <h3>Description: {product.description}</h3>
                   <p>Color: {product.color}</p>
                   <p>${product.price}</p>
                   <button
@@ -88,7 +87,7 @@ function Home() {
             {servicesData.map((service) => (
               <div
                 key={service.id}
-                className="w-[232.69px] bg-white border border-gray-200 p-4 rounded-lg"
+                className="w-[200px] bg-white border border-gray-200 p-4 rounded-lg"
               >
                 <img
                   src={service.thumbnail}
@@ -99,7 +98,6 @@ function Home() {
                   <h1 className="text-[#011309] font-semibold text-lg">
                     {service.name}
                   </h1>
-                  <p>{service.description}</p>
                   <p>Color: {service.color}</p>
                   <p>Price: {service.price.toLocaleString()} NGN</p>
                   <button

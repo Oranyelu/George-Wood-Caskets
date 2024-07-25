@@ -9,7 +9,7 @@ function HeroMobileComp() {
         <h2 className='text-[#ffff] text-[19px]'>Established in 1984</h2>
       </article>
       <aside className='h-[80px] flex bg-[#A37E2C] w-[60%] rounded-l-[20px] absolute bottom-0 right-[-40%] animate-slideIn'>
-        <div className='p-4 text-white flex items-center'>Giving</div>
+        <div className='p-4 text-white flex items-center font-bold'>Giving</div>
         <div className='flex w-full rounded-l-[20px] bg-[url(https://static.investindia.gov.in/s3fs-public/inline-images/philanthropy%20.jpg)] meme'>
           
         </div>

@@ -34,7 +34,7 @@ const Cart = () => {
     <div className="bg-custom-gradient min-h-screen flex flex-col font-montserrat">
       <Header />
       <section className="mt-[100px]">
-        <nav className="h-[50px] flex items-center text-white pl-5 sm:pl-40 gap-5">
+        <nav className="h-[50px] flex items-center text-white pl-5 md:pl-40 gap-5 mt-10">
           <Link to="/">Home</Link>
           <svg
             width="10"
@@ -90,7 +90,7 @@ const Cart = () => {
                     alt={item.name}
                     className="w-16 h-16 object-cover"
                   />
-                  <p>{item.name}</p>
+                  <p className="w-[65px] text-nowrap overflow-hidden">{item.name}</p>
                 </div>
                 <p>{item.quantity}</p>
                 <div className="flex items-center gap-1">
@@ -128,10 +128,10 @@ const Cart = () => {
             <p>{finalTotal} NGN</p>
           </div>
           <hr />
-          <div className="flex items-center justify-center">
+          <div>
             {groupedCart.length > 0 && (
               <Link to="/checkout">
-                <button className="bg-[#135B3A] text-white md:w-[386px] w-[200px] h-[56px] rounded-[5px]">
+                <button className="bg-[#135B3A] text-white w-full h-[56px] rounded-[5px] mt-5">
                   Proceed to Checkout
                 </button>
               </Link>

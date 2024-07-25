@@ -12,6 +12,7 @@
   transform: scale(0.8);
   filter: blur(2px);
   opacity: 0.6;
+
 }
 
 .slick-center {
@@ -24,13 +25,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 300px; /* Adjust the height as needed */
-  width: 300px; /* Adjust the width as needed */
   padding: 10px;
 }
 
 .weather-clock {
-    width: 80%;
+  width: 80%;
   border-radius: 20px;
   background: linear-gradient(145deg, #ae872f, #937128);
   box-shadow: 14px 14px 29px #755b20, -14px -14px 29px #d1a138;

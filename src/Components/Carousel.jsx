@@ -40,7 +40,7 @@ import "slick-carousel/slick/slick-theme.css";
       };
     
       return (
-        <div className="carousel-container">
+        <div className="carousel-container mt-[10%]">
           <Slider ref={sliderRef} {...settings}>
             <div className="card"><Balmoral /></div>
             <div className="card"><GetInvolved /></div>

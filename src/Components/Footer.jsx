@@ -52,12 +52,12 @@ function Footer() {
           </form>
         </div>
       </footer>
-      <p className="flex text-center justify-between bg-[#135B3A] p-2 text-white">
+      <article className="flex text-center justify-between bg-[#135B3A] p-2 text-white">
        <p>George Wood Caskets</p>  |<p>All Rights Reserved</p>  |<p>Made by
         <a href="https://georgechiemeriechime.netlify.app/" target="blank" className="text-[#A37E2C] pl-1 hover:text-[#d4a041]">
           George Chime
         </a></p> 
-      </p>
+      </article>
     </div>
   );
 }

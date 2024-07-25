@@ -15,7 +15,7 @@ function Home() {
     setNotification(`Added to cart: ${item.name}`);
     setTimeout(() => {
       setNotification(null);
-    }, 3000); // 8 seconds duration
+    }, 8000); // 8 seconds duration
   };
 
   return (
@@ -42,7 +42,8 @@ function Home() {
             {productData.map((product) => (
               <div
                 key={product.id}
-                className="w-[200px] bg-white border border-gray-200 p-4 rounded-lg"
+                className="w-[200px] bg-white border border-gray-200 p-4 rounded-lg
+                sm:w-[45%] md:w-[30%] lg:w-[20%] mb-4"
               >
                 <Link to={`/product/${product.id}`}>
                   <img
@@ -87,7 +88,8 @@ function Home() {
             {servicesData.map((service) => (
               <div
                 key={service.id}
-                className="w-[200px] bg-white border border-gray-200 p-4 rounded-lg"
+                className="w-[200px] bg-white border border-gray-200 p-4 rounded-lg
+                sm:w-[45%] md:w-[30%] lg:w-[20%] mb-4"
               >
                 <img
                   src={service.thumbnail}

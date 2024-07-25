@@ -9,18 +9,18 @@ Modal.setAppElement("#root");
 
 const customStyles = {
   content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-    width: '400px',
-    borderRadius: '10px',
-    padding: '20px',
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    width: "400px",
+    borderRadius: "10px",
+    padding: "20px",
   },
   overlay: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
 };
 
@@ -49,9 +49,9 @@ const Checkout = () => {
       <section className="mt-[100px]">
         <nav className="h-[50px] flex items-center text-white pl-5 md:pl-40 gap-5 mt-10">
           <Link to="/">Home</Link>
-          <span>{' / '}</span>
+          <span>{" / "}</span>
           <Link to="/products">Products</Link>
-          <span>{' / '}</span>
+          <span>{" / "}</span>
           <Link to="/cart" className="text-[#e4c88a]">
             Shopping Cart
           </Link>
@@ -60,33 +60,34 @@ const Checkout = () => {
       <section className="flex flex-row flex-wrap justify-between p-5">
         <main className="bg-white sm:w-[654px] w-full p-5">
           <h1 className="text-[24px] font-bold">Checkout</h1>
-          <div className="bg-[#135B3A] text-white flex justify-around h-12 items-center">
-            <p>Item Details</p>
-            <p>Quantity</p>
+          <div className="bg-[#135B3A] text-white flex justify-between h-12 items-center pr-1 pl-1">
+            <p>Item</p>
             <p>Price</p>
           </div>
           <ul>
             {cart.map((item, index) => (
-              <li key={index} className="flex justify-between items-center">
-                <div className="flex items-center">
+              <li key={index} className="">
+                <div className="flex items-center justify-between">
                   <img
                     src={item.thumbnail}
                     alt={item.name}
                     className="w-12 h-12 mr-4"
                   />
                   <div>
-                    <p className="w-[65px] text-nowrap overflow-hidden">
+                    <p className="w-[80px] text-nowrap overflow-hidden">
                       {item.name}
                     </p>
                   </div>
+                  <div className="flex items-center gap-2">
+                    <p>${item.price.toFixed(2)}</p>
+                    <button
+                      onClick={() => removeFromCart(item)}
+                      className="bg-red-500 text-white px-4 py-2 rounded"
+                    >
+                      -
+                    </button>
+                  </div>
                 </div>
-                <p>${item.price.toFixed(2)}</p>
-                <button
-                  onClick={() => removeFromCart(item)}
-                  className="bg-red-500 text-white px-4 py-2 rounded"
-                >
-                  -
-                </button>
               </li>
             ))}
             <hr />

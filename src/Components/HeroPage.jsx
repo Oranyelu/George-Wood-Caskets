@@ -6,7 +6,7 @@ import HeroMobileComp from "./HeroMobileComp";
 function HeroPage() {
   return (
     <div className="mt-[70px]">
-      <div className="w-[100%] meme block md:hidden ">
+      <div className="w-[100%] meme block md:hidden bg-[url(https://wallpapercave.com/wp/wp4348559.jpg)] ">
         <HeroMobileComp />
       </div>
       <div className="hidden md:block">

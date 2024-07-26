@@ -66,7 +66,7 @@ function Header() {
               </svg>
             </Link>
           </div>
-          <span className="ml-4 block sm:hidden">
+          <span className="ml-2 block sm:hidden pr-4">
             <HamburgerMenu />
           </span>{" "}
         </div>

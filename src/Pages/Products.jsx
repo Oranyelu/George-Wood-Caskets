@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import Products from '../assets/product-api'; // Importing the product data
 import Services from '../assets/service-api'; // Importing the service data
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
-import { useContext } from 'react';
 import { ProductContext } from '../ProductProvider';
 
 const ProductDetail = () => {
-  const { id } = useParams();
+  const { productId } = useParams(); // Get the productId from URL parameters
   const [product, setProduct] = useState(null);
   const { productData } = Products;
   const { servicesData } = Services;
@@ -16,17 +15,15 @@ const ProductDetail = () => {
 
   useEffect(() => {
     // Find the product with the matching ID
-    const foundProduct = productData.find((item) => item.id === parseInt(id));
+    const foundProduct = productData.find((item) => item.id === parseInt(productId, 10));
     setProduct(foundProduct);
-  }, [id, productData]);
+  }, [productId, productData]);
 
   if (!product) return <p>Loading...</p>;
 
   return (
     <div className='bg-custom-gradient min-h-screen flex flex-col font-montserrat'>
-      <section>
-        <Header />
-      </section>
+      <Header />
       <section className='mt-16 p-4'>
         <h1 className='text-4xl font-bold'>{product.name}</h1>
         <img src={product.images[0]} alt={product.name} className='w-full h-auto mt-4' />
@@ -40,7 +37,6 @@ const ProductDetail = () => {
           Order Now
         </button>
       </section>
-      
       <section className='mt-8 p-4'>
         <h1 className='text-2xl font-bold mb-4'>You May Also Like</h1>
         <div className='flex flex-wrap gap-4'>
@@ -59,7 +55,6 @@ const ProductDetail = () => {
           ))}
         </div>
       </section>
-      
       <section className='mt-8 p-4'>
         <h1 className='text-2xl font-bold mb-4'>Services You May Like</h1>
         <div className='flex flex-wrap gap-4'>
@@ -78,10 +73,7 @@ const ProductDetail = () => {
           ))}
         </div>
       </section>
-      
-      <section>
-        <Footer />
-      </section>
+      <Footer />
     </div>
   );
 };

@@ -60,3 +60,26 @@
   animation: slideIn 1s ease-in-out forwards;
   animation-delay: 2s;
 }
+
+
+@keyframes text{
+  0%,
+  100% {
+    content: "George Wood Funeral Services: Compassion and dignity in every farewell.";
+  }
+  25% {
+    content: "Trust George Wood Funeral Services to honor your loved ones with grace and reverence.";
+  }
+  50% {
+    content: "Experience the supportive care of George Wood Funeral Services, where memories are cherished.";
+  }
+  75% {
+    content: "Choose George Wood Funeral Services for a heartfelt tribute to a life well-lived.";
+  }
+}
+
+/* Apply the animation to the pseudo-element */
+.dynamic-text::after {
+  content: "";
+  animation: text 25s infinite;
+}

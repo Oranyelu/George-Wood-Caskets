@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function GWFoundation() {
   return (
@@ -19,10 +20,11 @@ function GWFoundation() {
           research, and service. Join us in nurturing the potential of young
           minds to create a brighter, more innovative future
         </p>
-
-        <button className="bg-[#135B3A] text-white w-[300px] h-[56px] rounded-[5px]">
-          Go to page
-        </button>
+        <Link to="giving">
+          <button className="bg-[#135B3A] text-white w-[300px] h-[56px] rounded-[5px]">
+            Go to page
+          </button>
+        </Link>
       </div>
     </div>
   );

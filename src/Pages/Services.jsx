@@ -35,11 +35,12 @@ const ServicesPage = () => {
   }, []);
 
   return (
-    <div>
+    <div className="min-h-screen bg-custom-gradient font-montserrat">
       <section>
         <Header />
       </section>
-      <div className="min-h-screen bg-gray-100 p-4">
+      <div className="h-[80px]"></div>
+      <div className="min-h-screen p-4">
         <h1 className="text-3xl font-bold text-center mb-8">All Services</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {visibleServices.map((service) => (

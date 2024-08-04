@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function GWFoundation() {
   return (
-    <div className="flex text-center items-center p-4 text-white bg-[url(https://wallpapers.com/images/hd/funeral-gathering-hjja8pl7kuqmyan5.jpg)] meme mt-8 mb-5 h-[640px]">
+    <div className="flex text-center items-center p-4 text-white bg-[url(https://wallpapers.com/images/hd/funeral-gathering-hjja8pl7kuqmyan5.jpg)] meme mt-8 mb-5 h-[700px]">
       <div className="bg-[#e7c88452] h-[80%] rounded-xl flex flex-col justify-around items-center backdrop-blur-md">
         <h3 className="text-[#135B3A] text-[24.8px] font-bold">
           Celebrating Life and Legacy

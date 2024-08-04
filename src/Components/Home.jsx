@@ -10,6 +10,7 @@ function Home() {
   const { servicesData } = Services; // Accessing the service data
   const [notification, setNotification] = useState(null);
   const [randomServices, setRandomServices] = useState([]);
+  const [featuredProducts, setRandomProducts] = useState([]);
 
   const handleAddToCart = (item) => {
     addToCart(item);
@@ -19,15 +20,16 @@ function Home() {
     }, 8000); // 8 seconds duration
   };
 
-  // Filter to show only specified products
-  const featuredProducts = productData.filter((product) =>
-    ["Balmoral", "Emperor", "Oxford", "Senator", "Voyager"].includes(product.name)
-  );
+  // Select 5 random products
+  useEffect(() => {
+  const featuredProducts = productData.sort(() => 0.5 - Math.random());
+  setRandomProducts(featuredProducts.slice(0, 15));
+}, [productData]);
 
   // Select 5 random services
   useEffect(() => {
     const shuffledServices = servicesData.sort(() => 0.5 - Math.random());
-    setRandomServices(shuffledServices.slice(0, 5));
+    setRandomServices(shuffledServices.slice(0, 6));
   }, [servicesData]);
 
   return (
@@ -60,7 +62,7 @@ function Home() {
                   <img
                     src={product.thumbnail}
                     alt={product.name}
-                    className="w-full h-40 object-cover rounded-md"
+                    className="w-full h-[300px] object-cover rounded-md"
                   />
                 </Link>
                 <h1 className="text-lg font-semibold mt-2 text-[#011309]">
@@ -70,7 +72,9 @@ function Home() {
                   {product.label}
                 </p>
                 <p>Color: {product.color}</p>
-                <p className="text-gray-900 font-bold">${product.price}</p>
+                <p className="text-gray-900 font-bold">
+                  {product.price.toLocaleString()} NGN
+                </p>
                 <div className="w-full flex justify-end">
                   <button
                     className="bg-[#A37E2C] text-white px-4 py-2 rounded mt-2 hover:bg-[#8b6824] active:bg-[#70541c] transition-colors"
@@ -95,7 +99,7 @@ function Home() {
       <section className="achievements-section pt-[40px] p-4">
         <header className="flex flex-col text-center">
           <h2 className="text-[24.8px] text-white">Our Services</h2>
-          <h1 className="text-[40px] text-[#011309] font-bold ">
+          <h1 className="text-[35px] text-[#011309] font-bold ">
             THE BEST SERVICES
           </h1>
           <p className="text-[15px] text-gray-50 pb-7">
@@ -112,7 +116,7 @@ function Home() {
                 <img
                   src={service.thumbnail}
                   alt={service.name}
-                  className="w-full h-40 object-cover rounded-md"
+                  className="w-full h-[250px] object-cover rounded-md"
                 />
                 <h1 className="text-lg font-semibold mt-2 text-[#011309]">
                   {service.name}

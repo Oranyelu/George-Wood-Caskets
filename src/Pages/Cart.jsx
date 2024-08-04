@@ -115,7 +115,7 @@ const Cart = () => {
           </div>
           <div className="flex justify-between">
             <p>Delivery Charges</p>
-            <p>{deliveryFee} NGN</p>
+            <p>{deliveryFee.toLocaleString()} NGN</p>
           </div>
           <hr />
           <div className="flex justify-between">
@@ -125,7 +125,7 @@ const Cart = () => {
           <hr />
           <div className="flex justify-between">
             <p>Total</p>
-            <p>{finalTotal} NGN</p>
+            <p>{finalTotal.toLocaleString()} NGN</p>
           </div>
           <hr />
           <div>
@@ -144,31 +144,32 @@ const Cart = () => {
           OFTEN BOUGHT TOGETHER
           <hr />
         </h1>
-        <div>
-          <ul className="flex flex-wrap gap-4 justify-center">
+        <div className="p-4">
+          <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {servicesData.map((service) => (
               <div
                 key={service.id}
-                className="w-[232.69px] bg-white border border-gray-200 p-4 rounded-lg"
+                className="bg-white p-4 rounded-lg shadow-md"
               >
                 <img
                   src={service.thumbnail}
                   alt={service.name}
-                  className="w-full h-auto object-cover"
+                   className="w-full h-40 object-cover rounded-md"
                 />
                 <div>
                   <h1 className="text-[#011309] font-semibold text-lg">
                     {service.name}
                   </h1>
-                  <p>{service.description}</p>
                   <p>Color: {service.color}</p>
                   <p>Price: {service.price.toLocaleString()} NGN</p>
+                  <div className="w-full flex justify-end">
                   <button
                     className="bg-[#A37E2C] text-white px-4 py-2 rounded"
                     onClick={() => handleBookNowClick(service)}
                   >
                     Book Now
                   </button>
+                  </div>
                 </div>
               </div>
             ))}

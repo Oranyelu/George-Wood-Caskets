@@ -48,12 +48,12 @@ const ProductsPage = () => {
                 <img
                   src={product.thumbnail}
                   alt={product.name}
-                  className="w-full h-40 object-cover rounded-md"
+                  className="w-full h-[300px] object-cover rounded-md"
                 />
               </Link>
               <h2 className="text-lg font-semibold mt-2">{product.name}</h2>
               <p className="text-gray-700">{product.color}</p>
-              <p className="text-gray-900 font-bold">${product.price}</p>
+              <p className="text-gray-900 font-bold"> {product.price.toLocaleString()} NGN</p>
             </div>
           ))}
         </div>

@@ -2,6 +2,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Products from '../assets/product-api'; // Importing the product data
+import Header from '../Components/Header'
+import Footer from '../Components/Footer'
 
 const Xclusive = () => {
   const { productData } = Products;
@@ -11,6 +13,10 @@ const Xclusive = () => {
 
   return (
     <div className="min-h-screen bg-custom-gradient font-montserrat">
+      <section>
+        <Header />
+      </section>
+      <div className="h-[80px]"></div>
       <section className="products-section pt-[40px]">
         <header className="flex flex-col items-center">
           <h2 className="text-[31px] text-white">Exclusive Collection</h2>
@@ -21,7 +27,7 @@ const Xclusive = () => {
             Discover our exclusive range...
           </p>
         </header>
-        <div>
+        <div className='pt-10'>
           <ul className="flex flex-wrap gap-4 justify-center">
             {xclusiveProducts.map((product) => (
               <div
@@ -42,7 +48,7 @@ const Xclusive = () => {
                   <h2 className="text-[#135B3A]">{product.label}</h2>
                   <h3>Description: {product.description}</h3>
                   <p>Color: {product.color}</p>
-                  <p>${product.price}</p>
+                  <p>{product.price} NGN</p>
                   <button
                     className="bg-[#A37E2C] text-white px-4 py-2 rounded mt-2 hover:bg-[#8b6824] active:bg-[#70541c] transition-colors"
                     onClick={() => addToCart(product)}
@@ -55,6 +61,7 @@ const Xclusive = () => {
           </ul>
         </div>
       </section>
+      <section><Footer/></section>
     </div>
   );
 };

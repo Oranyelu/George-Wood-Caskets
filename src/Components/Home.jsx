@@ -17,7 +17,7 @@ function Home() {
     setNotification(`Added to cart: ${item.name}`);
     setTimeout(() => {
       setNotification(null);
-    }, 8000); // 8 seconds duration
+    }, 3000); // 3 seconds duration
   };
 
   // Select 5 random products

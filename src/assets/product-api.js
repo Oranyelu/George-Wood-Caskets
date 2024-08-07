@@ -36,7 +36,7 @@ import Sincerity2 from './product svgs/Sincerity2.svg';
 import CliftonWhite from './product svgs/CliftonWhite.svg';
 import CliftonBrown from './product svgs/CliftonBrown.svg';
 
-import MemoriesWhite from './product svgs/MemoriesWhite.svg';
+import MilitaryGreen from './product svgs/MilitaryGreen.svg';
 import MemoriesBrown from './product svgs/MemoriesBrown.svg';
 
 import PromiseWhite from './product svgs/PromiseWhite.svg';
@@ -53,9 +53,6 @@ import BaileyBrown from './product svgs/BaileyBrown.svg';
 
 import DelrayWhite from './product svgs/DelrayWhite.svg';
 import DelrayBrown from './product svgs/DelrayBrown.svg';
-
-import RileyWhite from './product svgs/RileyWhite.svg';
-import RileyBrown from './product svgs/RileyBrown.svg';
 
 import HartwickWhite from './product svgs/HartWickWhite.svg';
 import HartwickBrown from './product svgs/HartWickBrown.svg';
@@ -268,16 +265,7 @@ const Products = {
       color: "",
       size: "6.2ft",
     },
-    {
-      name: "Riley",
-      label: "Xclusive",
-      id: 22,
-      thumbnail: [RileyBrown],
-      images: [],
-      price: "",
-      color: "",
-      size: "6.2ft",
-    },
+  
     {
       name: "Hart Wick",
       id: 23,
@@ -412,7 +400,7 @@ const Products = {
       name: "Military",
       label: "Xclusive",
       id: 37,
-      thumbnail: [MemoriesWhite],
+      thumbnail: [MilitaryWhite],
       images: [],
       price: "",
       color: "",
@@ -461,7 +449,7 @@ const Products = {
       name: "Memories",
       label: "Xclusive",
       id: 42,
-      thumbnail: [MemoriesWhite],
+      thumbnail: [MemoriesBrown],
       images: [],
       price: "",
       color: "",
@@ -469,7 +457,7 @@ const Products = {
     },
     {
       name: "Promise",
-      id: "43",
+      id: 43,
       thumbnail: [PromiseWhite],
       images: [],
       price: "",
@@ -512,16 +500,7 @@ const Products = {
       color: "",
       size: "6.2ft",
     },
-    {
-      name: "Riley",
-      label: "Xclusive",
-      id: 48,
-      thumbnail: [RileyWhite],
-      images: [],
-      price: "",
-      color: "",
-      size: "6.2ft",
-    },
+  
     {
       name: "Hart Wick",
       id: 49,
@@ -646,7 +625,7 @@ const Products = {
     {
       name: "Coffin",
       id: 62,
-      thumbnail: [CliftonBrown],
+      thumbnail: [CoffinBrown],
       images: [],
       price: "",
       color: "",
@@ -656,7 +635,7 @@ const Products = {
       name: "Military",
       label: "Xclusive",
       id: 63,
-      thumbnail: [MemoriesBrown],
+      thumbnail: [MilitaryGreen],
       images: [],
       price: "",
       color: "",
@@ -738,15 +717,7 @@ const Products = {
       color: "",
       size: "6.2ft",
     },
-    {
-      name: "Bailey",
-      id: 72,
-      thumbnail: [BaileyBrown],
-      images: [],
-      price: "",
-      color: "",
-      size: "6.2ft",
-    },
+ 
     {
       name: "Delray",
       id: 73,
@@ -756,16 +727,7 @@ const Products = {
       color: "",
       size: "6.2ft",
     },
-    {
-      name: "Riley",
-      label: "Xclusive",
-      id: 74,
-      thumbnail: [RileyBrown],
-      images: [],
-      price: "",
-      color: "",
-      size: "6.2ft",
-    },
+   
     {
       name: "Hart Wick",
       id: 75,
@@ -815,7 +777,7 @@ const Products = {
     {
       name: "Balmoral",
       id: 80,
-      thumbnail: [BaileyWhite],
+      thumbnail: [BalmoralWhite],
       images: [],
       price: "",
       color: "",
@@ -947,13 +909,13 @@ const Products = {
       size: "6.2ft",
     },
     {
-      name: "Memories",
+      name: "Military",
       label: "Xclusive",
       id: 94,
-      thumbnail: [MemoriesWhite],
-      images: [],
+      thumbnail: [MilitaryGreen],
+      images: [MilitaryGreen],
       price: "",
-      color: "",
+      color: "Blue",
       size: "6.2ft",
     },
     {

@@ -1,6 +1,5 @@
 import Mercedes from './serivices svgs/mercedes.svg'
-
-
+import loweringDevice from './serivices svgs/loweringDevice.svg';
 
 
 const Services={
@@ -28,7 +27,7 @@ const Services={
           {
             id: 3,
             type: 'Pall bearing',
-            thumbnail: 'path/to/thumbnail3.jpg',
+            thumbnail: [loweringDevice],
             images: ['path/to/image5.jpg', 'path/to/image6.jpg'],
             name: "Lowering Device",
             price: 200000,

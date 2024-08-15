@@ -7,7 +7,7 @@ const Services={
         {
             id: 1,
             type: 'Ambulance',
-            thumbnail: 'path/to/thumbnail1.jpg', // Add actual path or URL
+            thumbnail: './serivices svgs/mercedes.svg', // Add actual path or URL
             images: ['path/to/image1.jpg', 'path/to/image2.jpg'], // Add actual paths or URLs
             label: "Xclusive",
             name: "Toyota Sequoia",

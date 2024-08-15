@@ -18,11 +18,17 @@ function Header() {
         </section>
       </div>
       <section className="flex justify-center bg-[#135B3A] h-16">
-        <main className="mr-auto">
-          <Link to="/">
-            <img src={Logo} alt="Logo" className="flex p-4" />{" "}
-          </Link>
+        <main className="mr-auto flex">
+          <div className="">
+            <Link to="/">
+              <img src={Logo} alt="Logo" className="flex p-4" />{" "}
+            </Link>
+          </div>
+          <div className="flex text-center items-center text-white font-bold text-[20px]">
+            <h1 className="">GEORGE WOOD</h1>
+          </div>
         </main>
+
         <div className="flex justify-center items-center">
           <div className="hidden sm:block">
             <span className=" w-[60vw] flex justify-evenly text-white font-bold">
@@ -36,7 +42,6 @@ function Header() {
             </span>
           </div>
           <div className="pr-5 flex items-center gap-5 font-semibold text-white">
-            <div className="flex items-center">Search</div>
             <Link to="/cart" className="flex items-center">
               Cart
             </Link>

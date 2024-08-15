@@ -11,6 +11,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post('/api/auth/login', { email, password });
+      console.log("req sent")
       setUser(response.data.token);
       localStorage.setItem('token', response.data.token);
       // Redirect to the desired page

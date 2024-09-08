@@ -25,7 +25,7 @@ function Header() {
             </Link>
           </div>
           <div className="flex text-center items-center text-white font-bold text-[20px]">
-            <h1 className="">GEORGE WOOD</h1>
+            <h1 className="font-serif">George Wood Casket and Furniture</h1>
           </div>
         </main>
 

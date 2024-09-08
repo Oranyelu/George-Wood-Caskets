@@ -1,32 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
-
+@import url('https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-.slick-slide {
-  transition: transform 0.3s ease-in-out;
-}
-
-.slick-slide:not(.slick-center) {
-  transform: scale(0.8);
-  filter: blur(2px);
-  opacity: 0.6;
-
-}
-
-.slick-center {
-  transform: scale(1);
-  filter: blur(0);
-  opacity: 1;
-}
-
-.slick-slide {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-}
 
 .weather-clock {
   width: 80%;

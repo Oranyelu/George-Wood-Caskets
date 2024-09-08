@@ -19,7 +19,7 @@ function Footer() {
             <h3 className="font-bold text-lg mb-2 text-[#135B3A]">
               Company Info
             </h3>
-            <Link to="/about" className="hover:text-[#A37E2C]">
+            <Link to="/about-us" className="hover:text-[#A37E2C]">
               About Us
             </Link>
             <Link to="/get-involved" className="hover:text-[#A37E2C]">

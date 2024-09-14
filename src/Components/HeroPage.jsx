@@ -10,26 +10,25 @@ function HeroPage() {
         <HeroMobileComp />
       </div>
       <div className="hidden md:block">
-        <div className="flex h-[100vh] items-center w-[100%]">
+        <div className="flex h-[700px] items-center w-[100%]">
           <main
             className="flex flex-col justify-center w-[70vw] h-[100%]"
             id="slides"
           >
-            <Carousel />
             <article className="pl-7 pt-20">
               <h1 className=" text-[50px] text-[#A37E2C]">40 Years</h1>
               <p className=" text-[25px] text-[#FFFFFF]">Established in 1984</p>
             </article>
           </main>
           <aside
-            className="bg-[#A37E2C] w-[100%] h-[100%] flex flex-col justify-center items-center"
+            className="bg-[#A37E2C] w-[30vw] h-[100%] flex flex-col justify-center items-center"
             id="weather-app"
           >
             <div className="weather-clock">
               <Weather />
             </div>
-            <h1 className="text-[#011309]">Celebrating Life and Legacy</h1>
-            <p className="dynamic-text"></p>
+            <h1 className="text-[#011309] text-[26px] pt-10 font-bold text-center">Celebrating Life and Legacy</h1>
+            <p className="dynamic-text text-[17px] text-center pt-5"></p>
           </aside>
         </div>
       </div>

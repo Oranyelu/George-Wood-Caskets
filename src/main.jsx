@@ -19,6 +19,9 @@ import ProductProvider from "./ProductProvider";
 import ProductDetail from "./Pages/Products";
 import ProductsPage from "./Pages/ProductsPage"; // Import OrderTrackingPage
 import Login from "./Pages/Login";
+import Register from "./Pages/Register";
+import AdminLogin from "./Pages/AdminLogin";
+import AdminDashboard from "./Pages/AdminDashboard";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -27,7 +30,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<App />} />
+            <Route path="admin/login" element={<AdminLogin />} />
+            <Route path="register" element={<Register />} />
             <Route path="contacts" element={<Contacts />} />
+            <Route path="admin/dashboard" element={<AdminDashboard />} />
             <Route path="xclusive" element={<Xclusive />} />
             <Route path="track-order" element={<OrderTrackingPage />} />
             <Route path="giving" element={<Giving />} />

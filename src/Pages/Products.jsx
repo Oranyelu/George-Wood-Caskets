@@ -9,17 +9,17 @@ import { ProductContext } from "../ProductProvider";
 const ProductDetail = () => {
   const { productId } = useParams(); // Get the productId from URL parameters
   const [product, setProduct] = useState(null);
-  const { productData } = Products;
+  const { productsData } = Products;
   const { servicesData } = Services;
   const { addToCart } = useContext(ProductContext);
 
   useEffect(() => {
     // Find the product with the matching ID
-    const foundProduct = productData.find(
+    const foundProduct = productsData.find(
       (item) => item.id === parseInt(productId, 10)
     );
     setProduct(foundProduct);
-  }, [productId, productData]);
+  }, [productId, productsData]);
 
   if (!product) return <p>Loading...</p>;
 
@@ -49,7 +49,7 @@ const ProductDetail = () => {
       <section className="mt-8 p-4">
         <h1 className="text-2xl font-bold mb-4">You May Also Like</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {productData.slice(0, 5).map((item) => (
+          {productsData.slice(0, 5).map((item) => (
             <div key={item.id} className="bg-white p-4 rounded-lg shadow-md">
               <img
                 src={item.thumbnail}

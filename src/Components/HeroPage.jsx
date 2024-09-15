@@ -12,11 +12,12 @@ function HeroPage() {
       <div className="hidden md:block">
         <div className="flex h-[700px] items-center w-[100%]">
           <main
-            className="flex flex-col justify-center w-[70vw] h-[100%] bg-no-repeat bg-center bg-cover background"
+            className="flex flex-col justify-end w-[70vw] h-[100%] bg-no-repeat bg-center bg-cover background"
           >
             <article className="pl-7 pt-20">
               <h1 className=" text-[50px] text-[#A37E2C]">40 Years</h1>
               <p className=" text-[25px] text-[#FFFFFF]">Established in 1984</p>
+              <p className=" text-[25px] text-[#FFFFFF]"></p>
             </article>
           </main>
           <aside

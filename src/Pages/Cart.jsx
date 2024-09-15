@@ -45,10 +45,10 @@ const Cart = () => {
           </Link>
         </nav>
       </section>
-      <section className="flex flex-col lg:flex-row flex-wrap justify-between p-5 gap-10">
+      <section className="flex flex-col lg:flex-row flex-wrap justify-between p-5 ">
         <main className="bg-white sm:w-[654px] w-full p-5">
           <h1 className="text-[24px] font-bold">Shopping Cart</h1>
-          <div className="bg-[#135B3A] text-white flex justify-around h-12 items-center">
+          <div className="bg-[#135B3A] text-white flex justify-between h-12 items-center pr-1 pl-1">
             <p>Item</p>
             <p>Quantity</p>
             <p>Price</p>
@@ -57,7 +57,7 @@ const Cart = () => {
             {groupedCart.map((item, index) => (
               <li
                 key={index}
-                className="flex flex-row justify-between items-center py-4"
+                className="flex justify-between items-center "
               >
                 <div className="flex items-center gap-4">
                   <img
@@ -83,7 +83,7 @@ const Cart = () => {
             <hr />
           </ul>
         </main>
-        <aside className="sm:w-[486px] w-full bg-white p-5 flex flex-col justify-between">
+        <aside className="sm:w-[654px] w-full bg-white p-5 flex flex-col justify-between">
           <div className="flex justify-between">
             <h2 className="text-[19px] font-bold">Order Summary</h2>
             <p>{cart.length} items</p>

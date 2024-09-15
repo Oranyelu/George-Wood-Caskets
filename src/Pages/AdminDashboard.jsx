@@ -1,5 +1,7 @@
 // Example dashboard component
 import React, { useEffect, useState } from "react";
+import Header from "../Components/Header";
+import Footer from "../Components/Footer";
 
 const AdminDashboard = () => {
   const [orders, setOrders] = useState([]);
@@ -9,7 +11,9 @@ const AdminDashboard = () => {
     // Fetch orders on component mount
     const fetchOrders = async () => {
       const response = await fetch("/api/orders", {
-        headers: { Authorization: `Bearer ${localStorage.getItem("adminToken")}` },
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
+        },
       });
       const data = await response.json();
       setOrders(data);
@@ -40,26 +44,46 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div>
-      <h1>Admin Dashboard</h1>
-      <h2>New Orders</h2>
-      <ul>
-        {newOrders.map((order) => (
-          <li key={order._id}>
-            {order.details}
-            <button onClick={() => handleUpdateOrder(order._id, { status: "Processing" })}>Update</button>
-          </li>
-        ))}
-      </ul>
-      <h2>All Orders</h2>
-      <ul>
-        {orders.map((order) => (
-          <li key={order._id}>
-            {order.details} - Status: {order.status}
-            <button onClick={() => handleUpdateOrder(order._id, { status: "Shipped" })}>Mark as Shipped</button>
-          </li>
-        ))}
-      </ul>
+    <div className="bg-custom-gradient min-h-screen flex flex-col font-montserrat">
+      <section>
+        <Header />
+      </section>
+      <section  className="mt-[120px] h-[50em] flex justify-center ">
+        <h1>Admin Dashboard</h1>
+        <h2>New Orders</h2>
+        <ul>
+          {newOrders.map((order) => (
+            <li key={order._id}>
+              {order.details}
+              <button
+                onClick={() =>
+                  handleUpdateOrder(order._id, { status: "Processing" })
+                }
+              >
+                Update
+              </button>
+            </li>
+          ))}
+        </ul>
+        <h2>All Orders</h2>
+        <ul>
+          {orders.map((order) => (
+            <li key={order._id}>
+              {order.details} - Status: {order.status}
+              <button
+                onClick={() =>
+                  handleUpdateOrder(order._id, { status: "Shipped" })
+                }
+              >
+                Mark as Shipped
+              </button>
+            </li>
+          ))}
+        </ul>
+      </section>
+      <section>
+        <Footer />
+      </section>
     </div>
   );
 };

@@ -6,10 +6,10 @@ import Header from '../Components/Header'
 import Footer from '../Components/Footer'
 
 const Xclusive = () => {
-  const { productData } = Products;
+  const { productsData } = Products;
 
   // Filter products with the label "Xclusive"
-  const xclusiveProducts = productData.filter(product => product.label === "Xclusive");
+  const xclusiveProducts = productsData.filter(product => product.label === "Xclusive");
 
   return (
     <div className="min-h-screen bg-custom-gradient font-montserrat">
@@ -17,7 +17,7 @@ const Xclusive = () => {
         <Header />
       </section>
       <div className="h-[80px]"></div>
-      <section className="products-section pt-[40px]">
+      <section className="products-section pt-[40px] pb-5">
         <header className="flex flex-col items-center">
           <h2 className="text-[31px] text-white">Exclusive Collection</h2>
           <h1 className="text-[50px] text-[#A37E2C] font-bold">
@@ -28,17 +28,17 @@ const Xclusive = () => {
           </p>
         </header>
         <div className='pt-10'>
-          <ul className="flex flex-wrap gap-4 justify-center">
+          <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {xclusiveProducts.map((product) => (
               <div
                 key={product.id}
-                className="w-[232.69px] bg-white border border-gray-200 p-4 rounded-lg"
+                className="bg-white p-4 rounded-lg shadow-md"
               >
                 <Link to={`/product/${product.id}`}>
                   <img
                     src={product.thumbnail}
                     alt="product img"
-                    className="w-full h-auto object-cover cursor-pointer"
+                    className="w-full h-[300px] object-cover rounded-md"
                   />
                 </Link>
                 <div>

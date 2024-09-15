@@ -5,14 +5,14 @@ import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 
 const ProductsPage = () => {
-  const { productData } = Products;
+  const { productsData } = Products;
   const [visibleProducts, setVisibleProducts] = useState([]);
   const [productLimit, setProductLimit] = useState(15);
 
   useEffect(() => {
     // Initially load 15 products
-    setVisibleProducts(productData.slice(0, productLimit));
-  }, [productLimit, productData]);
+    setVisibleProducts(productsData.slice(0, productLimit));
+  }, [productLimit, productsData]);
 
   const loadMoreProducts = () => {
     setProductLimit((prevLimit) => prevLimit + 10);

@@ -6,7 +6,7 @@ import Services from "../assets/service-api"; // Importing the service data
 
 function Home() {
   const { addToCart } = useContext(ProductContext);
-  const { productData } = Products; // Accessing the product data
+  const { productsData } = Products; // Accessing the product data
   const { servicesData } = Services; // Accessing the service data
   const [notification, setNotification] = useState(null);
   const [randomServices, setRandomServices] = useState([]);
@@ -22,9 +22,9 @@ function Home() {
 
   // Select 5 random products
   useEffect(() => {
-  const featuredProducts = productData.sort(() => 0.5 - Math.random());
+  const featuredProducts = productsData.sort(() => 0.5 - Math.random());
   setRandomProducts(featuredProducts.slice(0, 15));
-}, [productData]);
+}, [productsData]);
 
   // Select 5 random services
   useEffect(() => {

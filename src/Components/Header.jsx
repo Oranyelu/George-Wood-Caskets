@@ -9,12 +9,20 @@ function Header() {
       <div className="hidden md:block">
         <section className="bg-[#A37E2C] flex justify-between p-2 text-white">
           <p>08143904414</p>
-          <p>georgechime91@gmail.com</p>
+          <p>georgewoodcasket@gmail.com</p>
           <p>
-            Follow us and stay upadted with the lastes community development
-            programs
+            Follow us and stay updated with the latest community development
+            programs ;
+           
+          <a
+            href="https://www.instagram.com/georgewoodcaskets?igsh=MWttbHNsMmdreHhoNA=="
+            target="blank"
+            className="pl-1 hover:text-[#135B3A]"
+          >
+           @georgewoodcaskets
+          </a>
+        
           </p>
-          <p>Follow Us:</p>
         </section>
       </div>
       <section className="flex justify-center bg-[#135B3A] h-16">

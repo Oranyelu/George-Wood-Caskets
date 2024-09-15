@@ -17,7 +17,12 @@
  
   
 }
-
+.background{
+  background-image: url('/src/assets/svgs/Background.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
 .meme{
   background-size: cover;
   background-repeat: no-repeat;

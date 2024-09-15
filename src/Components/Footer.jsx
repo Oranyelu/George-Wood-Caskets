@@ -5,12 +5,12 @@ import GeorgeWoodLogo from "../assets/svgs/George-wood.svg";
 function Footer() {
   return (
     <div className="bg-transparent">
-      <main className="p-5 flex justify-center">
-        <img
-          src={GeorgeWoodLogo}
-          alt="George Wood Logo"
-          className="w-40 h-auto"
-        />
+      <main className="p-2 bg-[#135B3A] flex flex-row justify-between">
+        <img src={GeorgeWoodLogo} alt="George Wood Logo" className="w-60" />
+        <article className="flex flex-col text-white text-sm">
+          <h1>Est. Since 1984</h1>
+          <p>Celebrating Life and Legacy</p>
+        </article>
       </main>
       <hr className="border-t-2 border-gray-300" />
       <footer className="flex justify-evenly pt-5 flex-wrap p-4 bg-gray-100 text-gray-700 w-[100%]">

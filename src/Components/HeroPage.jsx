@@ -1,7 +1,7 @@
 import React from "react";
 import Weather from "./Weather";
-import Carousel from "./Carousel";
 import HeroMobileComp from "./HeroMobileComp";
+import Background from '../assets/svgs/Background.svg'
 
 function HeroPage() {
   return (
@@ -12,8 +12,7 @@ function HeroPage() {
       <div className="hidden md:block">
         <div className="flex h-[700px] items-center w-[100%]">
           <main
-            className="flex flex-col justify-center w-[70vw] h-[100%]"
-            id="slides"
+            className="flex flex-col justify-center w-[70vw] h-[100%] bg-no-repeat bg-center bg-cover background"
           >
             <article className="pl-7 pt-20">
               <h1 className=" text-[50px] text-[#A37E2C]">40 Years</h1>

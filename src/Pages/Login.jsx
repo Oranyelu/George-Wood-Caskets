@@ -1,6 +1,9 @@
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../contexts/AuthContext';
+import Header from "../Components/Header";
+import Footer from "../Components/Footer";
+
 
 const Login = () => {
   const [email, setEmail] = useState('');

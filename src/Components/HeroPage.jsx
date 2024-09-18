@@ -14,10 +14,11 @@ function HeroPage() {
           <main
             className="flex flex-col justify-end w-[70vw] h-[100%] bg-no-repeat bg-center bg-cover background"
           >
-            <article className="pl-7 pt-20">
+            <article className="pl-7 pb-20 pr-7">
               <h1 className=" text-[50px] text-[#A37E2C]">40 Years</h1>
               <p className=" text-[25px] text-[#FFFFFF]">Established in 1984</p>
-              <p className=" text-[25px] text-[#FFFFFF]"></p>
+              <p className=" text-[19px] text-[#A37E2C]">
+              At George Wood Casket, we are deeply committed to the art of craftsmanship. Since 1984, our legacy has been built on creating high-quality, meticulously crafted caskets that honor life and legacy.</p>
             </article>
           </main>
           <aside

@@ -16,7 +16,7 @@ function GWFoundation() {
           to empowering the youth and inspiring a new generation of leaders.{" "}
           George Wood Foundation is a non-profit organization that supports the
           local community through philanthropy and volunteerism. The Foundation
-          is dedicated to advancing George Wood's mission of education,
+          is dedicated to advancing George Wood's mission of education,+
           research, and service. Join us in nurturing the potential of young
           minds to create a brighter, more innovative future
         </p>

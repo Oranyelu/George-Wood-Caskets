@@ -48,8 +48,8 @@ function Footer() {
             <h3 className="font-bold text-lg mb-2 text-[#135B3A]">Company Info</h3>
             <Link to="/about-us" className="hover:text-[#A37E2C]">About Us</Link>
             <Link to="/get-involved" className="hover:text-[#A37E2C]">Get Involved</Link>
-            <Link to="/customers" className="hover:text-[#A37E2C]">Customers</Link>
-            <Link to="/careers" className="hover:text-[#A37E2C]">We are hiring</Link>
+            <Link to="/testimonials" className="hover:text-[#A37E2C]">Customers</Link>
+            <Link to="/hiring" className="hover:text-[#A37E2C]">We are hiring</Link>
           </nav>
           <nav className="flex flex-col mb-4">
             <h3 className="font-bold text-lg mb-2 text-[#135B3A]">Legal</h3>
@@ -63,15 +63,15 @@ function Footer() {
           <nav className="flex flex-col mb-4">
             <h3 className="font-bold text-lg mb-2 text-[#135B3A]">Support</h3>
             <Link to="/help" className="hover:text-[#A37E2C]">Help Center</Link>
-            <Link to="/contact" className="hover:text-[#A37E2C]">Contact Us</Link>
+            <Link to="/contacts" className="hover:text-[#A37E2C]">Contact Us</Link>
             <Link to="/safety" className="hover:text-[#A37E2C]">Safety Center</Link>
-            <Link to="/report-issue" className="hover:text-[#A37E2C]">Report an Issue</Link>
+            <Link to="/report" className="hover:text-[#A37E2C]">Report an Issue</Link>
           </nav>
           <nav className="flex flex-col mb-4">
             <h3 className="font-bold text-lg mb-2 text-[#135B3A]">Features</h3>
-            <Link to="/team" className="hover:text-[#A37E2C]">Meet our Team</Link>
+            <Link to="/staff" className="hover:text-[#A37E2C]">Meet our Team</Link>
             <Link to="/track-order" className="hover:text-[#A37E2C]">Track Order</Link>
-            <Link to="/articles" className="hover:text-[#A37E2C]">Articles</Link>
+            <Link to="/blog" className="hover:text-[#A37E2C]">Articles</Link>
             <Link to="/events" className="hover:text-[#A37E2C]">Events</Link>
           </nav>
         </div>

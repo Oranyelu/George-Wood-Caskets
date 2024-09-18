@@ -89,7 +89,7 @@ function Home() {
         </div>
         <div className="text-center mt-6">
           <Link to="/products">
-            <button className="bg-[#A37E2C] text-white px-6 py-3 rounded hover:bg-[#8b6824] active:bg-[#70541c] transition-colors">
+            <button className="bg-[#135B3A] text-white px-6 py-3 rounded hover:bg-[#8b6824] active:bg-[#70541c] transition-colors">
               View All Products
             </button>
           </Link>
@@ -139,7 +139,7 @@ function Home() {
         </div>
         <div className="text-center mt-6">
           <Link to="/services">
-            <button className="bg-[#A37E2C] text-white px-6 py-3 rounded hover:bg-[#8b6824] active:bg-[#70541c] transition-colors">
+            <button className="bg-[#135B3A] text-white px-6 py-3 rounded hover:bg-[#8b6824] active:bg-[#70541c] transition-colors">
               View All Services
             </button>
           </Link>

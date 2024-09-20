@@ -4,7 +4,13 @@ import Footer from "../Components/Footer";
 
 function Register() {
   return (
-    <div>Register</div>
+    <div><section>
+    <Header />
+</section>
+<section></section>
+<section>
+    <Footer />
+</section></div>
   )
 }
 

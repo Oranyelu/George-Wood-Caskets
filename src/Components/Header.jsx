@@ -2,6 +2,7 @@ import React from "react";
 import Logo from "../assets/Favicon.svg";
 import HamburgerMenu from "./HamburgerMenu";
 import { Link } from "react-router-dom";
+import CartIcon from '../assets/svgs/cart_svg.svg';
 
 function Header() {
   return (
@@ -13,30 +14,25 @@ function Header() {
           <p>
             Follow us and stay updated with the latest community development
             programs ;
-           
-          <a
-            href="https://www.instagram.com/georgewoodcaskets?igsh=MWttbHNsMmdreHhoNA=="
-            target="blank"
-            className="pl-1 hover:text-[#135B3A]"
-          >
-           @georgewoodcaskets
-          </a>
-        
+            <a
+              href="https://www.instagram.com/georgewoodcaskets?igsh=MWttbHNsMmdreHhoNA=="
+              target="blank"
+              className="pl-1 hover:text-[#135B3A]"
+            >
+              @georgewoodcaskets
+            </a>
           </p>
         </section>
       </div>
       <section className="flex justify-center bg-[#135B3A] h-16">
         <main className="mr-auto flex">
-          <div className="">
-            <Link to="/">
-              <img src={Logo} alt="Logo" className="flex p-4" />{" "}
-            </Link>
-          </div>
-          <div className="flex text-center items-center text-white font-bold">
-            <h1 className="">George Wood Casket and Furniture</h1>
-          </div>
+          <Link to="/">
+            <img src={Logo} alt="Logo" className="flex p-4" />{" "}
+          </Link>
         </main>
-
+        <div className="flex text-center items-center text-white font-bold">
+          <h1 className="">George Wood Casket and Furniture</h1>
+        </div>
         <div className="flex justify-center items-center">
           <div className="hidden sm:block">
             <span className=" w-[60vw] flex justify-evenly text-white font-semibold">
@@ -51,7 +47,7 @@ function Header() {
           </div>
           <div className="pr-5 flex items-center gap-5 font-semibold text-white">
             <Link to="/cart" className="flex items-center">
-              CART
+              <img src={CartIcon}/>
             </Link>
           </div>
           <span className="ml-2 block sm:hidden pr-4">

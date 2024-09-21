@@ -31,7 +31,7 @@ const Checkout = () => {
 
   const handleCompleteOrder = async () => {
     try {
-      const response = await fetch("https://george-wood-backend.vercel.app/server", {
+      const response = await fetch("https://george-wood-backend.vercel.app/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

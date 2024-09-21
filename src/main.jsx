@@ -19,7 +19,6 @@ import ProductProvider from "./ProductProvider";
 import ProductDetail from "./Pages/Products";
 import ProductsPage from "./Pages/ProductsPage"; // Import OrderTrackingPage
 import Login from "./Pages/Login";
-import Register from "./Pages/Register";
 import AdminLogin from "./Pages/AdminLogin";
 import AdminDashboard from "./Pages/AdminDashboard";
 import Accessibility from "./Pages/Accessibility";
@@ -60,7 +59,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <Route path="testimonials" element={<Testimonials />} />
             <Route path="hiring" element={<WeAreHiring />} />
             <Route path="admin/login" element={<AdminLogin />} />
-            <Route path="register" element={<Register />} />
             <Route path="contacts" element={<Contacts />} />
             <Route path="admin/dashboard" element={<AdminDashboard />} />
             <Route path="xclusive" element={<Xclusive />} />

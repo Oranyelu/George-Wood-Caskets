@@ -48,7 +48,7 @@ function Footer() {
             <h3 className="font-bold text-lg mb-2 text-[#135B3A]">Company Info</h3>
             <Link to="/about-us" className="hover:text-[#A37E2C]">About Us</Link>
             <Link to="/get-involved" className="hover:text-[#A37E2C]">Get Involved</Link>
-            <Link to="/testimonials" className="hover:text-[#A37E2C]">Customers</Link>
+            <Link to="/book-of-life" className="hover:text-[#A37E2C]">Customers</Link>
             <Link to="/hiring" className="hover:text-[#A37E2C]">We are hiring</Link>
           </nav>
           <nav className="flex flex-col mb-4">

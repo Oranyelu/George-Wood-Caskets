@@ -1,5 +1,6 @@
 import React from "react";
 import BKOL from "../assets/svgs/bookoflife.svg";
+import { Link } from "react-router-dom";
 
 function TestimonialComp() {
   return (
@@ -48,6 +49,7 @@ function TestimonialComp() {
               inspiration. Celebrate their journeys, their memories, and the
               lasting impact they leave behind."
             </p>
+            <Link to="/book-of-life"></Link>
           </div>
         </section>
         <section className="flex flex-row gap-5">

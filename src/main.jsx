@@ -14,12 +14,9 @@ import Giving from "./Pages/Giving";
 import Services from "./Pages/Services";
 import Cart from "./Pages/Cart";
 import Checkout from "./Pages/Checkout";
-import Confirmation from "./Pages/Confirmation";
 import ProductProvider from "./ProductProvider";
 import ProductDetail from "./Pages/Products";
 import ProductsPage from "./Pages/ProductsPage"; // Import OrderTrackingPage
-import Login from "./Pages/Login";
-import AdminLogin from "./Pages/AdminLogin";
 import AdminDashboard from "./Pages/AdminDashboard";
 import Accessibility from "./Pages/Accessibility";
 import Blog from "./Pages/Blog";
@@ -32,8 +29,8 @@ import ReportIssue from "./Pages/ReportIssue";
 import SafetyCenter from "./Pages/SafetyCenter";
 import Staff from "./Pages/Staff";
 import TermsOfService from "./Pages/TermsOfService";
-import Testimonials from "./Pages/Testimonials";
 import WeAreHiring from "./Pages/WeAreHiring";
+import BookOfLife from "./Pages/BookOfLife";
 
 
 
@@ -56,9 +53,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <Route path="safety" element={<SafetyCenter />} />
             <Route path="staff" element={<Staff />} />
             <Route path="terms" element={<TermsOfService />} />
-            <Route path="testimonials" element={<Testimonials />} />
+            <Route path="book-of-life" element={<BookOfLife />} />
             <Route path="hiring" element={<WeAreHiring />} />
-            <Route path="admin/login" element={<AdminLogin />} />
             <Route path="contacts" element={<Contacts />} />
             <Route path="admin/dashboard" element={<AdminDashboard />} />
             <Route path="xclusive" element={<Xclusive />} />
@@ -66,12 +62,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <Route path="giving" element={<Giving />} />
             <Route path="product/:productId" element={<ProductDetail />} />
             <Route path="products" element={<ProductsPage />} />
-            <Route path="login" element={<Login />} />
             <Route path="services" element={<Services />} />
             <Route path="about-us" element={<AboutUs />} />
             <Route path="cart" element={<Cart />} />
             <Route path="checkout" element={<Checkout />} />
-            <Route path="confirmation" element={<Confirmation />} />
             <Route
               path="order-tracking/:orderId"
               element={<OrderTrackingPage />}

@@ -95,56 +95,47 @@ function Home() {
           </Link>
         </div>
       </section>
-
       <section className="achievements-section pt-[40px] p-4">
-        <header className="flex flex-col text-center">
-          <h2 className="text-[24.8px] text-white">Our Services</h2>
-          <h1 className="text-[35px] text-[#011309] font-bold ">
-            THE BEST SERVICES
-          </h1>
-          <p className="text-[15px] text-gray-50 pb-7">
-            Explore our range of services...
+  <header className="flex flex-col text-center">
+    <h2 className="text-[24.8px] text-[#135B3A]">Features Services</h2>
+    <h1 className="text-[35px] text-[#011309] font-bold">
+      A wide range of services
+    </h1>
+    <p className="text-[15px] text-gray-500 pb-7">
+      Explore our range of services...
+    </p>
+  </header>
+  <div>
+    <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      {randomServices.map((service) => (
+        <li
+          key={service.id}
+          className="bg-white p-6 rounded-lg shadow-md flex flex-col items-center"
+        >
+          <div className="w-[80px] h-[80px] bg-[#EFFBF6] flex justify-center items-center rounded-full mb-4">
+            {/* Icon or Image */}
+            <img
+              src={service.thumbnail}
+              alt={service.name}
+              className="w-12 h-12 object-cover"
+            />
+          </div>
+          <h2 className="text-lg font-semibold text-[#011309] mb-2">
+            {service.name}
+          </h2>
+          <p className="text-gray-600 text-center">
+            {service.description || 'Lorem ipsum dolor sit amet consectetur.'}
           </p>
-        </header>
-        <div>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {randomServices.map((service) => (
-              <div
-                key={service.id}
-                className="bg-white p-4 rounded-lg shadow-md"
-              >
-                <img
-                  src={service.thumbnail}
-                  alt={service.name}
-                  className="w-full h-[250px] object-cover rounded-md"
-                />
-                <h1 className="text-lg font-semibold mt-2 text-[#011309]">
-                  {service.name}
-                </h1>
-                <p>Color: {service.color}</p>
-                <p className="text-gray-900 font-bold">
-                  Price: {service.price.toLocaleString()} NGN
-                </p>
-                <div className="w-full flex justify-end">
-                  <button
-                    className="bg-[#A37E2C] text-white px-4 py-2 rounded mt-2 hover:bg-[#8b6824] active:bg-[#70541c] transition-colors"
-                    onClick={() => handleAddToCart(service)}
-                  >
-                    Book Now
-                  </button>
-                </div>
-              </div>
-            ))}
-          </ul>
-        </div>
-        <div className="text-center mt-6">
-          <Link to="/services">
-            <button className="bg-[#135B3A] text-white px-6 py-3 rounded hover:bg-[#8b6824] active:bg-[#70541c] transition-colors">
-              View All Services
+          <div className="flex justify-center w-full pt-4">
+            <button className="bg-transparent text-[#135B3A] w-12 h-12 rounded-full border border-[#135B3A] flex justify-center items-center transition-transform transform hover:scale-110">
+              <span className="text-xl">→</span>
             </button>
-          </Link>
-        </div>
-      </section>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
     </div>
   );
 }

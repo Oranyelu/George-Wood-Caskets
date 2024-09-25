@@ -226,6 +226,7 @@ const Checkout = () => {
                   onChange={handleInputChange}
                   className="p-2 border border-gray-300 rounded"
                 />
+                <p>How did you hear about Us</p>
                 <input
                   type="text"
                   name="referredBy"

@@ -110,27 +110,16 @@ function Home() {
       {randomServices.map((service) => (
         <li
           key={service.id}
-          className="bg-white p-6 rounded-lg shadow-md flex flex-col items-center"
+          className="bg-white p-6 rounded-lg shadow-md flex flex-col items-center justify-center h-[200px]"
         >
-          <div className="w-[80px] h-[80px] bg-[#EFFBF6] flex justify-center items-center rounded-full mb-4">
-            {/* Icon or Image */}
-            <img
-              src={service.thumbnail}
-              alt={service.name}
-              className="w-12 h-12 object-cover"
-            />
-          </div>
+          
           <h2 className="text-lg font-semibold text-[#011309] mb-2">
             {service.name}
           </h2>
           <p className="text-gray-600 text-center">
             {service.description || 'Lorem ipsum dolor sit amet consectetur.'}
           </p>
-          <div className="flex justify-center w-full pt-4">
-            <button className="bg-transparent text-[#135B3A] w-12 h-12 rounded-full border border-[#135B3A] flex justify-center items-center transition-transform transform hover:scale-110">
-              <span className="text-xl">→</span>
-            </button>
-          </div>
+          
         </li>
       ))}
     </ul>

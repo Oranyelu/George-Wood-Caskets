@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
+import { orderDatabase } from "../assets/Order-api"; // Import pseudo database
 
 const OrderTrackingPage = () => {
   const [trackingId, setTrackingId] = useState('');
@@ -9,7 +10,7 @@ const OrderTrackingPage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const handleFetchOrder = async () => {
+  const handleFetchOrder = () => {
     if (!trackingId) {
       setError("Please enter a valid tracking ID");
       return;
@@ -18,54 +19,46 @@ const OrderTrackingPage = () => {
     setLoading(true);
     setError(null);
 
-    try {
-      const response = await fetch(
-        `https://george-wood-backend.vercel.app/api/order-status/${trackingId}`
-      );
+    // Simulating order fetching from the pseudo database
+    setTimeout(() => {
+      const order = orderDatabase[trackingId];
 
-      if (!response.ok) {
-        throw new Error("Failed to fetch order status");
-      }
-
-      const data = await response.json();
-      if (data) {
-        setCurrentOrder(data);
+      if (order) {
+        setCurrentOrder(order);
       } else {
         setError("Order not found");
       }
-    } catch (err) {
-      setError(err.message);
-    } finally {
+
       setLoading(false);
+    }, 1000); // Simulating a delay for fetching data
+  };
+
+  const handleExpediteRequest = () => {
+    if (currentOrder) {
+      // Simulating an order update in the pseudo database
+      const updatedOrder = {
+        ...currentOrder,
+        expediteRequested: true,
+      };
+
+      // Updating the pseudo database manually
+      orderDatabase[trackingId] = updatedOrder;
+      setCurrentOrder(updatedOrder);
     }
   };
 
-  const handleExpediteRequest = async (trackingId) => {
-    try {
-      const updatedOrder = { expediteRequested: true };
-      const response = await fetch(
-        `https://george-wood-backend.vercel.app/api/update-order/${trackingId}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(updatedOrder),
-        }
-      );
+  // Function to calculate the progress percentage
+  const calculateProgress = () => {
+    if (!currentOrder || !currentOrder.orderDate) return 0;
 
-      if (!response.ok) {
-        throw new Error("Failed to update order");
-      }
+    const orderDate = new Date(currentOrder.orderDate);
+    const today = new Date();
+    const timeDiff = today - orderDate; // Difference in milliseconds
+    const daysElapsed = Math.floor(timeDiff / (1000 * 3600 * 24));
+    const totalDays = 14; // Total days for the order to be ready
+    const progress = Math.min((daysElapsed / totalDays) * 100, 100); // Limit to 100%
 
-      const data = await response.json();
-      setCurrentOrder((prevOrder) => ({
-        ...prevOrder,
-        expediteRequested: true,
-      }));
-    } catch (err) {
-      setError(err.message);
-    }
+    return progress;
   };
 
   return (
@@ -96,9 +89,23 @@ const OrderTrackingPage = () => {
             <h2 className="text-xl font-semibold mb-2">Order Status</h2>
             <p>Status: <span className="font-medium">{currentOrder.status}</span></p>
             <p>Estimated Delivery: <span className="font-medium">{currentOrder.estimatedDelivery}</span></p>
+            
+            {/* Progress Bar */}
+            <div className="mt-4">
+              <div className="bg-gray-200 rounded-full h-2">
+                <div
+                  className="bg-blue-600 h-2 rounded-full"
+                  style={{ width: `${calculateProgress()}%` }}
+                />
+              </div>
+              <p className="mt-2 text-sm text-gray-600">
+                {Math.floor(calculateProgress())}% of the time elapsed
+              </p>
+            </div>
+
             {currentOrder.status === "Pending" && !currentOrder.expediteRequested && (
               <button
-                onClick={() => handleExpediteRequest(trackingId)}
+                onClick={handleExpediteRequest}
                 className="mt-4 bg-yellow-500 text-white rounded-lg p-2 shadow-md hover:bg-yellow-600 transition duration-200"
               >
                 Request Expedite

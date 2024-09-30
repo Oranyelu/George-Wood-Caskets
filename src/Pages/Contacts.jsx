@@ -38,7 +38,7 @@ function Contacts() {
 
         <h2 className="text-2xl font-bold mt-6 mb-4">Location</h2>
         <p>
-          [Insert Business Address Here]
+          11 Senator Avenue, Opposite Milestone Hospital, Along Old Enugu-Onitsha Express Road. Okwojo Ngwo.
         </p>
 
         <h2 className="text-2xl font-bold mt-6 mb-4">Feedback</h2>

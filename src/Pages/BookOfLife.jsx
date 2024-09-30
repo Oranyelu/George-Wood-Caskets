@@ -1,34 +1,14 @@
 import React, { useState } from 'react';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
-
-// Sample static data for visualization
-const iconsData = [
-  {
-    id: 1,
-    name: 'John Doe',
-    birthYear: 1950,
-    deathYear: 2022,
-    imageUrl: '/path-to-image/john-doe.jpg',
-    bio: 'John Doe was a philanthropist who contributed immensely...',
-    xclusive: true
-  }
-];
-
-const regularCasketsData = [
-  {
-    id: 2,
-    name: 'Jane Smith',
-    birthYear: 1965,
-    deathYear: 2023,
-    imageUrl: '/path-to-image/jane-smith.jpg',
-    bio: 'Jane Smith was a beloved community member...',
-    xclusive: false
-  }
-];
+import { BookOfLifeDB } from '../assets/BookOfLifeDB'; // Import the pseudo database
 
 function BookOfLife() {
   const [selectedPerson, setSelectedPerson] = useState(null);
+
+  // Transform the BookOfLifeDB object into an array for easier mapping
+  const iconsData = Object.values(BookOfLifeDB).filter(person => person.xclusive);
+  const regularCasketsData = Object.values(BookOfLifeDB).filter(person => !person.xclusive);
 
   const handlePersonClick = (person) => {
     setSelectedPerson(person);

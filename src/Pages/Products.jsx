@@ -5,6 +5,9 @@ import Services from "../assets/service-api"; // Importing the service data
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import { ProductContext } from "../ProductProvider";
+import Slider from "react-slick"; // Import the carousel library
+import "slick-carousel/slick/slick.css"; // Carousel styles
+import "slick-carousel/slick/slick-theme.css"; // Carousel theme styles
 
 const ProductDetail = () => {
   const { productId } = useParams(); // Get the productId from URL parameters
@@ -23,6 +26,15 @@ const ProductDetail = () => {
 
   if (!product) return <p>Loading...</p>;
 
+  // Settings for the carousel
+  const carouselSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
+
   return (
     <div className="bg-custom-gradient min-h-screen flex flex-col font-montserrat">
       <section>
@@ -31,11 +43,20 @@ const ProductDetail = () => {
       <div className="h-[80px]"></div>
       <section className="mt-16 p-4">
         <h1 className="text-4xl font-bold">{product.name}</h1>
-        <img
-          src={product.images[0]}
-          alt={product.name}
-          className="w-full h-auto mt-4"
-        />
+
+        {/* Carousel for product images */}
+        <Slider {...carouselSettings} className="mt-4">
+          {product.images.map((image, index) => (
+            <div key={index} className="flex justify-center">
+              <img
+                src={image}
+                alt={`${product.name} - ${index + 1}`}
+                className="w-full h-auto rounded-md"
+              />
+            </div>
+          ))}
+        </Slider>
+
         <p className="mt-4">{product.description}</p>
         <p>Color: {product.color}</p>
         <p>Price: {product.price.toLocaleString()} NGN</p>

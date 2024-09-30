@@ -1,6 +1,7 @@
 import React from "react";
 import BKOL from "../assets/svgs/bookoflife.svg";
 import { Link } from "react-router-dom";
+import { FaStar } from 'react-icons/fa';
 
 function TestimonialComp() {
   return (
@@ -31,11 +32,7 @@ function TestimonialComp() {
         <div className="bg-[#135B3A] w-[35%] h-[250px] rounded-md flex flex-col items-center justify-center">
   <div className="flex items-center">
     <span className="text-[60px] font-bold">5</span>
-    <img 
-      src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Star_yellow.svg/1024px-Star_yellow.svg.png" 
-      alt="Star" 
-      className="w-[40px] h-[40px] ml-2" 
-    />
+    <FaStar size={50} color="gold" />
   </div>
   <div className="text-center">
     <p className="font-bold text-[20px]">100%</p>
@@ -72,11 +69,6 @@ function TestimonialComp() {
         <section className="flex flex-col gap-5">
           {/** Testimonial 1 */}
           <div className="flex gap-2 items-start">
-            <img
-              src=""
-              alt="profile"
-              className="rounded-full bg-black h-[50px] w-[50px]"
-            />
             <div className="flex flex-col">
               <p className="font-semibold underline">- John Doe, Customer at "The Living Room"</p>
               <p>
@@ -89,11 +81,7 @@ function TestimonialComp() {
 
           {/** Testimonial 2 */}
           <div className="flex gap-2 items-start">
-            <img
-              src=""
-              alt="profile"
-              className="rounded-full bg-black h-[50px] w-[50px]"
-            />
+           
             <div className="flex flex-col">
               <p className="font-semibold underline">- John Doe, Customer at "The Living Room"</p>
               <p>
@@ -106,11 +94,6 @@ function TestimonialComp() {
 
           {/** Testimonial 3 */}
           <div className="flex gap-2 items-start">
-            <img
-              src=""
-              alt="profile"
-              className="rounded-full bg-black h-[50px] w-[50px]"
-            />
             <div className="flex flex-col">
               <p className="font-semibold underline">- Charles Eze, Customer at "The Living Room"</p>
               <p>

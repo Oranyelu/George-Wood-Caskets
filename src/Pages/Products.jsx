@@ -5,9 +5,10 @@ import Services from "../assets/service-api"; // Importing the service data
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import { ProductContext } from "../ProductProvider";
-import Slider from "react-slick"; // Import the carousel library
-import "slick-carousel/slick/slick.css"; // Carousel styles
-import "slick-carousel/slick/slick-theme.css"; // Carousel theme styles
+import Slider from "react-slick"; // Make sure to import Slider
+
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css"; 
 
 const ProductDetail = () => {
   const { productId } = useParams(); // Get the productId from URL parameters
@@ -33,6 +34,14 @@ const ProductDetail = () => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    arrows: true, // Show navigation arrows
+    appendDots: (dots) => (
+      <div style={{ backgroundColor: "lightgray", padding: "10px" }}>
+        <ul style={{ margin: "0px" }}>{dots}</ul>
+      </div>
+    ),
   };
 
   return (
@@ -46,7 +55,7 @@ const ProductDetail = () => {
 
         {/* Carousel for product images */}
         <Slider {...carouselSettings} className="mt-4">
-          {product.images.map((image, index) => (
+          {product.thumbnail.map((image, index) => (
             <div key={index} className="flex justify-center">
               <img
                 src={image}

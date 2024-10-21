@@ -10,9 +10,9 @@ function HeroPage() {
         <HeroMobileComp />
       </div>
       <div className="hidden md:block">
-        <div className="flex h-[700px] items-center w-[100%]">
+        <div className="flex h-[700px] items-center w-[100%] background">
           <main
-            className="flex flex-col justify-end w-[70vw] h-[100%] bg-no-repeat bg-center bg-cover background"
+            className="flex flex-col justify-end w-[70vw] h-[100%] bg-no-repeat bg-center bg-cover"
           >
             <article className="pl-7 pb-20 pr-7">
               <h1 className=" text-[50px] text-[#A37E2C]">40 Years</h1>
@@ -22,13 +22,13 @@ function HeroPage() {
             </article>
           </main>
           <aside
-            className="bg-[#A37E2C] w-[30vw] h-[100%] flex flex-col justify-center items-center"
+            className="w-[30vw] h-[100%] flex flex-col justify-center items-center"
             id="weather-app"
           >
             <div className="weather-clock">
               <Weather />
             </div>
-            <h1 className="text-[#011309] text-[26px] pt-10 font-bold text-center">Celebrating Life and Legacy</h1>
+            <h1 className="text-white text-[26px] pt-10 font-bold text-center">Celebrating Life and Legacy</h1>
             <p className="dynamic-text text-[17px] text-center pt-5"></p>
           </aside>
         </div>

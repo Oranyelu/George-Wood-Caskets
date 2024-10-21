@@ -16,7 +16,7 @@ function GWFoundation() {
             <h3 className="text-[#F9E5BA] text-[20px] md:text-[24.8px] font-bold">
               Celebrating Life and Legacy
             </h3>
-            <p className="text-left text-white text-sm md:text-base">
+            <p className="text-left text-white text-sm md:text-base p-2 md:p-4">
               Discover the George Wood Foundation: a beacon of hope dedicated
               to empowering the youth and inspiring a new generation of leaders.
               George Wood Foundation is a non-profit organization that supports
@@ -27,7 +27,7 @@ function GWFoundation() {
               future.
             </p>
             <Link to="giving">
-              <button className="bg-[#A37E2C] text-white font-semibold w-full md:w-[300px] h-[48px] md:h-[56px] rounded-[5px] mt-4">
+              <button className="bg-[#A37E2C] text-white font-semibold w-[300px] md:w-[300px] h-[48px] md:h-[56px] rounded-[5px] mt-4">
                 Go to page
               </button>
             </Link>

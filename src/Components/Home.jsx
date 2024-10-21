@@ -43,10 +43,7 @@ function Home() {
       )}
       <section className="products-section pt-[40px] p-4">
         <header className="flex flex-col text-center">
-          <h2 className="text-[24.8px] text-white">Featured Products</h2>
-          <h1 className="text-[40px] text-[#A37E2C] font-bold">
-            BESTSELLER PRODUCTS
-          </h1>
+          <h2 className="text-[24.8px] text-white font-bold">Featured Products</h2>
           <p className="text-[15px] text-gray-50 pb-7">
             Make your choice based on popular demand...
           </p>
@@ -97,12 +94,9 @@ function Home() {
       </section>
       <section className="achievements-section pt-[40px] p-4">
   <header className="flex flex-col text-center">
-    <h2 className="text-[24.8px] text-[#135B3A]">Features Services</h2>
-    <h1 className="text-[35px] text-[#011309] font-bold">
-      A wide range of services
-    </h1>
-    <p className="text-[15px] text-gray-500 pb-7">
-      Explore our range of services...
+    <h2 className="text-[24.8px] text-[#135B3A] font-bold">Featured Services</h2>
+    <p className="text-[15px] text-white pb-7">
+      Explore our range of services
     </p>
   </header>
   <div>

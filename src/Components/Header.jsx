@@ -1,8 +1,8 @@
-import React, { useContext } from "react"; 
+import React, { useContext } from "react";
 import Logo from "../assets/Favicon.svg";
 import HamburgerMenu from "./HamburgerMenu";
 import { Link } from "react-router-dom";
-import CartIcon from '../assets/svgs/cart_svg.svg';
+import CartIcon from "../assets/svgs/cart_svg.svg";
 import { ProductContext } from "../ProductProvider"; // Import the ProductContext
 
 function Header() {
@@ -35,7 +35,7 @@ function Header() {
           <img src={Logo} alt="Logo" className="ml-3 pt-[70px]" />
         </Link>
 
-        <div className="flex-1 text-center text-white font-bold">
+        <div className="hidden md:block md:flex-1 md:text-center md:text-white md:font-bold">
           <h1>George Wood Casket and Furniture</h1>
         </div>
 
@@ -58,7 +58,7 @@ function Header() {
               <img src={CartIcon} alt="Cart" />
               {/* Conditional rendering of the red dot */}
               {cartItemCount > 0 && (
-                <span className="absolute top-[-5px] right-[-5px] bg-red-500 rounded-full h-3 w-3" />
+                <span className="absolute top-[-5px] right-[10px] bg-red-500 rounded-full h-2 w-2" />
               )}
             </Link>
           </div>

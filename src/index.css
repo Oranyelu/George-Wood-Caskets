@@ -1,29 +1,33 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
 .weather-clock {
   width: 80%;
   border-radius: 20px;
-  background: linear-gradient(145deg, #ae872f, #937128);
-  box-shadow: 14px 14px 29px #755b20, -14px -14px 29px #d1a138;
+  background: rgba(255, 255, 255, 0.2); /* Semi-transparent white background */
+  backdrop-filter: blur(10px); /* Blur effect */
+  box-shadow: 14px 14px 29px rgba(5, 3, 0, 0.2), -14px -14px 29px rgba(13, 12, 12, 0.2);
+}
+
+.weather-clock {
+  /* other styles */
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 
 
 @media only screen and (max-width: 900px) {
- 
-  
 }
-.background{
-  background-image: url('/src/assets/svgs/Background.svg');
+.background {
+  background-image: url("/src/assets/svgs/Background.svg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
 }
-.meme{
+.meme {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -43,8 +47,7 @@
   animation-delay: 2s;
 }
 
-
-@keyframes text{
+@keyframes text {
   0%,
   100% {
     content: "George Wood Funeral Services: Compassion and dignity in every farewell.";
@@ -64,4 +67,23 @@
 .dynamic-text::after {
   content: "";
   animation: text 25s infinite;
+  color: white;
+}
+
+/* styles.css */
+
+.slick-slide {
+  margin: 0 10px; /* Space between slides */
+}
+
+.slick-prev:before, .slick-next:before {
+  color: #A37E2C; /* Change color of arrows */
+}
+
+.slick-dots li.slick-active button {
+  background: #A37E2C; /* Active dot color */
+}
+
+.slick-dots li button {
+  background: #ccc; /* Dot color */
 }

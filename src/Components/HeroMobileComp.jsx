@@ -1,21 +1,42 @@
-import React from 'react'
-
+import React from "react";
+import { Link } from "react-router-dom";
 function HeroMobileComp() {
   return (
-    <div className='w-[100%] flex flex-col h-[50vh] justify-between p-[20px] pt-[50px] relative'>
-      <article>
-        <h3 className='text-[31px] text-[#e7c784] font-bold'>Celebrating Life and Legacy</h3>
-        <h1 className='text-[#135B3A] text-[50px] font-bold'>40 YEARS</h1>
-        <h2 className='text-[#ffff] text-[19px]'>Established in 1984</h2>
-      </article>
-      {/* <aside className='h-[80px] flex bg-[#A37E2C] w-[60%] rounded-l-[20px] absolute bottom-0 right-[-40%] animate-slideIn'>
-        <div className='p-4 text-white flex items-center font-bold'>Giving</div>
-        <div className='flex w-full rounded-l-[20px] bg-[url(https://static.investindia.gov.in/s3fs-public/inline-images/philanthropy%20.jpg)] meme'>
-          
+    <div className="relative w-full flex flex-col justify-between p-[20px] pt-[50px] bg-[url('/path/to/your/background-image.jpg')] bg-cover bg-center text-white">
+      {/* Glass Morph Effect Background */}
+      <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+
+      <div className="relative z-10 p-6 bg-white bg-opacity-10 backdrop-blur-md rounded-lg shadow-lg">
+        {/* Brand and Tagline */}
+        <h3 className="text-[20px] text-white font-semibold mb-2">
+          George Wood Casket and Furniture
+        </h3>
+        <h3 className="text-[28px] text-[#A37E2C] font-bold mb-1">
+          Hounoring Life and Legacy
+        </h3>
+        <h1 className="text-[#135B3A] text-[32px] font-bold mb-2">40 YEARS</h1>
+        <h2 className="text-[#ffffff] text-[18px]">Established in 1984</h2>
+
+        {/* Story Section */}
+        <p className="text-[15px] text-white leading-relaxed mt-4">
+          For four decades, we have honored lives by crafting caskets and
+          furniture with empathy, artistry, and unparalleled quality. At George
+          Wood Caskets, each piece is not just a product—it's a legacy of
+          craftsmanship.
+        </p>
+
+        {/* Call to Action */}
+        <div className="mt-6">
+          <Link
+            to="/about-us"
+            className="bg-[#135B3A] hover:bg-[#0F4E2E] text-white font-semibold py-2 px-6 rounded-lg inline-block transition duration-300"
+          >
+            Learn More About Us
+          </Link>
         </div>
-      </aside> */}
+      </div>
     </div>
-  )
+  );
 }
 
-export default HeroMobileComp
+export default HeroMobileComp;

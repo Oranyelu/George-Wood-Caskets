@@ -251,7 +251,7 @@ const Checkout = () => {
           <div className="w-full bg-white p-5 text-center">
             <h2 className="text-[24px] font-bold">Order Placed Successfully!</h2>
             <p>Your tracking ID is: <strong>{trackingId}</strong></p>
-            <p>{paymentInstructions}</p>
+            <p>To complete your order, kindly check your email for further instructions. Thank you for choosing us.</p>
           </div>
         )}
       </section>

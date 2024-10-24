@@ -22,7 +22,7 @@
 @media only screen and (max-width: 900px) {
 }
 .background {
-  background-image: url("/src/assets/svgs/Background.svg");
+  background-image: url("https://wallpapercave.com/wp/wp4348559.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -67,7 +67,7 @@
 .dynamic-text::after {
   content: "";
   animation: text 25s infinite;
-  color: white;
+  color: #000000 ;
 }
 
 /* styles.css */

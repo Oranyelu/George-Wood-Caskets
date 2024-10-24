@@ -22,9 +22,9 @@ function Home() {
 
   // Select 5 random products
   useEffect(() => {
-  const featuredProducts = productsData.sort(() => 0.5 - Math.random());
-  setRandomProducts(featuredProducts.slice(0, 15));
-}, [productsData]);
+    const featuredProducts = productsData.sort(() => 0.5 - Math.random());
+    setRandomProducts(featuredProducts.slice(0, 15));
+  }, [productsData]);
 
   // Select 5 random services
   useEffect(() => {
@@ -43,7 +43,9 @@ function Home() {
       )}
       <section className="products-section pt-[40px] p-4">
         <header className="flex flex-col text-center">
-          <h2 className="text-[24.8px] text-white font-bold">Featured Products</h2>
+          <h2 className="text-[24.8px] text-white font-bold">
+            Featured Products
+          </h2>
           <p className="text-[15px] text-gray-50 pb-7">
             Make your choice based on popular demand...
           </p>
@@ -53,7 +55,7 @@ function Home() {
             {featuredProducts.map((product) => (
               <div
                 key={product.id}
-                className="bg-white p-4 rounded-lg shadow-md"
+                className="bg-white bg-opacity-20 backdrop-filter backdrop-blur-md border border-white border-opacity-20 p-4 rounded-lg shadow-lg"
               >
                 <Link to={`/product/${product.id}`}>
                   <img
@@ -93,32 +95,33 @@ function Home() {
         </div>
       </section>
       <section className="achievements-section pt-[40px] p-4">
-  <header className="flex flex-col text-center">
-    <h2 className="text-[24.8px] text-[#135B3A] font-bold">Featured Services</h2>
-    <p className="text-[15px] text-white pb-7">
-      Explore our range of services
-    </p>
-  </header>
-  <div>
-    <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-      {randomServices.map((service) => (
-        <li
-          key={service.id}
-          className="bg-white p-6 rounded-lg shadow-md flex flex-col items-center justify-center h-[200px]"
-        >
-          
-          <h2 className="text-lg font-semibold text-[#011309] mb-2">
-            {service.name}
+        <header className="flex flex-col text-center">
+          <h2 className="text-[24.8px] text-[#135B3A] font-bold">
+            Featured Services
           </h2>
-          <p className="text-gray-600 text-center">
-            {service.description || 'Lorem ipsum dolor sit amet consectetur.'}
+          <p className="text-[15px] text-white pb-7">
+            Explore our range of services
           </p>
-          
-        </li>
-      ))}
-    </ul>
-  </div>
-</section>
+        </header>
+        <div>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            {randomServices.map((service) => (
+              <li
+                key={service.id}
+                className="bg-white bg-opacity-20 backdrop-filter backdrop-blur-md border border-white border-opacity-20 p-6 rounded-lg shadow-lg flex flex-col items-center justify-center h-[200px]"
+              >
+                <h2 className="text-lg font-semibold text-[#135B3A] mb-2">
+                  {service.name}
+                </h2>
+                <p className="text-white text-center">
+                  {service.description ||
+                    "Lorem ipsum dolor sit amet consectetur."}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
     </div>
   );
 }

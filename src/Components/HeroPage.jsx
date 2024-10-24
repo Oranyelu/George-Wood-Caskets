@@ -36,7 +36,7 @@ function HeroPage() {
               <h1 className="text-[#135B3A]  text-[26px] pt-10 font-bold text-center">
                 Celebrating Life and Legacy
               </h1>
-              <p className="dynamic-text text-[17px] text-center pt-5"></p>
+              <p className="dynamic-text text-[17px] text-center h-16"></p>
             </aside>
           </div>
         </div>

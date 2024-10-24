@@ -23,7 +23,7 @@ function Home() {
   // Select 5 random products
   useEffect(() => {
     const featuredProducts = productsData.sort(() => 0.5 - Math.random());
-    setRandomProducts(featuredProducts.slice(0, 15));
+    setRandomProducts(featuredProducts.slice(0, 8));
   }, [productsData]);
 
   // Select 5 random services

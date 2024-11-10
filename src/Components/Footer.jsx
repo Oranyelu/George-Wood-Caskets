@@ -50,9 +50,9 @@ function Footer() {
         <div className="flex flex-col md:flex-row md:justify-evenly text-left w-full">
           {/* Company Info Section */}
           <nav className="flex flex-col mb-6 md:mb-4">
-            <h3 className="font-bold text-lg mb-2 text-[#135B3A]">
+            <h2 className="font-bold text-lg mb-2 text-[#135B3A]">
               Company Info
-            </h3>
+            </h2>
             <Link to="/about-us" className="hover:text-[#A37E2C]">
               About Us
             </Link>
@@ -69,7 +69,7 @@ function Footer() {
 
           {/* Legal Section */}
           <nav className="flex flex-col mb-6 md:mb-4">
-            <h3 className="font-bold text-lg mb-2 text-[#135B3A]">Legal</h3>
+            <h2 className="font-bold text-lg mb-2 text-[#135B3A]">Legal</h2>
             <Link to="/terms" className="hover:text-[#A37E2C]">
               Terms of Service
             </Link>
@@ -86,7 +86,7 @@ function Footer() {
 
           {/* Support Section */}
           <nav className="flex flex-col mb-6 md:mb-4">
-            <h3 className="font-bold text-lg mb-2 text-[#135B3A]">Support</h3>
+            <h2 className="font-bold text-lg mb-2 text-[#135B3A]">Support</h2>
             <Link to="/help" className="hover:text-[#A37E2C]">
               Help Center
             </Link>
@@ -103,7 +103,7 @@ function Footer() {
 
           {/* Features Section */}
           <nav className="flex flex-col mb-6 md:mb-4">
-            <h3 className="font-bold text-lg mb-2 text-[#135B3A]">Features</h3>
+            <h2 className="font-bold text-lg mb-2 text-[#135B3A]">Features</h2>
             <Link to="/staff" className="hover:text-[#A37E2C]">
               Meet our Team
             </Link>

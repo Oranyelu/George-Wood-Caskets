@@ -13,9 +13,9 @@ function GWFoundation() {
           <img src={Mascot} className="w-[80%] md:w-auto" alt="Mascot" />
 
           <article className="text-center flex flex-col gap-4 md:gap-7">
-            <h3 className="text-[#F9E5BA] text-[20px] md:text-[24.8px] font-bold">
+            <h1 className="text-[#F9E5BA] text-[20px] md:text-[24.8px] font-bold">
               Celebrating Life and Legacy
-            </h3>
+            </h1>
             <p className="text-left text-white text-sm md:text-base p-2 md:p-4">
               Discover the George Wood Foundation: a beacon of hope dedicated to
               empowering the youth and inspiring a new generation of leaders.

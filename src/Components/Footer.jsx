@@ -128,7 +128,7 @@ function Footer() {
             href="https://georgechiemeriechime.netlify.app/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[#A37E2C] pl-1 hover:text-[#d4a041]"
+            className="text-white pl-1 hover:text-[#d4a041]"
           >
             George Chime
           </a>

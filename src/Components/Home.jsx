@@ -53,7 +53,7 @@ function Home() {
         <div>
           <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {featuredProducts.map((product) => (
-              <div
+              <li
                 key={product.id}
                 className="bg-white bg-opacity-100 backdrop-filter backdrop-blur-md border border-white border-opacity-20 p-4 rounded-lg shadow-lg"
               >
@@ -82,7 +82,7 @@ function Home() {
                     Order Now
                   </button>
                 </div>
-              </div>
+              </li>
             ))}
           </ul>
         </div>

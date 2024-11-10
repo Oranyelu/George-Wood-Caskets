@@ -70,21 +70,20 @@ function TestimonialComp() {
             style={{ backgroundImage: `url(${BKOL})` }}
           >
             <div className="absolute inset-0 flex flex-col justify-end items-start p-4 bg-black bg-opacity-40 opacity-0 hover:opacity-100 transition-opacity duration-300">
-              <h1 className="text-white text-md md:text-lg lg:text-xl font-bold">
-                Discover “The Book Of Life”
-              </h1>
+              <Link
+                to="/book-of-life"
+                className="text-white underline hover:text-[#A37E2C]"
+              >
+                <h1 className="text-white text-md md:text-lg lg:text-xl font-bold hover:text-[#A37E2C]">
+                  Discover “The Book Of Life”
+                </h1>{" "}
+              </Link>
               <p className="text-white text-left text-xs md:text-sm lg:text-base">
                 "Step into the stories of those who shaped our journey. Each
                 story is a reflection of love, strength, and unforgettable
                 moments. In these pages, their legacies live on, offering
                 comfort and inspiration."
               </p>
-              <Link
-                to="/book-of-life"
-                className="text-white underline hover:text-[#A37E2C]"
-              >
-                Learn More
-              </Link>
             </div>
           </div>
         </section>

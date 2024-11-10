@@ -55,7 +55,7 @@ function Home() {
             {featuredProducts.map((product) => (
               <div
                 key={product.id}
-                className="bg-white bg-opacity-20 backdrop-filter backdrop-blur-md border border-white border-opacity-20 p-4 rounded-lg shadow-lg"
+                className="bg-white bg-opacity-100 backdrop-filter backdrop-blur-md border border-white border-opacity-20 p-4 rounded-lg shadow-lg"
               >
                 <Link to={`/product/${product.id}`}>
                   <img

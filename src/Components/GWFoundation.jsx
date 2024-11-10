@@ -28,7 +28,7 @@ function GWFoundation() {
             </p>
             <Link to="giving">
               <button
-                className="bg-white text-[#135B3A] font-semibold w-[300px] md:w-[300px] h-[56px] md:h-[64px] rounded-[5px] mt-4 px-4 py-3"
+                className="bg-white text-[#135B3A] font-semibold w-[300px] md:w-[300px] h-[56px] md:h-[64px] rounded-[5px] px-4 py-3"
                 style={{ minHeight: "56px", minWidth: "44px" }}
               >
                 Go to page

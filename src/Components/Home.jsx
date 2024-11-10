@@ -76,7 +76,7 @@ function Home() {
                 </p>
                 <div className="w-full flex justify-end">
                   <button
-                    className="bg-[#A37E2C] text-white px-4 py-2 rounded mt-2 hover:bg-[#8b6824] active:bg-[#70541c] transition-colors"
+                    className="bg-[#135B3A] text-white px-4 py-2 rounded mt-2 hover:bg-[#8b6824] active:bg-[#70541c] transition-colors"
                     onClick={() => handleAddToCart(product)}
                   >
                     Order Now

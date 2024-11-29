@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 function HeroMobileComp() {
   return (
-    <div className="relative w-full flex flex-col justify-between p-[20px] pt-[50px] bg-[url('/path/to/your/background-image.jpg')] bg-cover bg-center text-white">
+    <div className="relative w-full flex flex-col justify-between p-[20px] pt-[50px] bg-cover bg-center text-white">
       {/* Glass Morph Effect Background */}
       <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 

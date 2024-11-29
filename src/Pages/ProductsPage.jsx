@@ -35,7 +35,7 @@ const ProductsPage = () => {
   }, []);
 
   return (
-    <div className="bg-custom-gradient min-h-screen flex flex-col font-montserrat">
+    <div className="bg-white min-h-screen flex flex-col font-montserrat">
       <section>
         <Header />
       </section>

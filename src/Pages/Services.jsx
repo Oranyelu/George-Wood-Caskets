@@ -35,7 +35,7 @@ const ServicesPage = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-custom-gradient font-montserrat">
+    <div className="min-h-screen bg-white font-montserrat">
       <section>
         <Header />
       </section>

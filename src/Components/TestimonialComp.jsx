@@ -69,7 +69,7 @@ function TestimonialComp() {
             className="w-[100%] h-[250px] bg-no-repeat bg-center bg-cover rounded-xl relative overflow-hidden"
             style={{ backgroundImage: `url(${BKOL})` }}
           >
-            <div className="absolute inset-0 flex flex-col justify-end items-start p-4 bg-black bg-opacity-40 opacity-0 hover:opacity-100 transition-opacity duration-300">
+            <div className="absolute inset-0 flex flex-col justify-end items-start p-4 bg-black bg-opacity-40">
               <Link
                 to="/book-of-life"
                 className="text-white underline hover:text-[#A37E2C]"
@@ -96,7 +96,7 @@ function TestimonialComp() {
             .map((testimonial) => (
               <div
                 key={testimonial.id}
-                className="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg p-4 rounded-lg shadow-lg text-white flex flex-col gap-3"
+                className="bg-[#135B3A] bg-opacity-7 backdrop-filter backdrop-blur-lg p-4 rounded-lg shadow-lg text-white flex flex-col gap-3"
               >
                 <p className="font-semibold underline text-lg">
                   - {testimonial.name}

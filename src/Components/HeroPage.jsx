@@ -8,7 +8,7 @@ function HeroPage() {
       <div className="w-[100%] meme block md:hidden bg-[url(https://wallpapercave.com/wp/wp4348559.jpg)] ">
         <HeroMobileComp />
       </div>
-      <div className="hidden md:block background w-[100%] h-[700px] pt-7 ">
+      <div className="hidden md:block bg-[#f0c068] w-[100%] h-[700px] pt-7 ">
         <div className="w-full h-full flex justify-center items-center">
           <div className="flex items-center bg-white bg-opacity-10 backdrop-filter backdrop-blur-md border border-white border-opacity-20 p-6 rounded-lg shadow-lg w-[90%] h-[90%]">
             <main className="flex flex-col justify-end w-[100%] h-[100%]">

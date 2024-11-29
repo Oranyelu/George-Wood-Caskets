@@ -4,38 +4,47 @@ import Mascot from "../assets/svgs/GW-svg.svg";
 
 function GWFoundation() {
   return (
-    <div className="flex flex-col p-4 text-white gap-5 mt-8 mb-5">
-      <h1 className="text-[28px] md:text-[35px] text-[#135B3A] font-bold underline">
-        GEORGE WOOD FOUNDATION
+    <div className="flex flex-col p-6 text-[#135B3A] gap-8 mt-8 mb-10">
+      {/* Page Title */}
+      <h1 className="text-[28px] md:text-[35px] font-bold underline text-center">
+        GEORGE WOOD CHARITY FOUNDATION
       </h1>
-      <div className="bg-[#135B3A] rounded-xl flex flex-col backdrop-blur-md pt-2 pb-5 w-full md:w-[95%] items-center">
-        <section className="flex flex-col md:flex-row gap-5 md:gap-10 w-full md:w-[90%] items-center">
-          <img src={Mascot} className="w-[80%] md:w-auto" alt="Mascot" />
 
-          <article className="text-center flex flex-col gap-4 md:gap-7">
-            <h1 className="text-[#F9E5BA] text-[20px] md:text-[24.8px] font-bold">
-              Celebrating Life and Legacy
-            </h1>
-            <p className="text-left text-white text-sm md:text-base p-2 md:p-4">
-              Discover the George Wood Foundation: a beacon of hope dedicated to
-              empowering the youth and inspiring a new generation of leaders.
-              George Wood Foundation is a non-profit organization that supports
-              the local community through philanthropy and volunteerism. The
-              Foundation is dedicated to advancing George Wood's mission of
-              education, research, and service. Join us in nurturing the
-              potential of young minds to create a brighter, more innovative
-              future.
-            </p>
-            <Link to="giving">
-              <button
-                className="bg-white text-[#135B3A] font-semibold w-[300px] md:w-[300px] h-[56px] md:h-[64px] rounded-[5px] px-4 py-3"
-                style={{ minHeight: "56px", minWidth: "44px" }}
-              >
-                Go to page
-              </button>
-            </Link>
-          </article>
-        </section>
+      {/* Main Content */}
+      <div className="bg-[#135B3A] rounded-xl flex flex-col md:flex-row items-center gap-8 md:gap-12 p-6 md:p-10 w-[98%] md:w-[98%] mx-auto">
+        {/* Image Section */}
+        <div className="w-full md:w-1/2 flex justify-center">
+          <img
+            src={Mascot}
+            className="w-[80%] max-w-[300px] md:max-w-none md:w-auto"
+            alt="Mascot"
+          />
+        </div>
+
+        {/* Text Content */}
+        <div className="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-left gap-6">
+          <h2 className="text-[#F9E5BA] text-[20px] md:text-[25px] font-bold">
+            Celebrating Life and Legacy
+          </h2>
+          <p className="text-white text-sm md:text-base leading-relaxed">
+            Discover the George Wood Charity Foundation: a beacon of hope dedicated to
+            empowering the youth and inspiring a new generation of leaders.
+            George Wood Charity Foundation is a non-profit organization that supports
+            the local community through philanthropy and volunteerism. The
+            Foundation is dedicated to advancing George Wood's mission of
+            education, research, and service. Join us in nurturing the
+            potential of young minds to create a brighter, more innovative
+            future.
+          </p>
+          <Link to="giving">
+            <button
+              className="bg-white text-[#135B3A] font-semibold px-6 py-3 rounded-md shadow-lg hover:shadow-xl transition duration-300"
+              style={{ minHeight: "56px", minWidth: "160px" }}
+            >
+              Go to Page
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   );

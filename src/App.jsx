@@ -8,7 +8,7 @@ import TestimonialComp from './Components/TestimonialComp';
 
 function App() {
   return (
-    <div className="bg-custom-gradient min-h-screen flex flex-col font-montserrat">
+    <div className="bg-white min-h-screen flex flex-col font-montserrat">
       <Header />
       <main className="flex-grow">
         <HeroPage />

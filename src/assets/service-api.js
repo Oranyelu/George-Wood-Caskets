@@ -5,39 +5,25 @@ import loweringDevice from './serivices svgs/loweringDevice.svg';
 const Services={
     servicesData: [
         {
-          id: 1,
-          name: "Ambulance Service",
-          description: "24/7 emergency and non-emergency medical transportation.",
+          id: "Ambulance and Pall Bearing Service",
+          name: "Ambulance and Pall Bearing Service",
+          description: "Our Luxury SUV Ambulance for an Honorable Departure.",
           price: 50000,
-          thumbnail: "/path-to-image/ambulance.jpg",
+          thumbnail: [Mercedes],
         },
         {
-          id: 2,
-          name: "Pall Bearing Service",
-          description: "Professional pallbearer services to ensure a dignified final journey.",
-          price: 20000,
-          thumbnail: "/path-to-image/pall-bearing.jpg",
-        },
-        {
-          id: 3,
+          id: "Lowering Device",
           name: "Lowering Device",
           description: "Smooth and respectful lowering device rental for graveside services.",
           price: 15000,
-          thumbnail: "/path-to-image/lowering-device.jpg",
+          thumbnail: [loweringDevice],
         },
         {
-          id: 4,
+          id: "Graphics Design and Printing Services",
           name: "Graphics Design and Printing Services",
           description: "Customized design and printing for obituaries, funeral programs, and more.",
           price: 10000,
           thumbnail: "/path-to-image/graphics-design.jpg",
-        },
-        {
-          id: 5,
-          name: "Funeral Planning",
-          description: "Comprehensive funeral planning services to help organize the ceremony.",
-          price: 30000,
-          thumbnail: "/path-to-image/funeral-planning.jpg",
         }
     
        ]

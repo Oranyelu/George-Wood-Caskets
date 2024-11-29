@@ -62,7 +62,7 @@ const OrderTrackingPage = () => {
   };
 
   return (
-    <div className="bg-custom-gradient min-h-screen flex flex-col font-montserrat">
+    <div className="bg-white min-h-screen flex flex-col font-montserrat">
       <Header />
       <section className="mt-[180px] min-h-[50vh] flex flex-col justify-center items-center">
         <h1 className="text-3xl font-bold mb-4">Order Tracking</h1>

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ProductContext } from "../ProductProvider";
 import Products from "../assets/product-api"; // Importing the product data
 import Services from "../assets/service-api"; // Importing the service data
+import AmbulanceBanner from "../assets/svgs/Ambulace banner.svg";
 
 function Home() {
   const { addToCart } = useContext(ProductContext);
@@ -41,21 +42,33 @@ function Home() {
           </div>
         </div>
       )}
+
+      <section className="pt-10 flex justify-center">
+        <img
+          src={AmbulanceBanner}
+          alt="Luxrry SUV Ambulance Serivices"
+          className=" w-[98vw]"
+        />{" "}
+      </section>
+
       <section className="products-section pt-[40px] p-4">
         <header className="flex flex-col text-center">
-          <h2 className="text-[24.8px] text-white font-bold">
+          <h2 className="text-[24.8px] text-[#135B3A] font-bold">
             Featured Products
           </h2>
-          <p className="text-[15px] text-gray-50 pb-7">
+          <p className="text-[15px] text-[#8b6824] pb-7">
             Make your choice based on popular demand...
           </p>
         </header>
         <div>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <ul
+            className="flex gap-4 overflow-x-auto snap-x snap-mandatory"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          >
             {featuredProducts.map((product) => (
               <li
                 key={product.id}
-                className="bg-white bg-opacity-100 backdrop-filter backdrop-blur-md border border-white border-opacity-20 p-4 rounded-lg shadow-lg"
+                className="flex-shrink-0 w-[400px] bg-white bg-opacity-100 backdrop-filter backdrop-blur-md border border-white border-opacity-20 p-4 rounded-lg shadow-lg snap-center"
               >
                 <Link to={`/product/${product.id}`}>
                   <img
@@ -86,6 +99,7 @@ function Home() {
             ))}
           </ul>
         </div>
+
         <div className="text-center mt-6">
           <Link to="/products">
             <button className="bg-[#135B3A] text-white px-6 py-3 rounded hover:bg-[#8b6824] active:bg-[#70541c] transition-colors">
@@ -94,6 +108,7 @@ function Home() {
           </Link>
         </div>
       </section>
+
       <section className="achievements-section pt-[40px] p-4">
         <header className="flex flex-col text-center">
           <h2 className="text-[24.8px] text-[#135B3A] font-bold">
@@ -108,7 +123,7 @@ function Home() {
             {randomServices.map((service) => (
               <li
                 key={service.id}
-                className="bg-white bg-opacity-20 backdrop-filter backdrop-blur-md border border-white border-opacity-20 p-6 rounded-lg shadow-lg flex flex-col items-center justify-center h-[200px]"
+                className="bg-[#f0c068] bg-opacity-100 backdrop-filter backdrop-blur-md border border-white border-opacity-20 p-6 rounded-lg shadow-lg flex flex-col items-center justify-center h-[200px]"
               >
                 <h2 className="text-lg font-semibold text-[#135B3A] mb-2">
                   {service.name}

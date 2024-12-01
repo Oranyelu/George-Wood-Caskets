@@ -27,21 +27,21 @@ function TestimonialComp() {
         {/* Header Section */}
         <section className="flex justify-between  md:flex-row flex-col">
           <div>
-            <h1 className="font-bold text-[25px]">
+            <h1 className="font-bold text-[25px] text-[#135B3A]">
               Why Choose George Wood Casket?
             </h1>
-            <h2 className="text-gray-300">
+            <h2 className="text-[#135B3A]">
               Read what our customers have to say...
             </h2>
           </div>
 
           <div className="flex gap-5">
-            <div className="text-center">
+            <div className="text-center text-[#135B3A]">
               <h2 className="text-[25px] font-bold">482</h2>
               <p>Clients</p>
             </div>
 
-            <div className="text-center">
+            <div className="text-center text-[#135B3A]">
               <h2 className="text-[25px] font-bold">726</h2>
               <p>Projects</p>
             </div>

@@ -32,7 +32,7 @@ function Header() {
 
       <section className="flex justify-between items-center bg-[#135B3A] h-16 p-4">
         <Link to="/" className="flex items-center">
-          <img src={Logo} alt="Logo" className="ml-3 pt-[70px]" />
+          <img src={Logo} alt="Logo" className="ml-3 pt-[70px] scale-75" />
         </Link>
 
         <div className="hidden md:block md:flex-1 md:text-center md:text-white md:font-bold">

@@ -10,7 +10,7 @@ function App() {
   return (
     <div className="bg-white min-h-screen flex flex-col font-montserrat">
       <Header />
-      <main className="flex-grow">
+      <main>
         <HeroPage />
         <Home />
         <TestimonialComp />

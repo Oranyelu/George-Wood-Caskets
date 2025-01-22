@@ -1,14 +1,17 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { Carousel } from 'react-responsive-carousel';
-import 'react-responsive-carousel/lib/styles/carousel.min.css'; // Import carousel styles
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // Import carousel styles
 import Products from "../assets/product-api"; // Importing the product data
 import Services from "../assets/service-api"; // Importing the service data
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import { ProductContext } from "../ProductProvider";
-import { FaPlus } from 'react-icons/fa'; // Importing plus icon
+import { FaPlus, FaHeart, FaShareAlt } from "react-icons/fa"; // Importing plus icon
+
+
+
 
 const ProductDetail = () => {
   const { productId } = useParams(); // Get the productId from URL parameters
@@ -27,7 +30,7 @@ const ProductDetail = () => {
     setProduct(foundProduct);
   }, [productId, productsData]);
 
-  if (!product) return <p>Loading...</p>;
+  if (!product) return <p>Product Not Found</p>;
 
   const handleImageClick = () => {
     setIsFullScreen(true);
@@ -51,11 +54,10 @@ const ProductDetail = () => {
         <Header />
       </section>
       <div className="h-[80px]"></div>
-      
+
       <section className="mt-16 p-4 flex flex-col items-center">
         {/* Card-styled component */}
         <div className="bg-white shadow-md rounded-lg p-6 max-w-5xl w-full lg:flex lg:space-x-6">
-          
           {/* Product Carousel Section */}
           <div className="lg:w-1/2">
             <Carousel
@@ -67,7 +69,11 @@ const ProductDetail = () => {
               interval={5000}
             >
               {product.thumbnail.map((image, index) => (
-                <div key={index} onClick={handleImageClick} className="cursor-pointer">
+                <div
+                  key={index}
+                  onClick={handleImageClick}
+                  className="cursor-pointer"
+                >
                   <img
                     src={image}
                     alt={`Product image ${index + 1}`}
@@ -83,17 +89,43 @@ const ProductDetail = () => {
             <h1 className="text-4xl font-bold mb-4">{product.name}</h1>
             <p className="text-lg mb-4">{product.description}</p>
             <p className="text-xl font-semibold mb-2">Color: {product.color}</p>
-            <p className="text-2xl font-bold mb-4">Price: {product.price.toLocaleString()} NGN</p>
-            <button
-              className="bg-[#A37E2C] text-white px-4 py-2 rounded hover:bg-[#8b6824] active:bg-[#70541c] transition-colors flex items-center"
-              onClick={() => handleAddToCart(product)}
-            >
-              <FaPlus className="mr-2" /> Add to Cart
-            </button>
+            <p className="text-xl mb-2">Brand: {product.brand}</p>
+            <p className="text-xl mb-2">Product ID: {product.id}</p>
+            <p className="text-lg mb-2">Label: {product.label}</p>
+            <p className="text-lg mb-2">Rating: ⭐{product.rating} / 5</p>
+            <p className="text-lg mb-4">
+              Estimated Delivery: {product.estimatedDelivery}
+            </p>
+            <p className="text-2xl font-bold mb-4">
+              Price: {product.price.toLocaleString()} NGN
+            </p>
+            <div className="flex gap-4 mb-4">
+              <button
+                className="bg-[#A37E2C] text-white px-4 py-2 rounded hover:bg-[#8b6824] active:bg-[#70541c] transition-colors flex items-center"
+                onClick={() => handleAddToCart(product)}
+              >
+                <FaPlus className="mr-2" /> Add to Cart
+              </button>
+              <button
+                className="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-600 active:bg-gray-500 transition-colors flex items-center"
+                onClick={() => handleAddToFavourites(product)}
+              >
+                <FaHeart className="mr-2" /> Add to Favourites
+              </button>
+              <button
+                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-400 active:bg-blue-300 transition-colors flex items-center"
+                onClick={() => {
+                  navigator.clipboard.writeText(window.location.href);
+                  alert("Product link copied to clipboard!");
+                }}
+              >
+                <FaShareAlt className="mr-2" /> Share
+              </button>
+            </div>
           </div>
         </div>
       </section>
-      
+
       <section className="mt-8 p-4">
         <h1 className="text-2xl font-bold mb-4">You May Also Like</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -109,7 +141,7 @@ const ProductDetail = () => {
               <h2 className="text-lg font-semibold">{item.name}</h2>
               <p>{item.description}</p>
               <p>Price: {item.price.toLocaleString()} NGN</p>
-              <div className="w-full flex justify-end"> 
+              <div className="w-full flex justify-end">
                 <button
                   className="bg-[#A37E2C] text-white px-4 py-2 mt-2 rounded hover:bg-[#8b6824] active:bg-[#70541c] transition-colors flex items-center"
                   onClick={() => handleAddToCart(item)}
@@ -124,10 +156,15 @@ const ProductDetail = () => {
 
       {/* Services Section */}
       <section className="mt-8 p-4">
-        <h1 className="text-2xl font-bold mb-6 text-center">Services You May Like</h1>
+        <h1 className="text-2xl font-bold mb-6 text-center">
+          Services You May Like
+        </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 justify-items-center">
           {servicesData.slice(0, 5).map((service) => (
-            <div key={service.id} className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full text-center transform hover:scale-105 transition-transform duration-300 ease-in-out">
+            <div
+              key={service.id}
+              className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full text-center transform hover:scale-105 transition-transform duration-300 ease-in-out"
+            >
               <h2 className="text-xl font-semibold mb-4">{service.name}</h2>
               <p className="text-gray-700">{service.description}</p>
             </div>
@@ -158,10 +195,10 @@ const ProductDetail = () => {
 
       {/* Pop-up notification */}
       {showPopup && (
-         <div className="fixed inset-0 flex items-center justify-center z-50">
-        <div className="fixed bg-green-500 text-white px-6 py-3 rounded shadow-lg z-50 transition-opacity">
-          Added to cart!
-        </div>
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="fixed bg-green-500 text-white px-6 py-3 rounded shadow-lg z-50 transition-opacity">
+            Added to cart!
+          </div>
         </div>
       )}
     </div>

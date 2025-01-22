@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { ProductContext } from "../ProductProvider";
 import Products from "../assets/product-api"; // Importing the product data
 import Services from "../assets/service-api"; // Importing the service data
-import AmbulanceBanner from "../assets/svgs/Ambulace banner.svg";
+// import AmbulanceBanner from "../assets/svgs/Ambulace banner.svg";
 
 function Home() {
   const { addToCart } = useContext(ProductContext);
@@ -43,13 +43,13 @@ function Home() {
         </div>
       )}
 
-      <section className="pt-10 flex justify-center">
+      {/* <section className="pt-10 flex justify-center">
         <img
           src={AmbulanceBanner}
           alt="Luxrry SUV Ambulance Serivices"
           className=" w-[98vw]"
         />{" "}
-      </section>
+      </section> */}
 
       <section className="products-section pt-[40px] p-4">
         <header className="flex flex-col text-center">
@@ -81,12 +81,11 @@ function Home() {
                   {product.name}
                 </h1>
                 <p className="text-[#135B3A] text-lg font-semibold mt-2">
-                  {product.label}
+                  {product.label||
+                    "Economy"}
                 </p>
                 <p>Color: {product.color}</p>
-                <p className="text-gray-900 font-bold">
-                  {product.price.toLocaleString()} NGN
-                </p>
+               
                 <div className="w-full flex justify-end">
                   <button
                     className="bg-[#135B3A] text-white px-4 py-2 rounded mt-2 hover:bg-[#8b6824] active:bg-[#70541c] transition-colors"

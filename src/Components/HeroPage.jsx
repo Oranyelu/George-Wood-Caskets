@@ -1,11 +1,14 @@
 import React from "react";
-import HeroPageImg from "../assets/svgs/Hero-png.png";
+import HeroPageImg from "../assets/svgs/Storefront.svg";
 
 function HeroPage() {
   return (
-    <div className="">
+    <div
+      className="bg-cover bg-center mt-[100px]"
+      style={{ backgroundImage: `url(${HeroPageImg})` }}
+    >
       {/* Desktop view */}
-      <div className="hidden md:block bg-white w-full h-[500px]">
+      <div className="hidden md:block  w-full h-[500px]">
         <div className="w-full h-full flex justify-center items-center">
           <div className="flex items-center w-[90%] h-[90%]">
             <main className="flex flex-col justify-end w-[50%] h-full">

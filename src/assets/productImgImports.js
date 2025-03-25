@@ -22,6 +22,12 @@ import HartwickBrown from './productSvgs/HartWickBrown.svg';
 import BelmontBrown from './productSvgs/BelmontBrown.svg';
 import BarnettBrown from './productSvgs/BarnettBrown.svg';
 import TheBibleBrown from './productSvgs/TheBibleBrown.svg';
+import President from './productSvgs/President.svg';
+import Legacy from './productSvgs/Legacy.svg';
+import Victoria from './productSvgs/Victoria.svg';
+import Sovereign from './productSvgs/Sovereign.svg';
+import Windsor from './productSvgs/Windsor.svg';
+import Berkshire from './productSvgs/Berkshire.svg';
 
 // Exporting them as a named export
 const productImages = {
@@ -46,7 +52,13 @@ const productImages = {
   HartwickBrown,
   BelmontBrown,
   BarnettBrown,
-  TheBibleBrown
+  TheBibleBrown,
+  President,
+  Legacy,
+  Victoria,
+  Sovereign,
+  Windsor,
+  Berkshire
 };
 
 export default productImages;

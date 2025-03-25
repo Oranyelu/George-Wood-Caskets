@@ -5,6 +5,7 @@ import HeroPage from './Components/HeroPage';
 import Home from './Components/Home';
 import GWFoundation from './Components/GWFoundation';
 import TestimonialComp from './Components/TestimonialComp';
+import Updates from './Components/Updates';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <main>
         <HeroPage />
         <Home />
+        <Updates />
         <TestimonialComp />
         <GWFoundation />
       </main>

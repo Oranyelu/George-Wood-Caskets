@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Mascot from "../assets/svgs/GW-svg.svg";
+
 
 function GWFoundation() {
   return (
@@ -12,14 +12,7 @@ function GWFoundation() {
 
       {/* Main Content */}
       <div className="bg-[#135B3A] rounded-xl flex flex-col md:flex-row items-center gap-8 md:gap-12 p-6 md:p-10 w-[98%] md:w-[98%] mx-auto">
-        {/* Image Section */}
-        {/* <div className="w-full md:w-1/2 flex justify-center">
-          <img
-            src={Mascot}
-            className="w-[80%] max-w-[300px] md:max-w-none md:w-auto"
-            alt="Mascot"
-          />
-        </div> */}
+       
 
         {/* Text Content */}
         <div className="w-full flex flex-col items-center md:items-start text-center md:text-left gap-6">

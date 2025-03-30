@@ -30,7 +30,7 @@ function Header() {
         </section>
       </div>
 
-      <section className="flex justify-between items-center bg-[#135B3A] h-16 p-4">
+      <section className="flex justify-between items-center bg-[#135B3A] h-16 p-4 leaflet">
         <Link to="/" className="flex items-center">
           <img src={Logo} alt="Logo" className="ml-3 pt-[70px] scale-75" />
         </Link>

@@ -75,3 +75,7 @@
 .slick-dots li button {
   background: #ccc; /* Dot color */
 }
+
+.leaflet{
+  border-bottom: 5px #A37E2C solid;
+}

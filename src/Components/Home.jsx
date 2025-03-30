@@ -60,42 +60,99 @@ function Home() {
             Make your choice based on popular demand...
           </p>
         </header>
-        <div>
+
+        {["Xclusive", "Classic"].map((category) => {
+          const filteredProducts = featuredProducts.filter(
+            (product) => product.label === category
+          );
+
+          return (
+            <div key={category} className="mb-8">
+              <h3 className="text-[20px] font-bold text-[#011309] mb-4">
+                {category} Collection
+              </h3>
+              <ul
+                className="flex gap-4 overflow-x-auto snap-x snap-mandatory"
+                style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+              >
+                {filteredProducts.map((product) => (
+                  <li
+                    key={product.id}
+                    className="flex-shrink-0 w-[400px] bg-white bg-opacity-100 backdrop-filter backdrop-blur-md border border-white border-opacity-20 p-4 rounded-lg shadow-lg snap-center"
+                  >
+                    <Link to={`/product/${product.id}`}>
+                      <img
+                        src={product.thumbnail}
+                        alt={product.name}
+                        className="w-full h-[300px] object-cover rounded-md"
+                      />
+                    </Link>
+                    <h1 className="text-lg font-semibold mt-2 text-[#011309]">
+                      {product.name}
+                    </h1>
+                    <p className="text-[#135B3A] text-lg font-semibold mt-2">
+                      {product.label || "Economy"}
+                    </p>
+                    <p>Color: {product.color}</p>
+
+                    <div className="w-full flex justify-end">
+                      <button
+                        className="bg-[#135B3A] text-white px-4 py-2 rounded mt-2 hover:bg-[#8b6824] active:bg-[#70541c] transition-colors"
+                        onClick={() => handleAddToCart(product)}
+                      >
+                        Order Now
+                      </button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          );
+        })}
+
+        {/* Economy products */}
+        <div className="mb-8">
+          <h3 className="text-[20px] font-bold text-[#011309] mb-4">
+            Economy Collection
+          </h3>
           <ul
             className="flex gap-4 overflow-x-auto snap-x snap-mandatory"
             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           >
-            {featuredProducts.map((product) => (
-              <li
-                key={product.id}
-                className="flex-shrink-0 w-[400px] bg-white bg-opacity-100 backdrop-filter backdrop-blur-md border border-white border-opacity-20 p-4 rounded-lg shadow-lg snap-center"
-              >
-                <Link to={`/product/${product.id}`}>
-                  <img
-                    src={product.thumbnail}
-                    alt={product.name}
-                    className="w-full h-[300px] object-cover rounded-md"
-                  />
-                </Link>
-                <h1 className="text-lg font-semibold mt-2 text-[#011309]">
-                  {product.name}
-                </h1>
-                <p className="text-[#135B3A] text-lg font-semibold mt-2">
-                  {product.label||
-                    "Economy"}
-                </p>
-                <p>Color: {product.color}</p>
-               
-                <div className="w-full flex justify-end">
-                  <button
-                    className="bg-[#135B3A] text-white px-4 py-2 rounded mt-2 hover:bg-[#8b6824] active:bg-[#70541c] transition-colors"
-                    onClick={() => handleAddToCart(product)}
-                  >
-                    Order Now
-                  </button>
-                </div>
-              </li>
-            ))}
+            {featuredProducts
+              .filter(
+                (product) => !["Xclusive", "Classic"].includes(product.label)
+              )
+              .map((product) => (
+                <li
+                  key={product.id}
+                  className="flex-shrink-0 w-[400px] bg-white bg-opacity-100 backdrop-filter backdrop-blur-md border border-white border-opacity-20 p-4 rounded-lg shadow-lg snap-center"
+                >
+                  <Link to={`/product/${product.id}`}>
+                    <img
+                      src={product.thumbnail}
+                      alt={product.name}
+                      className="w-full h-[300px] object-cover rounded-md"
+                    />
+                  </Link>
+                  <h1 className="text-lg font-semibold mt-2 text-[#011309]">
+                    {product.name}
+                  </h1>
+                  <p className="text-[#135B3A] text-lg font-semibold mt-2">
+                    Economy
+                  </p>
+                  <p>Color: {product.color}</p>
+
+                  <div className="w-full flex justify-end">
+                    <button
+                      className="bg-[#135B3A] text-white px-4 py-2 rounded mt-2 hover:bg-[#8b6824] active:bg-[#70541c] transition-colors"
+                      onClick={() => handleAddToCart(product)}
+                    >
+                      Order Now
+                    </button>
+                  </div>
+                </li>
+              ))}
           </ul>
         </div>
 

@@ -4,16 +4,28 @@ export default {
   theme: {
     extend: {
       screens: {
-        sm: "900px", // Custom breakpoint (ensure this fits your design needs)
-        md: "1200px", // Custom breakpoint
-        lg: "1500px", // Custom breakpoint
-        xl: "1700px", // Custom breakpoint
+        sm: "640px",
+        md: "768px",
+        lg: "1024px",
+        xl: "1280px",
+        "2xl": "1536px",
       },
+
       backgroundImage: {
         "custom-gradient": "linear-gradient(to bottom, white, white)",
       },
       fontFamily: {
         montserrat: ["Montserrat", "sans-serif"],
+      },
+      animation: {
+        reflection: "reflection 2.5s infinite linear",
+      },
+      keyframes: {
+        reflection: {
+          "0%": { transform: "translateX(-100%)", opacity: 0.3 },
+          "50%": { opacity: 0.6 },
+          "100%": { transform: "translateX(100%)", opacity: 0.3 },
+        },
       },
     },
   },

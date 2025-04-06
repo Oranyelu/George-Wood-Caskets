@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
+import { Link } from "react-router-dom";
 
 const AboutUs = () => {
   return (
@@ -36,7 +37,7 @@ const AboutUs = () => {
             reflect dignity, respect, and the unique essence of each individual.
             Our team of skilled artisans employs traditional craftsmanship
             combined with modern techniques to create caskets that are not only
-            durable but also aesthetically pleasing.
+            reliable but also aesthetically pleasing.
           </p>
           <h3 className="text-2xl font-semibold text-[#A37E2C] mb-2">
             Our Services
@@ -117,7 +118,14 @@ const AboutUs = () => {
           <p className="text-lg mb-5">
             For more information about our products and services or to learn
             more about our foundation’s initiatives, please reach out to us
-            through our contact page.
+            through our{" "}
+            <Link
+              to="/contacts"
+              className="text-[#A37E2C] underline hover:text-[#57492b]"
+            >
+              contact page
+            </Link>
+            .
           </p>
           <p className="text-lg">
             Thank you for choosing George Wood Casket. We are honored to serve

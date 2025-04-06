@@ -21,7 +21,7 @@ function HeroPage() {
       ></div>
 
       {/* Centered Content */}
-      <div className="relative z-20 flex items-center justify-center h-full px-4 animate-fadeInScale transform hover:scale-105 transition-transform duration-300 ease-in-out">
+      <div className="relative z-20 flex items-center justify-center  px-4 animate-fadeInScale transform hover:scale-105 transition-transform duration-300 ease-in-out h-[80%]">
         <article className="backdrop-blur p-6 md:p-10 rounded-3xl max-w-2xl text-center">
           <h1 className="text-[50px] text-white font-bold">41 Years</h1>
           <h2 className="text-[#f0c068] text-[20px] pt-1">
@@ -35,6 +35,9 @@ function HeroPage() {
           </p>
         </article>
       </div>
+
+
+      <div className="h-[20%] fade-div2" ></div>
     </div>
   );
 }

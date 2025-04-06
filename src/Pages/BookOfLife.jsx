@@ -32,7 +32,7 @@ function BookOfLife() {
       <main className="max-w-6xl mx-auto py-12 mt-[70px]">
         {/* Icons Section */}
         <section className="mb-12">
-          <h2 className="text-3xl font-bold mb-6">Icons</h2>
+          <h2 className="text-3xl font-bold mb-6">Legends</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {iconsData.map((person) => (
               <div
@@ -50,7 +50,7 @@ function BookOfLife() {
 
         {/* Regular Caskets Section */}
         <section>
-          <h2 className="text-3xl font-bold mb-6">Remembered Souls</h2>
+          <h2 className="text-3xl font-bold mb-6">Icons</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {regularCasketsData.map((person) => (
               <div

@@ -167,19 +167,17 @@ function Home() {
 
       <section className="achievements-section pt-[40px] p-4">
         <header className="flex flex-col text-center">
-          <h2 className="text-[24.8px] text-[#135B3A] font-bold">
+          <h2 className="text-[24.8px] text-[#135B3A] font-bold pb-9">
             Featured Services
           </h2>
-          <p className="text-[15px] text-white pb-7">
-            Explore our range of services
-          </p>
+         
         </header>
         <div>
           <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {randomServices.map((service) => (
               <li
                 key={service.id}
-                className="bg-[#f0c068] bg-opacity-100 backdrop-filter backdrop-blur-md border border-white border-opacity-20 p-6 rounded-lg shadow-lg flex flex-col items-center justify-center h-[200px]"
+                className="bg-[#f0c068] bg-opacity-100 backdrop-filter backdrop-blur-md border border-white border-opacity-20 p-6 rounded-lg shadow-lg flex flex-col items-center justify-center h-[200px] transform hover:scale-105 transition-transform duration-300 ease-in-out"
               >
                 <h2 className="text-lg font-semibold text-[#135B3A] mb-2">
                   {service.name}

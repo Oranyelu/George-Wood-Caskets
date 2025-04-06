@@ -35,7 +35,7 @@ const Cart = () => {
     <div className="bg-custom-gradient min-h-screen flex flex-col font-montserrat">
       <Header />
       <section className="mt-[100px]">
-        <nav className="h-[50px] flex items-center text-white pl-5 md:pl-40 gap-5 mt-10">
+        <nav className="h-[50px] flex items-center text-[#135B3A] pl-5 md:pl-40 gap-5 mt-10">
           <Link to="/">Home</Link>
           <Arrow />
           <Link to="/products">Products</Link>
@@ -151,8 +151,9 @@ const Cart = () => {
           </ul>
         </div>
       </section>
-      <section>
-        <Link to="/">Back to Products</Link>
+      <section className="p-10 text-bold flex items-center gap-5 text-[#135B3A]">
+        <Link to="/" >Back to Products </Link>
+        <Arrow />
       </section>
       <section>
         <Footer />

@@ -1,13 +1,6 @@
 // assets/Testimonials-api.js
 const TestimonialsData = [
     {
-      id: 1,
-      name: "John Doe",
-      rating: 5,
-      review:
-        "We absolutely adore our George Wood Caskets. They are stunning, meticulously crafted, and just as functional as they are beautiful. Our customers have been loving them for years!",
-    },
-    {
       id: 2,
       name: "Charles Eze",
       rating: 5,

@@ -11,7 +11,7 @@ function Header() {
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50 text-[1rem]">
-      <div className="hidden md:block">
+      <div className="hidden lg:block">
         <section className="bg-[#A37E2C] flex justify-between p-2 text-white text-sm">
           <p>08143904414</p>
           <p>georgewoodcasket@gmail.com</p>
@@ -35,12 +35,12 @@ function Header() {
           <img src={Logo} alt="Logo" className="ml-3 pt-[70px] scale-75" />
         </Link>
 
-        <div className="hidden md:block md:flex-1 md:text-center md:text-white md:font-bold">
-          <h1>George Wood Casket and Furniture</h1>
+        <div className=" hidden sm:block sm:flex-1 sm:text-center sm:text-white sm:font-bold">
+          <h1>George Wood Casket</h1>
         </div>
 
         <div className="flex items-center">
-          <div className="hidden sm:flex">
+          <div className="hidden lg:flex">
             <span className="w-[60vw] flex justify-evenly text-white font-semibold">
               <Link to="/">HOME</Link>
               <Link to="/products">PRODUCTS</Link>
@@ -63,7 +63,7 @@ function Header() {
             </Link>
           </div>
 
-          <div className="ml-2 block sm:hidden pr-4">
+          <div className="ml-2 block lg:hidden pr-4">
             <HamburgerMenu />
           </div>
         </div>

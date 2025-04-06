@@ -23,9 +23,23 @@ function Home() {
 
   // Select 5 random products
   useEffect(() => {
-    const featuredProducts = productsData.sort(() => 0.5 - Math.random());
-    setRandomProducts(featuredProducts.slice(0, 8));
+    const getRandomItems = (arr, count) =>
+      [...arr].sort(() => 0.5 - Math.random()).slice(0, count);
+  
+    const xclusiveProducts = getRandomItems(
+      productsData.filter((p) => p.label === "Xclusive"),
+      8
+    );
+  
+    const classicProducts = getRandomItems(
+      productsData.filter((p) => p.label === "Classic"),
+      8
+    );
+  
+    // Combine both collections into one array
+    setRandomProducts([...xclusiveProducts, ...classicProducts]);
   }, [productsData]);
+  
 
   // Select 5 random services
   useEffect(() => {

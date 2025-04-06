@@ -78,26 +78,24 @@ function Home() {
         {filteredProducts.map((product) => (
           <li
             key={product.id}
-            className="flex-shrink-0 w-[400px] bg-white bg-opacity-100 backdrop-filter backdrop-blur-md border border-white border-opacity-20 p-4 rounded-lg shadow-lg snap-center"
+            className="flex-shrink-0 w-[250px] bg-white bg-opacity-100 backdrop-filter backdrop-blur-md border border-white border-opacity-20 p-4 rounded-lg shadow-lg snap-center"
           >
             <Link to={`/product/${product.id}`}>
               <img
                 src={product.thumbnail}
                 alt={product.name}
-                className="w-full h-[300px] object-cover rounded-md"
+                className="w-full h-[166.66px] object-cover rounded-md"
               />
             </Link>
             <h1 className="text-lg font-semibold mt-2 text-[#011309]">
               {product.name}
             </h1>
-            <p className="text-[#135B3A] text-lg font-semibold mt-2">
-              {product.label}
-            </p>
+            <p>Price: {product.price.toLocaleString()} NGN </p>
             <p>Color: {product.color}</p>
 
             <div className="w-full flex justify-end">
               <button
-                className="bg-[#135B3A] text-white px-4 py-2 rounded mt-2 hover:bg-[#8b6824] active:bg-[#70541c] transition-colors"
+                className="bg-[#135B3A] text-white px-2 py-1 rounded mt-2 hover:bg-[#8b6824] active:bg-[#70541c] transition-colors"
                 onClick={() => handleAddToCart(product)}
               >
                 Order Now

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import GeorgeWoodLogo from "../assets/svgs/George-wood.svg";
+import GeorgeWoodLogo from "../assets/svgs/Official name Logo.png";
 
 function Footer() {
   const [email, setEmail] = useState("");
@@ -38,19 +38,19 @@ function Footer() {
 
   return (
     <div className="bg-transparent">
-      <main className="p-6 bg-[#135B3A] flex flex-col md:flex-row justify-evenly md:items-center">
-        <img src={GeorgeWoodLogo} alt="George Wood Logo" className="w-60" />
-        <div className="flex flex-col text-white text-sm">
+      <main className="p-6  flex flex-col lg:flex-row justify-evenly lg:items-center">
+        <img src={GeorgeWoodLogo} alt="George Wood Logo" className="lg:w-[60vw]" />
+        <div className="flex flex-col text-[#135B3A] text-sm">
           <h1 className="font-bold">Est. Since 1984</h1>
           <p>Celebrating Life and Legacy</p>
         </div>
       </main>
       <hr className="border-t-2 border-gray-300" />
-      <footer className="flex justify-evenly pt-5 flex-wrap p-6 bg-gray-100 text-gray-700">
-        <div className="flex flex-col md:flex-row md:justify-evenly text-left w-full">
+      <footer className="flex justify-evenly pt-5 flex-wrap p-6 bg-[#135B3A] text-white">
+        <div className="flex flex-col sm:flex-row sm:justify-evenly text-left w-full">
           {/* Company Info Section */}
           <nav className="flex flex-col mb-6 md:mb-4">
-            <h2 className="font-bold text-lg mb-2 text-[#135B3A]">
+            <h2 className="font-bold text-lg mb-2 text-[#f0c068]">
               Company Info
             </h2>
             <Link to="/about-us" className="hover:text-[#A37E2C]">
@@ -69,7 +69,7 @@ function Footer() {
 
           {/* Legal Section */}
           <nav className="flex flex-col mb-6 md:mb-4">
-            <h2 className="font-bold text-lg mb-2 text-[#135B3A]">Legal</h2>
+            <h2 className="font-bold text-lg mb-2 text-[#f0c068]">Legal</h2>
             <Link to="/terms" className="hover:text-[#A37E2C]">
               Terms of Service
             </Link>
@@ -86,7 +86,7 @@ function Footer() {
 
           {/* Support Section */}
           <nav className="flex flex-col mb-6 md:mb-4">
-            <h2 className="font-bold text-lg mb-2 text-[#135B3A]">Support</h2>
+            <h2 className="font-bold text-lg mb-2 text-[#f0c068]">Support</h2>
             <Link to="/help" className="hover:text-[#A37E2C]">
               Help Center
             </Link>
@@ -103,7 +103,7 @@ function Footer() {
 
           {/* Features Section */}
           <nav className="flex flex-col mb-6 md:mb-4">
-            <h2 className="font-bold text-lg mb-2 text-[#135B3A]">Features</h2>
+            <h2 className="font-bold text-lg mb-2 text-[#f0c068]">Features</h2>
             <Link to="/staff" className="hover:text-[#A37E2C]">
               Meet our Team
             </Link>
@@ -119,8 +119,8 @@ function Footer() {
           </nav>
         </div>
       </footer>
-      <article className="flex flex-col md:flex-row text-center justify-around bg-[#135B3A] p-4 text-white">
-        <p>George Wood Casket and Furniture</p>
+      <article className="flex flex-col sm:flex-row text-center justify-around p-4 text-[#135B3A]">
+        <p>George Wood Casket</p>
         <p>© {new Date().getFullYear()} All Rights Reserved</p>
         <p>
           Made by
@@ -128,7 +128,7 @@ function Footer() {
             href="https://georgechiemeriechime.netlify.app/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white pl-1 hover:text-[#d4a041]"
+            className="text-[#135B3A] pl-1 hover:text-[#d4a041]"
           >
             George Chime
           </a>

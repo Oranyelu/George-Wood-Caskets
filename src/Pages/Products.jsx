@@ -143,7 +143,7 @@ const ProductDetail = () => {
               <p>Price: {item.price.toLocaleString()} NGN</p>
               <div className="w-full flex justify-end">
                 <button
-                  className="bg-[#A37E2C] text-white px-4 py-2 mt-2 rounded hover:bg-[#8b6824] active:bg-[#70541c] transition-colors flex items-center"
+                  className="bg-[#135B3A] text-white px-4 py-2 mt-2 rounded hover:bg-[#8b6824] active:bg-[#70541c] transition-colors flex items-center"
                   onClick={() => handleAddToCart(item)}
                 >
                   Order Now
@@ -156,17 +156,17 @@ const ProductDetail = () => {
 
       {/* Services Section */}
       <section className="mt-8 p-4">
-        <h1 className="text-2xl font-bold mb-6 text-center">
+        <h1 className="text-2xl text-[#135B3A] font-bold mb-6 text-center">
           Services You May Like
         </h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 justify-items-center">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {servicesData.slice(0, 5).map((service) => (
             <div
               key={service.id}
-              className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full text-center transform hover:scale-105 transition-transform duration-300 ease-in-out"
+              className="bg-[#f0c068] p-6 rounded-lg shadow-lg h-[200px] w-full flex flex-col items-center justify-center transform hover:scale-105 transition-transform duration-300 ease-in-out"
             >
-              <h2 className="text-xl font-semibold mb-4">{service.name}</h2>
-              <p className="text-gray-700">{service.description}</p>
+              <h2 className="text-xl text-[#135B3A] font-semibold mb-4">{service.name}</h2>
+              <p className="text-white">{service.description}</p>
             </div>
           ))}
         </div>

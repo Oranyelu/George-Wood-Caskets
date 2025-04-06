@@ -16,7 +16,7 @@ function GWFoundation() {
 
         {/* Text Content */}
         <div className="w-full flex flex-col items-center md:items-start text-center md:text-left gap-6">
-          <h2 className="text-[#F9E5BA] text-[20px] md:text-[25px] font-bold">
+          <h2 className="text-[#f0c068] text-[20px] md:text-[25px] font-bold">
             Celebrating Life and Legacy
           </h2>
           <p className="text-white text-sm md:text-base leading-relaxed">

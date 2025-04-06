@@ -11,7 +11,12 @@ function HeroPage() {
       <div className="absolute inset-0 backdrop-blur-[4px] bg-white/10 z-0"></div>
 
       {/* Reflection Effect */}
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent w-full h-full rotate-12 animate-reflection z-10 pointer-events-none"></div>
+      <div className="absolute top-0 left-[-50%] w-[200%] h-full pointer-events-none z-10 animate-reflection"
+        style={{
+          background: "linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent)",
+          transform: "rotate(12deg)",
+        }}
+      ></div>
 
       {/* Centered Content */}
       <div className="relative z-20 flex items-center justify-center h-full px-4">

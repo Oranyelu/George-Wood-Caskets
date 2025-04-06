@@ -10,9 +10,6 @@ import Footer from "../Components/Footer";
 import { ProductContext } from "../ProductProvider";
 import { FaPlus, FaHeart, FaShareAlt } from "react-icons/fa"; // Importing plus icon
 
-
-
-
 const ProductDetail = () => {
   const { productId } = useParams(); // Get the productId from URL parameters
   const [product, setProduct] = useState(null);
@@ -139,7 +136,6 @@ const ProductDetail = () => {
                 />
               </Link>
               <h2 className="text-lg font-semibold">{item.name}</h2>
-              <p>{item.description}</p>
               <p>Price: {item.price.toLocaleString()} NGN</p>
               <div className="w-full flex justify-end">
                 <button
@@ -165,7 +161,9 @@ const ProductDetail = () => {
               key={service.id}
               className="bg-[#f0c068] p-6 rounded-lg shadow-lg h-[200px] w-full flex flex-col items-center justify-center transform hover:scale-105 transition-transform duration-300 ease-in-out"
             >
-              <h2 className="text-xl text-[#135B3A] font-semibold mb-4">{service.name}</h2>
+              <h2 className="text-xl text-[#135B3A] font-semibold mb-4">
+                {service.name}
+              </h2>
               <p className="text-white">{service.description}</p>
             </div>
           ))}

@@ -161,7 +161,7 @@ const Products = {
       description: "A sincere and heartfelt casket design.",
       thumbnail: [productImages.Sincerity1],
       images: ["path/to/image27.jpg", "path/to/image28.jpg"],
-      price: 1300000,
+      price: 500000,
       color: "White",
       size: "6.2ft",
       brand: "George Wood Caskets",

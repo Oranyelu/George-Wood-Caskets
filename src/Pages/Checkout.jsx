@@ -139,7 +139,7 @@ const Checkout = () => {
         <Header />
       </section>
       <section className="mt-[100px]">
-        <nav className="h-[50px] flex items-center text-white pl-5 md:pl-40 gap-5 mt-10">
+        <nav className="h-[50px] flex items-center text-[#135B3A] pl-5 md:pl-40 gap-5 mt-10">
           <Link to="/">Home</Link>
           <Arrow />
           <Link to="/products">Products</Link>

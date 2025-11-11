@@ -1,11 +1,9 @@
-import React from 'react';
-import Header from '../Components/Header';
-import Footer from '../Components/Footer';
+
 
 function Events() {
   return (
     <div>
-      <Header />
+ 
 
       {/* Main content section with margin and padding */}
       <main className="max-w-6xl mx-auto py-12 mt-[70px]">
@@ -27,7 +25,7 @@ function Events() {
             Location: <strong>George Wood Casket & Furniture Hall</strong>
           </p>
           <p>
-            Join us for a heartfelt service honoring the memories of those we've lost. 
+            Join us for a heartfelt service honoring the memories of those we&#39;ve lost. 
             All are welcome to participate in this special occasion.
           </p>
           <a href="#" className="text-blue-600 hover:underline">Learn More</a>
@@ -66,7 +64,6 @@ function Events() {
         {/* Add more events as needed */}
       </main>
 
-      <Footer />
     </div>
   );
 }

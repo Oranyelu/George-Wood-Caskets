@@ -1,12 +1,9 @@
-import React from "react";
-import Header from "../Components/Header";
-import Footer from "../Components/Footer";
+
 import { Link } from "react-router-dom";
 
 const AboutUs = () => {
   return (
     <div className="bg-white min-h-screen flex flex-col font-montserrat">
-      <Header />
       <main className="flex-grow mt-16 p-10">
         <section className="text-center mb-10">
           <h1 className="text-4xl font-bold text-[#A37E2C] mb-2">About Us</h1>
@@ -133,7 +130,6 @@ const AboutUs = () => {
           </p>
         </section>
       </main>
-      <Footer />
     </div>
   );
 };

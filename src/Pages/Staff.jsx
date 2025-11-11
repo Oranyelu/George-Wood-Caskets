@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import Header from "../Components/Header";
-import Footer from "../Components/Footer";
+import { useState } from "react";
+import PropTypes from "prop-types";
 import GeorgeChiemerieChime from "../assets/StaffPicture/WhatsApp Image 2025-04-06 at 19.34.03_7af4c85b.jpg";
 import GeorgeWoodChime from "../assets/StaffPicture/WhatsApp Image 2025-04-06 at 19.13.00_97d1e770.jpg";
 import EkwyChime from "../assets/StaffPicture/WhatsApp Image 2025-04-06 at 19.13.02_870855e6.jpg";
@@ -33,7 +32,6 @@ const staffData = [
     bio: `Nelson Chukwudi Onoh is a dedicated executive member at George Wood Casket, contributing significantly to the company’s strategic direction and daily operations. With a strong sense of discipline and a results-driven mindset, he plays a vital role in overseeing logistics, team coordination, and customer relations. Nelson is passionate about upholding the legacy of excellence that defines George Wood Casket, ensuring that each service delivered meets the company’s high standards of dignity and professionalism. His commitment to integrity, innovation, and teamwork makes him an indispensable part of the leadership team driving the brand forward.`,
   },
 ];
-
 const StaffCard = ({ name, title, image, bio }) => {
   const [expanded, setExpanded] = useState(false);
   const preview = bio.slice(0, 100);
@@ -64,10 +62,17 @@ const StaffCard = ({ name, title, image, bio }) => {
   );
 };
 
+StaffCard.propTypes = {
+  name: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  image: PropTypes.string,
+  bio: PropTypes.string,
+};
+
 function Staff() {
   return (
     <div>
-      <Header />
+   
 
       <main className="max-w-6xl mx-auto py-12 mt-[70px] px-4">
         <h1 className="text-4xl font-bold mb-8 text-center">Our Staff</h1>
@@ -89,8 +94,6 @@ function Staff() {
           ))}
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }

@@ -1,11 +1,8 @@
-import React from 'react';
-import Header from '../Components/Header';
-import Footer from '../Components/Footer';
+
 
 function PrivacyPolicy() {
   return (
     <div>
-      <Header />
       <main className="max-w-6xl mx-auto py-12 mt-[70px]">
         <h1 className="text-4xl font-bold mb-8">Privacy Policy</h1>
 
@@ -63,7 +60,7 @@ function PrivacyPolicy() {
           If you have any questions regarding this Privacy Policy, please contact us at support@georgewoodcasket.com.
         </p>
       </main>
-      <Footer />
+
     </div>
   );
 }

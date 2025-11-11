@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import Header from '../Components/Header';
-import Footer from '../Components/Footer';
+import { useState } from 'react';
+
 
 function ReportIssue() {
   const [formData, setFormData] = useState({ name: '', email: '', issue: '' });
@@ -30,7 +29,6 @@ function ReportIssue() {
 
   return (
     <div>
-      <Header />
 
       <main className="max-w-6xl mx-auto py-12 mt-[70px]">
         <h1 className="text-4xl font-bold mb-8">Report an Issue</h1>
@@ -64,7 +62,6 @@ function ReportIssue() {
           <button type="submit" className="bg-blue-600 text-white py-2 px-4 rounded">Submit</button>
         </form>
 
-        <Footer />
       </main>
     </div>
   );

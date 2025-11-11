@@ -1,11 +1,7 @@
-import React from 'react';
-import Header from '../Components/Header';
-import Footer from '../Components/Footer';
 
 function Contacts() {
   return (
     <div>
-      <Header />
 
       {/* Main content section with margin and padding */}
       <main className="max-w-6xl mx-auto py-12 mt-[70px]">
@@ -46,8 +42,6 @@ function Contacts() {
           We value your feedback and suggestions! Feel free to send us your thoughts via email.
         </p>
       </main>
-
-      <Footer />
     </div>
   );
 }

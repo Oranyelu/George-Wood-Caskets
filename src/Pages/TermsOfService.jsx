@@ -1,11 +1,9 @@
-import React from 'react';
-import Header from '../Components/Header';
-import Footer from '../Components/Footer';
+
 
 function TermsOfService() {
   return (
     <div>
-      <Header />
+    
       <main className="max-w-6xl mx-auto py-12 mt-[70px]">
         <h1 className="text-4xl font-bold mb-8">Terms of Service</h1>
 
@@ -49,7 +47,7 @@ function TermsOfService() {
           If you have any questions about these Terms, please contact us at support@georgewoodcasket.com.
         </p>
       </main>
-      <Footer />
+
     </div>
   );
 }

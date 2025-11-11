@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Modal from 'react-modal';
-import Header from '../Components/Header';
-import Footer from '../Components/Footer';
 
 const customStyles = {
   content: {
@@ -30,7 +28,6 @@ const Giving = () => {
 
   return (
     <div className="bg-white min-h-screen flex flex-col font-montserrat mt-16">
-      <Header />
       <main className="flex-grow p-10">
         <section className="text-center mb-10">
           <h1 className="text-4xl font-bold text-[#A37E2C] mb-2">Support Our Cause</h1>
@@ -91,7 +88,6 @@ const Giving = () => {
           <button onClick={openModal} className="bg-[#A37E2C] text-white px-6 py-3 rounded-lg text-lg font-semibold">Donate Now</button>
         </section>
       </main>
-      <Footer />
 
       <Modal
         isOpen={modalIsOpen}

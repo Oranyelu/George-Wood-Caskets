@@ -1,13 +1,11 @@
-import React, { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // Import carousel styles
 import Products from "../assets/product-api"; // Importing the product data
 import Services from "../assets/service-api"; // Importing the service data
-import Header from "../Components/Header";
-import Footer from "../Components/Footer";
-import { ProductContext } from "../ProductProvider";
+import { ProductContext } from "../Providers/ProductProvider";
 import { FaPlus, FaHeart, FaShareAlt } from "react-icons/fa"; // Importing plus icon
 
 const ProductDetail = () => {
@@ -45,12 +43,14 @@ const ProductDetail = () => {
     }, 2000);
   };
 
+  const handleAddToFavourites = (item) => {
+    // Placeholder favourites handler — replace with real favourites logic or context as needed
+    // For now simply notify the user
+    alert(`${item.name} added to favourites`);
+  };
+
   return (
     <div className="bg-white min-h-screen flex flex-col font-montserrat">
-      <section>
-        <Header />
-      </section>
-      <div className="h-[80px]"></div>
 
       <section className="mt-16 p-4 flex flex-col items-center">
         {/* Card-styled component */}
@@ -169,8 +169,6 @@ const ProductDetail = () => {
           ))}
         </div>
       </section>
-
-      <Footer />
 
       {/* Fullscreen Image Modal */}
       {isFullScreen && (

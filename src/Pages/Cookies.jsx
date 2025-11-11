@@ -1,15 +1,11 @@
-import React from 'react';
-import Header from '../Components/Header';
-import Footer from '../Components/Footer';
 
 function CookiesPolicy() {
   return (
     <div>
-      <Header />
       <main className="max-w-6xl mx-auto py-12 mt-[70px]">
         <h1 className="text-4xl font-bold mb-8">Cookies Policy</h1>
 
-        <p><strong>Effective Date: [Insert Date]</strong></p>
+        <p><strong>Effective Date: May 5th, 2023.</strong></p>
         <p>
           At George Wood Casket, we respect your privacy and strive to offer you the best browsing experience. 
           This Cookies Policy explains how we use cookies and similar tracking technologies on our website.
@@ -37,10 +33,9 @@ function CookiesPolicy() {
 
         <h2 className="text-2xl font-bold mt-6 mb-4">4. Updates to This Policy</h2>
         <p>
-          We may update this Cookies Policy from time to time. When we do, we will revise the "Effective Date" at the top of this page.
+          We may update this Cookies Policy from time to time. When we do, we will revise the &quot;Effective Date&quot; at the top of this page.
         </p>
       </main>
-      <Footer />
     </div>
   );
 }

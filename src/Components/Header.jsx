@@ -1,13 +1,13 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
+import { NavLink } from "react-router-dom";
 import Logo from "../assets/Favicon.svg";
 import HamburgerMenu from "./HamburgerMenu";
-import { Link } from "react-router-dom";
 import CartIcon from "../assets/svgs/cart_svg.svg";
-import { ProductContext } from "../ProductProvider"; // Import the ProductContext
+import { ProductContext } from "../Providers/ProductProvider";
 
-function Header() {
-  const { cart } = useContext(ProductContext); // Access cart from context
-  const cartItemCount = cart.length; // Get the number of items in the cart
+export default function Header() {
+  const { cart } = useContext(ProductContext);
+  const cartItemCount = cart.length;
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50 text-[1rem]">
@@ -31,36 +31,53 @@ function Header() {
       </div>
 
       <section className="flex justify-between items-center bg-[#135B3A] h-16 p-4 leaflet">
-        <Link to="/" className="flex items-center">
+        <NavLink to="/" className="flex items-center">
           <img src={Logo} alt="Logo" className="ml-3 pt-[70px] scale-75" />
-        </Link>
+        </NavLink>
 
-        <div className=" hidden sm:block sm:flex-1 sm:text-center sm:text-white sm:font-bold">
+        <div className="hidden sm:block sm:flex-1 sm:text-center sm:text-white sm:font-bold">
           <h1>George Wood Casket</h1>
         </div>
 
         <div className="flex items-center">
+          {/* Navigation Links */}
           <div className="hidden lg:flex">
-            <span className="w-[60vw] flex justify-evenly text-white font-semibold">
-              <Link to="/">HOME</Link>
-              <Link to="/products">PRODUCTS</Link>
-              <Link to="/services">SERVICES</Link>
-              <Link to="/about-us">ABOUT US</Link>
-              <Link to="/giving">GIVING</Link>
-              <Link to="/track-order">TRACK ORDER</Link>
-              <Link to="/xclusive">XCLUSIVE</Link>
-            </span>
+            <nav className="w-[60vw] flex justify-evenly text-white font-semibold">
+              {[
+                { name: "HOME", path: "/" },
+                { name: "PRODUCTS", path: "/products" },
+                { name: "SERVICES", path: "/services" },
+                { name: "ABOUT US", path: "/about-us" },
+                { name: "GIVING", path: "/giving" },
+                { name: "TRACK ORDER", path: "/track-order" },
+                { name: "XCLUSIVE", path: "/xclusive" },
+              ].map(({ name, path }) => (
+                <NavLink
+                  key={path}
+                  to={path}
+                  end
+                  className={({ isActive }) =>
+                    `relative pb-1 transition-all ${
+                      isActive
+                        ? "after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-full after:bg-[#A37E2C]"
+                        : "hover:text-[#A37E2C]"
+                    }`
+                  }
+                >
+                  {name}
+                </NavLink>
+              ))}
+            </nav>
           </div>
 
           {/* Cart Icon with Red Dot */}
           <div className="relative flex items-center pr-5">
-            <Link to="/cart" className="flex items-center">
+            <NavLink to="/cart" className="flex items-center">
               <img src={CartIcon} alt="Cart" />
-              {/* Conditional rendering of the red dot */}
               {cartItemCount > 0 && (
                 <span className="absolute top-[-5px] right-[10px] bg-red-500 rounded-full h-2 w-2" />
               )}
-            </Link>
+            </NavLink>
           </div>
 
           <div className="ml-2 block lg:hidden pr-4">
@@ -71,5 +88,3 @@ function Header() {
     </div>
   );
 }
-
-export default Header;

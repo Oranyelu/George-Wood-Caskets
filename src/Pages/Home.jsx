@@ -250,11 +250,11 @@ function Home() {
 
             <div className="flex gap-5 text-[#135B3A]">
               <div className="text-center">
-                <h2 className="text-2xl font-bold">482</h2>
+                <h2 className="text-2xl font-bold">488</h2>
                 <p>Clients</p>
               </div>
               <div className="text-center">
-                <h2 className="text-2xl font-bold">726</h2>
+                <h2 className="text-2xl font-bold">732</h2>
                 <p>Projects</p>
               </div>
             </div>
@@ -376,7 +376,7 @@ function Home() {
       {/* === George Wood Foundation Section === */}
       <section className="pt-20 px-6 md:px-10 lg:px-20 max-w-[1300px] mx-auto w-full mb-20">
         <h1 className="text-3xl md:text-4xl font-bold text-[#135B3A] mb-8">
-          George Wood’s Legacy
+          George Wood&#39;s Legacy
         </h1>
         <div className="bg-[#135B3A] rounded-xl flex flex-col md:flex-row items-center gap-8 md:gap-12 p-6 md:p-10 w-full">
           <div className="w-full flex flex-col items-center md:items-start text-center md:text-left gap-6">
@@ -384,7 +384,7 @@ function Home() {
               Celebrating Life and Legacy
             </h2>
             <p className="text-white text-sm md:text-base leading-relaxed">
-              The George Wood Charity Foundation is a beacon of hope,
+              George Wood&#39;s Legacy is a beacon of hope,
               dedicated to empowering youth and inspiring a new generation
               of leaders through education, mentorship, and service.
               Join us as we continue to nurture legacies and shape a

@@ -1,9 +1,8 @@
-import React, { useContext, useState } from "react";
-import { ProductContext } from "../ProductProvider";
+import { useContext, useState } from "react";
+import { ProductContext } from "../Providers/ProductProvider";
 import { Link } from "react-router-dom";
-import Header from "../Components/Header";
-import Footer from "../Components/Footer";
-import Arrow from "../Components/Arrow";
+import { FiChevronRight } from "react-icons/fi"; // right-pointing arrow
+
 
 const Checkout = () => {
   const { cart, removeFromCart, getTotalPrice, clearCart } = useContext(ProductContext);
@@ -19,7 +18,7 @@ const Checkout = () => {
   
   const [orderSuccess, setOrderSuccess] = useState(false);
   const [trackingId, setTrackingId] = useState("");
-  const [paymentInstructions, setPaymentInstructions] = useState("");
+  // Removed unused paymentInstructions state
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -52,78 +51,7 @@ const Checkout = () => {
         setTrackingId(result.trackingId); // Set the tracking ID from the response
         setOrderSuccess(true);
         
-        // Generate payment instructions
-        const paymentMessage = `
-  <div style="
-    font-family: Arial, sans-serif; 
-    background-color: #f9f9f9; 
-    padding: 20px; 
-    border-radius: 10px; 
-    color: #333;
-    max-width: 600px; 
-    margin: 0 auto;">
-    
-    <!-- Greeting Section -->
-    <h2 style="font-size: 24px; color: #135b3a; margin-bottom: 10px;">Thank you for your order!</h2>
-    <p style="font-size: 18px; margin-bottom: 20px;">
-      Hello <strong>${formData.firstName} ${formData.lastName}</strong>,
-    </p>
-
-    <!-- Order Summary -->
-    <div style="
-      background-color: #fff; 
-      padding: 15px; 
-      border-radius: 10px; 
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-      margin-bottom: 20px;">
-      
-      <h3 style="color: #135b3a; font-size: 20px; margin-bottom: 10px;">Order Summary:</h3>
-      <ul style="padding-left: 20px;">
-        ${cart.map(item => `
-          <li style="font-size: 16px; margin-bottom: 8px;">
-            ${item.name} - <strong>${item.price.toLocaleString()} NGN</strong>
-          </li>`).join('')}
-      </ul>
-      <p style="font-size: 18px; font-weight: bold; margin-top: 10px;">
-        Total Price: ${totalPrice.toLocaleString()} NGN
-      </p>
-      <p style="font-size: 16px; color: #777;">
-        Referred By: ${formData.referredBy || 'N/A'}
-      </p>
-    </div>
-
-    <!-- Payment Instructions -->
-    <div style="background-color: #fef6e6; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
-      <h3 style="color: #d9831f; font-size: 20px;">Payment Instructions</h3>
-      <p style="font-size: 16px; color: #555;">
-        Please make a payment of <strong>${totalPrice.toLocaleString()} NGN</strong> to the account below:
-      </p>
-      <div style="background-color: #fff; padding: 10px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
-        <p style="font-size: 16px; font-weight: bold; margin-bottom: 4px;">George Chiemerie Chime</p>
-        <p style="font-size: 16px;">Account Number: <strong>2198210889</strong></p>
-        <p style="font-size: 16px;">Bank: <strong>United Bank of Africa (UBA)</strong></p>
-      </div>
-    </div>
-
-    <!-- Tracking Info -->
-    <div style="margin-bottom: 20px;">
-      <h3 style="font-size: 18px; color: #135b3a;">Tracking Information</h3>
-      <p style="font-size: 16px; color: #555;">
-        Your tracking ID is: <strong>${result.trackingId}</strong>
-      </p>
-    </div>
-
-    <!-- Contact Info -->
-    <div style="margin-bottom: 10px;">
-      <p style="font-size: 16px; color: #555;">
-        We will contact you at: <strong>${formData.phone}</strong>.
-      </p>
-    </div>
-  </div>
-`;
-        
-        setPaymentInstructions(paymentMessage);
-        clearCart(); // Clear the cart after successful order
+clearCart(); // Clear the cart after successful order
       } else {
         throw new Error(result.message || "Something went wrong");
       }
@@ -135,15 +63,12 @@ const Checkout = () => {
 
   return (
     <div className="bg-custom-gradient min-h-screen flex flex-col font-montserrat">
-      <section>
-        <Header />
-      </section>
       <section className="mt-[100px]">
         <nav className="h-[50px] flex items-center text-[#135B3A] pl-5 md:pl-40 gap-5 mt-10">
           <Link to="/">Home</Link>
-          <Arrow />
+          <FiChevronRight className="inline" />
           <Link to="/products">Products</Link>
-          <Arrow />
+          <FiChevronRight className="inline" />
           <Link to="/cart" className="text-[#e4c88a]">
             Shopping Cart
           </Link>
@@ -254,9 +179,6 @@ const Checkout = () => {
             <p>To complete your order, kindly check your email for further instructions. Thank you for choosing us.</p>
           </div>
         )}
-      </section>
-      <section>
-        <Footer />
       </section>
     </div>
   );

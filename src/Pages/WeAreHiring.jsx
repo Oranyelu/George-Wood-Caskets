@@ -1,11 +1,9 @@
-import React from 'react';
-import Header from '../Components/Header';
-import Footer from '../Components/Footer';
+
 
 function WeAreHiring() {
   return (
     <div>
-      <Header />
+
 
       {/* Main content section with margin and padding */}
       <main className="max-w-6xl mx-auto py-12 mt-[70px]">
@@ -53,7 +51,6 @@ function WeAreHiring() {
         </p>
       </main>
 
-      <Footer />
     </div>
   );
 }

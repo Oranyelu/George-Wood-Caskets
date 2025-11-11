@@ -1,7 +1,5 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import Footer from "../Components/Footer";
-import Header from "../Components/Header";
+import { useState } from "react";
+
 import { orderDatabase } from "../assets/Order-api"; // Import pseudo database
 
 const OrderTrackingPage = () => {
@@ -63,7 +61,7 @@ const OrderTrackingPage = () => {
 
   return (
     <div className="bg-white min-h-screen flex flex-col font-montserrat">
-      <Header />
+  
       <section className="mt-[180px] min-h-[50vh] flex flex-col justify-center items-center">
         <h1 className="text-3xl font-bold mb-4">Order Tracking</h1>
         <div className="flex items-center mb-4">
@@ -120,7 +118,7 @@ const OrderTrackingPage = () => {
           <p className="text-gray-600">No order information available. Please enter a tracking ID to search.</p>
         )}
       </section>
-      <Footer />
+
     </div>
   );
 };

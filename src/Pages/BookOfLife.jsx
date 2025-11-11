@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
-import Header from '../Components/Header';
-import Footer from '../Components/Footer';
+import { useState } from 'react';
 import { BookOfLifeDB } from '../assets/BookOfLifeDB'; // Import the pseudo database
 
 function BookOfLife() {
@@ -27,7 +25,6 @@ function BookOfLife() {
 
   return (
     <div>
-      <Header />
 
       <main className="max-w-6xl mx-auto py-12 mt-[70px]">
         {/* Icons Section */}
@@ -81,8 +78,6 @@ function BookOfLife() {
           </div>
         </div>
       )}
-
-      <Footer />
     </div>
   );
 }

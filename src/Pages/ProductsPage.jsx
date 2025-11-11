@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Products from "../assets/product-api"; // Importing the product data
-import Header from "../Components/Header";
-import Footer from "../Components/Footer";
+
 
 const ProductsPage = () => {
   const { productsData } = Products;
@@ -36,10 +35,8 @@ const ProductsPage = () => {
 
   return (
     <div className="bg-white min-h-screen flex flex-col font-montserrat">
-      <section>
-        <Header />
-      </section>
-      <div className="min-h-screen p-4 mt-[100px]">
+   
+      <div className="min-h-screen p-4">
         <h1 className="text-3xl font-bold text-center text-[#A37E2C] mb-8">All Products</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {visibleProducts.map((product) => (
@@ -58,9 +55,7 @@ const ProductsPage = () => {
           ))}
         </div>
       </div>
-      <section>
-        <Footer />
-      </section>
+
     </div>
   );
 };

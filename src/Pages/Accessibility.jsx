@@ -1,11 +1,7 @@
-import React from 'react';
-import Header from '../Components/Header';
-import Footer from '../Components/Footer';
 
 function Accessibility() {
   return (
     <div>
-      <Header />
       <main className="max-w-6xl mx-auto py-12 mt-[70px]">
         <h1 className="text-4xl font-bold mb-8">Accessibility Statement</h1>
 
@@ -49,7 +45,6 @@ function Accessibility() {
           We may update this Accessibility Statement as needed to reflect improvements or changes in web standards.
         </p>
       </main>
-      <Footer />
     </div>
   );
 }

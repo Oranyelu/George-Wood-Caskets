@@ -1,10 +1,9 @@
-import React, { useContext } from "react";
-import { ProductContext } from "../ProductProvider";
+import { useContext } from "react";
+import { ProductContext } from "../Providers/ProductProvider";
 import { Link } from "react-router-dom";
-import Header from "../Components/Header";
 import Services from "../assets/service-api";
-import Footer from "../Components/Footer";
-import Arrow from "../Components/Arrow";
+import { FiChevronRight } from "react-icons/fi"; // right-pointing arrow
+
 
 const Cart = () => {
   const { cart, addToCart, removeFromCart } = useContext(ProductContext);
@@ -33,13 +32,13 @@ const Cart = () => {
 
   return (
     <div className="bg-custom-gradient min-h-screen flex flex-col font-montserrat">
-      <Header />
+    
       <section className="mt-[100px]">
         <nav className="h-[50px] flex items-center text-[#135B3A] pl-5 md:pl-40 gap-5 mt-10">
           <Link to="/">Home</Link>
-          <Arrow />
+          <FiChevronRight className="inline" />
           <Link to="/products">Products</Link>
-          <Arrow />
+         <FiChevronRight className="inline" />
           <Link to="/cart" className="text-[#e4c88a]">
             Shopping cart
           </Link>
@@ -153,10 +152,7 @@ const Cart = () => {
       </section>
       <section className="p-10 text-bold flex items-center gap-5 text-[#135B3A]">
         <Link to="/" >Back to Products </Link>
-        <Arrow />
-      </section>
-      <section>
-        <Footer />
+        <FiChevronRight className="inline" />
       </section>
     </div>
   );

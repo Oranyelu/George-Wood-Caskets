@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Services from "../assets/service-api"; // Importing the service data
-import Header from "../Components/Header";
-import Footer from "../Components/Footer";
 
 const ServicesPage = () => {
   const { servicesData } = Services;
@@ -36,9 +34,7 @@ const ServicesPage = () => {
 
   return (
     <div className="min-h-screen bg-white font-montserrat">
-      <section>
-        <Header />
-      </section>
+
       <div className="h-[80px]"></div>
       <div className="min-h-screen p-4">
         <h1 className="text-3xl font-bold text-center mb-8">All Services</h1>
@@ -61,9 +57,6 @@ const ServicesPage = () => {
           ))}
         </div>
       </div>
-      <section>
-        <Footer />
-      </section>
     </div>
   );
 };

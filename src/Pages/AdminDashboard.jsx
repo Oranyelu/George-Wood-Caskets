@@ -1,11 +1,10 @@
 // Example dashboard component
-import React, { useEffect, useState } from "react";
-import Header from "../Components/Header";
-import Footer from "../Components/Footer";
+import { useEffect, useState } from "react";
+
 
 const AdminDashboard = () => {
   const [orders, setOrders] = useState([]);
-  const [newOrders, setNewOrders] = useState([]);
+  const [newOrders] = useState([]);
 
   useEffect(() => {
     // Fetch orders on component mount
@@ -45,9 +44,7 @@ const AdminDashboard = () => {
 
   return (
     <div className="bg-white min-h-screen flex flex-col font-montserrat">
-      <section>
-        <Header />
-      </section>
+     
       <section  className="mt-[120px] h-[50em] flex justify-center ">
         <h1>Admin Dashboard</h1>
         <h2>New Orders</h2>
@@ -80,9 +77,6 @@ const AdminDashboard = () => {
             </li>
           ))}
         </ul>
-      </section>
-      <section>
-        <Footer />
       </section>
     </div>
   );

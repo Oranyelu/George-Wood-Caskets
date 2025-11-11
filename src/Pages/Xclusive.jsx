@@ -1,9 +1,7 @@
 // Xclusive.jsx
-import React from 'react';
+
 import { Link } from 'react-router-dom';
 import Products from '../assets/product-api'; // Importing the product data
-import Header from '../Components/Header'
-import Footer from '../Components/Footer'
 
 const Xclusive = () => {
   const { productsData } = Products;
@@ -11,11 +9,23 @@ const Xclusive = () => {
   // Filter products with the label "Xclusive"
   const xclusiveProducts = productsData.filter(product => product.label === "Xclusive");
 
+  // Simple addToCart implementation that stores items in localStorage and shows basic feedback
+  const addToCart = (product) => {
+    try {
+      const existing = JSON.parse(localStorage.getItem('cart') || '[]');
+      existing.push(product);
+      localStorage.setItem('cart', JSON.stringify(existing));
+      // Basic user feedback; replace with a toast/snackbar in a real app
+      alert(`${product.name} added to cart`);
+    } catch (e) {
+      // Fallback for environments without localStorage or parse errors
+      console.error('Failed to add to cart', e);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white font-montserrat">
-      <section>
-        <Header />
-      </section>
+
       <div className="h-[80px]"></div>
       <section className="products-section pt-[40px] pb-5">
         <header className="flex flex-col items-center">
@@ -61,7 +71,6 @@ const Xclusive = () => {
           </ul>
         </div>
       </section>
-      <section><Footer/></section>
     </div>
   );
 };

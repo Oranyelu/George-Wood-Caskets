@@ -3,7 +3,7 @@ import { FaHome } from "react-icons/fa";
 
 function NotFoundPage() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-[#135B3A] text-white px-6 rounded-[50px]">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-[#135B3A] text-white px-6 rounded-b-[50px]">
       <h1 className="text-[120px] md:text-[200px] font-bold animate-pulse">404</h1>
       <h2 className="text-3xl md:text-5xl font-bold mt-4 text-[#F0B52E]">
         Page Not Found

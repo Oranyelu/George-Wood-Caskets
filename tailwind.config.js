@@ -19,6 +19,7 @@ export default {
       },
       animation: {
         reflection: "reflection 2.5s infinite linear",
+        "spin-slow": 'spin 20s linear infinite',
       },
       keyframes: {
         reflection: {

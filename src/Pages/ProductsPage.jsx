@@ -34,7 +34,7 @@ const ProductsPage = () => {
   }, []);
 
   return (
-    <div className="bg-white min-h-screen flex flex-col font-montserrat">
+    <div className="bg-white min-h-screen flex flex-col font-montserrat mt-20 mb-10">
    
       <div className="min-h-screen p-4">
         <h1 className="text-3xl font-bold text-center text-[#A37E2C] mb-8">All Products</h1>

@@ -6,7 +6,7 @@ export default function Layout() {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <main className="flex-grow mt-[100px]">
+      <main className="flex-grow mt-[100px] md:mt-[50px]">
         <Outlet /> {/* This renders child routes */}
       </main>
       <Footer />

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import GeorgeWoodLogo from "../assets/svgs/Official name Logo.png";
 
 function Footer() {
   const [email, setEmail] = useState("");
@@ -122,14 +121,14 @@ function Footer() {
               placeholder="Your Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="mb-2 p-2 rounded text-black bg-white opacity-70"
+              className="mb-2 p-2 rounded text-black bg-white"
               required
             />
             <textarea
               placeholder="Your Message"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              className="mb-2 p-2 rounded text-black bg-white opacity-70"
+              className="mb-2 p-2 rounded text-black bg-white"
               required
             />
             <button

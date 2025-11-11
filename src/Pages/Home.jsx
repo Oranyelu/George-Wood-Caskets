@@ -1,13 +1,52 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
-import { Card, CardContent, Button } from "@mui/material";
+import { Card, CardContent } from "@mui/material";
 import { ProductContext } from "../Providers/ProductProvider";
 import Products from "../assets/product-api"; // product data
 import Services from "../assets/service-api"; // service data
 import TestimonialsData from "../assets/Testinonials-api"; // testimonials
 import Logo from "../assets/Favicon.svg"; // hero logo
 import BKOL from "../assets/svgs/bookoflife.svg"; // Book of Life image
+
+function HeroSection() {
+  const foundingYear = 1984;
+  const [years, setYears] = useState(new Date().getFullYear() - foundingYear);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setYears(new Date().getFullYear() - foundingYear);
+    }, 1000 * 60 * 60 * 24); // Update daily just in case
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <section className="bg-[#135B3A] text-white py-20 px-6 md:px-10 lg:px-20 flex flex-col md:flex-row items-center justify-between rounded-b-[50px] max-w-[1300px] mx-auto w-full">
+      {/* Left Content */}
+      <div className="max-w-xl text-center md:text-left">
+        <h1 className="text-3xl md:text-5xl font-extrabold leading-tight">
+          Honouring Life <br /> and Legacies since 1984
+        </h1>
+        <p className="mt-6 text-base md:text-lg text-gray-200">
+          At George Wood Casket, every creation tells a story. For over four
+          decades, we have refined the art of craftsmanship, creating timeless
+          pieces that embody love, dignity, and remembrance.
+        </p>
+      </div>
+
+      {/* Right Logo with Years */}
+      <div className="mt-12 md:mt-0 flex flex-col items-center">
+        <img
+          src={Logo}
+          alt="George Wood Logo"
+          className="w-48 h-48 md:w-56 md:h-56 object-contain animate-spin-slow"
+        />
+        <p className="mt-4 text-5xl font-bold text-[#F0B52E]">{years} Years</p>
+      </div>
+    </section>
+  );
+}
 
 function Home() {
   const { addToCart } = useContext(ProductContext);
@@ -82,7 +121,9 @@ function Home() {
   }, []);
 
   return (
-    <div className="bg-white min-h-screen flex flex-col font-montserrat">
+    <div className="bg-white min-h-screen flex flex-col font-montserrat overflow-x-hidden">
+      {/* === Hero Section === */}
+      <HeroSection />
 
       {/* === Notification === */}
       {notification && (
@@ -93,32 +134,13 @@ function Home() {
         </div>
       )}
 
-      {/* === Hero Section === */}
-      <section className="bg-[#135B3A] text-white py-16 px-6 md:px-20 flex flex-col md:flex-row items-center justify-between rounded-b-[50px]">
-        <div className="max-w-xl">
-          <h1 className="text-3xl md:text-5xl font-bold leading-tight">
-            Celebrating Life and <br /> Legacies since 1984
-          </h1>
-          <p className="mt-6 text-base md:text-lg text-gray-200">
-            At George Wood Casket, we are deeply committed to the art of
-            craftsmanship. Since 1984, our legacy has been built on creating
-            high-quality, meticulously crafted caskets that honor life and
-            legacy.
-          </p>
-        </div>
-        <div className="mt-12 md:mt-0 flex flex-col items-center">
-          <img src={Logo} alt="George Wood Logo" className="w-50 h-50 object-contain" />
-          <p className="mt-4 text-xl font-semibold text-[#F0B52E]">41 Years</p>
-        </div>
-      </section>
-
       {/* === Featured Products Section === */}
-      <section className="products-section pt-[40px] p-4">
-        <header className="flex flex-col text-center">
-          <h2 className="text-[24.8px] text-[#135B3A] font-bold">
+      <section className="pt-20 px-6 md:px-10 lg:px-20 max-w-[1300px] mx-auto w-full">
+        <header className="flex flex-col text-center mb-12">
+          <h2 className="text-3xl md:text-4xl text-[#135B3A] font-bold">
             Featured Products
           </h2>
-          <p className="text-[15px] text-[#8b6824] pb-7">
+          <p className="text-base md:text-lg text-[#8b6824] mt-2">
             Make your choice based on popular demand...
           </p>
         </header>
@@ -129,46 +151,57 @@ function Home() {
           );
 
           return (
-            <div key={category} className="mb-8">
-              <h3 className="text-[20px] font-bold text-[#011309] mb-4">
+            <div key={category} className="mb-16">
+              <h3 className="text-2xl md:text-3xl font-bold text-[#011309] mb-6">
                 {category} Collection
               </h3>
-              <ul className="flex gap-4 overflow-x-auto snap-x snap-mandatory"
-                style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-              >
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {filteredProducts.map((product) => (
-                  <li
+                  <div
                     key={product.id}
-                    className="flex-shrink-0 w-[250px] bg-white bg-opacity-100 backdrop-filter backdrop-blur-md border border-white border-opacity-20 p-4 rounded-lg shadow-lg snap-center"
+                    className="bg-white p-4 rounded-lg shadow-lg flex flex-col transition-transform hover:scale-105 duration-300"
                   >
-                    <Link to={`/product/${product.id}`}>
+                    <Link
+                      to={`/product/${product.id}`}
+                      className="overflow-hidden rounded-md"
+                    >
                       <img
                         src={product.thumbnail}
                         alt={product.name}
-                        className="w-full h-[166.66px] object-cover rounded-md"
+                        className="w-full h-48 object-cover rounded-md"
+                        loading="lazy"
                       />
                     </Link>
-                    <h1 className="text-lg font-semibold mt-2 text-[#011309]">
-                      {product.name}
-                    </h1>
-                    <p>Price: {product.price.toLocaleString()} NGN </p>
-                    <p>Color: {product.color}</p>
-                    <div className="w-full flex justify-end">
+
+                    <div className="mt-3 flex flex-col flex-1">
+                      <h1 className="text-lg font-semibold text-[#011309]">
+                        {product.name}
+                      </h1>
+                      <p className="text-[#135B3A] font-medium mt-1">
+                        Price: {product.price.toLocaleString()} NGN
+                      </p>
+                      <p className="text-gray-600 mt-1">
+                        Color: {product.color}
+                      </p>
+                    </div>
+
+                    <div className="mt-4 flex justify-center">
                       <button
-                        className="bg-[#135B3A] text-white px-2 py-1 rounded mt-2 hover:bg-[#8b6824] active:bg-[#70541c] transition-colors"
+                        className="bg-[#135B3A] text-white px-4 py-2 rounded w-full hover:bg-[#8b6824] active:bg-[#70541c] transition-colors"
                         onClick={() => handleAddToCart(product)}
                       >
                         Order Now
                       </button>
                     </div>
-                  </li>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
           );
         })}
 
-        <div className="text-center mt-6">
+        <div className="text-center mt-10">
           <Link to="/products">
             <button className="bg-[#135B3A] text-white px-6 py-3 rounded hover:bg-[#8b6824] active:bg-[#70541c] transition-colors">
               View All Products
@@ -178,23 +211,24 @@ function Home() {
       </section>
 
       {/* === Featured Services Section === */}
-      <section className="achievements-section pt-[40px] p-4">
-        <header className="flex flex-col text-center">
-          <h2 className="text-[24.8px] text-[#135B3A] font-bold pb-9">
+      <section className="pt-20 px-6 md:px-10 lg:px-20 max-w-[1300px] mx-auto w-full">
+        <header className="flex flex-col text-center mb-10">
+          <h2 className="text-3xl text-[#135B3A] font-bold">
             Featured Services
           </h2>
         </header>
-        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+
+        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
           {randomServices.map((service) => (
             <li
               key={service.id}
-              className="bg-[#f0c068] bg-opacity-100 backdrop-filter backdrop-blur-md border border-white border-opacity-20 p-6 rounded-lg shadow-lg flex flex-col items-center justify-center h-[200px] transform hover:scale-105 transition-transform duration-300 ease-in-out"
+              className="bg-[#F0B52E] p-6 rounded-lg shadow-lg flex flex-col items-center justify-center h-[200px] transform hover:scale-105 transition-transform duration-300"
             >
-              <h2 className="text-lg font-semibold text-[#135B3A] mb-2">
+              <h2 className="text-lg font-semibold text-[#135B3A] mb-2 font-bold text-center">
                 {service.name}
               </h2>
               <p className="text-white text-center">
-                {service.description || "Lorem ipsum dolor sit amet consectetur."}
+                {service.description || "Description coming soon."}
               </p>
             </li>
           ))}
@@ -202,76 +236,91 @@ function Home() {
       </section>
 
       {/* === Testimonials Section === */}
-      <section className="w-full flex justify-center pt-10">
-        <div className="w-[95%] flex flex-col text-white gap-8">
+      <section className="pt-20 px-6 md:px-10 lg:px-20 max-w-[1300px] mx-auto w-full">
+        <div className="flex flex-col text-white gap-8">
           <section className="flex justify-between sm:flex-row flex-col">
             <div>
-              <h1 className="font-bold text-[25px] text-[#135B3A]">
+              <h1 className="font-bold text-3xl text-[#135B3A]">
                 Why Choose George Wood Casket?
               </h1>
-              <h2 className="text-[#8b6824]">Read what our customers have to say...</h2>
+              <h2 className="text-[#8b6824]">
+                Read what our customers have to say...
+              </h2>
             </div>
 
-            <div className="flex gap-5">
-              <div className="text-center text-[#135B3A]">
-                <h2 className="text-[25px] font-bold">482</h2>
+            <div className="flex gap-5 text-[#135B3A]">
+              <div className="text-center">
+                <h2 className="text-2xl font-bold">482</h2>
                 <p>Clients</p>
               </div>
-              <div className="text-center text-[#135B3A]">
-                <h2 className="text-[25px] font-bold">726</h2>
+              <div className="text-center">
+                <h2 className="text-2xl font-bold">726</h2>
                 <p>Projects</p>
               </div>
             </div>
           </section>
 
           {/* Book of Life Section */}
-          <section className="flex flex-col md:flex-row justify-between items-center gap-5">
+          <section className="flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="bg-[#135B3A] md:max-w-[250px] w-full h-[250px] rounded-md flex flex-col items-center justify-center">
               <div className="flex items-center">
-                <span className="text-[60px] font-bold">{averageRating.toFixed(1)}</span>
+                <span className="text-5xl font-bold">
+                  {averageRating.toFixed(1)}
+                </span>
                 <FaStar size={50} color="gold" />
               </div>
               <div className="text-center">
-                <p className="font-bold text-[20px]">{(averageRating * 20).toFixed(0)}%</p>
+                <p className="font-bold text-lg">
+                  {(averageRating * 20).toFixed(0)}%
+                </p>
                 <p>Customer satisfaction</p>
               </div>
             </div>
 
-  <div
-    className="w-[100%] h-[250px] bg-no-repeat bg-center bg-cover rounded-xl relative overflow-hidden"
-    style={{ backgroundImage: `url(${BKOL})` }}
-  >
-    <div className="absolute inset-0 flex flex-col justify-end items-start p-4 bg-black bg-opacity-40">
-      <Link to="/book-of-life" className="text-white underline hover:text-[#A37E2C]">
-        <h1 className="text-white text-md md:text-lg lg:text-xl font-bold hover:text-[#A37E2C]">
-          Discover “The Book Of Life”
-        </h1>
-      </Link>
-      <p className="text-white text-left text-xs md:text-sm lg:text-base">
-        &ldquo;Step into the stories of those who shaped our journey. Each story is a reflection of love, strength, and unforgettable moments. In these pages, their legacies live on, offering comfort and inspiration.&rdquo;
-      </p>
-    </div>
-  </div>
+            <div
+              className="w-full h-[250px] bg-no-repeat bg-center bg-cover rounded-xl relative overflow-hidden"
+              style={{ backgroundImage: `url(${BKOL})` }}
+            >
+              <div
+                id="book-of-life-overlay"
+                className="absolute bottom-[-100%] left-0 w-full h-full bg-black bg-opacity-70 text-white p-4 flex flex-col justify-center items-start gap-2 transition-all duration-300"
+              >
+                <Link
+                  to="/book-of-life"
+                  className="text-white underline hover:text-[#A37E2C]"
+                >
+                  <h1 className="text-lg font-bold">
+                    Discover “The Book Of Life”
+                  </h1>
+                </Link>
+                <p className="text-sm">
+                  Step into the stories of those who shaped our journey.
+                  Their legacies live on, offering comfort and inspiration.
+                </p>
+              </div>
+            </div>
           </section>
 
-          {/* Individual Testimonials */}
-          <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {/* Testimonials Grid */}
+          <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {testimonials
               .sort((a, b) => b.rating - a.rating)
               .slice(0, 6)
               .map((testimonial) => (
                 <div
                   key={testimonial.id}
-                  className="bg-[#135B3A] bg-opacity-7 backdrop-filter backdrop-blur-lg p-4 rounded-lg shadow-lg text-white flex flex-col gap-3"
+                  className="bg-[#135B3A] p-5 rounded-lg shadow-lg text-white flex flex-col gap-3"
                 >
-                  <p className="font-semibold underline text-lg">- {testimonial.name}</p>
+                  <p className="font-semibold underline text-lg">
+                    - {testimonial.name}
+                  </p>
                   <p className="text-sm">{testimonial.review}</p>
                   <div className="flex items-center gap-1">
-                    {Array.from({ length: testimonial.rating }).map((_, index) => (
-                      <FaStar key={index} size={15} color="gold" />
+                    {Array.from({ length: testimonial.rating }).map((_, i) => (
+                      <FaStar key={i} size={15} color="gold" />
                     ))}
-                    {Array.from({ length: 5 - testimonial.rating }).map((_, index) => (
-                      <FaStar key={index} size={15} color="gray" />
+                    {Array.from({ length: 5 - testimonial.rating }).map((_, i) => (
+                      <FaStar key={i} size={15} color="gray" />
                     ))}
                   </div>
                 </div>
@@ -281,63 +330,74 @@ function Home() {
       </section>
 
       {/* === Latest Updates Section === */}
-      <section className="mt-10 px-4 md:px-10 lg:px-20">
-        <h2 className="text-2xl font-bold mb-6">Latest Updates</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <section className="pt-20 px-6 md:px-10 lg:px-20 max-w-[1300px] mx-auto w-full">
+        <h2 className="text-3xl font-bold mb-8 text-[#135B3A]">
+          Latest Updates
+        </h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {posts.map((post) => (
-            <Card key={post.id} className="rounded-lg overflow-hidden shadow-lg">
+            <Card
+              key={post.id}
+              className="rounded-2xl overflow-hidden shadow-lg bg-[#F0B52E] text-[#135B3A] transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl"
+            >
               <Link to={`/blog/${post.id}`}>
-                <img src={post.image} alt={post.title} className="w-full h-48 object-cover cursor-pointer" />
+                <img
+                  src={post.image}
+                  alt={post.title}
+                  className="w-full h-48 object-cover cursor-pointer transition-transform duration-300 hover:scale-105"
+                />
               </Link>
-              <CardContent className="p-4">
+              <CardContent className="p-5">
                 <h3 className="text-lg font-semibold mb-2">{post.title}</h3>
-                <p className="text-gray-600 mb-4">{post.description}</p>
-                <Link to={`/blog/${post.id}`} className="text-primary hover:underline">
+                <p className="text-[#011309] mb-4 text-sm">
+                  {post.description}
+                </p>
+                <Link
+                  to={`/blog/${post.id}`}
+                  className="text-[#135B3A] font-medium hover:text-[#011309] transition-colors duration-200"
+                >
                   Read more →
                 </Link>
               </CardContent>
             </Card>
           ))}
         </div>
-        <div className="flex justify-center mt-8">
+
+        <div className="text-center mt-10">
           <Link to="/blog">
-            <Button variant="outline">View More Articles</Button>
+            <button className="bg-[#135B3A] text-white px-6 py-3 rounded hover:bg-[#8b6824] active:bg-[#70541c] transition-colors">
+              View More Articles
+            </button>
           </Link>
         </div>
       </section>
 
       {/* === George Wood Foundation Section === */}
-      <section className="flex flex-col p-6 text-[#135B3A] gap-8 mt-8 mb-10">
-        <h1 className="text-[28px] md:text-[35px] font-bold underline text-center">
-          GEORGE WOOD CHARITY FOUNDATION
+      <section className="pt-20 px-6 md:px-10 lg:px-20 max-w-[1300px] mx-auto w-full mb-20">
+        <h1 className="text-3xl md:text-4xl font-bold text-[#135B3A] mb-8">
+          George Wood’s Legacy
         </h1>
-        <div className="bg-[#135B3A] rounded-xl flex flex-col md:flex-row items-center gap-8 md:gap-12 p-6 md:p-10 w-[98%] md:w-[98%] mx-auto">
+        <div className="bg-[#135B3A] rounded-xl flex flex-col md:flex-row items-center gap-8 md:gap-12 p-6 md:p-10 w-full">
           <div className="w-full flex flex-col items-center md:items-start text-center md:text-left gap-6">
-            <h2 className="text-[#f0c068] text-[20px] md:text-[25px] font-bold">
+            <h2 className="text-[#f0c068] text-xl md:text-2xl font-bold">
               Celebrating Life and Legacy
             </h2>
             <p className="text-white text-sm md:text-base leading-relaxed">
-              Discover the George Wood Charity Foundation: a beacon of hope dedicated to
-              empowering the youth and inspiring a new generation of leaders.
-              George Wood Charity Foundation is a non-profit organization that supports
-              the local community through philanthropy and volunteerism. The
-              Foundation is dedicated to advancing George Wood&#39;s mission of
-              education, research, and service. Join us in nurturing the
-              potential of young minds to create a brighter, more innovative
-              future.
+              The George Wood Charity Foundation is a beacon of hope,
+              dedicated to empowering youth and inspiring a new generation
+              of leaders through education, mentorship, and service.
+              Join us as we continue to nurture legacies and shape a
+              brighter, more compassionate world.
             </p>
-            <Link to="giving">
-              <button
-                className="bg-white text-[#135B3A] font-semibold px-6 py-3 rounded-md shadow-lg hover:shadow-xl transition duration-300"
-                style={{ minHeight: "56px", minWidth: "160px" }}
-              >
+            <Link to="/giving">
+              <button className="bg-white text-[#135B3A] font-semibold px-6 py-3 rounded-md shadow-lg hover:shadow-xl transition duration-300">
                 Go to Page
               </button>
             </Link>
           </div>
         </div>
       </section>
-
     </div>
   );
 }

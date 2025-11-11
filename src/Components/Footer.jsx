@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import GeorgeWoodLogo from "../assets/svgs/Official name Logo.png";
 
@@ -38,13 +38,6 @@ function Footer() {
 
   return (
     <div className="bg-transparent">
-      <main className="p-6  flex flex-col lg:flex-row justify-evenly lg:items-center">
-        <img src={GeorgeWoodLogo} alt="George Wood Logo" className="lg:w-[60vw]" />
-        <div className="flex flex-col text-[#135B3A] text-sm">
-          <h1 className="font-bold">Est. Since 1984</h1>
-          <p>Celebrating Life and Legacy</p>
-        </div>
-      </main>
       <hr className="border-t-2 border-gray-300" />
       <footer className="flex justify-evenly pt-5 flex-wrap p-6 bg-[#135B3A] text-white">
         <div className="flex flex-col sm:flex-row sm:justify-evenly text-left w-full">
@@ -117,20 +110,51 @@ function Footer() {
               Events
             </Link>
           </nav>
+
+          {/* Contact Form Section */}
+          <form
+            className="flex flex-col mb-6 md:mb-4 max-w-xs w-full"
+            onSubmit={handleSubmit}
+          >
+            <h2 className="font-bold text-lg mb-2 text-[#f0c068]">Contact Us</h2>
+            <input
+              type="email"
+              placeholder="Your Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="mb-2 p-2 rounded text-black bg-white opacity-70"
+              required
+            />
+            <textarea
+              placeholder="Your Message"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              className="mb-2 p-2 rounded text-black bg-white opacity-70"
+              required
+            />
+            <button
+              type="submit"
+              className="bg-[#f0c068] text-[#135B3A] font-bold py-2 px-4 rounded hover:bg-[#d4a041]"
+            >
+              Send
+            </button>
+            {isSubmitted && (
+              <span className="text-green-300 mt-2">Message sent!</span>
+            )}
+          </form>
         </div>
       </footer>
       <article className="flex flex-col sm:flex-row text-center justify-around p-4 text-[#135B3A]">
-        <p>George Wood Casket</p>
-        <p>© {new Date().getFullYear()} All Rights Reserved</p>
+        <p>George Wood Casket © {new Date().getFullYear()} All Rights Reserved</p>
         <p>
-          Made by
+          Powered by
           <a
             href="https://georgechiemeriechime.netlify.app/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-[#135B3A] pl-1 hover:text-[#d4a041]"
           >
-            George Chime
+            Ocubyte
           </a>
         </p>
       </article>

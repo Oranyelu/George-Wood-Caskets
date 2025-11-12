@@ -1,5 +1,6 @@
 // OrderProvider.jsx
-import React, { createContext, useState } from 'react';
+import { createContext, useState } from 'react';
+import PropTypes from 'prop-types';
 
 export const OrderContext = createContext();
 
@@ -21,10 +22,13 @@ export const OrderProvider = ({ children }) => {
   const getOrderById = (id) => {
     return orders.find(order => order.id === id);
   };
-
   return (
     <OrderContext.Provider value={{ orders, currentOrder, addOrder, updateOrder, getOrderById }}>
       {children}
     </OrderContext.Provider>
   );
+};
+
+OrderProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };

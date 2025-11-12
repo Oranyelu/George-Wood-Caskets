@@ -224,7 +224,7 @@ function Home() {
               key={service.id}
               className="bg-[#F0B52E] p-6 rounded-lg shadow-lg flex flex-col items-center justify-center h-[200px] transform hover:scale-105 transition-transform duration-300"
             >
-              <h2 className="text-lg font-semibold text-[#135B3A] mb-2 font-bold text-center">
+              <h2 className="text-[#135B3A] mb-2 font-bold text-center">
                 {service.name}
               </h2>
               <p className="text-white text-center">

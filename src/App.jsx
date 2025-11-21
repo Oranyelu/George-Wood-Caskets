@@ -44,7 +44,7 @@ export default function App() {
           <Route path="blog" element={<Blog />} />
           <Route path="book-of-life" element={<BookOfLife />} />
           <Route path="cart" element={<Cart />} />
-          <Route path="checkout" element={<PrivateRoute><Checkout /></PrivateRoute>} />
+          <Route path="checkout" element={<Checkout />} />
           <Route path="contacts" element={<Contacts />} />
           <Route path="cookies" element={<Cookies />} />
           <Route path="events" element={<Events />} />

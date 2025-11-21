@@ -1,45 +1,29 @@
-import { useState, useEffect } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import Products from "../assets/product-api"; // Importing the product data
-
+import { ProductContext } from "../Providers/ProductProvider";
 
 const ProductsPage = () => {
-  const { productsData } = Products;
-  const [visibleProducts, setVisibleProducts] = useState([]);
-  const [productLimit, setProductLimit] = useState(15);
+  const { products, loading } = useContext(ProductContext);
+  const [searchTerm, setSearchTerm] = useState("");
 
-  useEffect(() => {
-    // Initially load 15 products
-    setVisibleProducts(productsData.slice(0, productLimit));
-  }, [productLimit, productsData]);
-
-  const loadMoreProducts = () => {
-    setProductLimit((prevLimit) => prevLimit + 10);
-  };
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (
-        window.innerHeight + window.scrollY >=
-        document.body.offsetHeight - 100
-      ) {
-        loadMoreProducts();
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="bg-white min-h-screen flex flex-col font-montserrat mt-20 mb-10">
-   
       <div className="min-h-screen p-4">
         <h1 className="text-3xl font-bold text-center text-[#A37E2C] mb-8">All Products</h1>
+        <div className="mb-8 flex justify-center">
+          <input
+            type="text"
+            placeholder="Search for products..."
+            className="w-full max-w-lg p-2 border border-gray-300 rounded-md"
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {visibleProducts.map((product) => (
+          {filteredProducts.map((product) => (
             <div key={product.id} className="bg-white p-4 rounded-lg shadow-md">
               <Link to={`/product/${product.id}`}>
                 <img
@@ -49,13 +33,13 @@ const ProductsPage = () => {
                 />
               </Link>
               <h2 className="text-lg font-semibold mt-2">{product.name}</h2>
-              <p className="text-gray-700">{product.color}</p>
-              <p className="text-gray-900 font-bold"> {product.price.toLocaleString()} NGN</p>
+              <p className="text-gray-700">{product.colors[0]}</p>
+              <p className="text-gray-900 font-bold">{product.price.toLocaleString()} NGN</p>
             </div>
           ))}
         </div>
+        {loading && <p className="text-center">Loading more products...</p>}
       </div>
-
     </div>
   );
 };

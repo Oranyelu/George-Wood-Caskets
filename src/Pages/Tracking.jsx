@@ -1,126 +1,93 @@
 import { useState } from "react";
+import { getFunctions, httpsCallable } from "firebase/functions";
 
-import { orderDatabase } from "../assets/Order-api"; // Import pseudo database
+const functions = getFunctions();
 
-const OrderTrackingPage = () => {
-  const [trackingId, setTrackingId] = useState('');
-  const [currentOrder, setCurrentOrder] = useState(null);
+const OrderTracking = () => {
+  const [orderId, setOrderId] = useState("");
+  const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const handleFetchOrder = () => {
-    if (!trackingId) {
-      setError("Please enter a valid tracking ID");
-      return;
-    }
-
+  const handleTrackOrder = async (e) => {
+    e.preventDefault();
     setLoading(true);
     setError(null);
+    setOrder(null);
 
-    // Simulating order fetching from the pseudo database
-    setTimeout(() => {
-      const order = orderDatabase[trackingId];
-
-      if (order) {
-        setCurrentOrder(order);
-      } else {
-        setError("Order not found");
-      }
-
+    try {
+      const getOrderById = httpsCallable(functions, 'getOrderById');
+      const result = await getOrderById({ orderId });
+      setOrder(result.data);
+    } catch (err) {
+      console.error("Error tracking order:", err);
+      setError(`Failed to track order: ${err.message}`);
+    } finally {
       setLoading(false);
-    }, 1000); // Simulating a delay for fetching data
-  };
-
-  const handleExpediteRequest = () => {
-    if (currentOrder) {
-      // Simulating an order update in the pseudo database
-      const updatedOrder = {
-        ...currentOrder,
-        expediteRequested: true,
-      };
-
-      // Updating the pseudo database manually
-      orderDatabase[trackingId] = updatedOrder;
-      setCurrentOrder(updatedOrder);
     }
-  };
-
-  // Function to calculate the progress percentage
-  const calculateProgress = () => {
-    if (!currentOrder || !currentOrder.orderDate) return 0;
-
-    const orderDate = new Date(currentOrder.orderDate);
-    const today = new Date();
-    const timeDiff = today - orderDate; // Difference in milliseconds
-    const daysElapsed = Math.floor(timeDiff / (1000 * 3600 * 24));
-    const totalDays = 14; // Total days for the order to be ready
-    const progress = Math.min((daysElapsed / totalDays) * 100, 100); // Limit to 100%
-
-    return progress;
   };
 
   return (
-    <div className="bg-white min-h-screen flex flex-col font-montserrat">
-  
-      <section className="mt-[180px] min-h-[50vh] flex flex-col justify-center items-center">
-        <h1 className="text-3xl font-bold mb-4">Order Tracking</h1>
-        <div className="flex items-center mb-4">
+    <div className="bg-custom-gradient min-h-screen flex flex-col font-montserrat p-5">
+      <section className="mt-[120px] max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-md">
+        <h1 className="text-2xl font-bold mb-5 text-center">Track Your Order</h1>
+        <form onSubmit={handleTrackOrder} className="flex flex-col gap-4">
           <input
             type="text"
-            value={trackingId}
-            onChange={(e) => setTrackingId(e.target.value)}
-            placeholder="Enter your tracking ID"
-            className="border border-gray-300 rounded-lg p-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-200"
+            value={orderId}
+            onChange={(e) => setOrderId(e.target.value)}
+            placeholder="Enter your Order ID"
+            className="p-3 border border-gray-300 rounded-lg"
+            required
           />
           <button
-            onClick={handleFetchOrder}
-            className="ml-2 bg-blue-600 text-white rounded-lg p-2 shadow-md hover:bg-blue-700 transition duration-200"
+            type="submit"
+            className="bg-[#135B3A] text-white w-full h-[56px] rounded-[5px] disabled:bg-gray-400"
+            disabled={loading}
           >
-            Track Order
+            {loading ? 'Tracking...' : 'Track Order'}
           </button>
-        </div>
+        </form>
 
-        {loading && <p className="text-blue-600">Loading...</p>}
-        {error && <p className="text-red-600">Error: {error}</p>}
-        {currentOrder && (
-          <div className="border border-gray-300 rounded-lg p-4 mt-4 shadow-lg bg-white w-full max-w-md">
-            <h2 className="text-xl font-semibold mb-2">Order Status</h2>
-            <p>Status: <span className="font-medium">{currentOrder.status}</span></p>
-            <p>Estimated Delivery: <span className="font-medium">{currentOrder.estimatedDelivery}</span></p>
-            
-            {/* Progress Bar */}
-            <div className="mt-4">
-              <div className="bg-gray-200 rounded-full h-2">
-                <div
-                  className="bg-blue-600 h-2 rounded-full"
-                  style={{ width: `${calculateProgress()}%` }}
-                />
+        {error && <p className="text-red-500 mt-4 text-center">{error}</p>}
+
+        {order && (
+          <div className="mt-8 p-6 border border-gray-200 rounded-lg">
+            <h2 className="text-xl font-bold mb-4">Order Details</h2>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <p><strong>Order ID:</strong></p>
+                <p>{order.id}</p>
               </div>
-              <p className="mt-2 text-sm text-gray-600">
-                {Math.floor(calculateProgress())}% of the time elapsed
-              </p>
+              <div>
+                <p><strong>Status:</strong></p>
+                <p className="font-semibold text-[#135B3A]">{order.orderStatus}</p>
+              </div>
+              <div>
+                <p><strong>Date:</strong></p>
+                <p>{new Date(order.createdAt.seconds * 1000).toLocaleDateString()}</p>
+              </div>
+              <div>
+                <p><strong>Total:</strong></p>
+                <p>{order.total.toLocaleString()} NGN</p>
+              </div>
             </div>
-
-            {currentOrder.status === "Pending" && !currentOrder.expediteRequested && (
-              <button
-                onClick={handleExpediteRequest}
-                className="mt-4 bg-yellow-500 text-white rounded-lg p-2 shadow-md hover:bg-yellow-600 transition duration-200"
-              >
-                Request Expedite
-              </button>
-            )}
-            {currentOrder.expediteRequested && (
-              <p className="mt-2 text-green-600">Your request to expedite this order is being processed.</p>
-            )}
+            <div className="mt-6">
+              <h3 className="font-bold mb-2">Items:</h3>
+              <ul>
+                {order.items.map((item, index) => (
+                  <li key={index} className="flex justify-between py-1">
+                    <span>{item.name} (x{item.quantity})</span>
+                    <span>{item.price.toLocaleString()} NGN</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         )}
-        {!currentOrder && !loading && !error && (
-          <p className="text-gray-600">No order information available. Please enter a tracking ID to search.</p>
-        )}
       </section>
-
     </div>
   );
 };
 
-export default OrderTrackingPage;
+export default OrderTracking;

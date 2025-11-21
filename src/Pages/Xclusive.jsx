@@ -1,27 +1,19 @@
 // Xclusive.jsx
 
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import Products from '../assets/product-api'; // Importing the product data
+import { ProductContext } from '../Providers/ProductProvider';
 
 const Xclusive = () => {
-  const { productsData } = Products;
+  const { products, addToCart } = useContext(ProductContext);
 
   // Filter products with the label "Xclusive"
-  const xclusiveProducts = productsData.filter(product => product.label === "Xclusive");
+  const xclusiveProducts = products.filter(product => product.label === "Xclusive");
 
-  // Simple addToCart implementation that stores items in localStorage and shows basic feedback
-  const addToCart = (product) => {
-    try {
-      const existing = JSON.parse(localStorage.getItem('cart') || '[]');
-      existing.push(product);
-      localStorage.setItem('cart', JSON.stringify(existing));
-      // Basic user feedback; replace with a toast/snackbar in a real app
+  const handleAddToCart = (product) => {
+      addToCart(product);
       alert(`${product.name} added to cart`);
-    } catch (e) {
-      // Fallback for environments without localStorage or parse errors
-      console.error('Failed to add to cart', e);
-    }
-  };
+  }
 
   return (
     <div className="min-h-screen bg-white font-montserrat">
@@ -41,10 +33,10 @@ const Xclusive = () => {
           <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {xclusiveProducts.map((product) => (
               <div
-                key={product.id}
+                key={product.slug}
                 className="bg-white p-4 rounded-lg shadow-md"
               >
-                <Link to={`/product/${product.id}`}>
+                <Link to={`/product/${product.slug}`}>
                   <img
                     src={product.thumbnail}
                     alt="product img"
@@ -56,12 +48,15 @@ const Xclusive = () => {
                     {product.name}
                   </h1>
                   <h2 className="text-[#135B3A]">{product.label}</h2>
-                  <h3>Description: {product.description}</h3>
-                  <p>Color: {product.color}</p>
-                  <p>{product.price} NGN</p>
+                  <p className="text-gray-600 mt-1">
+                    Color: {product.colors[0]}
+                  </p>
+                  <p className="text-[#135B3A] font-medium mt-1">
+                    {product.price.toLocaleString()} NGN
+                  </p>
                   <button
                     className="bg-[#A37E2C] text-white px-4 py-2 rounded mt-2 hover:bg-[#8b6824] active:bg-[#70541c] transition-colors"
-                    onClick={() => addToCart(product)}
+                    onClick={() => handleAddToCart(product)}
                   >
                     Order now
                   </button>

@@ -3,11 +3,10 @@ import { ProductContext } from "../Providers/ProductProvider";
 import { Link } from "react-router-dom";
 import { FiChevronRight } from "react-icons/fi"; // right-pointing arrow
 
-
 const Checkout = () => {
-  const { cart, removeFromCart, getTotalPrice, clearCart } = useContext(ProductContext);
+  const { cart, removeFromCart, getTotalPrice, checkout } = useContext(ProductContext);
   const totalPrice = getTotalPrice();
-  
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -15,10 +14,10 @@ const Checkout = () => {
     phone: "",
     referredBy: "",
   });
-  
+
   const [orderSuccess, setOrderSuccess] = useState(false);
   const [trackingId, setTrackingId] = useState("");
-  // Removed unused paymentInstructions state
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -29,35 +28,24 @@ const Checkout = () => {
   };
 
   const handleCompleteOrder = async () => {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+
+    if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone) {
+      alert("Please fill in all required fields.");
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
-      const response = await fetch("https://george-wood-backend.vercel.app/api/send-email", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          email: formData.email,
-          phone: formData.phone,
-          cart: cart,
-          referral: formData.referredBy,
-        }),
-      });
-
-      const result = await response.json();
-
-      if (response.ok) {
-        setTrackingId(result.trackingId); // Set the tracking ID from the response
-        setOrderSuccess(true);
-        
-clearCart(); // Clear the cart after successful order
-      } else {
-        throw new Error(result.message || "Something went wrong");
-      }
+      const orderId = await checkout(formData);
+      setTrackingId(orderId);
+      setOrderSuccess(true);
     } catch (error) {
-      console.error("Error sending email:", error);
-      alert("There was an error placing your order. Please try again.");
+      console.error("Error placing order:", error);
+      alert(`There was an error placing your order: ${error.message}`);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -126,6 +114,7 @@ clearCart(); // Clear the cart after successful order
                   value={formData.firstName}
                   onChange={handleInputChange}
                   className="p-2 border border-gray-300 rounded"
+                  required
                 />
                 <input
                   type="text"
@@ -134,6 +123,7 @@ clearCart(); // Clear the cart after successful order
                   value={formData.lastName}
                   onChange={handleInputChange}
                   className="p-2 border border-gray-300 rounded"
+                  required
                 />
                 <input
                   type="email"
@@ -142,6 +132,7 @@ clearCart(); // Clear the cart after successful order
                   value={formData.email}
                   onChange={handleInputChange}
                   className="p-2 border border-gray-300 rounded"
+                  required
                 />
                 <input
                   type="tel"
@@ -150,6 +141,7 @@ clearCart(); // Clear the cart after successful order
                   value={formData.phone}
                   onChange={handleInputChange}
                   className="p-2 border border-gray-300 rounded"
+                  required
                 />
                 <p>How did you hear about Us</p>
                 <input
@@ -164,9 +156,10 @@ clearCart(); // Clear the cart after successful order
                   <button
                     type="button"
                     onClick={handleCompleteOrder}
-                    className="bg-[#135B3A] text-white w-full h-[56px] rounded-[5px] mt-5"
+                    className="bg-[#135B3A] text-white w-full h-[56px] rounded-[5px] mt-5 disabled:bg-gray-400"
+                    disabled={isSubmitting}
                   >
-                    Complete Order
+                    {isSubmitting ? 'Placing Order...' : 'Complete Order'}
                   </button>
                 )}
               </form>

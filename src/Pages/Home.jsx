@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 import { Card, CardContent } from "@mui/material";
 import { ProductContext } from "../Providers/ProductProvider";
-import Products from "../assets/product-api"; // product data
 import Services from "../assets/service-api"; // service data
 import TestimonialsData from "../assets/Testinonials-api"; // testimonials
 import Logo from "../assets/Favicon.svg"; // hero logo
@@ -49,8 +48,7 @@ function HeroSection() {
 }
 
 function Home() {
-  const { addToCart } = useContext(ProductContext);
-  const { productsData } = Products;
+  const { addToCart, products } = useContext(ProductContext);
   const { servicesData } = Services;
 
   const [notification, setNotification] = useState(null);
@@ -69,21 +67,12 @@ function Home() {
 
   // --- Select random products ---
   useEffect(() => {
-    const getRandomItems = (arr, count) =>
-      [...arr].sort(() => 0.5 - Math.random()).slice(0, count);
-
-    const xclusiveProducts = getRandomItems(
-      productsData.filter((p) => p.label === "Xclusive"),
-      8
-    );
-
-    const classicProducts = getRandomItems(
-      productsData.filter((p) => p.label === "Classic"),
-      8
-    );
-
-    setRandomProducts([...xclusiveProducts, ...classicProducts]);
-  }, [productsData]);
+    if (products.length > 0) {
+      const getRandomItems = (arr, count) =>
+        [...arr].sort(() => 0.5 - Math.random()).slice(0, count);
+      setRandomProducts(getRandomItems(products, 8));
+    }
+  }, [products]);
 
   // --- Select random services ---
   useEffect(() => {
@@ -145,61 +134,47 @@ function Home() {
           </p>
         </header>
 
-        {["Xclusive", "Classic"].map((category) => {
-          const filteredProducts = featuredProducts.filter(
-            (product) => product.label === category
-          );
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {featuredProducts.map((product) => (
+            <div
+              key={product.id}
+              className="bg-white p-4 rounded-lg shadow-lg flex flex-col transition-transform hover:scale-105 duration-300"
+            >
+              <Link
+                to={`/product/${product.id}`}
+                className="overflow-hidden rounded-md"
+              >
+                <img
+                  src={product.thumbnail}
+                  alt={product.name}
+                  className="w-full h-48 object-cover rounded-md"
+                  loading="lazy"
+                />
+              </Link>
 
-          return (
-            <div key={category} className="mb-16">
-              <h3 className="text-2xl md:text-3xl font-bold text-[#011309] mb-6">
-                {category} Collection
-              </h3>
+              <div className="mt-3 flex flex-col flex-1">
+                <h1 className="text-lg font-semibold text-[#011309]">
+                  {product.name}
+                </h1>
+                <p className="text-[#135B3A] font-medium mt-1">
+                  Price: {product.price.toLocaleString()} NGN
+                </p>
+                <p className="text-gray-600 mt-1">
+                  Color: {product.colors.join(', ')}
+                </p>
+              </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {filteredProducts.map((product) => (
-                  <div
-                    key={product.id}
-                    className="bg-white p-4 rounded-lg shadow-lg flex flex-col transition-transform hover:scale-105 duration-300"
-                  >
-                    <Link
-                      to={`/product/${product.id}`}
-                      className="overflow-hidden rounded-md"
-                    >
-                      <img
-                        src={product.thumbnail}
-                        alt={product.name}
-                        className="w-full h-48 object-cover rounded-md"
-                        loading="lazy"
-                      />
-                    </Link>
-
-                    <div className="mt-3 flex flex-col flex-1">
-                      <h1 className="text-lg font-semibold text-[#011309]">
-                        {product.name}
-                      </h1>
-                      <p className="text-[#135B3A] font-medium mt-1">
-                        Price: {product.price.toLocaleString()} NGN
-                      </p>
-                      <p className="text-gray-600 mt-1">
-                        Color: {product.color}
-                      </p>
-                    </div>
-
-                    <div className="mt-4 flex justify-center">
-                      <button
-                        className="bg-[#135B3A] text-white px-4 py-2 rounded w-full hover:bg-[#8b6824] active:bg-[#70541c] transition-colors"
-                        onClick={() => handleAddToCart(product)}
-                      >
-                        Order Now
-                      </button>
-                    </div>
-                  </div>
-                ))}
+              <div className="mt-4 flex justify-center">
+                <button
+                  className="bg-[#135B3A] text-white px-4 py-2 rounded w-full hover:bg-[#8b6824] active:bg-[#70541c] transition-colors"
+                  onClick={() => handleAddToCart(product)}
+                >
+                  Order Now
+                </button>
               </div>
             </div>
-          );
-        })}
+          ))}
+        </div>
 
         <div className="text-center mt-10">
           <Link to="/products">

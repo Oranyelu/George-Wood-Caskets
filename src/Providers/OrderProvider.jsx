@@ -1,29 +1,63 @@
-// OrderProvider.jsx
-import { createContext, useState } from 'react';
+
+import { createContext, useState, useEffect, useCallback, useContext } from 'react';
 import PropTypes from 'prop-types';
+import { useAuth } from './AuthProvider'; // Import useAuth
 
 export const OrderContext = createContext();
 
-export const OrderProvider = ({ children }) => {
+const OrderProvider = ({ children }) => {
   const [orders, setOrders] = useState([]);
-  const [currentOrder, setCurrentOrder] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const { user } = useAuth(); // Use the useAuth hook
 
-  const addOrder = (order) => {
-    setOrders([...orders, order]);
-  };
-
-  const updateOrder = (updatedOrder) => {
-    setOrders(orders.map(order => order.id === updatedOrder.id ? updatedOrder : order));
-    if (currentOrder && currentOrder.id === updatedOrder.id) {
-      setCurrentOrder(updatedOrder);
+  const fetchOrders = useCallback(async () => {
+    if (!user) {
+      setOrders([]);
+      return;
     }
-  };
+
+    setLoading(true);
+    try {
+      const token = await user.getIdToken();
+      const response = await fetch(`/api/orders/${user.uid}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const orderList = await response.json();
+      setOrders(orderList);
+    } catch (error) {
+      console.error("Error fetching orders:", error);
+    } finally {
+      setLoading(false);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    fetchOrders();
+  }, [fetchOrders]);
 
   const getOrderById = (id) => {
     return orders.find(order => order.id === id);
   };
+
+  // The addOrder and updateOrder functions will be handled by the backend now.
+  // Components should use the checkout function from ProductContext to create new orders.
+
+  const value = {
+    orders,
+    loading,
+    getOrderById,
+    refetchOrders: fetchOrders, // Expose a function to manually refetch orders
+  };
+
   return (
-    <OrderContext.Provider value={{ orders, currentOrder, addOrder, updateOrder, getOrderById }}>
+    <OrderContext.Provider value={value}>
       {children}
     </OrderContext.Provider>
   );
@@ -32,3 +66,5 @@ export const OrderProvider = ({ children }) => {
 OrderProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
+
+export default OrderProvider;

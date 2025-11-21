@@ -15,9 +15,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <AuthProvider>
         <ProductProvider>
           <OrderProvider>
-            <SplashCursor>
+            <SplashCursor />
               <App />
-            </SplashCursor>
+            
           </OrderProvider>
         </ProductProvider>
       </AuthProvider>

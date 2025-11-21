@@ -1,8 +1,7 @@
 
 import { useEffect, useState, useCallback } from "react";
-import { getFirestore, collection, getDocs, doc, updateDoc } from "firebase/firestore";
-
-const db = getFirestore();
+import { collection, getDocs, doc, updateDoc } from "firebase/firestore";
+import { db } from "../firebase"; // Import the initialized db from your firebase config
 
 const AdminDashboard = () => {
   const [orders, setOrders] = useState([]);
@@ -85,7 +84,7 @@ const AdminDashboard = () => {
                     {order.createdAt ? new Date(order.createdAt.seconds * 1000).toLocaleDateString() : 'N/A'}
                   </td>
                   <td className="py-2 px-4 border-b">
-                    <select>
+                    <select onChange={(e) => handleUpdateStatus(order.id, e.target.value)} defaultValue={order.orderStatus}>
                       <option value="pending">Pending</option>
                       <option value="processing">Processing</option>
                       <option value="shipped">Shipped</option>

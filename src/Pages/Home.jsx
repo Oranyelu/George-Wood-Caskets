@@ -7,6 +7,12 @@ import Services from "../assets/service-api"; // service data
 import TestimonialsData from "../assets/Testinonials-api"; // testimonials
 import Logo from "../assets/Favicon.svg"; // hero logo
 import BKOL from "../assets/svgs/bookoflife.svg"; // Book of Life image
+// import './ShinyText.css';
+
+const ShinyText = ({ text }) => {
+  return <div className="shiny-text">{text}</div>;
+};
+
 
 function HeroSection() {
   const foundingYear = 1984;
@@ -25,7 +31,7 @@ function HeroSection() {
       {/* Left Content */}
       <div className="max-w-xl text-center md:text-left">
         <h1 className="text-3xl md:text-5xl font-extrabold leading-tight">
-          Honouring Life <br /> and Legacies since 1984
+          <ShinyText text="Honouring Life and Legacies since 1984" />
         </h1>
         <p className="mt-6 text-base md:text-lg text-gray-200">
           At George Wood Casket, every creation tells a story. For over four

@@ -1,82 +1,103 @@
-// Example dashboard component
-import { useEffect, useState } from "react";
 
+import { useEffect, useState, useCallback } from "react";
+import { getFirestore, collection, getDocs, doc, updateDoc } from "firebase/firestore";
+
+const db = getFirestore();
 
 const AdminDashboard = () => {
   const [orders, setOrders] = useState([]);
-  const [newOrders] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  useEffect(() => {
-    // Fetch orders on component mount
-    const fetchOrders = async () => {
-      const response = await fetch("/api/orders", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
-        },
+  const fetchOrders = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const ordersCollection = collection(db, "orders");
+      const ordersSnapshot = await getDocs(ordersCollection);
+      const ordersList = ordersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      
+      const sortedOrders = ordersList.sort((a, b) => {
+        const dateA = a.createdAt?.seconds || 0;
+        const dateB = b.createdAt?.seconds || 0;
+        return dateB - dateA;
       });
-      const data = await response.json();
-      setOrders(data);
-    };
-
-    fetchOrders();
+      setOrders(sortedOrders);
+    } catch (err) {
+      console.error("Error fetching orders:", err);
+      setError(`Failed to fetch orders: ${err.message}`);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  const handleUpdateOrder = async (orderId, updates) => {
-    const response = await fetch(`/api/update-order/${orderId}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
-      },
-      body: JSON.stringify(updates),
-    });
+  useEffect(() => {
+    fetchOrders();
+  }, [fetchOrders]);
 
-    if (response.ok) {
-      // Update the orders state
-      const updatedOrder = await response.json();
-      setOrders((prevOrders) =>
-        prevOrders.map((order) =>
-          order._id === updatedOrder._id ? updatedOrder : order
-        )
-      );
+  const handleUpdateStatus = async (orderId, newStatus) => {
+    try {
+      const orderRef = doc(db, "orders", orderId);
+      await updateDoc(orderRef, {
+        orderStatus: newStatus,
+      });
+      fetchOrders(); 
+    } catch (err) {
+      console.error("Error updating order status:", err);
+      alert(`Failed to update status: ${err.message}`);
     }
   };
 
+  if (loading) {
+    return <div className="mt-[120px] p-5">Loading orders...</div>;
+  }
+
+  if (error) {
+    return <div className="mt-[120px] p-5 text-red-500">{error}</div>;
+  }
+
   return (
-    <div className="bg-white min-h-screen flex flex-col font-montserrat">
-     
-      <section  className="mt-[120px] h-[50em] flex justify-center ">
-        <h1>Admin Dashboard</h1>
-        <h2>New Orders</h2>
-        <ul>
-          {newOrders.map((order) => (
-            <li key={order._id}>
-              {order.details}
-              <button
-                onClick={() =>
-                  handleUpdateOrder(order._id, { status: "Processing" })
-                }
-              >
-                Update
-              </button>
-            </li>
-          ))}
-        </ul>
-        <h2>All Orders</h2>
-        <ul>
-          {orders.map((order) => (
-            <li key={order._id}>
-              {order.details} - Status: {order.status}
-              <button
-                onClick={() =>
-                  handleUpdateOrder(order._id, { status: "Shipped" })
-                }
-              >
-                Mark as Shipped
-              </button>
-            </li>
-          ))}
-        </ul>
+    <div className="bg-white min-h-screen flex flex-col font-montserrat p-5">
+      <section className="mt-[120px]">
+        <h1 className="text-2xl font-bold mb-5">Admin Dashboard</h1>
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-white border border-gray-200">
+            <thead className="bg-gray-100">
+              <tr>
+                <th className="py-2 px-4 border-b">Order ID</th>
+                <th className="py-2 px-4 border-b">Customer</th>
+                <th className="py-2 px-4 border-b">Total</th>
+                <th className="py-2 px-4 border-b">Status</th>
+                <th className="py-2 px-4 border-b">Date</th>
+                <th className="py-2 px-4 border-b">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {orders.map((order) => (
+                <tr key={order.id}>
+                  <td className="py-2 px-4 border-b">{order.id}</td>
+                  <td className="py-2 px-4 border-b">
+                    {order.customerInfo?.firstName} {order.customerInfo?.lastName}
+                  </td>
+                  <td className="py-2 px-4 border-b">{order.total?.toLocaleString()} NGN</td>
+                  <td className="py-2 px-4 border-b">{order.orderStatus}</td>
+                  <td className="py-2 px-4 border-b">
+                    {order.createdAt ? new Date(order.createdAt.seconds * 1000).toLocaleDateString() : 'N/A'}
+                  </td>
+                  <td className="py-2 px-4 border-b">
+                    <select>
+                      <option value="pending">Pending</option>
+                      <option value="processing">Processing</option>
+                      <option value="shipped">Shipped</option>
+                      <option value="delivered">Delivered</option>
+                      <option value="cancelled">Cancelled</option>
+                    </select>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </section>
     </div>
   );

@@ -1,0 +1,14 @@
+
+# Dependencies
+/node_modules
+
+# Build artifacts
+/lib
+
+# Firebase
+serviceAccountKey.json
+.firebase
+firebase-debug.log
+
+# Other
+.DS_Store

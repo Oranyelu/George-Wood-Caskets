@@ -1,19 +1,26 @@
-// src/main.jsx
+
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "./index.css";
-import { ProductProvider, OrderProvider } from "./Utils";
+import AuthProvider from "./Providers/AuthProvider";
+import ProductProvider from "./Providers/ProductProvider";
+import OrderProvider from "./Providers/OrderProvider";
+import SplashCursor from "./SplashCursor";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <ProductProvider>
-      <OrderProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </OrderProvider>
-    </ProductProvider>
+    <BrowserRouter>
+      <AuthProvider>
+        <ProductProvider>
+          <OrderProvider>
+            <SplashCursor>
+              <App />
+            </SplashCursor>
+          </OrderProvider>
+        </ProductProvider>
+      </AuthProvider>
+    </BrowserRouter>
   </React.StrictMode>
 );

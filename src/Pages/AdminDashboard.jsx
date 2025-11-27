@@ -44,7 +44,7 @@ const AdminDashboard = () => {
     try {
       const orderRef = doc(db, "orders", orderId);
       await updateDoc(orderRef, {
-        orderStatus: newStatus,
+        status: newStatus,
       });
       fetchOrders();
     } catch (err) {
@@ -124,13 +124,26 @@ const AdminDashboard = () => {
                     <td className="py-2 px-4 border-b">
                       {order.customerInfo?.firstName} {order.customerInfo?.lastName}
                     </td>
-                    <td className="py-2 px-4 border-b">{order.total?.toLocaleString()} NGN</td>
-                    <td className="py-2 px-4 border-b">{order.orderStatus}</td>
-                    <td className="py-2 px-4 border-b">
-                      {order.createdAt ? new Date(order.createdAt.seconds * 1000).toLocaleDateString() : 'N/A'}
+                    <td className="py-2 px-4 border-b">{(order.totalPrice || order.total)?.toLocaleString()} NGN</td>
+                    <td className="py-2 px-4 border-b capitalize">
+                      {order.status || order.orderStatus}
+                      {order.expediteRequested && (
+                        <span className="ml-2 bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded font-bold uppercase tracking-wider">
+                          Expedite
+                        </span>
+                      )}
                     </td>
                     <td className="py-2 px-4 border-b">
-                      <select onChange={(e) => handleUpdateStatus(order.id, e.target.value)} defaultValue={order.orderStatus}>
+                      {order.createdAt
+                        ? (typeof order.createdAt === 'string' ? new Date(order.createdAt).toLocaleDateString() : new Date(order.createdAt.seconds * 1000).toLocaleDateString())
+                        : 'N/A'}
+                    </td>
+                    <td className="py-2 px-4 border-b">
+                      <select
+                        onChange={(e) => handleUpdateStatus(order.id, e.target.value)}
+                        defaultValue={order.status || order.orderStatus || 'pending'}
+                        className="p-1 border rounded"
+                      >
                         <option value="pending">Pending</option>
                         <option value="processing">Processing</option>
                         <option value="shipped">Shipped</option>

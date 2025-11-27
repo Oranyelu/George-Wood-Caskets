@@ -171,7 +171,7 @@ function Home() {
                   Price: {product.price.toLocaleString()} NGN
                 </p>
                 <p className="text-gray-600 mt-1">
-                  Color: {product.colors.join(', ')}
+                  Color: {product.colors?.join(', ') || 'N/A'}
                 </p>
               </div>
 

@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 import { Card, CardContent } from "@mui/material";
@@ -11,6 +12,10 @@ import BKOL from "../assets/svgs/bookoflife.svg"; // Book of Life image
 
 const ShinyText = ({ text }) => {
   return <div className="shiny-text">{text}</div>;
+};
+
+ShinyText.propTypes = {
+  text: PropTypes.string.isRequired,
 };
 
 
@@ -27,7 +32,7 @@ function HeroSection() {
   }, []);
 
   return (
-    <section className="bg-[#135B3A] text-white py-20 px-6 md:px-10 lg:px-20 flex flex-col md:flex-row items-center justify-between rounded-b-[50px] max-w-[1300px] mx-auto w-full">
+    <section className="bg-primary text-white py-20 px-6 md:px-10 lg:px-20 flex flex-col md:flex-row items-center justify-between rounded-b-[50px] max-w-[1300px] mx-auto w-full">
       {/* Left Content */}
       <div className="max-w-xl text-center md:text-left">
         <h1 className="text-3xl md:text-5xl font-extrabold leading-tight">
@@ -45,9 +50,9 @@ function HeroSection() {
         <img
           src={Logo}
           alt="George Wood Logo"
-          className="w-48 h-48 md:w-56 md:h-56 object-contain animate-spin-slow"
+          className="w-48 h-48 md:w-56 md:h-56 object-contain animate-flip"
         />
-        <p className="mt-4 text-5xl font-bold text-[#F0B52E]">{years} Years</p>
+        <p className="mt-4 text-5xl font-bold text-secondary">{years} Years</p>
       </div>
     </section>
   );
@@ -116,7 +121,7 @@ function Home() {
   }, []);
 
   return (
-    <div className="bg-white min-h-screen flex flex-col font-montserrat overflow-x-hidden">
+    <div className="bg-white min-h-screen flex flex-col font-sans overflow-x-hidden">
       {/* === Hero Section === */}
       <HeroSection />
 
@@ -132,10 +137,10 @@ function Home() {
       {/* === Featured Products Section === */}
       <section className="pt-20 px-6 md:px-10 lg:px-20 max-w-[1300px] mx-auto w-full">
         <header className="flex flex-col text-center mb-12">
-          <h2 className="text-3xl md:text-4xl text-[#135B3A] font-bold">
+          <h2 className="text-3xl md:text-4xl text-primary font-bold">
             Featured Products
           </h2>
-          <p className="text-base md:text-lg text-[#8b6824] mt-2">
+          <p className="text-base md:text-lg text-secondary mt-2">
             Make your choice based on popular demand...
           </p>
         </header>
@@ -159,10 +164,10 @@ function Home() {
               </Link>
 
               <div className="mt-3 flex flex-col flex-1">
-                <h1 className="text-lg font-semibold text-[#011309]">
+                <h1 className="text-lg font-semibold text-accent">
                   {product.name}
                 </h1>
-                <p className="text-[#135B3A] font-medium mt-1">
+                <p className="text-primary font-medium mt-1">
                   Price: {product.price.toLocaleString()} NGN
                 </p>
                 <p className="text-gray-600 mt-1">
@@ -172,7 +177,7 @@ function Home() {
 
               <div className="mt-4 flex justify-center">
                 <button
-                  className="bg-[#135B3A] text-white px-4 py-2 rounded w-full hover:bg-[#8b6824] active:bg-[#70541c] transition-colors"
+                  className="bg-primary text-white px-4 py-2 rounded w-full hover:bg-secondary active:bg-primary transition-colors"
                   onClick={() => handleAddToCart(product)}
                 >
                   Order Now
@@ -184,7 +189,7 @@ function Home() {
 
         <div className="text-center mt-10">
           <Link to="/products">
-            <button className="bg-[#135B3A] text-white px-6 py-3 rounded hover:bg-[#8b6824] active:bg-[#70541c] transition-colors">
+            <button className="bg-primary text-white px-6 py-3 rounded hover:bg-secondary active:bg-primary transition-colors">
               View All Products
             </button>
           </Link>
@@ -194,7 +199,7 @@ function Home() {
       {/* === Featured Services Section === */}
       <section className="pt-20 px-6 md:px-10 lg:px-20 max-w-[1300px] mx-auto w-full">
         <header className="flex flex-col text-center mb-10">
-          <h2 className="text-3xl text-[#135B3A] font-bold">
+          <h2 className="text-3xl text-primary font-bold">
             Featured Services
           </h2>
         </header>
@@ -203,9 +208,9 @@ function Home() {
           {randomServices.map((service) => (
             <li
               key={service.id}
-              className="bg-[#F0B52E] p-6 rounded-lg shadow-lg flex flex-col items-center justify-center h-[200px] transform hover:scale-105 transition-transform duration-300"
+              className="bg-secondary p-6 rounded-lg shadow-lg flex flex-col items-center justify-center h-[200px] transform hover:scale-105 transition-transform duration-300"
             >
-              <h2 className="text-[#135B3A] mb-2 font-bold text-center">
+              <h2 className="text-primary mb-2 font-bold text-center">
                 {service.name}
               </h2>
               <p className="text-white text-center">
@@ -221,15 +226,15 @@ function Home() {
         <div className="flex flex-col text-white gap-8">
           <section className="flex justify-between sm:flex-row flex-col">
             <div>
-              <h1 className="font-bold text-3xl text-[#135B3A]">
+              <h1 className="font-bold text-3xl text-primary">
                 Why Choose George Wood Casket?
               </h1>
-              <h2 className="text-[#8b6824]">
+              <h2 className="text-secondary">
                 Read what our customers have to say...
               </h2>
             </div>
 
-            <div className="flex gap-5 text-[#135B3A]">
+            <div className="flex gap-5 text-primary">
               <div className="text-center">
                 <h2 className="text-2xl font-bold">488</h2>
                 <p>Clients</p>
@@ -243,7 +248,7 @@ function Home() {
 
           {/* Book of Life Section */}
           <section className="flex flex-col md:flex-row justify-between items-center gap-6">
-            <div className="bg-[#135B3A] md:max-w-[250px] w-full h-[250px] rounded-md flex flex-col items-center justify-center">
+            <div className="bg-primary md:max-w-[250px] w-full h-[250px] rounded-md flex flex-col items-center justify-center">
               <div className="flex items-center">
                 <span className="text-5xl font-bold">
                   {averageRating.toFixed(1)}
@@ -268,7 +273,7 @@ function Home() {
               >
                 <Link
                   to="/book-of-life"
-                  className="text-white underline hover:text-[#A37E2C]"
+                  className="text-white underline hover:text-secondary"
                 >
                   <h1 className="text-lg font-bold">
                     Discover “The Book Of Life”
@@ -290,7 +295,7 @@ function Home() {
               .map((testimonial) => (
                 <div
                   key={testimonial.id}
-                  className="bg-[#135B3A] p-5 rounded-lg shadow-lg text-white flex flex-col gap-3"
+                  className="bg-primary p-5 rounded-lg shadow-lg text-white flex flex-col gap-3"
                 >
                   <p className="font-semibold underline text-lg">
                     - {testimonial.name}
@@ -312,7 +317,7 @@ function Home() {
 
       {/* === Latest Updates Section === */}
       <section className="pt-20 px-6 md:px-10 lg:px-20 max-w-[1300px] mx-auto w-full">
-        <h2 className="text-3xl font-bold mb-8 text-[#135B3A]">
+        <h2 className="text-3xl font-bold mb-8 text-primary">
           Latest Updates
         </h2>
 
@@ -320,7 +325,7 @@ function Home() {
           {posts.map((post) => (
             <Card
               key={post.id}
-              className="rounded-2xl overflow-hidden shadow-lg bg-[#F0B52E] text-[#135B3A] transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl"
+              className="rounded-2xl overflow-hidden shadow-lg bg-secondary text-primary transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl"
             >
               <Link to={`/blog/${post.id}`}>
                 <img
@@ -331,12 +336,12 @@ function Home() {
               </Link>
               <CardContent className="p-5">
                 <h3 className="text-lg font-semibold mb-2">{post.title}</h3>
-                <p className="text-[#011309] mb-4 text-sm">
+                <p className="text-accent mb-4 text-sm">
                   {post.description}
                 </p>
                 <Link
                   to={`/blog/${post.id}`}
-                  className="text-[#135B3A] font-medium hover:text-[#011309] transition-colors duration-200"
+                  className="text-primary font-medium hover:text-accent transition-colors duration-200"
                 >
                   Read more →
                 </Link>
@@ -347,7 +352,7 @@ function Home() {
 
         <div className="text-center mt-10">
           <Link to="/blog">
-            <button className="bg-[#135B3A] text-white px-6 py-3 rounded hover:bg-[#8b6824] active:bg-[#70541c] transition-colors">
+            <button className="bg-primary text-white px-6 py-3 rounded hover:bg-secondary active:bg-primary transition-colors">
               View More Articles
             </button>
           </Link>
@@ -356,12 +361,12 @@ function Home() {
 
       {/* === George Wood Foundation Section === */}
       <section className="pt-20 px-6 md:px-10 lg:px-20 max-w-[1300px] mx-auto w-full mb-20">
-        <h1 className="text-3xl md:text-4xl font-bold text-[#135B3A] mb-8">
+        <h1 className="text-3xl md:text-4xl font-bold text-primary mb-8">
           George Wood&#39;s Legacy
         </h1>
-        <div className="bg-[#135B3A] rounded-xl flex flex-col md:flex-row items-center gap-8 md:gap-12 p-6 md:p-10 w-full">
+        <div className="bg-primary rounded-xl flex flex-col md:flex-row items-center gap-8 md:gap-12 p-6 md:p-10 w-full">
           <div className="w-full flex flex-col items-center md:items-start text-center md:text-left gap-6">
-            <h2 className="text-[#f0c068] text-xl md:text-2xl font-bold">
+            <h2 className="text-secondary text-xl md:text-2xl font-bold">
               Celebrating Life and Legacy
             </h2>
             <p className="text-white text-sm md:text-base leading-relaxed">
@@ -372,7 +377,7 @@ function Home() {
               brighter, more compassionate world.
             </p>
             <Link to="/giving">
-              <button className="bg-white text-[#135B3A] font-semibold px-6 py-3 rounded-md shadow-lg hover:shadow-xl transition duration-300">
+              <button className="bg-white text-primary font-semibold px-6 py-3 rounded-md shadow-lg hover:shadow-xl transition duration-300">
                 Go to Page
               </button>
             </Link>

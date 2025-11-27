@@ -1,23 +1,32 @@
-import { useState, useContext } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useState, useContext, useEffect } from 'react';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { AuthContext } from '../Providers/AuthProvider';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const { login } = useContext(AuthContext);
+  const { login, user } = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
+
+  useEffect(() => {
+    if (user) {
+      navigate(from, { replace: true });
+    }
+  }, [user, navigate, from]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     try {
       await login(email, password);
-      navigate('/');
+      // Navigation handled by useEffect
     } catch (err) {
       console.error("Login Error:", err);
-      setError('Failed to log in');
+      setError(`Failed to log in: ${err.message}`);
     }
   };
 
@@ -48,7 +57,7 @@ const LoginPage = () => {
           Login
         </button>
         <p className="mt-4 text-center">
-          Don't have an account? <Link to="/signup" className="text-blue-500">Sign up</Link>
+          Don&apos;t have an account? <Link to="/signup" className="text-blue-500">Sign up</Link>
         </p>
       </form>
     </div>

@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import productsData from '../assets/product-api'; // Import the hardcoded product data
+import { collection, onSnapshot } from "firebase/firestore";
+import { db } from "../firebase";
 
 export const ProductContext = createContext();
 
@@ -15,8 +16,24 @@ const ProductProvider = ({ children }) => {
     return savedHistory ? JSON.parse(savedHistory) : [];
   });
 
-  const [products, setProducts] = useState(productsData);
-  const [loading, setLoading] = useState(false);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = onSnapshot(collection(db, "products"), (snapshot) => {
+      const productList = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setProducts(productList);
+      setLoading(false);
+    }, (error) => {
+      console.error("Error fetching products:", error);
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart));
@@ -56,7 +73,7 @@ const ProductProvider = ({ children }) => {
       }
 
       const result = await response.json();
-      
+
       // Add to local order history
       setOrderHistory(prevHistory => [...prevHistory, { ...result, customerInfo, date: new Date().toISOString() }]);
 

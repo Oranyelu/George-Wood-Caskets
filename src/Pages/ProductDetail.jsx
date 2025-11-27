@@ -1,11 +1,11 @@
 import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Services from "../assets/service-api";
 import { ProductContext } from "../Providers/ProductProvider";
 import { FaPlus, FaHeart, FaShareAlt } from "react-icons/fa";
+import { Helmet } from "react-helmet-async";
 
 const ProductDetail = () => {
   const { productId } = useParams();
@@ -46,6 +46,13 @@ const ProductDetail = () => {
 
   return (
     <div className="bg-white min-h-screen flex flex-col font-montserrat">
+      <Helmet>
+        <title>{product.name} | George Wood Caskets</title>
+        <meta name="description" content={product.description} />
+        <meta property="og:title" content={product.name} />
+        <meta property="og:description" content={product.description} />
+        <meta property="og:image" content={product.thumbnail} />
+      </Helmet>
       <section className="mt-16 p-4 flex flex-col items-center">
         <div className="bg-white shadow-md rounded-lg p-6 max-w-5xl w-full lg:flex lg:space-x-6">
           <div className="lg:w-1/2">

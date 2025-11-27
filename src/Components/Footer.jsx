@@ -57,6 +57,9 @@ function Footer() {
             <Link to="/hiring" className="hover:text-secondary">
               We are hiring
             </Link>
+            <Link to="/bonds" className="hover:text-secondary">
+              Bonds
+            </Link>
           </nav>
 
           {/* Legal Section */}

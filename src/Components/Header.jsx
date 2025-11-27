@@ -8,6 +8,7 @@ import { ProductContext } from "../Providers/ProductProvider";
 import { useAuth } from "../Providers/AuthProvider";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Header() {
   const { cart } = useContext(ProductContext);
@@ -32,6 +33,7 @@ export default function Header() {
               @georgewoodcaskets
             </a>
           </p>
+          <LanguageSwitcher />
         </section>
       </div>
 
@@ -56,6 +58,7 @@ export default function Header() {
                 { name: "GIVING", path: "/giving" },
                 { name: "TRACK ORDER", path: "/track-order" },
                 { name: "XCLUSIVE", path: "/xclusive" },
+                { name: "BONDS", path: "/bonds" },
               ].map(({ name, path }) => (
                 <NavLink
                   key={path}
@@ -92,7 +95,7 @@ export default function Header() {
                   <FaUserCircle size={24} />
                 </button>
                 {/* Dropdown */}
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 hidden group-hover:block">
+                <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 hidden group-hover:block before:content-[''] before:absolute before:-top-2 before:left-0 before:w-full before:h-2">
                   <div className="px-4 py-2 text-sm text-gray-700 border-b">
                     Signed in as <br />
                     <span className="font-bold truncate block">{user.email}</span>

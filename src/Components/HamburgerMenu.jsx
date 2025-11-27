@@ -4,6 +4,7 @@ import { FaBars, FaTimes } from 'react-icons/fa';
 import { useAuth } from '../Providers/AuthProvider';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase';
+import LanguageSwitcher from './LanguageSwitcher';
 
 const HamburgerMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -86,6 +87,10 @@ const HamburgerMenu = () => {
               LOGIN
             </NavLink>
           )}
+
+          <div className="mt-4">
+            <LanguageSwitcher />
+          </div>
         </nav>
       </div>
     </div>

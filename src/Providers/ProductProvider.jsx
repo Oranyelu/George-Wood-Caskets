@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { collection, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot, addDoc } from "firebase/firestore";
 import { db } from "../firebase";
 
 export const ProductContext = createContext();
@@ -56,29 +56,34 @@ const ProductProvider = ({ children }) => {
   };
 
   const checkout = async (customerInfo) => {
-    const items = cart.map(item => ({ productId: item.id, qty: 1 })); // Assuming qty is 1 for now
+    const items = cart.map(item => ({
+      productId: item.id,
+      name: item.name,
+      price: item.price,
+      thumbnail: item.thumbnail,
+      qty: 1, // Assuming qty is 1 for now
+      selectedColor: item.selectedColor || null
+    }));
+
+    const orderData = {
+      items,
+      customerInfo,
+      totalPrice: getTotalPrice(),
+      status: 'pending',
+      createdAt: new Date().toISOString(),
+    };
 
     try {
-      const response = await fetch('/api/orders', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ items, customerInfo }),
-      });
+      // Add a new document with a generated id.
+      const docRef = await addDoc(collection(db, "orders"), orderData);
 
-      if (!response.ok) {
-        const errorBody = await response.text();
-        throw new Error(`Error placing order: ${errorBody}`);
-      }
-
-      const result = await response.json();
+      const newOrder = { id: docRef.id, ...orderData };
 
       // Add to local order history
-      setOrderHistory(prevHistory => [...prevHistory, { ...result, customerInfo, date: new Date().toISOString() }]);
+      setOrderHistory(prevHistory => [...prevHistory, newOrder]);
 
       clearCart();
-      return result.id; // The new backend returns the order with an 'id'
+      return docRef.id;
     } catch (error) {
       console.error("Error placing order:", error);
       throw error;

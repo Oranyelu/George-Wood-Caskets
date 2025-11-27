@@ -1,0 +1,43 @@
+
+> george-wood@0.0.0 lint
+> eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0
+
+
+C:\Users\HP\Desktop\My Desktop\George WC\George-Wood-Caskets\src\Components\PrivateRoute.jsx
+  5:25  error  'children' is missing in props validation  react/prop-types
+
+C:\Users\HP\Desktop\My Desktop\George WC\George-Wood-Caskets\src\Pages\Home.jsx
+  12:22  error  'text' is missing in props validation  react/prop-types
+
+C:\Users\HP\Desktop\My Desktop\George WC\George-Wood-Caskets\src\Pages\LoginPage.jsx
+  51:14  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Users\HP\Desktop\My Desktop\George WC\George-Wood-Caskets\src\Pages\ProductDetail.jsx
+  4:10  error  'Carousel' is defined but never used  no-unused-vars
+
+C:\Users\HP\Desktop\My Desktop\George WC\George-Wood-Caskets\src\Providers\AuthProvider.jsx
+  14:14  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+C:\Users\HP\Desktop\My Desktop\George WC\George-Wood-Caskets\src\Providers\OrderProvider.jsx
+  2:59  error  'useContext' is defined but never used  no-unused-vars
+
+C:\Users\HP\Desktop\My Desktop\George WC\George-Wood-Caskets\src\SplashCursor.jsx
+     5:3  error  'SIM_RESOLUTION' is missing in props validation                                                 react/prop-types
+     6:3  error  'DYE_RESOLUTION' is missing in props validation                                                 react/prop-types
+     7:3  error  'CAPTURE_RESOLUTION' is missing in props validation                                             react/prop-types
+     8:3  error  'DENSITY_DISSIPATION' is missing in props validation                                            react/prop-types
+     9:3  error  'VELOCITY_DISSIPATION' is missing in props validation                                           react/prop-types
+    10:3  error  'PRESSURE' is missing in props validation                                                       react/prop-types
+    11:3  error  'PRESSURE_ITERATIONS' is missing in props validation                                            react/prop-types
+    12:3  error  'CURL' is missing in props validation                                                           react/prop-types
+    13:3  error  'SPLAT_RADIUS' is missing in props validation                                                   react/prop-types
+    14:3  error  'SPLAT_FORCE' is missing in props validation                                                    react/prop-types
+    15:3  error  'SHADING' is missing in props validation                                                        react/prop-types
+    16:3  error  'COLOR_UPDATE_SPEED' is missing in props validation                                             react/prop-types
+    17:3  error  'BACK_COLOR' is missing in props validation                                                     react/prop-types
+    18:3  error  'TRANSPARENT' is missing in props validation                                                    react/prop-types
+  1031:5  error  Unused eslint-disable directive (no problems were reported from 'react-hooks/exhaustive-deps')
+
+✖ 21 problems (20 errors, 1 warning)
+  1 error and 0 warnings potentially fixable with the `--fix` option.
+

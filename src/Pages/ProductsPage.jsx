@@ -1,44 +1,114 @@
-import { useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import { useState, useContext, useMemo } from "react";
 import { ProductContext } from "../Providers/ProductProvider";
+import ProductCard from "../Components/ProductCard";
+import { FaFilter } from "react-icons/fa";
 
 const ProductsPage = () => {
   const { products, loading } = useContext(ProductContext);
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedMaterial, setSelectedMaterial] = useState("All");
+  const [priceRange, setPriceRange] = useState(1000000); // Max price
+  const [showFilters, setShowFilters] = useState(false);
 
-  const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // Derive unique categories and materials
+  const categories = ["All", ...new Set(products.map(p => p.category).filter(Boolean))];
+  const materials = ["All", ...new Set(products.map(p => p.material).filter(Boolean))];
+
+  const filteredProducts = useMemo(() => {
+    return products.filter((product) => {
+      const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesCategory = selectedCategory === "All" || product.category === selectedCategory;
+      const matchesMaterial = selectedMaterial === "All" || product.material === selectedMaterial;
+      const matchesPrice = product.price <= priceRange;
+      return matchesSearch && matchesCategory && matchesMaterial && matchesPrice;
+    });
+  }, [products, searchTerm, selectedCategory, selectedMaterial, priceRange]);
 
   return (
-    <div className="bg-white min-h-screen flex flex-col font-montserrat mt-20 mb-10">
-      <div className="min-h-screen p-4">
-        <h1 className="text-3xl font-bold text-center text-[#A37E2C] mb-8">All Products</h1>
-        <div className="mb-8 flex justify-center">
-          <input
-            type="text"
-            placeholder="Search for products..."
-            className="w-full max-w-lg p-2 border border-gray-300 rounded-md"
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {filteredProducts.map((product) => (
-            <div key={product.id} className="bg-white p-4 rounded-lg shadow-md">
-              <Link to={`/product/${product.id}`}>
-                <img
-                  src={product.thumbnail}
-                  alt={product.name}
-                  className="w-full h-[300px] object-cover rounded-md"
-                />
-              </Link>
-              <h2 className="text-lg font-semibold mt-2">{product.name}</h2>
-              <p className="text-gray-700">{product.colors[0]}</p>
-              <p className="text-gray-900 font-bold">{product.price.toLocaleString()} NGN</p>
+    <div className="bg-neutral min-h-screen font-sans pt-20 pb-10">
+      <div className="container mx-auto px-4">
+        <h1 className="text-4xl font-serif font-bold text-center text-primary mb-8">Our Collection</h1>
+
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Mobile Filter Toggle */}
+          <button
+            className="lg:hidden flex items-center gap-2 bg-primary text-white px-4 py-2 rounded"
+            onClick={() => setShowFilters(!showFilters)}
+          >
+            <FaFilter /> Filters
+          </button>
+
+          {/* Sidebar Filters */}
+          <aside className={`lg:w-1/4 bg-white p-6 rounded-lg shadow-sm h-fit ${showFilters ? 'block' : 'hidden lg:block'}`}>
+            <h2 className="text-xl font-bold mb-4 text-primary">Filters</h2>
+
+            {/* Search */}
+            <div className="mb-6">
+              <label className="block text-sm font-bold mb-2">Search</label>
+              <input
+                type="text"
+                placeholder="Search products..."
+                className="w-full p-2 border border-gray-300 rounded"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
             </div>
-          ))}
+
+            {/* Category */}
+            <div className="mb-6">
+              <label className="block text-sm font-bold mb-2">Category</label>
+              <select
+                className="w-full p-2 border border-gray-300 rounded"
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+              >
+                {categories.map(c => <option key={c} value={c}>{c}</option>)}
+              </select>
+            </div>
+
+            {/* Material */}
+            <div className="mb-6">
+              <label className="block text-sm font-bold mb-2">Material</label>
+              <select
+                className="w-full p-2 border border-gray-300 rounded"
+                value={selectedMaterial}
+                onChange={(e) => setSelectedMaterial(e.target.value)}
+              >
+                {materials.map(m => <option key={m} value={m}>{m}</option>)}
+              </select>
+            </div>
+
+            {/* Price Range */}
+            <div className="mb-6">
+              <label className="block text-sm font-bold mb-2">Max Price: {priceRange.toLocaleString()} NGN</label>
+              <input
+                type="range"
+                min="0"
+                max="1000000"
+                step="10000"
+                value={priceRange}
+                onChange={(e) => setPriceRange(Number(e.target.value))}
+                className="w-full accent-primary"
+              />
+            </div>
+          </aside>
+
+          {/* Product Grid */}
+          <main className="lg:w-3/4">
+            {loading ? (
+              <p className="text-center text-xl">Loading products...</p>
+            ) : filteredProducts.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredProducts.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+              </div>
+            ) : (
+              <p className="text-center text-xl text-gray-500">No products found matching your criteria.</p>
+            )}
+          </main>
         </div>
-        {loading && <p className="text-center">Loading more products...</p>}
       </div>
     </div>
   );

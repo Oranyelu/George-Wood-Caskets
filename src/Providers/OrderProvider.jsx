@@ -1,7 +1,9 @@
 
-import { createContext, useState, useEffect, useCallback, useContext } from 'react';
+import { createContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useAuth } from './AuthProvider'; // Import useAuth
+import { useAuth } from './AuthProvider';
+import { collection, query, where, onSnapshot } from 'firebase/firestore';
+import { db } from '../firebase';
 
 export const OrderContext = createContext();
 
@@ -10,37 +12,30 @@ const OrderProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const { user } = useAuth(); // Use the useAuth hook
 
-  const fetchOrders = useCallback(async () => {
+  useEffect(() => {
     if (!user) {
       setOrders([]);
+      setLoading(false);
       return;
     }
 
     setLoading(true);
-    try {
-      const token = await user.getIdToken();
-      const response = await fetch(`/api/orders/${user.uid}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      });
+    const q = query(collection(db, "orders"), where("userId", "==", user.uid));
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const orderList = await response.json();
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const orderList = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
       setOrders(orderList);
-    } catch (error) {
-      console.error("Error fetching orders:", error);
-    } finally {
       setLoading(false);
-    }
-  }, [user]);
+    }, (error) => {
+      console.error("Error fetching orders:", error);
+      setLoading(false);
+    });
 
-  useEffect(() => {
-    fetchOrders();
-  }, [fetchOrders]);
+    return () => unsubscribe();
+  }, [user]);
 
   const getOrderById = (id) => {
     return orders.find(order => order.id === id);
@@ -53,7 +48,7 @@ const OrderProvider = ({ children }) => {
     orders,
     loading,
     getOrderById,
-    refetchOrders: fetchOrders, // Expose a function to manually refetch orders
+    getOrderById,
   };
 
   return (

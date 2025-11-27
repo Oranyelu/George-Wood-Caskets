@@ -1,4 +1,3 @@
-
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
@@ -7,20 +6,21 @@ import "./index.css";
 import AuthProvider from "./Providers/AuthProvider";
 import ProductProvider from "./Providers/ProductProvider";
 import OrderProvider from "./Providers/OrderProvider";
-import SplashCursor from "./SplashCursor";
+
+import { HelmetProvider } from 'react-helmet-async';
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <AuthProvider>
-        <ProductProvider>
-          <OrderProvider>
-            <SplashCursor />
+    <HelmetProvider>
+      <BrowserRouter>
+        <AuthProvider>
+          <ProductProvider>
+            <OrderProvider>
               <App />
-            
-          </OrderProvider>
-        </ProductProvider>
-      </AuthProvider>
-    </BrowserRouter>
+            </OrderProvider>
+          </ProductProvider>
+        </AuthProvider>
+      </BrowserRouter>
+    </HelmetProvider>
   </React.StrictMode>
 );

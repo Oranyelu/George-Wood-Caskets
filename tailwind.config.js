@@ -3,6 +3,16 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      colors: {
+        primary: "#4A3728", // Deep Wood
+        secondary: "#D4AF37", // Gold
+        accent: "#1A1A1A", // Black/Charcoal
+        neutral: "#F5F5F0", // Off-White
+      },
+      fontFamily: {
+        serif: ["Inria Serif", "serif"],
+        sans: ["Montserrat", "sans-serif"],
+      },
       screens: {
         sm: "640px",
         md: "768px",
@@ -10,12 +20,8 @@ export default {
         xl: "1280px",
         "2xl": "1536px",
       },
-
       backgroundImage: {
         "custom-gradient": "linear-gradient(to bottom, white, white)",
-      },
-      fontFamily: {
-        montserrat: ["Montserrat", "sans-serif"],
       },
       animation: {
         reflection: "reflection 2.5s infinite linear",

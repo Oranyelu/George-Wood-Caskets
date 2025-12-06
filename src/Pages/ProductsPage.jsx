@@ -26,9 +26,9 @@ const ProductsPage = () => {
   }, [products, searchTerm, selectedCategory, selectedMaterial, priceRange]);
 
   return (
-    <div className="bg-neutral min-h-screen font-sans pt-20 pb-10">
-      <div className="container mx-auto px-4">
-        <h1 className="text-4xl font-serif font-bold text-center text-primary mb-8">Our Collection</h1>
+    <div className="pt-24 pb-12 min-h-screen transition-colors duration-300">
+      <div className="max-w-[1300px] mx-auto px-4 md:px-8">
+        <h1 className="text-4xl font-serif font-bold text-center text-primary dark:text-green-500 mb-8">Our Collection</h1>
 
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Mobile Filter Toggle */}
@@ -40,16 +40,16 @@ const ProductsPage = () => {
           </button>
 
           {/* Sidebar Filters */}
-          <aside className={`lg:w-1/4 bg-white p-6 rounded-lg shadow-sm h-fit ${showFilters ? 'block' : 'hidden lg:block'}`}>
-            <h2 className="text-xl font-bold mb-4 text-primary">Filters</h2>
+          <aside className={`lg:w-1/4 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm h-fit ${showFilters ? 'block' : 'hidden lg:block'}`}>
+            <h2 className="text-xl font-bold mb-4 text-primary dark:text-green-400">Filters</h2>
 
             {/* Search */}
             <div className="mb-6">
-              <label className="block text-sm font-bold mb-2">Search</label>
+              <label className="block text-sm font-bold mb-2 text-gray-700 dark:text-gray-300">Search</label>
               <input
                 type="text"
                 placeholder="Search products..."
-                className="w-full p-2 border border-gray-300 rounded"
+                className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
@@ -57,9 +57,9 @@ const ProductsPage = () => {
 
             {/* Category */}
             <div className="mb-6">
-              <label className="block text-sm font-bold mb-2">Category</label>
+              <label className="block text-sm font-bold mb-2 text-gray-700 dark:text-gray-300">Category</label>
               <select
-                className="w-full p-2 border border-gray-300 rounded"
+                className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
               >
@@ -69,9 +69,9 @@ const ProductsPage = () => {
 
             {/* Material */}
             <div className="mb-6">
-              <label className="block text-sm font-bold mb-2">Material</label>
+              <label className="block text-sm font-bold mb-2 text-gray-700 dark:text-gray-300">Material</label>
               <select
-                className="w-full p-2 border border-gray-300 rounded"
+                className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                 value={selectedMaterial}
                 onChange={(e) => setSelectedMaterial(e.target.value)}
               >
@@ -81,7 +81,7 @@ const ProductsPage = () => {
 
             {/* Price Range */}
             <div className="mb-6">
-              <label className="block text-sm font-bold mb-2">Max Price: {priceRange.toLocaleString()} NGN</label>
+              <label className="block text-sm font-bold mb-2 text-gray-700 dark:text-gray-300">Max Price: {priceRange.toLocaleString()} NGN</label>
               <input
                 type="range"
                 min="0"
@@ -97,7 +97,7 @@ const ProductsPage = () => {
           {/* Product Grid */}
           <main className="lg:w-3/4">
             {loading ? (
-              <p className="text-center text-xl">Loading products...</p>
+              <p className="text-center text-xl dark:text-gray-300">Loading products...</p>
             ) : filteredProducts.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredProducts.map((product) => (
@@ -105,7 +105,7 @@ const ProductsPage = () => {
                 ))}
               </div>
             ) : (
-              <p className="text-center text-xl text-gray-500">No products found matching your criteria.</p>
+              <p className="text-center text-xl text-gray-500 dark:text-gray-400">No products found matching your criteria.</p>
             )}
           </main>
         </div>

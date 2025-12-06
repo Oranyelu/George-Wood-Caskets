@@ -39,37 +39,37 @@ const ProductList = ({ onEdit }) => {
 
     return (
         <div className="overflow-x-auto">
-            <table className="min-w-full bg-white border border-gray-200">
-                <thead className="bg-gray-100">
+            <table className="min-w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                <thead className="bg-gray-100 dark:bg-gray-700">
                     <tr>
-                        <th className="py-2 px-4 border-b">Image</th>
-                        <th className="py-2 px-4 border-b">Name</th>
-                        <th className="py-2 px-4 border-b">Category</th>
-                        <th className="py-2 px-4 border-b">Price</th>
-                        <th className="py-2 px-4 border-b">Actions</th>
+                        <th className="py-2 px-4 border-b border-gray-200 dark:border-gray-600 text-left text-gray-700 dark:text-gray-200 font-semibold">Image</th>
+                        <th className="py-2 px-4 border-b border-gray-200 dark:border-gray-600 text-left text-gray-700 dark:text-gray-200 font-semibold">Name</th>
+                        <th className="py-2 px-4 border-b border-gray-200 dark:border-gray-600 text-left text-gray-700 dark:text-gray-200 font-semibold">Category</th>
+                        <th className="py-2 px-4 border-b border-gray-200 dark:border-gray-600 text-left text-gray-700 dark:text-gray-200 font-semibold">Price</th>
+                        <th className="py-2 px-4 border-b border-gray-200 dark:border-gray-600 text-left text-gray-700 dark:text-gray-200 font-semibold">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {products.map((product) => (
-                        <tr key={product.id} className="hover:bg-gray-50">
-                            <td className="py-2 px-4 border-b">
-                                <img src={product.thumbnail} alt={product.name} className="w-12 h-12 object-cover rounded" />
+                        <tr key={product.id} className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                            <td className="py-2 px-4 border-b border-gray-200 dark:border-gray-700">
+                                <img src={product.thumbnail} alt={product.name} className="w-12 h-12 object-cover rounded bg-gray-100 dark:bg-gray-600" />
                             </td>
-                            <td className="py-2 px-4 border-b font-medium">{product.name}</td>
-                            <td className="py-2 px-4 border-b">{product.category}</td>
-                            <td className="py-2 px-4 border-b">{product.price.toLocaleString()} NGN</td>
-                            <td className="py-2 px-4 border-b">
+                            <td className="py-2 px-4 border-b border-gray-200 dark:border-gray-700 font-medium text-gray-900 dark:text-white">{product.name}</td>
+                            <td className="py-2 px-4 border-b border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">{product.category}</td>
+                            <td className="py-2 px-4 border-b border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">{product.price.toLocaleString()} NGN</td>
+                            <td className="py-2 px-4 border-b border-gray-200 dark:border-gray-700">
                                 <div className="flex gap-2">
                                     <button
                                         onClick={() => onEdit(product)}
-                                        className="text-blue-600 hover:text-blue-800"
+                                        className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
                                         title="Edit"
                                     >
                                         <FaEdit />
                                     </button>
                                     <button
                                         onClick={() => handleDelete(product.id)}
-                                        className="text-red-600 hover:text-red-800"
+                                        className="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300"
                                         title="Delete"
                                     >
                                         <FaTrash />

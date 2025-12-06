@@ -6,6 +6,7 @@ import {
   AboutUs,
   AdminDashboard,
   Blog,
+  BlogPost,
   BookOfLife,
   Cart,
   Checkout,
@@ -16,14 +17,15 @@ import {
   GetInvolved,
   HelpCenter,
   NotFoundPage,
-  Privacy,
+  PrivacyPolicy,
+  TermsAndConditions,
+  RefundPolicy,
   ProductDetail,
   ProductsPage,
   ReportIssue,
   SafetyCenter,
   Services,
   Staff,
-  TermsOfService,
   Tracking,
   WeAreHiring,
   Xclusive,
@@ -49,21 +51,27 @@ export default function App() {
             </PrivateRoute>
           } />
           <Route path="blog" element={<Blog />} />
+          <Route path="blog/:id" element={<BlogPost />} />
           <Route path="book-of-life" element={<BookOfLife />} />
           <Route path="cart" element={<Cart />} />
-          <Route path="checkout" element={<Checkout />} />
+          <Route path="checkout" element={
+            <PrivateRoute>
+              <Checkout />
+            </PrivateRoute>
+          } />
           <Route path="contacts" element={<Contacts />} />
           <Route path="cookies" element={<Cookies />} />
           <Route path="events" element={<Events />} />
           <Route path="giving" element={<Giving />} />
           <Route path="get-involved" element={<GetInvolved />} />
           <Route path="help" element={<HelpCenter />} />
-          <Route path="privacy" element={<Privacy />} />
           <Route path="report" element={<ReportIssue />} />
           <Route path="safety" element={<SafetyCenter />} />
           <Route path="services" element={<Services />} />
           <Route path="staff" element={<Staff />} />
-          <Route path="terms" element={<TermsOfService />} />
+          <Route path="privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="terms-and-conditions" element={<TermsAndConditions />} />
+          <Route path="refund-policy" element={<RefundPolicy />} />
           <Route path="track-order" element={<Tracking />} />
           <Route path="hiring" element={<WeAreHiring />} />
           <Route path="xclusive" element={<Xclusive />} />

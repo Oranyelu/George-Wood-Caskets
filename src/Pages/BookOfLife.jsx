@@ -29,17 +29,17 @@ function BookOfLife() {
       <main className="max-w-6xl mx-auto py-12 mt-[70px]">
         {/* Icons Section */}
         <section className="mb-12">
-          <h2 className="text-3xl font-bold mb-6">Legends</h2>
+          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Legends</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {iconsData.map((person) => (
               <div
                 key={person.id}
-                className="border-4 border-gold p-4 rounded-lg cursor-pointer"
+                className="border-4 border-[#D4AF37] p-4 rounded-lg cursor-pointer bg-white dark:bg-gray-800 transition-colors"
                 onClick={() => handlePersonClick(person)}
               >
                 <img src={person.imageUrl} alt={person.name} className="w-full h-48 object-cover rounded-lg mb-4" />
-                <h3 className="text-xl font-semibold">{person.name}</h3>
-                <p>{person.birthYear} - {person.deathYear}</p>
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{person.name}</h3>
+                <p className="text-gray-600 dark:text-gray-300">{person.birthYear} - {person.deathYear}</p>
               </div>
             ))}
           </div>
@@ -47,17 +47,17 @@ function BookOfLife() {
 
         {/* Regular Caskets Section */}
         <section>
-          <h2 className="text-3xl font-bold mb-6">Icons</h2>
+          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Icons</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {regularCasketsData.map((person) => (
               <div
                 key={person.id}
-                className="border-2 border-gray-300 p-4 rounded-lg cursor-pointer"
+                className="border-2 border-gray-300 dark:border-gray-700 p-4 rounded-lg cursor-pointer bg-white dark:bg-gray-800 transition-colors"
                 onClick={() => handlePersonClick(person)}
               >
                 <img src={person.imageUrl} alt={person.name} className="w-full h-48 object-cover rounded-lg mb-4" />
-                <h3 className="text-xl font-semibold">{person.name}</h3>
-                <p>{person.birthYear} - {person.deathYear}</p>
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{person.name}</h3>
+                <p className="text-gray-600 dark:text-gray-300">{person.birthYear} - {person.deathYear}</p>
               </div>
             ))}
           </div>

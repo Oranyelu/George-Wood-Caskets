@@ -5,10 +5,13 @@ import { useAuth } from '../Providers/AuthProvider';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase';
 import LanguageSwitcher from './LanguageSwitcher';
+import { useTheme } from '../Providers/ThemeContext';
+import { FaSun, FaMoon } from 'react-icons/fa';
 
 const HamburgerMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { user, isAdmin } = useAuth();
+  const { theme, toggleTheme } = useTheme();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -88,8 +91,19 @@ const HamburgerMenu = () => {
             </NavLink>
           )}
 
-          <div className="mt-4">
+
+          <div className="mt-4 flex items-center justify-center gap-6">
             <LanguageSwitcher />
+
+            {/* Theme Toggle */}
+            <button
+              onClick={toggleTheme}
+              className="flex items-center gap-2 text-xl font-serif font-bold text-white hover:text-secondary transition-colors"
+              aria-label="Toggle Dark Mode"
+            >
+              <span className="text-sm">THEME:</span>
+              {theme === "light" ? <FaMoon /> : <FaSun className="text-yellow-300" />}
+            </button>
           </div>
         </nav>
       </div>

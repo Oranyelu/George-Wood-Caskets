@@ -131,17 +131,17 @@ const ProductDetail = () => {
 
   // --- STANDARD VIEW ---
   return (
-    <div className="bg-gray-50 min-h-screen font-montserrat text-gray-800">
+    <div className="min-h-screen font-montserrat text-gray-800 dark:text-gray-100 transition-colors duration-300">
       <Helmet>
         <title>{product.name} | George Wood Caskets</title>
         <meta name="description" content={product.description} />
       </Helmet>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 mt-16">
+      <div className="max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8 py-12 mt-16">
         <div className="lg:grid lg:grid-cols-2 lg:gap-x-12 lg:items-start">
           {/* Image Gallery */}
           <div className="flex flex-col-reverse">
-            <div className="w-full aspect-w-1 aspect-h-1 rounded-lg overflow-hidden bg-white shadow-sm border border-gray-200">
+            <div className="w-full aspect-w-1 aspect-h-1 rounded-lg overflow-hidden bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700">
               <img
                 src={product.thumbnail}
                 alt={product.name}
@@ -152,21 +152,21 @@ const ProductDetail = () => {
 
           {/* Product Info */}
           <div className="mt-10 px-4 sm:px-0 sm:mt-16 lg:mt-0">
-            <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">{product.name}</h1>
+            <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">{product.name}</h1>
 
             <div className="mt-3">
               <h2 className="sr-only">Product information</h2>
-              <p className="text-3xl text-[#135B3A] font-bold">{product.price.toLocaleString()} NGN</p>
+              <p className="text-3xl text-[#135B3A] dark:text-green-400 font-bold">{product.price.toLocaleString()} NGN</p>
             </div>
 
             <div className="mt-6">
               <h3 className="sr-only">Description</h3>
-              <p className="text-base text-gray-700 space-y-6">{product.description}</p>
+              <p className="text-base text-gray-700 dark:text-gray-300 space-y-6">{product.description}</p>
             </div>
 
-            <div className="mt-8 border-t border-gray-200 pt-8">
+            <div className="mt-8 border-t border-gray-200 dark:border-gray-700 pt-8">
               {/* Color Selector */}
-              <h3 className="text-sm font-medium text-gray-900">Color</h3>
+              <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100">Color</h3>
               <div className="mt-4 flex items-center space-x-3">
                 {product.colors && product.colors.map((color) => (
                   <button
@@ -182,7 +182,7 @@ const ProductDetail = () => {
                     ></span>
                   </button>
                 ))}
-                <span className="ml-4 text-sm text-gray-500">Selected: {selectedColor}</span>
+                <span className="ml-4 text-sm text-gray-500 dark:text-gray-400">Selected: {selectedColor}</span>
               </div>
             </div>
 
@@ -216,15 +216,15 @@ const ProductDetail = () => {
 
             {/* Tabs Section */}
             <div className="mt-12">
-              <div className="border-b border-gray-200">
+              <div className="border-b border-gray-200 dark:border-gray-700">
                 <nav className="-mb-px flex space-x-8">
                   {['description', 'features', 'specifications'].map((tab) => (
                     <button
                       key={tab}
                       onClick={() => setActiveTab(tab)}
                       className={`${activeTab === tab
-                          ? 'border-[#135B3A] text-[#135B3A]'
-                          : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                        ? 'border-[#135B3A] text-[#135B3A]'
+                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                         } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm capitalize`}
                     >
                       {tab}
@@ -234,7 +234,7 @@ const ProductDetail = () => {
               </div>
               <div className="pt-6">
                 {activeTab === 'description' && (
-                  <div className="prose prose-sm text-gray-500">
+                  <div className="prose prose-sm text-gray-500 dark:text-gray-400">
                     <p>{product.description}</p>
                     <p className="mt-4">
                       Our caskets are crafted with the utmost care and respect, ensuring a dignified resting place for your loved ones.
@@ -246,7 +246,7 @@ const ProductDetail = () => {
                     {extendedDetails.features.map((feature, index) => (
                       <li key={index} className="flex items-start">
                         <FaCheck className="flex-shrink-0 h-5 w-5 text-green-500" />
-                        <span className="ml-3 text-sm text-gray-700">{feature}</span>
+                        <span className="ml-3 text-sm text-gray-700 dark:text-gray-300">{feature}</span>
                       </li>
                     ))}
                   </ul>
@@ -254,16 +254,16 @@ const ProductDetail = () => {
                 {activeTab === 'specifications' && (
                   <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
                     <div className="sm:col-span-1">
-                      <dt className="text-sm font-medium text-gray-500">Material</dt>
-                      <dd className="mt-1 text-sm text-gray-900">{extendedDetails.material}</dd>
+                      <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Material</dt>
+                      <dd className="mt-1 text-sm text-gray-900 dark:text-white">{extendedDetails.material}</dd>
                     </div>
                     <div className="sm:col-span-1">
-                      <dt className="text-sm font-medium text-gray-500">Dimensions</dt>
-                      <dd className="mt-1 text-sm text-gray-900">{extendedDetails.dimensions}</dd>
+                      <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Dimensions</dt>
+                      <dd className="mt-1 text-sm text-gray-900 dark:text-white">{extendedDetails.dimensions}</dd>
                     </div>
                     <div className="sm:col-span-1">
-                      <dt className="text-sm font-medium text-gray-500">Weight</dt>
-                      <dd className="mt-1 text-sm text-gray-900">{extendedDetails.weight}</dd>
+                      <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Weight</dt>
+                      <dd className="mt-1 text-sm text-gray-900 dark:text-white">{extendedDetails.weight}</dd>
                     </div>
                   </dl>
                 )}
@@ -273,12 +273,12 @@ const ProductDetail = () => {
         </div>
 
         {/* Related Products & Services (Reused from original) */}
-        <section className="mt-16 border-t border-gray-200 pt-10">
-          <h2 className="text-2xl font-bold text-gray-900">You May Also Like</h2>
+        <section className="mt-16 border-t border-gray-200 dark:border-gray-700 pt-10">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">You May Also Like</h2>
           <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
             {products.slice(0, 4).map((item) => (
               <div key={item.id} className="group relative">
-                <div className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
+                <div className="w-full min-h-80 bg-gray-200 dark:bg-gray-700 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
                   <img
                     src={item.thumbnail}
                     alt={item.name}
@@ -287,14 +287,14 @@ const ProductDetail = () => {
                 </div>
                 <div className="mt-4 flex justify-between">
                   <div>
-                    <h3 className="text-sm text-gray-700">
+                    <h3 className="text-sm text-gray-700 dark:text-gray-200">
                       <Link to={`/product/${item.id}`}>
                         <span aria-hidden="true" className="absolute inset-0" />
                         {item.name}
                       </Link>
                     </h3>
                   </div>
-                  <p className="text-sm font-medium text-gray-900">{item.price.toLocaleString()} NGN</p>
+                  <p className="text-sm font-medium text-gray-900 dark:text-green-400">{item.price.toLocaleString()} NGN</p>
                 </div>
               </div>
             ))}

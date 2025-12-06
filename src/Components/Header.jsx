@@ -29,17 +29,16 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // LOGIC:
   // Expanded IF: (At Top) OR (Hovered)
-  // Collapsed IF: (Scrolled) AND (Not Hovered)
   const isExpanded = !isScrolled || isHovered;
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50 text-[1rem] font-sans">
-      {/* Top Strip - ALWAYS BRONZE, visible only on big screens */}
-      {/* Logic: Hidden if Scrolled Down (unless we want it to reappear on hover? Usually top strip stays hidden on scroll). Keeping as is: Hidden on scroll. */}
-      <div className={`hidden lg:block relative z-40 bg-[#A37E2C] text-white text-sm transition-all duration-300 ${!isScrolled ? 'h-auto opacity-100' : 'h-0 overflow-hidden opacity-0'}`}>
-        <div className="max-w-[1300px] mx-auto flex justify-between p-2 px-8">
+      {/* Top Strip */}
+      <div
+        className={`hidden lg:block relative z-40 bg-[#A37E2C] text-white text-sm transition-all duration-500 ease-in-out origin-top border-b border-white/10 ${!isScrolled ? 'h-10 opacity-100' : 'h-0 opacity-0 overflow-hidden'}`}
+      >
+        <div className="max-w-[1300px] mx-auto flex justify-between items-center h-full px-8">
           <div className="flex gap-6">
             <p>08143904414</p>
             <p>georgewoodcasket@gmail.com</p>
@@ -70,52 +69,49 @@ export default function Header() {
       </div>
 
       {/* Spacing Placeholder */}
-      <div className={`transition-all duration-300 ${!isScrolled ? 'h-2 lg:h-4' : 'h-2'}`}></div>
+      <div className={`transition-all duration-500 ease-in-out ${!isScrolled ? 'h-4' : 'h-2'}`}></div>
 
       {/* DYNAMIC ISLAND CONTAINER */}
-      {/* Alignment: Always justify-end (right side) so it collapses to the right. When full width, it fills space. */}
-      <div className={`flex px-4 transition-all duration-500 ease-in-out justify-end`}>
+      <div className={`flex px-4 justify-end transition-all duration-500 ease-in-out`}>
         <section
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           className={`
             relative z-50 flex items-center justify-between 
             bg-[#135B3A] text-white shadow-2xl rounded-full 
-            transition-all duration-500 ease-in-out
+            transition-all duration-700 cubic-bezier(0.4, 0, 0.2, 1)
+            overflow-hidden
             ${isExpanded
-              ? "w-full max-w-[1300px] px-8 py-3 mx-auto" // Expanded: Full width, centered (mx-auto overrides justify-end visual via margin)
-              : "w-auto px-4 py-2" // Collapsed: Compact, right-aligned (due to parent justify-end)
+              ? "max-w-[1400px] w-full px-8 py-3" // Expanded state
+              : "max-w-[160px] w-full px-5 py-2" // Collapsed state (Fixed width for smooth transition)
             }
           `}
         >
           {/* LOGO */}
-          {/* Visible if Expanded OR (Mobile & Collapsed - per previous request). 
-              User request: "when user scrolls down... header should collapse to right. show only logo, search, hamburger".
-              So Logo is ALWAYS visible?
-              Desktop Collapsed: The user said "collapse to the right side". Usually means a pill.
-              If I keep Logo visible on Desktop Collapsed, it fits.
-          */}
-          <div className={`
-             flex items-center transition-all duration-500 ease-in-out overflow-hidden
-             ${isExpanded ? "opacity-100 translate-x-0" : "opacity-100 translate-x-0"}
-          `}>
+          <div className={`flex items-center transition-all duration-500 ease-in-out`}>
             <NavLink to="/" className="flex items-center">
-              <img src={Logo} alt="Logo" className="h-8 lg:h-10 w-auto" />
-              {/* Text: Hide if Collapsed to save space? User said "show logo", could mean just icon. 
-                  Let's hide text on collapsed for cleaner "pill" look, show on expanded.
-              */}
-              <div className={`ml-3 font-bold text-lg lg:text-xl whitespace-nowrap transition-all duration-300 ${isExpanded ? "opacity-100 max-w-[200px]" : "opacity-0 max-w-0 hidden sm:block"}`}>
+              <img src={Logo} alt="Logo" className="h-8 lg:h-10 w-auto shrink-0" />
+              {/* Logo Text */}
+              <div
+                className={`
+                  ml-3 font-bold text-lg lg:text-xl whitespace-nowrap 
+                  transition-all duration-500 ease-in-out overflow-hidden
+                  ${isExpanded ? "max-w-[200px] opacity-100" : "max-w-0 opacity-0"}
+                `}
+              >
                 George Wood
               </div>
             </NavLink>
           </div>
 
-          {/* NAVIGATION LINKS - Only Visible if Expanded */}
-          <div className={`
-            hidden lg:flex transition-all duration-500 ease-in-out overflow-hidden
-            ${isExpanded ? "w-auto opacity-100 scale-100 ml-8" : "w-0 opacity-0 scale-90"}
-          `}>
-            <nav className="flex gap-6 text-sm font-medium tracking-wide">
+          {/* NAVIGATION LINKS */}
+          <div
+            className={`
+              hidden lg:flex transition-all duration-500 ease-in-out overflow-hidden
+              ${isExpanded ? "max-w-[800px] opacity-100 ml-8" : "max-w-0 opacity-0 ml-0"}
+            `}
+          >
+            <nav className="flex gap-6 text-sm font-medium tracking-wide whitespace-nowrap">
               {[
                 { name: t("home"), path: "/" },
                 { name: t("products"), path: "/products" },
@@ -130,7 +126,7 @@ export default function Header() {
                   key={path}
                   to={path}
                   className={({ isActive }) =>
-                    `relative hover:text-[#A37E2C] transition-colors whitespace-nowrap ${isActive ? "text-[#A37E2C]" : ""}`
+                    `relative hover:text-[#A37E2C] transition-colors ${isActive ? "text-[#A37E2C]" : ""}`
                   }
                 >
                   {name}
@@ -140,23 +136,19 @@ export default function Header() {
           </div>
 
           {/* RIGHT ICONS */}
-          <div className={`flex items-center gap-4 lg:gap-6`}>
+          <div className="flex items-center gap-4 lg:gap-6 shrink-0">
             {/* Search Icon */}
             <button className="hover:text-[#A37E2C] transition-colors">
               <BsSearch size={20} />
             </button>
 
-            {/* Cart Icon - User previously said "show only logo, search, hamburger" on mobile collapsed. 
-                I will hide Cart/Profile on Collapsed state for BOTH Desktop/Mobile if consistent?
-                If isExpanded -> Show All.
-                If Collapsed -> Hide Cart/Profile? 
-                User said "show only logo, search, hamburger" for MOBILE.
-                For DESKTOP Collapsed: if I hide Cart/Profile, looking for the cart needs hover.
-                That's a valid pattern ("Hover to reveal menu").
-                Let's hide them on collapsed to match the requested "only logo, search, hamburger" vibe, 
-                Assuming Desktop Collapsed is also minimal like Mobile.
-            */}
-            <div className={`relative transition-all duration-300 ${isExpanded ? "opacity-100 w-auto" : "opacity-0 w-0 hidden"}`}>
+            {/* Cart Icon */}
+            <div
+              className={`
+                relative transition-all duration-500 ease-in-out overflow-hidden
+                ${isExpanded ? "max-w-[50px] opacity-100" : "max-w-0 opacity-0"}
+              `}
+            >
               <NavLink to="/cart" className="flex items-center hover:text-[#A37E2C] transition-colors">
                 <BsBag size={22} />
                 {cartItemCount > 0 && (
@@ -167,14 +159,19 @@ export default function Header() {
               </NavLink>
             </div>
 
-            {/* User Profile - Hidden on Collapsed */}
-            <div className={`relative group transition-all duration-300 ${isExpanded ? "opacity-100 w-auto" : "opacity-0 w-0 hidden"}`}>
+            {/* User Profile */}
+            <div
+              className={`
+                 relative group transition-all duration-500 ease-in-out overflow-hidden
+                 ${isExpanded ? "max-w-[50px] opacity-100" : "max-w-0 opacity-0"}
+               `}
+            >
               {user ? (
                 <>
                   <button className="flex items-center hover:text-[#A37E2C] focus:outline-none">
                     <FaUserCircle size={24} />
                   </button>
-                  {/* Dropdown - Only show if Expanded obviously */}
+                  {/* Dropdown */}
                   {isExpanded && (
                     <div className="absolute right-0 mt-4 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-xl py-2 z-50 hidden group-hover:block border border-gray-100 dark:border-gray-700 animate-fade-in-up">
                       <div className="px-4 py-2 text-sm text-gray-700 dark:text-gray-200 border-b dark:border-gray-700 mb-1">
@@ -212,18 +209,9 @@ export default function Header() {
             <div className="lg:hidden ml-2">
               <HamburgerMenu />
             </div>
-
-            {/* Desktop Hamburger? If expanded, we show links. If collapsed (Desktop), we hide links. 
-                 Should we show a hamburger on Desktop Collapsed? 
-                 User just said "expand on hover". No explicit request for hamburger on desktop.
-                 So on Desktop Collapsed: Logo + Search. Hover -> Full Menu. 
-                 This seems consistent with "Island".
-             */}
           </div>
         </section>
       </div>
-
-      {/* Mobile-Only Top Strip Alternative if needed? We rely on main strip for Desktop. */}
     </div>
   );
 }

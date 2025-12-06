@@ -68,8 +68,11 @@ const ProductProvider = ({ children }) => {
     const orderData = {
       items,
       customerInfo,
-      totalPrice: getTotalPrice(),
-      status: 'pending',
+      paymentInfo: customerInfo.paymentInfo || {}, // Store payment info
+      subtotal: getTotalPrice(),
+      tax: getTotalPrice() * 0.08,
+      totalPrice: getTotalPrice() * 1.08,
+      status: 'pending', // You might want to change this to 'paid' if payment is successful
       createdAt: new Date().toISOString(),
     };
 

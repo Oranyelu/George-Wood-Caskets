@@ -1,8 +1,10 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 import { Card, CardContent } from "@mui/material";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../firebase";
 import { ProductContext } from "../Providers/ProductProvider";
 import Services from "../assets/service-api"; // service data
 import TestimonialsData from "../assets/Testinonials-api"; // testimonials
@@ -22,37 +24,71 @@ ShinyText.propTypes = {
 function HeroSection() {
   const foundingYear = 1984;
   const [years, setYears] = useState(new Date().getFullYear() - foundingYear);
+  const [isVisible, setIsVisible] = useState(false);
+  const logoRef = useRef(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setYears(new Date().getFullYear() - foundingYear);
     }, 1000 * 60 * 60 * 24); // Update daily just in case
-
     return () => clearInterval(interval);
   }, []);
 
-  return (
-    <section className="bg-primary text-white py-20 px-6 md:px-10 lg:px-20 flex flex-col md:flex-row items-center justify-between rounded-b-[50px] max-w-[1300px] mx-auto w-full">
-      {/* Left Content */}
-      <div className="max-w-xl text-center md:text-left">
-        <h1 className="text-3xl md:text-5xl font-extrabold leading-tight">
-          <ShinyText text="Honouring Life and Legacies since 1984" />
-        </h1>
-        <p className="mt-6 text-base md:text-lg text-gray-200">
-          At George Wood Casket, every creation tells a story. For over four
-          decades, we have refined the art of craftsmanship, creating timeless
-          pieces that embody love, dignity, and remembrance.
-        </p>
-      </div>
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        } else {
+          setIsVisible(false);
+        }
+      },
+      { threshold: 0.5 } // Trigger when 50% visible
+    );
+    if (logoRef.current) observer.observe(logoRef.current);
+    return () => {
+      if (logoRef.current) observer.unobserve(logoRef.current);
+    };
+  }, []);
 
-      {/* Right Logo with Years */}
-      <div className="mt-12 md:mt-0 flex flex-col items-center">
-        <img
-          src={Logo}
-          alt="George Wood Logo"
-          className="w-48 h-48 md:w-56 md:h-56 object-contain animate-flip"
-        />
-        <p className="mt-4 text-5xl font-bold text-secondary">{years} Years</p>
+  return (
+    <section className="bg-[#135B3A] rounded-b-[50px] w-full pt-28 pb-20 relative z-0">
+      <div className="max-w-[1300px] mx-auto px-6 md:px-10 lg:px-20 flex flex-col md:flex-row items-center justify-between text-white gap-10">
+        {/* Left Content */}
+        <div className="max-w-xl text-center md:text-left">
+          <h1 className="text-3xl md:text-5xl font-extrabold leading-tight">
+            <ShinyText text="Honouring Life and Legacies since 1984" />
+          </h1>
+          <p className="mt-6 text-base md:text-lg text-gray-200">
+            At George Wood Casket, every creation tells a story. For over four
+            decades, we have refined the art of craftsmanship, creating timeless
+            pieces that embody love, dignity, and remembrance.
+          </p>
+        </div>
+
+        {/* Right Logo with Years */}
+        <div className="flex flex-col items-center perspective-[1000px]">
+          <div ref={logoRef} className={`relative w-48 h-48 md:w-56 md:h-56 transition-transform duration-1000 transform-style-3d ${isVisible ? 'animate-spin-stop' : ''}`}>
+            {/* Front Face */}
+            <img
+              src={Logo}
+              alt="George Wood Logo"
+              className="absolute inset-0 w-full h-full object-contain backface-hidden"
+            />
+            {/* Back Face - Grayscale Logo */}
+            <div
+              className="absolute inset-0 w-full h-full backface-hidden flex items-center justify-center p-2"
+              style={{ transform: 'rotateY(180deg)' }}
+            >
+              <img
+                src={Logo}
+                alt="George Wood Logo Back"
+                className="w-full h-full object-contain grayscale brightness-50 contrast-125 drop-shadow-xl"
+              />
+            </div>
+          </div>
+          <p className="mt-4 text-5xl font-bold text-[#A37E2C]">{years} Years</p>
+        </div>
       </div>
     </section>
   );
@@ -107,9 +143,11 @@ function Home() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch("/src/assets/blogPosts.json");
-        const data = await response.json();
-        const sortedPosts = data.sort(
+        const postsCollection = collection(db, "posts");
+        const postsSnapshot = await getDocs(postsCollection);
+        const postsList = postsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+        const sortedPosts = postsList.sort(
           (a, b) => new Date(b.date) - new Date(a.date)
         );
         setPosts(sortedPosts.slice(0, 4));
@@ -121,7 +159,7 @@ function Home() {
   }, []);
 
   return (
-    <div className="bg-white min-h-screen flex flex-col font-sans overflow-x-hidden">
+    <div className="min-h-screen flex flex-col font-sans overflow-x-hidden transition-colors duration-300">
       {/* === Hero Section === */}
       <HeroSection />
 
@@ -149,7 +187,7 @@ function Home() {
           {featuredProducts.map((product) => (
             <div
               key={product.id}
-              className="bg-white p-4 rounded-lg shadow-lg flex flex-col transition-transform hover:scale-105 duration-300"
+              className="bg-[#F0B52E] p-4 rounded-lg shadow-lg flex flex-col transition-transform hover:scale-105 duration-300"
             >
               <Link
                 to={`/product/${product.id}`}
@@ -164,20 +202,20 @@ function Home() {
               </Link>
 
               <div className="mt-3 flex flex-col flex-1">
-                <h1 className="text-lg font-semibold text-accent">
+                <h1 className="text-lg font-semibold text-[#011309]">
                   {product.name}
                 </h1>
-                <p className="text-primary font-medium mt-1">
+                <p className="text-[#011309] font-medium mt-1">
                   Price: {product.price.toLocaleString()} NGN
                 </p>
-                <p className="text-gray-600 mt-1">
+                <p className="text-[#011309]/80 mt-1">
                   Color: {product.colors?.join(', ') || 'N/A'}
                 </p>
               </div>
 
               <div className="mt-4 flex justify-center">
                 <button
-                  className="bg-primary text-white px-4 py-2 rounded w-full hover:bg-secondary active:bg-primary transition-colors"
+                  className="bg-[#135B3A] text-white px-4 py-2 rounded w-full hover:bg-[#0E462D] transition-colors"
                   onClick={() => handleAddToCart(product)}
                 >
                   Order Now
@@ -208,12 +246,12 @@ function Home() {
           {randomServices.map((service) => (
             <li
               key={service.id}
-              className="bg-secondary p-6 rounded-lg shadow-lg flex flex-col items-center justify-center h-[200px] transform hover:scale-105 transition-transform duration-300"
+              className="bg-[#F0B52E] p-6 rounded-lg shadow-lg flex flex-col items-center justify-center h-[200px] transform hover:scale-105 transition-transform duration-300"
             >
               <h2 className="text-primary mb-2 font-bold text-center">
                 {service.name}
               </h2>
-              <p className="text-white text-center">
+              <p className="text-[#011309] text-center">
                 {service.description || "Description coming soon."}
               </p>
             </li>
@@ -295,7 +333,7 @@ function Home() {
               .map((testimonial) => (
                 <div
                   key={testimonial.id}
-                  className="bg-primary p-5 rounded-lg shadow-lg text-white flex flex-col gap-3"
+                  className="bg-[#F0B52E] p-5 rounded-lg shadow-lg text-[#011309] flex flex-col gap-3"
                 >
                   <p className="font-semibold underline text-lg">
                     - {testimonial.name}
@@ -303,7 +341,7 @@ function Home() {
                   <p className="text-sm">{testimonial.review}</p>
                   <div className="flex items-center gap-1">
                     {Array.from({ length: testimonial.rating }).map((_, i) => (
-                      <FaStar key={i} size={15} color="gold" />
+                      <FaStar key={i} size={15} color="#011309" />
                     ))}
                     {Array.from({ length: 5 - testimonial.rating }).map((_, i) => (
                       <FaStar key={i} size={15} color="gray" />
@@ -325,7 +363,7 @@ function Home() {
           {posts.map((post) => (
             <Card
               key={post.id}
-              className="rounded-2xl overflow-hidden shadow-lg bg-secondary text-primary transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl"
+              className="rounded-2xl overflow-hidden shadow-lg bg-[#F0B52E] text-[#011309] transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl"
             >
               <Link to={`/blog/${post.id}`}>
                 <img

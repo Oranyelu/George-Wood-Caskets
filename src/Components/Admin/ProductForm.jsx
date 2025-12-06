@@ -83,40 +83,40 @@ const ProductForm = ({ initialData, onSuccess, onCancel }) => {
     };
 
     return (
-        <div className="bg-white p-6 rounded shadow-md mb-6">
-            <h2 className="text-xl font-bold mb-4">{initialData ? "Edit Product" : "Add New Product"}</h2>
+        <div className="bg-white dark:bg-gray-800 p-6 rounded shadow-md mb-6 border border-gray-100 dark:border-gray-700 transition-colors">
+            <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">{initialData ? "Edit Product" : "Add New Product"}</h2>
             {error && <p className="text-red-500 mb-4">{error}</p>}
             <form onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div>
-                        <label className="block text-gray-700">Name</label>
+                        <label className="block text-gray-700 dark:text-gray-300">Name</label>
                         <input
                             type="text"
                             name="name"
                             value={formData.name}
                             onChange={handleChange}
-                            className="w-full p-2 border rounded"
+                            className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-primary"
                             required
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-700">Price (NGN)</label>
+                        <label className="block text-gray-700 dark:text-gray-300">Price (NGN)</label>
                         <input
                             type="number"
                             name="price"
                             value={formData.price}
                             onChange={handleChange}
-                            className="w-full p-2 border rounded"
+                            className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-primary"
                             required
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-700">Category</label>
+                        <label className="block text-gray-700 dark:text-gray-300">Category</label>
                         <select
                             name="category"
                             value={formData.category}
                             onChange={handleChange}
-                            className="w-full p-2 border rounded"
+                            className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-primary"
                         >
                             <option value="Traditional">Traditional</option>
                             <option value="Modern">Modern</option>
@@ -125,12 +125,12 @@ const ProductForm = ({ initialData, onSuccess, onCancel }) => {
                         </select>
                     </div>
                     <div>
-                        <label className="block text-gray-700">Material</label>
+                        <label className="block text-gray-700 dark:text-gray-300">Material</label>
                         <select
                             name="material"
                             value={formData.material}
                             onChange={handleChange}
-                            className="w-full p-2 border rounded"
+                            className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-primary"
                         >
                             <option value="Wood">Wood</option>
                             <option value="Mahogany">Mahogany</option>
@@ -143,45 +143,45 @@ const ProductForm = ({ initialData, onSuccess, onCancel }) => {
                         </select>
                     </div>
                     <div>
-                        <label className="block text-gray-700">Colors (comma separated)</label>
+                        <label className="block text-gray-700 dark:text-gray-300">Colors (comma separated)</label>
                         <input
                             type="text"
                             name="colors"
                             value={formData.colors}
                             onChange={handleChange}
-                            className="w-full p-2 border rounded"
+                            className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-primary"
                             placeholder="e.g. Brown, Gold"
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-700">Label (Optional)</label>
+                        <label className="block text-gray-700 dark:text-gray-300">Label (Optional)</label>
                         <input
                             type="text"
                             name="label"
                             value={formData.label}
                             onChange={handleChange}
-                            className="w-full p-2 border rounded"
+                            className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-primary"
                             placeholder="e.g. Bestseller"
                         />
                     </div>
                 </div>
                 <div className="mb-4">
-                    <label className="block text-gray-700">Description</label>
+                    <label className="block text-gray-700 dark:text-gray-300">Description</label>
                     <textarea
                         name="description"
                         value={formData.description}
                         onChange={handleChange}
-                        className="w-full p-2 border rounded"
+                        className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-primary"
                         rows="3"
                         required
                     />
                 </div>
                 <div className="mb-4">
-                    <label className="block text-gray-700">Product Image</label>
+                    <label className="block text-gray-700 dark:text-gray-300">Product Image</label>
                     <input
                         type="file"
                         onChange={handleImageChange}
-                        className="w-full p-2 border rounded"
+                        className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-primary"
                         accept="image/*"
                     />
                     {initialData && initialData.thumbnail && (
@@ -192,14 +192,14 @@ const ProductForm = ({ initialData, onSuccess, onCancel }) => {
                     <button
                         type="button"
                         onClick={onCancel}
-                        className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+                        className="px-4 py-2 bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-white rounded hover:bg-gray-400 dark:hover:bg-gray-500 transition-colors"
                         disabled={uploading}
                     >
                         Cancel
                     </button>
                     <button
                         type="submit"
-                        className="px-4 py-2 bg-primary text-white rounded hover:bg-[#3a2b1f]"
+                        className="px-4 py-2 bg-primary text-white rounded hover:bg-[#3a2b1f] disabled:bg-gray-500 transition-colors"
                         disabled={uploading}
                     >
                         {uploading ? "Saving..." : "Save Product"}

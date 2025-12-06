@@ -72,6 +72,34 @@ const AuthProvider = ({ children }) => {
     return unsubscribe;
   }, []);
 
+  // Session Timeout Logic
+  useEffect(() => {
+    let timeoutId;
+
+    const resetTimer = () => {
+      if (timeoutId) clearTimeout(timeoutId);
+      if (user) {
+        timeoutId = setTimeout(() => {
+          console.log("Session timed out due to inactivity.");
+          logout();
+          alert("Session timed out due to inactivity. Please log in again.");
+        }, 30 * 60 * 1000); // 30 minutes
+      }
+    };
+
+    const events = ['mousemove', 'keydown', 'click', 'scroll'];
+
+    if (user) {
+      resetTimer(); // Start timer on login/load
+      events.forEach(event => window.addEventListener(event, resetTimer));
+    }
+
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+      events.forEach(event => window.removeEventListener(event, resetTimer));
+    };
+  }, [user]);
+
   const value = {
     user,
     isAdmin,

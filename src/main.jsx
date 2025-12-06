@@ -6,6 +6,7 @@ import "./index.css";
 import AuthProvider from "./Providers/AuthProvider";
 import ProductProvider from "./Providers/ProductProvider";
 import OrderProvider from "./Providers/OrderProvider";
+import ThemeProvider from "./Providers/ThemeContext";
 
 import { HelmetProvider } from 'react-helmet-async';
 import './i18n';
@@ -15,11 +16,13 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <HelmetProvider>
       <BrowserRouter>
         <AuthProvider>
-          <ProductProvider>
-            <OrderProvider>
-              <App />
-            </OrderProvider>
-          </ProductProvider>
+          <ThemeProvider>
+            <ProductProvider>
+              <OrderProvider>
+                <App />
+              </OrderProvider>
+            </ProductProvider>
+          </ThemeProvider>
         </AuthProvider>
       </BrowserRouter>
     </HelmetProvider>

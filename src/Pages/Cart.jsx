@@ -22,138 +22,150 @@ const Cart = () => {
   }, []);
 
   const totalPrice = groupedCart.reduce((total, item) => total + item.price, 0);
-  const deliveryFee = 1000;
-  const vat = 0;
-  const finalTotal = totalPrice + deliveryFee + vat;
+  const vat = totalPrice * 0.08;
+  const finalTotal = totalPrice + vat;
 
   const handleBookNowClick = (service) => {
     addToCart(service);
   };
 
   return (
-    <div className="bg-custom-gradient min-h-screen flex flex-col font-montserrat">
-    
-      <section className="mt-[100px]">
-        <nav className="h-[50px] flex items-center text-[#135B3A] pl-5 md:pl-40 gap-5 mt-10">
+    <div className="min-h-screen flex flex-col font-montserrat pt-24 pb-12 transition-colors duration-300">
+      <div className="max-w-[1300px] mx-auto w-full px-4 md:px-8">
+
+        {/* Breadcrumb */}
+        <nav className="flex items-center text-[#135B3A] dark:text-green-500 gap-2 mb-8 text-sm md:text-base">
           <Link to="/">Home</Link>
           <FiChevronRight className="inline" />
           <Link to="/products">Products</Link>
-         <FiChevronRight className="inline" />
-          <Link to="/cart" className="text-[#e4c88a]">
-            Shopping cart
-          </Link>
+          <FiChevronRight className="inline" />
+          <span className="text-[#e4c88a] font-bold">Shopping cart</span>
         </nav>
-      </section>
-      <section className="flex flex-col lg:flex-row flex-wrap justify-between p-5 ">
-        <main className="bg-white sm:w-[654px] w-full p-5">
-          <h1 className="text-[24px] font-bold">Shopping Cart</h1>
-          <div className="bg-[#135B3A] text-white flex justify-between h-12 items-center pr-1 pl-1">
-            <p>Item</p>
-            <p>Quantity</p>
-            <p>Price</p>
-          </div>
-          <ul>
-            {groupedCart.map((item, index) => (
-              <li
-                key={index}
-                className="flex justify-between items-center "
-              >
-                <div className="flex items-center gap-4">
-                  <img
-                    src={item.thumbnail}
-                    alt={item.name}
-                    className="w-16 h-16 object-cover"
-                  />
-                  <p className="w-[65px] text-nowrap overflow-hidden">{item.name}</p>
-                </div>
-                <p>{item.quantity}</p>
-                <div className="flex items-center gap-1">
-                
-                  <p>{item.price.toLocaleString()} NGN</p>
-                  <button
-                    onClick={() => removeFromCart(item)}
-                    className="bg-red-500 text-white px-3 py-1 rounded mt-2 sm:mt-0"
-                  >
-                    -
-                  </button>
-                </div>
-              </li>
-            ))}
-            <hr />
-          </ul>
-        </main>
-        <aside className="sm:w-[654px] w-full bg-white p-5 flex flex-col justify-between">
-          <div className="flex justify-between">
-            <h2 className="text-[19px] font-bold">Order Summary</h2>
-            <p>{cart.length} items</p>
-          </div>
-          <div className="flex justify-between">
-            <p>Delivery Charges</p>
-            <p>{deliveryFee.toLocaleString()} NGN</p>
-          </div>
-          <hr />
-          <div className="flex justify-between">
-            <p>VAT</p>
-            <p>{vat} NGN</p>
-          </div>
-          <hr />
-          <div className="flex justify-between">
-            <p>Total</p>
-            <p>{finalTotal.toLocaleString()} NGN</p>
-          </div>
-          <hr />
-          <div>
-            {groupedCart.length > 0 && (
+
+        <section className="flex flex-col lg:flex-row gap-8">
+          {/* Cart Items */}
+          <main className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm flex-1 border border-gray-100 dark:border-gray-700">
+            <h1 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Shopping Cart</h1>
+
+            <div className="bg-[#135B3A] text-white flex justify-between py-3 px-4 rounded-t-md mb-4 hidden md:flex">
+              <p className="w-1/2">Item</p>
+              <p className="w-1/4 text-center">Quantity</p>
+              <p className="w-1/4 text-right">Price</p>
+            </div>
+
+            <ul className="space-y-4">
+              {groupedCart.map((item, index) => (
+                <li key={index} className="flex flex-col md:flex-row justify-between items-center border-b border-gray-200 dark:border-gray-700 pb-4 last:border-0">
+                  <div className="flex items-center gap-4 w-full md:w-1/2">
+                    <img
+                      src={item.thumbnail}
+                      alt={item.name}
+                      className="w-16 h-16 object-cover rounded-md"
+                    />
+                    <p className="text-gray-900 dark:text-gray-200 font-medium">{item.name}</p>
+                  </div>
+
+                  <div className="flex justify-between w-full md:w-1/2 md:items-center mt-4 md:mt-0">
+                    <p className="text-gray-700 dark:text-gray-300 md:w-1/2 md:text-center">x {item.quantity}</p>
+                    <div className="flex items-center gap-4 md:w-1/2 justify-end">
+                      <p className="font-bold text-gray-900 dark:text-white">{item.price.toLocaleString()} NGN</p>
+                      <button
+                        onClick={() => removeFromCart(item)}
+                        className="bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400 px-3 py-1 rounded hover:bg-red-200 dark:hover:bg-red-900/50 transition-colors"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+            {groupedCart.length === 0 && <p className="text-center text-gray-500 dark:text-gray-400 py-10">Your cart is empty.</p>}
+          </main>
+
+          {/* Checkout Summary */}
+          <aside className="lg:w-1/3 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm h-fit border border-gray-100 dark:border-gray-700">
+            <h2 className="text-xl font-bold mb-6 text-gray-900 dark:text-white">Order Summary</h2>
+
+            <div className="space-y-4 text-gray-700 dark:text-gray-300">
+              <div className="flex justify-between">
+                <p>{cart.length} items</p>
+                <p className="font-medium">{totalPrice.toLocaleString()} NGN</p>
+              </div>
+              <div className="h-px bg-gray-200 dark:bg-gray-700 my-2"></div>
+              <div className="flex justify-between">
+                <p>Subtotal</p>
+                <p className="font-medium">{totalPrice.toLocaleString()} NGN</p>
+              </div>
+              <div className="flex justify-between">
+                <p>VAT (8%)</p>
+                <p className="font-medium">{vat.toLocaleString()} NGN</p>
+              </div>
+              <div className="h-px bg-gray-200 dark:bg-gray-700 my-2"></div>
+              <div className="flex justify-between text-lg font-bold text-gray-900 dark:text-white">
+                <p>Total</p>
+                <p>{finalTotal.toLocaleString()} NGN</p>
+              </div>
+            </div>
+
+            {groupedCart.length > 0 ? (
               <Link to="/checkout">
-                <button className="bg-[#135B3A] text-white w-full h-[56px] rounded-[5px] mt-5">
+                <button className="w-full bg-[#135B3A] text-white py-4 rounded-lg mt-6 font-bold hover:bg-[#0e422b] transition-colors shadow-lg shadow-green-900/20">
                   Proceed to Checkout
                 </button>
               </Link>
+            ) : (
+              <button disabled className="w-full bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 py-4 rounded-lg mt-6 font-bold cursor-not-allowed">
+                Cart is Empty
+              </button>
             )}
-          </div>
-        </aside>
-      </section>
-      <section>
-        <h1 className="text-[31px] text-[#011309] p-10 font-bold">
-          OFTEN BOUGHT TOGETHER
-          <hr />
-        </h1>
-        <div className="p-4">
-          <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          </aside>
+        </section>
+
+        {/* Often Bought Together */}
+        <section className="mt-16">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-4">
+            Recommended Services
+            <div className="h-px flex-1 bg-gray-200 dark:bg-gray-700"></div>
+          </h2>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {servicesData.map((service) => (
               <div
                 key={service.id}
-                className="bg-white p-4 rounded-lg shadow-md"
+                className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col"
               >
                 <img
                   src={service.thumbnail}
                   alt={service.name}
-                   className="w-full h-40 object-cover rounded-md"
+                  className="w-full h-40 object-cover rounded-md mb-4"
                 />
-                <div>
-                  <h1 className="text-[#011309] font-semibold text-lg">
+                <div className="flex flex-col flex-1">
+                  <h3 className="text-gray-900 dark:text-white font-semibold text-lg mb-1">
                     {service.name}
-                  </h1>
-                  <p>Color: {service.color}</p>
-                  <p>Price: {service.price.toLocaleString()} NGN</p>
-                  <div className="w-full flex justify-end">
+                  </h3>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">Color: {service.color}</p>
+                  <p className="text-[#135B3A] dark:text-green-400 font-bold mb-4">{service.price.toLocaleString()} NGN</p>
+
                   <button
-                    className="bg-[#A37E2C] text-white px-4 py-2 rounded"
+                    className="mt-auto w-full bg-[#A37E2C] text-white py-2 rounded hover:bg-[#8c6b25] transition-colors"
                     onClick={() => handleBookNowClick(service)}
                   >
-                    Book Now
+                    Add to Cart
                   </button>
-                  </div>
                 </div>
               </div>
             ))}
-          </ul>
-        </div>
-      </section>
-      <section className="p-10 text-bold flex items-center gap-5 text-[#135B3A]">
-        <Link to="/" >Back to Products </Link>
-        <FiChevronRight className="inline" />
-      </section>
+          </div>
+        </section>
+
+        <section className="mt-12 mb-8">
+          <Link to="/products" className="inline-flex items-center text-[#135B3A] dark:text-green-400 font-bold hover:underline">
+            <FiChevronRight className="rotate-180 mr-2" />
+            Continue Shopping
+          </Link>
+        </section>
+      </div>
     </div>
   );
 };

@@ -14,7 +14,7 @@ const ProductCard = ({ product }) => {
     };
 
     return (
-        <Link to={`/product/${product.id}`} className="group block bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+        <Link to={`/product/${product.id}`} className="group block bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-gray-100 dark:border-gray-700">
             <div className="relative h-64 overflow-hidden">
                 <img
                     src={product.thumbnail}
@@ -28,10 +28,10 @@ const ProductCard = ({ product }) => {
                 )}
             </div>
             <div className="p-4">
-                <h3 className="text-lg font-serif font-bold text-primary mb-1">{product.name}</h3>
-                <p className="text-sm text-gray-500 mb-2">{product.category} • {product.material}</p>
+                <h3 className="text-lg font-serif font-bold text-primary dark:text-green-400 mb-1">{product.name}</h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">{product.category} • {product.material}</p>
                 <div className="flex justify-between items-center">
-                    <span className="text-lg font-bold text-accent">{product.price.toLocaleString()} NGN</span>
+                    <span className="text-lg font-bold text-accent dark:text-white">{product.price.toLocaleString()} NGN</span>
                     <button
                         onClick={handleAddToCart}
                         className="bg-primary text-white p-2 rounded-full hover:bg-secondary transition-colors"

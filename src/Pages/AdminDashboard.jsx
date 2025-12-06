@@ -5,6 +5,8 @@ import { db } from "../firebase"; // Import the initialized db from your firebas
 import { migrateProducts } from "../utils/migrateProducts";
 import ProductList from "../Components/Admin/ProductList";
 import ProductForm from "../Components/Admin/ProductForm";
+import PostList from "../Components/Admin/PostList";
+import PostForm from "../Components/Admin/PostForm";
 
 const AdminDashboard = () => {
   const [orders, setOrders] = useState([]);
@@ -77,55 +79,61 @@ const AdminDashboard = () => {
   }
 
   return (
-    <div className="bg-white min-h-screen flex flex-col font-montserrat p-5">
+    <div className="min-h-screen flex flex-col font-montserrat p-5 transition-colors duration-300">
       <section className="mt-[120px]">
         <div className="flex justify-between items-center mb-5">
-          <h1 className="text-2xl font-bold">Admin Dashboard</h1>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Admin Dashboard</h1>
           <button
             onClick={handleMigration}
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors"
           >
             Migrate Products
           </button>
         </div>
 
-        <div className="flex mb-6 border-b">
+        <div className="flex mb-6 border-b border-gray-200 dark:border-gray-700">
           <button
-            className={`px-4 py-2 ${activeTab === "orders" ? "border-b-2 border-primary font-bold" : ""}`}
+            className={`px-4 py-2 transition-colors ${activeTab === "orders" ? "border-b-2 border-primary text-primary font-bold" : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"}`}
             onClick={() => setActiveTab("orders")}
           >
             Orders
           </button>
           <button
-            className={`px-4 py-2 ${activeTab === "products" ? "border-b-2 border-primary font-bold" : ""}`}
+            className={`px-4 py-2 transition-colors ${activeTab === "products" ? "border-b-2 border-primary text-primary font-bold" : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"}`}
             onClick={() => setActiveTab("products")}
           >
             Products
           </button>
+          <button
+            className={`px-4 py-2 transition-colors ${activeTab === "posts" ? "border-b-2 border-primary text-primary font-bold" : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"}`}
+            onClick={() => setActiveTab("posts")}
+          >
+            Blog Posts
+          </button>
         </div>
 
-        {activeTab === "orders" ? (
+        {activeTab === "orders" && (
           <div className="overflow-x-auto">
-            <table className="min-w-full bg-white border border-gray-200">
-              <thead className="bg-gray-100">
+            <table className="min-w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+              <thead className="bg-gray-100 dark:bg-gray-700">
                 <tr>
-                  <th className="py-2 px-4 border-b">Order ID</th>
-                  <th className="py-2 px-4 border-b">Customer</th>
-                  <th className="py-2 px-4 border-b">Total</th>
-                  <th className="py-2 px-4 border-b">Status</th>
-                  <th className="py-2 px-4 border-b">Date</th>
-                  <th className="py-2 px-4 border-b">Actions</th>
+                  <th className="py-2 px-4 border-b border-gray-200 dark:border-gray-600 text-left text-gray-700 dark:text-gray-200 font-semibold">Order ID</th>
+                  <th className="py-2 px-4 border-b border-gray-200 dark:border-gray-600 text-left text-gray-700 dark:text-gray-200 font-semibold">Customer</th>
+                  <th className="py-2 px-4 border-b border-gray-200 dark:border-gray-600 text-left text-gray-700 dark:text-gray-200 font-semibold">Total</th>
+                  <th className="py-2 px-4 border-b border-gray-200 dark:border-gray-600 text-left text-gray-700 dark:text-gray-200 font-semibold">Status</th>
+                  <th className="py-2 px-4 border-b border-gray-200 dark:border-gray-600 text-left text-gray-700 dark:text-gray-200 font-semibold">Date</th>
+                  <th className="py-2 px-4 border-b border-gray-200 dark:border-gray-600 text-left text-gray-700 dark:text-gray-200 font-semibold">Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {orders.map((order) => (
-                  <tr key={order.id}>
-                    <td className="py-2 px-4 border-b">{order.id}</td>
-                    <td className="py-2 px-4 border-b">
+                  <tr key={order.id} className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                    <td className="py-2 px-4 border-b border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-300">{order.id}</td>
+                    <td className="py-2 px-4 border-b border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-300">
                       {order.customerInfo?.firstName} {order.customerInfo?.lastName}
                     </td>
-                    <td className="py-2 px-4 border-b">{(order.totalPrice || order.total)?.toLocaleString()} NGN</td>
-                    <td className="py-2 px-4 border-b capitalize">
+                    <td className="py-2 px-4 border-b border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-300">{(order.totalPrice || order.total)?.toLocaleString()} NGN</td>
+                    <td className="py-2 px-4 border-b border-gray-200 dark:border-gray-700 capitalize text-gray-900 dark:text-gray-300">
                       {order.status || order.orderStatus}
                       {order.expediteRequested && (
                         <span className="ml-2 bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded font-bold uppercase tracking-wider">
@@ -133,16 +141,16 @@ const AdminDashboard = () => {
                         </span>
                       )}
                     </td>
-                    <td className="py-2 px-4 border-b">
+                    <td className="py-2 px-4 border-b border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-300">
                       {order.createdAt
                         ? (typeof order.createdAt === 'string' ? new Date(order.createdAt).toLocaleDateString() : new Date(order.createdAt.seconds * 1000).toLocaleDateString())
                         : 'N/A'}
                     </td>
-                    <td className="py-2 px-4 border-b">
+                    <td className="py-2 px-4 border-b border-gray-200 dark:border-gray-700">
                       <select
                         onChange={(e) => handleUpdateStatus(order.id, e.target.value)}
                         defaultValue={order.status || order.orderStatus || 'pending'}
-                        className="p-1 border rounded"
+                        className="p-1 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-blue-500"
                       >
                         <option value="pending">Pending</option>
                         <option value="processing">Processing</option>
@@ -156,7 +164,9 @@ const AdminDashboard = () => {
               </tbody>
             </table>
           </div>
-        ) : (
+        )}
+
+        {activeTab === "products" && (
           <div>
             <div className="flex justify-end mb-4">
               {!showProductForm && (
@@ -165,7 +175,7 @@ const AdminDashboard = () => {
                     setEditingProduct(null);
                     setShowProductForm(true);
                   }}
-                  className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+                  className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors"
                 >
                   Add New Product
                 </button>
@@ -188,6 +198,45 @@ const AdminDashboard = () => {
               <ProductList
                 onEdit={(product) => {
                   setEditingProduct(product);
+                  setShowProductForm(true);
+                }}
+              />
+            )}
+          </div>
+        )}
+
+        {activeTab === "posts" && (
+          <div>
+            <div className="flex justify-end mb-4">
+              {!showProductForm && (
+                <button
+                  onClick={() => {
+                    setEditingProduct(null);
+                    setShowProductForm(true);
+                  }}
+                  className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors"
+                >
+                  Add New Post
+                </button>
+              )}
+            </div>
+
+            {showProductForm ? (
+              <PostForm
+                initialData={editingProduct}
+                onSuccess={() => {
+                  setShowProductForm(false);
+                  setEditingProduct(null);
+                }}
+                onCancel={() => {
+                  setShowProductForm(false);
+                  setEditingProduct(null);
+                }}
+              />
+            ) : (
+              <PostList
+                onEdit={(post) => {
+                  setEditingProduct(post);
                   setShowProductForm(true);
                 }}
               />

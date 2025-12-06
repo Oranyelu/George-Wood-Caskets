@@ -1,20 +1,23 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
+
 @import "tailwindcss";
-@config "../tailwind.config.js";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-brand-cream: #F9F9F7;
+  --color-brand-black: #011309;
+  --color-brand-white: #FFFFFF;
+  --color-primary-dark: #011309;
+  --color-secondary-bronze: #A37E2C;
+}
 
 @layer base {
   body {
-    @apply font-sans text-accent bg-neutral;
+    @apply bg-brand-cream text-brand-black transition-colors duration-300;
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply font-serif text-primary;
+  .dark body {
+    @apply bg-primary-dark text-brand-white;
   }
 }
 
@@ -109,4 +112,33 @@
 
 .animate-flip {
   animation: flip 6s infinite linear;
+}
+
+@keyframes fastSpinStop {
+  0% {
+    transform: rotateY(0deg);
+  }
+
+  100% {
+    transform: rotateY(1440deg);
+    /* 4 full spins */
+  }
+}
+
+.animate-spin-stop {
+  animation: fastSpinStop 1.5s ease-out forwards;
+}
+
+/* 3D Utilities */
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.perspective-\[1000px\] {
+  perspective: 1000px;
 }

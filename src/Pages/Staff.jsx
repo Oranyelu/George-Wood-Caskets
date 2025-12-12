@@ -37,21 +37,21 @@ const StaffCard = ({ name, title, image, bio }) => {
   const preview = bio.slice(0, 100);
 
   return (
-    <div className="flex flex-col md:flex-row items-start gap-4 border border-gray-200 dark:border-gray-700 p-4 rounded-xl shadow-md bg-white dark:bg-gray-800 transition-colors">
+    <div className="flex flex-col md:flex-row items-start gap-4 border border-white/10 p-4 rounded-xl shadow-md bg-[#F0B52E] transition-colors">
       <img
         src={image}
         alt={name}
         className="w-32 h-32 object-cover rounded-full flex-shrink-0"
       />
       <div>
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{name}</h3>
-        <p className="text-gray-600 dark:text-gray-400 font-medium">{title}</p>
-        <p className="mt-2 text-sm leading-relaxed text-gray-700 dark:text-gray-300">
+        <h3 className="text-lg font-semibold text-white">{name}</h3>
+        <p className="text-white/80 font-medium">{title}</p>
+        <p className="mt-2 text-sm leading-relaxed text-white/90">
           {expanded ? bio : `${preview}...`}
         </p>
         {bio.length > 100 && (
           <button
-            className="mt-2 text-[#135B3A] dark:text-green-400 hover:underline text-sm font-semibold"
+            className="mt-2 text-white hover:underline text-sm font-bold"
             onClick={() => setExpanded(!expanded)}
           >
             {expanded ? "Read less" : "Read more"}

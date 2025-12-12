@@ -41,6 +41,9 @@ service cloud.firestore {
     }
 
     // Blog Posts: Public read, Admin write
+    match /memorials/{memorialId} {
+      allow read, write: if true;
+    }
     match /posts/{postId} {
       allow read: if true;
       allow write: if isAdmin();

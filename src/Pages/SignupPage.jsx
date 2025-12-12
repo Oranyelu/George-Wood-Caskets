@@ -26,15 +26,15 @@ const SignupPage = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen transition-colors duration-300 font-montserrat px-4 py-8">
-      <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md border border-gray-100 dark:border-gray-700 mt-16">
-        <h2 className="text-2xl font-bold mb-6 text-center text-[#135B3A] dark:text-white">Create Account</h2>
+      <form onSubmit={handleSubmit} className="bg-[#F0B52E] p-8 rounded-lg shadow-lg w-full max-w-md border border-white/10 mt-16">
+        <h2 className="text-2xl font-bold mb-6 text-center text-white">Create Account</h2>
         {error && <p className="text-red-500 text-sm mb-4 text-center">{error}</p>}
         <div className="mb-4">
-          <label className="block text-gray-700 dark:text-gray-300 mb-2 font-medium">Email Address</label>
+          <label className="block text-white mb-2 font-medium">Email Address</label>
           <input
             type="email"
             name="email"
-            className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#135B3A] dark:focus:ring-green-500"
+            className="w-full p-3 border border-white/30 rounded bg-white/90 text-black focus:outline-none focus:ring-2 focus:ring-white"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -42,11 +42,11 @@ const SignupPage = () => {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 dark:text-gray-300 mb-2 font-medium">Password</label>
+          <label className="block text-white mb-2 font-medium">Password</label>
           <input
             type="password"
             name="password"
-            className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#135B3A] dark:focus:ring-green-500"
+            className="w-full p-3 border border-white/30 rounded bg-white/90 text-black focus:outline-none focus:ring-2 focus:ring-white"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
@@ -54,22 +54,22 @@ const SignupPage = () => {
           />
         </div>
         <div className="mb-6">
-          <label className="block text-gray-700 dark:text-gray-300 mb-2 font-medium">Confirm Password</label>
+          <label className="block text-white mb-2 font-medium">Confirm Password</label>
           <input
             type="password"
             name="confirmPassword"
-            className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#135B3A] dark:focus:ring-green-500"
+            className="w-full p-3 border border-white/30 rounded bg-white/90 text-black focus:outline-none focus:ring-2 focus:ring-white"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
             placeholder="Confirm your password"
           />
         </div>
-        <button type="submit" className="w-full bg-[#135B3A] text-white p-3 rounded font-bold hover:bg-[#0f462c] transition-colors shadow-md">
+        <button type="submit" className="w-full bg-[#135B3A] text-white p-3 rounded font-bold hover:bg-[#0f462c] transition-colors shadow-md border border-white/20">
           Sign Up
         </button>
-        <p className="mt-6 text-center text-gray-600 dark:text-gray-400">
-          Already have an account? <Link to="/login" className="text-[#D4AF37] hover:underline font-semibold">Log in</Link>
+        <p className="mt-6 text-center text-white/90">
+          Already have an account? <Link to="/login" className="text-white hover:underline font-bold">Log in</Link>
         </p>
       </form>
     </div>

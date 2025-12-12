@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { sendReportEmail } from "../utils/api";
 
 
 function ReportIssue() {
@@ -11,19 +12,18 @@ function ReportIssue() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch('https://george-wood-backend.vercel.app/api/ContactUs.js', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
+    sendReportEmail({
+      name: formData.name,
+      email: formData.email,
+      issue: formData.issue
     })
-      .then((response) => response.json())
       .then((data) => {
-        alert(data.message);
+        alert("Report sent successfully.");
+        setFormData({ name: '', email: '', issue: '' });
       })
       .catch((error) => {
         console.error('Error:', error);
+        alert("Failed to send report.");
       });
   };
 
@@ -37,59 +37,59 @@ function ReportIssue() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {/* Contact Info */}
-          <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md border border-gray-100 dark:border-gray-700 transition-colors h-fit">
-            <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Contact Information</h2>
-            <p className="text-gray-600 dark:text-gray-300 mb-4">You can also reach us via:</p>
+          <div className="bg-[#F0B52E] p-8 rounded-lg shadow-md border border-white/10 transition-colors h-fit">
+            <h2 className="text-2xl font-bold mb-4 text-white">Contact Information</h2>
+            <p className="text-white/90 mb-4">You can also reach us via:</p>
             <ul className="space-y-4">
               <li className="flex flex-col">
-                <span className="font-bold text-[#135B3A] dark:text-green-400">Email</span>
-                <span className="text-gray-700 dark:text-gray-300">georgewoodcasket@gmail.com</span>
+                <span className="font-bold text-white">Email</span>
+                <span className="text-white/80">georgewoodcasket@gmail.com</span>
               </li>
               <li className="flex flex-col">
-                <span className="font-bold text-[#135B3A] dark:text-green-400">Phone</span>
-                <span className="text-gray-700 dark:text-gray-300">08143904414</span>
+                <span className="font-bold text-white">Phone</span>
+                <span className="text-white/80">08143904414</span>
               </li>
             </ul>
           </div>
 
           {/* Form */}
-          <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md border border-gray-100 dark:border-gray-700 transition-colors">
-            <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Send a Report</h2>
+          <div className="bg-[#F0B52E] p-8 rounded-lg shadow-md border border-white/10 transition-colors">
+            <h2 className="text-2xl font-bold mb-6 text-white">Send a Report</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label htmlFor="name" className="block text-sm font-bold mb-1 text-gray-700 dark:text-gray-300">
+                <label htmlFor="name" className="block text-sm font-bold mb-1 text-white">
                   Your Name
                 </label>
                 <input
                   type="text" id="name" name="name"
                   value={formData.name} onChange={handleChange} required
-                  className="p-3 border border-gray-300 dark:border-gray-600 rounded bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#135B3A] dark:focus:ring-green-500 w-full"
+                  className="p-3 border border-white/30 rounded bg-white/90 text-black focus:outline-none focus:ring-2 focus:ring-white w-full"
                 />
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-sm font-bold mb-1 text-gray-700 dark:text-gray-300">
+                <label htmlFor="email" className="block text-sm font-bold mb-1 text-white">
                   Your Email
                 </label>
                 <input
                   type="email" id="email" name="email"
                   value={formData.email} onChange={handleChange} required
-                  className="p-3 border border-gray-300 dark:border-gray-600 rounded bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#135B3A] dark:focus:ring-green-500 w-full"
+                  className="p-3 border border-white/30 rounded bg-white/90 text-black focus:outline-none focus:ring-2 focus:ring-white w-full"
                 />
               </div>
 
               <div>
-                <label htmlFor="issue" className="block text-sm font-bold mb-1 text-gray-700 dark:text-gray-300">
+                <label htmlFor="issue" className="block text-sm font-bold mb-1 text-white">
                   Describe the Issue
                 </label>
                 <textarea
                   id="issue" name="issue"
                   value={formData.issue} onChange={handleChange} rows="4" required
-                  className="p-3 border border-gray-300 dark:border-gray-600 rounded bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#135B3A] dark:focus:ring-green-500 w-full"
+                  className="p-3 border border-white/30 rounded bg-white/90 text-black focus:outline-none focus:ring-2 focus:ring-white w-full"
                 ></textarea>
               </div>
 
-              <button type="submit" className="w-full bg-[#135B3A] hover:bg-[#0f462c] text-white font-bold py-3 px-4 rounded transition-colors shadow-md">
+              <button type="submit" className="w-full bg-[#135B3A] hover:bg-[#0f462c] text-white font-bold py-3 px-4 rounded transition-colors shadow-md border border-white/20">
                 Submit Report
               </button>
             </form>

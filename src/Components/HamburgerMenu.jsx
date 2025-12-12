@@ -40,7 +40,7 @@ const HamburgerMenu = () => {
 
       {/* Overlay Menu */}
       <div
-        className={`fixed inset-0 bg-primary/95 backdrop-blur-sm z-40 transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : 'translate-x-full'
+        className={`fixed inset-0 bg-[#135B3A]/95 backdrop-blur-sm z-40 transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : 'translate-x-full'
           } flex flex-col justify-center items-center`}
       >
         <nav className="flex flex-col gap-6 text-center">

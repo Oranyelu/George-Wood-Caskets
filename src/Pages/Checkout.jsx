@@ -3,6 +3,7 @@ import { usePaystackPayment } from 'react-paystack';
 import { ProductContext } from "../Providers/ProductProvider";
 import { Link } from "react-router-dom";
 import { FiChevronRight } from "react-icons/fi"; // right-pointing arrow
+import { sendOrderEmail } from "../utils/api";
 
 const Checkout = () => {
   const { cart, removeFromCart, getTotalPrice, checkout } = useContext(ProductContext);
@@ -47,6 +48,19 @@ const Checkout = () => {
       const orderId = await checkout(orderDataWithPayment);
       setTrackingId(orderId);
       setOrderSuccess(true);
+
+      // Send Email Notification
+      await sendOrderEmail({
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        phone: formData.phone,
+        cart: cart,
+        totalPrice: totalPrice,
+        trackingId: orderId,
+        referral: formData.referredBy
+      });
+
     } catch (error) {
       console.error("Error placing order:", error);
       alert(`There was an error placing your order: ${error.message}`);

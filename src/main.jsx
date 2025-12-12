@@ -9,6 +9,7 @@ import OrderProvider from "./Providers/OrderProvider";
 import ThemeProvider from "./Providers/ThemeContext";
 
 import { HelmetProvider } from 'react-helmet-async';
+import { SpeedInsights } from "@vercel/speed-insights/react"
 import './i18n';
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -20,6 +21,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <ProductProvider>
               <OrderProvider>
                 <App />
+                <SpeedInsights />
               </OrderProvider>
             </ProductProvider>
           </ThemeProvider>

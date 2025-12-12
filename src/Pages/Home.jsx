@@ -9,7 +9,7 @@ import { ProductContext } from "../Providers/ProductProvider";
 import Services from "../assets/service-api"; // service data
 import TestimonialsData from "../assets/Testinonials-api"; // testimonials
 import Logo from "../assets/Favicon.svg"; // hero logo
-import BKOL from "../assets/svgs/bookoflife.svg"; // Book of Life image
+import BKOL from "../assets/book_of_life.png"; // Book of Life image
 // import './ShinyText.css';
 
 const ShinyText = ({ text }) => {
@@ -227,7 +227,7 @@ function Home() {
 
         <div className="text-center mt-10">
           <Link to="/products">
-            <button className="bg-primary text-white px-6 py-3 rounded hover:bg-secondary active:bg-primary transition-colors">
+            <button className="bg-[#135B3A] text-white px-6 py-3 rounded hover:bg-[#0E462D] transition-colors shadow-md font-bold">
               View All Products
             </button>
           </Link>
@@ -244,35 +244,48 @@ function Home() {
 
         <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
           {randomServices.map((service) => (
-            <li
+            <Link
               key={service.id}
-              className="bg-[#F0B52E] p-6 rounded-lg shadow-lg flex flex-col items-center justify-center h-[200px] transform hover:scale-105 transition-transform duration-300"
+              to={`/book-service/${service.name.replace(/\s+/g, '-').toLowerCase()}`}
             >
-              <h2 className="text-primary mb-2 font-bold text-center">
-                {service.name}
-              </h2>
-              <p className="text-[#011309] text-center">
-                {service.description || "Description coming soon."}
-              </p>
-            </li>
+              <li
+                className="bg-[#F0B52E] p-6 rounded-lg shadow-lg flex flex-col items-center justify-center h-[200px] transform hover:scale-105 transition-transform duration-300 cursor-pointer"
+              >
+                <h2 className="text-primary mb-2 font-bold text-center">
+                  {service.name}
+                </h2>
+                <p className="text-[#011309] text-center">
+                  {service.description || "Description coming soon."}
+                </p>
+                <span className="mt-4 text-[#135B3A] text-sm font-bold underline">Book Now</span>
+              </li>
+            </Link>
           ))}
         </ul>
+
+        <div className="text-center mt-10">
+          <Link to="/services">
+            <button className="bg-[#135B3A] text-white px-6 py-3 rounded hover:bg-[#0E462D] transition-colors shadow-md font-bold">
+              View More Services
+            </button>
+          </Link>
+        </div>
       </section>
 
       {/* === Testimonials Section === */}
       <section className="pt-20 px-6 md:px-10 lg:px-20 max-w-[1300px] mx-auto w-full">
-        <div className="flex flex-col text-white gap-8">
+        <div className="flex flex-col gap-8">
           <section className="flex justify-between sm:flex-row flex-col">
             <div>
-              <h1 className="font-bold text-3xl text-primary">
+              <h1 className="font-bold text-3xl text-[#135B3A] dark:text-green-500">
                 Why Choose George Wood Casket?
               </h1>
-              <h2 className="text-secondary">
+              <h2 className="text-[#A37E2C] font-semibold text-lg">
                 Read what our customers have to say...
               </h2>
             </div>
 
-            <div className="flex gap-5 text-primary">
+            <div className="flex gap-5 text-[#135B3A] dark:text-green-400">
               <div className="text-center">
                 <h2 className="text-2xl font-bold">488</h2>
                 <p>Clients</p>
@@ -286,7 +299,7 @@ function Home() {
 
           {/* Book of Life Section */}
           <section className="flex flex-col md:flex-row justify-between items-center gap-6">
-            <div className="bg-primary md:max-w-[250px] w-full h-[250px] rounded-md flex flex-col items-center justify-center">
+            <div className="bg-[#135B3A] md:max-w-[250px] w-full h-[250px] rounded-md flex flex-col items-center justify-center text-white">
               <div className="flex items-center">
                 <span className="text-5xl font-bold">
                   {averageRating.toFixed(1)}
@@ -301,28 +314,24 @@ function Home() {
               </div>
             </div>
 
-            <div
-              className="w-full h-[250px] bg-no-repeat bg-center bg-cover rounded-xl relative overflow-hidden"
+            <Link 
+              to="/book-of-life" 
+              className="w-full h-[250px] bg-no-repeat bg-center bg-cover rounded-xl relative overflow-hidden group cursor-pointer"
               style={{ backgroundImage: `url(${BKOL})` }}
             >
               <div
                 id="book-of-life-overlay"
-                className="absolute bottom-[-100%] left-0 w-full h-full bg-black bg-opacity-70 text-white p-4 flex flex-col justify-center items-start gap-2 transition-all duration-300"
+                className="absolute bottom-[-100%] left-0 w-full h-full bg-black bg-opacity-70 text-white p-4 flex flex-col justify-center items-start gap-2 transition-all duration-300 group-hover:bottom-0"
               >
-                <Link
-                  to="/book-of-life"
-                  className="text-white underline hover:text-secondary"
-                >
-                  <h1 className="text-lg font-bold">
-                    Discover “The Book Of Life”
-                  </h1>
-                </Link>
+                <h1 className="text-lg font-bold text-[#F0B52E] underline">
+                  Discover “The Book Of Life”
+                </h1>
                 <p className="text-sm">
                   Step into the stories of those who shaped our journey.
                   Their legacies live on, offering comfort and inspiration.
                 </p>
               </div>
-            </div>
+            </Link>
           </section>
 
           {/* Testimonials Grid */}
@@ -333,7 +342,7 @@ function Home() {
               .map((testimonial) => (
                 <div
                   key={testimonial.id}
-                  className="bg-[#F0B52E] p-5 rounded-lg shadow-lg text-[#011309] flex flex-col gap-3"
+                  className="bg-[#F0B52E] p-5 rounded-lg shadow-lg text-[#011309] flex flex-col gap-3 transition-transform hover:-translate-y-1"
                 >
                   <p className="font-semibold underline text-lg">
                     - {testimonial.name}
@@ -355,7 +364,7 @@ function Home() {
 
       {/* === Latest Updates Section === */}
       <section className="pt-20 px-6 md:px-10 lg:px-20 max-w-[1300px] mx-auto w-full">
-        <h2 className="text-3xl font-bold mb-8 text-primary">
+        <h2 className="text-3xl font-bold mb-8 text-[#135B3A] dark:text-green-500">
           Latest Updates
         </h2>
 
@@ -374,12 +383,12 @@ function Home() {
               </Link>
               <CardContent className="p-5">
                 <h3 className="text-lg font-semibold mb-2">{post.title}</h3>
-                <p className="text-accent mb-4 text-sm">
+                <p className="text-[#011309]/80 mb-4 text-sm">
                   {post.description}
                 </p>
                 <Link
                   to={`/blog/${post.id}`}
-                  className="text-primary font-medium hover:text-accent transition-colors duration-200"
+                  className="text-[#135B3A] font-bold hover:underline transition-colors duration-200"
                 >
                   Read more →
                 </Link>
@@ -390,7 +399,7 @@ function Home() {
 
         <div className="text-center mt-10">
           <Link to="/blog">
-            <button className="bg-primary text-white px-6 py-3 rounded hover:bg-secondary active:bg-primary transition-colors">
+            <button className="bg-[#135B3A] text-white px-6 py-3 rounded hover:bg-[#0E462D] transition-colors shadow-md font-bold">
               View More Articles
             </button>
           </Link>
@@ -399,15 +408,15 @@ function Home() {
 
       {/* === George Wood Foundation Section === */}
       <section className="pt-20 px-6 md:px-10 lg:px-20 max-w-[1300px] mx-auto w-full mb-20">
-        <h1 className="text-3xl md:text-4xl font-bold text-primary mb-8">
+        <h1 className="text-3xl md:text-4xl font-bold text-[#135B3A] dark:text-green-500 mb-8">
           George Wood&#39;s Legacy
         </h1>
-        <div className="bg-primary rounded-xl flex flex-col md:flex-row items-center gap-8 md:gap-12 p-6 md:p-10 w-full">
+        <div className="bg-[#F0B52E] rounded-xl flex flex-col md:flex-row items-center gap-8 md:gap-12 p-6 md:p-10 w-full shadow-lg border border-white/10">
           <div className="w-full flex flex-col items-center md:items-start text-center md:text-left gap-6">
-            <h2 className="text-secondary text-xl md:text-2xl font-bold">
+            <h2 className="text-[#135B3A] text-xl md:text-2xl font-bold">
               Celebrating Life and Legacy
             </h2>
-            <p className="text-white text-sm md:text-base leading-relaxed">
+            <p className="text-[#011309] text-sm md:text-base leading-relaxed font-medium">
               George Wood&#39;s Legacy is a beacon of hope,
               dedicated to empowering youth and inspiring a new generation
               of leaders through education, mentorship, and service.
@@ -415,7 +424,7 @@ function Home() {
               brighter, more compassionate world.
             </p>
             <Link to="/giving">
-              <button className="bg-white text-primary font-semibold px-6 py-3 rounded-md shadow-lg hover:shadow-xl transition duration-300">
+              <button className="bg-[#135B3A] text-white font-semibold px-6 py-3 rounded-md shadow-lg hover:bg-[#0E462D] transition duration-300">
                 Go to Page
               </button>
             </Link>

@@ -48,7 +48,7 @@ function Footer() {
               Get Involved
             </Link>
             <Link to="/book-of-life" className="hover:text-secondary">
-              Customers
+              Book of Life
             </Link>
             <Link to="/hiring" className="hover:text-secondary">
               We are hiring

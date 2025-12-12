@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import Logo from "../assets/Favicon.svg";
 import HamburgerMenu from "./HamburgerMenu";
-import { BsBag, BsSearch } from "react-icons/bs";
+import { BsBag } from "react-icons/bs";
 import { FaUserCircle, FaSun, FaMoon } from "react-icons/fa";
 import { ProductContext } from "../Providers/ProductProvider";
 import { useAuth } from "../Providers/AuthProvider";
@@ -20,6 +20,7 @@ export default function Header() {
   const { t } = useTranslation();
   const [isHovered, setIsHovered] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -83,7 +84,7 @@ export default function Header() {
             overflow-hidden
             ${isExpanded
               ? "max-w-[1400px] w-full px-8 py-3" // Expanded state
-              : "max-w-[160px] w-full px-5 py-2" // Collapsed state (Fixed width for smooth transition)
+              : "max-w-[200px] w-full px-5 py-2" // Collapsed state (Fixed width for smooth transition)
             }
           `}
         >
@@ -94,7 +95,7 @@ export default function Header() {
               {/* Logo Text */}
               <div
                 className={`
-                  ml-3 font-bold text-lg lg:text-xl whitespace-nowrap 
+                  hidden lg:block ml-3 font-bold text-lg lg:text-xl whitespace-nowrap 
                   transition-all duration-500 ease-in-out overflow-hidden
                   ${isExpanded ? "max-w-[200px] opacity-100" : "max-w-0 opacity-0"}
                 `}
@@ -126,7 +127,7 @@ export default function Header() {
                   key={path}
                   to={path}
                   className={({ isActive }) =>
-                    `relative hover:text-[#A37E2C] transition-colors ${isActive ? "text-[#A37E2C]" : ""}`
+                    `relative hover:text-[#F0B52E] transition-colors ${isActive ? "text-[#F0B52E]" : ""}`
                   }
                 >
                   {name}
@@ -137,10 +138,7 @@ export default function Header() {
 
           {/* RIGHT ICONS */}
           <div className="flex items-center gap-4 lg:gap-6 shrink-0">
-            {/* Search Icon */}
-            <button className="hover:text-[#A37E2C] transition-colors">
-              <BsSearch size={20} />
-            </button>
+
 
             {/* Cart Icon */}
             <div
@@ -149,7 +147,7 @@ export default function Header() {
                 ${isExpanded ? "max-w-[50px] opacity-100" : "max-w-0 opacity-0"}
               `}
             >
-              <NavLink to="/cart" className="flex items-center hover:text-[#A37E2C] transition-colors">
+              <NavLink to="/cart" className="flex items-center hover:text-[#F0B52E] transition-colors">
                 <BsBag size={22} />
                 {cartItemCount > 0 && (
                   <span className="absolute -top-1 -right-1 bg-red-500 text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center">
@@ -168,7 +166,7 @@ export default function Header() {
             >
               {user ? (
                 <>
-                  <button className="flex items-center hover:text-[#A37E2C] focus:outline-none">
+                  <button className="flex items-center hover:text-[#F0B52E] focus:outline-none">
                     <FaUserCircle size={24} />
                   </button>
                   {/* Dropdown */}
@@ -178,6 +176,21 @@ export default function Header() {
                         Signed in as <br />
                         <span className="font-bold truncate block text-[#135B3A] dark:text-green-400">{user.email}</span>
                       </div>
+
+                      <NavLink
+                        to="/user/dashboard"
+                        className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-[#135B3A]"
+                      >
+                        User Dashboard
+                      </NavLink>
+
+                      <NavLink
+                        to="/favorites"
+                        className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-[#135B3A]"
+                      >
+                        My Favorites
+                      </NavLink>
+
                       {isAdmin && (
                         <NavLink
                           to="/admin/dashboard"

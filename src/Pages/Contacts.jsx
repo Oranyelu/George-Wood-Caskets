@@ -3,6 +3,7 @@ import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock } from 'react-icons/fa';
 import { Helmet } from 'react-helmet-async';
+import { sendContactEmail } from "../utils/api";
 
 const Contacts = () => {
   const [formData, setFormData] = useState({
@@ -29,6 +30,10 @@ const Contacts = () => {
         createdAt: new Date(),
         status: 'new'
       });
+
+      // Send Email Notification
+      await sendContactEmail(formData);
+
       setStatus({ type: 'success', message: 'Thank you! Your message has been sent.' });
       setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (error) {
@@ -55,37 +60,37 @@ const Contacts = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
           {/* Contact Information */}
-          <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md h-fit border border-gray-100 dark:border-gray-700 transition-colors">
-            <h2 className="text-2xl font-bold text-[#135B3A] dark:text-white mb-6">Get in Touch</h2>
+          <div className="bg-[#F0B52E] p-8 rounded-lg shadow-md h-fit border border-white/10 transition-colors">
+            <h2 className="text-2xl font-bold text-white mb-6">Get in Touch</h2>
 
             <div className="space-y-6">
               <div className="flex items-start gap-4">
-                <div className="bg-[#135B3A]/10 dark:bg-green-900/30 p-3 rounded-full text-[#135B3A] dark:text-green-400">
+                <div className="bg-black/20 p-3 rounded-full text-white">
                   <FaPhone className="text-xl" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-gray-900 dark:text-white">Phone</h3>
-                  <p className="text-gray-600 dark:text-gray-300">08143904414</p>
+                  <h3 className="font-bold text-white">Phone</h3>
+                  <p className="text-white/80">08143904414</p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="bg-[#135B3A]/10 dark:bg-green-900/30 p-3 rounded-full text-[#135B3A] dark:text-green-400">
+                <div className="bg-black/20 p-3 rounded-full text-white">
                   <FaEnvelope className="text-xl" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-gray-900 dark:text-white">Email</h3>
-                  <p className="text-gray-600 dark:text-gray-300">georgewoodcasket@gmail.com</p>
+                  <h3 className="font-bold text-white">Email</h3>
+                  <p className="text-white/80">georgewoodcasket@gmail.com</p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="bg-[#135B3A]/10 dark:bg-green-900/30 p-3 rounded-full text-[#135B3A] dark:text-green-400">
+                <div className="bg-black/20 p-3 rounded-full text-white">
                   <FaMapMarkerAlt className="text-xl" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-gray-900 dark:text-white">Location</h3>
-                  <p className="text-gray-600 dark:text-gray-300">
+                  <h3 className="font-bold text-white">Location</h3>
+                  <p className="text-white/80">
                     11 Senator Avenue, Opposite Milestone Hospital,<br />
                     Along Old Enugu-Onitsha Express Road.<br />
                     Okwojo Ngwo.
@@ -94,12 +99,12 @@ const Contacts = () => {
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="bg-[#135B3A]/10 dark:bg-green-900/30 p-3 rounded-full text-[#135B3A] dark:text-green-400">
+                <div className="bg-black/20 p-3 rounded-full text-white">
                   <FaClock className="text-xl" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-gray-900 dark:text-white">Business Hours</h3>
-                  <ul className="text-gray-600 dark:text-gray-300 text-sm">
+                  <h3 className="font-bold text-white">Business Hours</h3>
+                  <ul className="text-white/80 text-sm">
                     <li>Monday - Friday: 9 AM - 5 PM (GMT)</li>
                     <li>Saturday: 10 AM - 2 PM (GMT)</li>
                     <li>Sunday: Closed</li>
@@ -110,60 +115,60 @@ const Contacts = () => {
           </div>
 
           {/* Contact Form */}
-          <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md border border-gray-100 dark:border-gray-700 transition-colors">
-            <h2 className="text-2xl font-bold text-[#135B3A] dark:text-white mb-6">Send us a Message</h2>
+          <div className="bg-[#F0B52E] p-8 rounded-lg shadow-md border border-white/10 transition-colors">
+            <h2 className="text-2xl font-bold text-white mb-6">Send us a Message</h2>
 
             {status.message && (
-              <div className={`p-4 mb-6 rounded ${status.type === 'success' ? 'bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300' : 'bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-300'}`}>
+              <div className={`p-4 mb-6 rounded ${status.type === 'success' ? 'bg-green-500/20 text-white border border-green-400' : 'bg-red-500/20 text-white border border-red-400'}`}>
                 {status.message}
               </div>
             )}
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">Name</label>
+                <label className="block text-sm font-bold text-white mb-1">Name</label>
                 <input
                   type="text"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#135B3A] dark:focus:ring-green-500"
+                  className="w-full p-3 border border-white/30 rounded bg-white/90 text-black focus:outline-none focus:ring-2 focus:ring-white"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">Email</label>
+                <label className="block text-sm font-bold text-white mb-1">Email</label>
                 <input
                   type="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#135B3A] dark:focus:ring-green-500"
+                  className="w-full p-3 border border-white/30 rounded bg-white/90 text-black focus:outline-none focus:ring-2 focus:ring-white"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">Subject</label>
+                <label className="block text-sm font-bold text-white mb-1">Subject</label>
                 <input
                   type="text"
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
-                  className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#135B3A] dark:focus:ring-green-500"
+                  className="w-full p-3 border border-white/30 rounded bg-white/90 text-black focus:outline-none focus:ring-2 focus:ring-white"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">Message</label>
+                <label className="block text-sm font-bold text-white mb-1">Message</label>
                 <textarea
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
                   rows="5"
-                  className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#135B3A] dark:focus:ring-green-500"
+                  className="w-full p-3 border border-white/30 rounded bg-white/90 text-black focus:outline-none focus:ring-2 focus:ring-white"
                   required
                 ></textarea>
               </div>

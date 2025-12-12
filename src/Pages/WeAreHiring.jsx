@@ -13,20 +13,20 @@ function WeAreHiring() {
           to join our team. Currently, we have an opening for the position of Sales Manager.
         </p>
 
-        <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md border border-gray-100 dark:border-gray-700 transition-colors">
-          <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">Position: Sales Manager</h2>
+        <div className="bg-[#F0B52E] p-8 rounded-lg shadow-md border border-white/10 transition-colors">
+          <h2 className="text-2xl font-bold mb-4 text-white border-b border-white/20 pb-2">Position: Sales Manager</h2>
 
           <div className="mb-6">
-            <h3 className="text-xl font-semibold mb-2 text-[#135B3A] dark:text-green-400">Job Description</h3>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+            <h3 className="text-xl font-semibold mb-2 text-white">Job Description</h3>
+            <p className="text-white/90 leading-relaxed">
               As a Sales Manager, you will be responsible for leading our sales team, developing strategies to
               drive sales growth, and ensuring the highest level of customer satisfaction.
             </p>
           </div>
 
           <div className="mb-6">
-            <h3 className="text-xl font-semibold mb-2 text-[#135B3A] dark:text-green-400">Key Responsibilities</h3>
-            <ul className="list-disc ml-6 space-y-2 text-gray-700 dark:text-gray-300">
+            <h3 className="text-xl font-semibold mb-2 text-white">Key Responsibilities</h3>
+            <ul className="list-disc ml-6 space-y-2 text-white/90">
               <li>Develop and implement effective sales strategies.</li>
               <li>Lead and motivate the sales team to achieve targets.</li>
               <li>Analyze sales data and market trends to identify opportunities.</li>
@@ -36,8 +36,8 @@ function WeAreHiring() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-xl font-semibold mb-2 text-[#135B3A] dark:text-green-400">Qualifications</h3>
-            <ul className="list-disc ml-6 space-y-2 text-gray-700 dark:text-gray-300">
+            <h3 className="text-xl font-semibold mb-2 text-white">Qualifications</h3>
+            <ul className="list-disc ml-6 space-y-2 text-white/90">
               <li>Bachelor’s degree in Business Administration or related field.</li>
               <li>Proven experience in sales management, preferably in the casket or furniture industry.</li>
               <li>Strong leadership and communication skills.</li>
@@ -46,11 +46,11 @@ function WeAreHiring() {
             </ul>
           </div>
 
-          <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
-            <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">How to Apply</h3>
-            <p className="text-gray-700 dark:text-gray-300">
+          <div className="mt-8 pt-6 border-t border-white/20">
+            <h3 className="text-xl font-semibold mb-2 text-white">How to Apply</h3>
+            <p className="text-white/90">
               If you are interested in joining our team, please send your resume and a cover letter to:
-              <a href="mailto:georgewoodcasket@gmail.com" className="font-bold text-[#135B3A] dark:text-green-500 hover:underline ml-1">georgewoodcasket@gmail.com</a>.
+              <a href="mailto:georgewoodcasket@gmail.com" className="font-bold text-white hover:underline ml-1">georgewoodcasket@gmail.com</a>.
             </p>
           </div>
         </div>

@@ -65,15 +65,15 @@ const OrderTracking = () => {
 
   return (
     <div className="min-h-screen flex flex-col font-montserrat p-5 pb-20 transition-colors duration-300">
-      <section className="mt-[120px] max-w-3xl mx-auto bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md w-full border border-gray-100 dark:border-gray-700 transition-colors">
-        <h1 className="text-2xl font-bold mb-5 text-center text-[#135B3A] dark:text-white">Track Your Order</h1>
+      <section className="mt-[120px] max-w-3xl mx-auto bg-[#F0B52E] p-8 rounded-lg shadow-md w-full border border-white/10 transition-colors">
+        <h1 className="text-2xl font-bold mb-5 text-center text-white">Track Your Order</h1>
         <form onSubmit={handleTrackOrder} className="flex flex-col gap-4 mb-8">
           <input
             type="text"
             value={orderId}
             onChange={(e) => setOrderId(e.target.value)}
             placeholder="Enter your Order ID"
-            className="p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#135B3A] dark:focus:ring-green-500"
+            className="p-3 border border-white/30 rounded-lg bg-white/90 text-black focus:outline-none focus:ring-2 focus:ring-white"
             required
           />
           <button

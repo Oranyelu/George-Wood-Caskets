@@ -8,6 +8,7 @@ import {
   Blog,
   BlogPost,
   BookOfLife,
+  BookService,
   Cart,
   Checkout,
   Contacts,
@@ -27,10 +28,13 @@ import {
   Services,
   Staff,
   Tracking,
+  Volunteer,
   WeAreHiring,
   Xclusive,
   LoginPage,
-  SignupPage
+  SignupPage,
+  UserDashboard,
+  FavoritesPage
 } from "./Pages";
 import PrivateRoute from "./Components/PrivateRoute";
 import FloatingContact from "./Components/FloatingContact";
@@ -68,15 +72,19 @@ export default function App() {
           <Route path="report" element={<ReportIssue />} />
           <Route path="safety" element={<SafetyCenter />} />
           <Route path="services" element={<Services />} />
+          <Route path="book-service/:serviceId" element={<BookService />} />
           <Route path="staff" element={<Staff />} />
           <Route path="privacy-policy" element={<PrivacyPolicy />} />
           <Route path="terms-and-conditions" element={<TermsAndConditions />} />
           <Route path="refund-policy" element={<RefundPolicy />} />
           <Route path="track-order" element={<Tracking />} />
+          <Route path="volunteer" element={<Volunteer />} />
           <Route path="hiring" element={<WeAreHiring />} />
           <Route path="xclusive" element={<Xclusive />} />
           <Route path="product/:productId" element={<ProductDetail />} />
           <Route path="products" element={<ProductsPage />} />
+          <Route path="user/dashboard" element={<UserDashboard />} />
+          <Route path="favorites" element={<FavoritesPage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="signup" element={<SignupPage />} />
           <Route path="bonds" element={<Bonds />} />

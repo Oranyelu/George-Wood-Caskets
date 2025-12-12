@@ -7,6 +7,10 @@ import ProductList from "../Components/Admin/ProductList";
 import ProductForm from "../Components/Admin/ProductForm";
 import PostList from "../Components/Admin/PostList";
 import PostForm from "../Components/Admin/PostForm";
+import ProjectList from "../Components/Admin/ProjectList";
+import ProjectForm from "../Components/Admin/ProjectForm";
+import MemorialList from "../Components/Admin/MemorialList";
+import MemorialForm from "../Components/Admin/MemorialForm";
 
 const AdminDashboard = () => {
   const [orders, setOrders] = useState([]);
@@ -109,6 +113,18 @@ const AdminDashboard = () => {
             onClick={() => setActiveTab("posts")}
           >
             Blog Posts
+          </button>
+          <button
+            className={`px-4 py-2 transition-colors ${activeTab === "projects" ? "border-b-2 border-primary text-primary font-bold" : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"}`}
+            onClick={() => setActiveTab("projects")}
+          >
+            Charity Projects
+          </button>
+          <button
+            className={`px-4 py-2 transition-colors ${activeTab === "memorials" ? "border-b-2 border-primary text-primary font-bold" : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"}`}
+            onClick={() => setActiveTab("memorials")}
+          >
+            Memorial Wall
           </button>
         </div>
 

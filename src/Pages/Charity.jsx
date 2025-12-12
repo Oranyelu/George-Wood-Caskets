@@ -34,20 +34,20 @@ const Charity = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md border border-gray-100 dark:border-gray-700 transition-colors">
-                        <div className="h-48 bg-gray-200 dark:bg-gray-700 mb-4 rounded flex items-center justify-center text-gray-400 dark:text-gray-500 text-sm">Image Placeholder</div>
-                        <h3 className="text-xl font-bold text-[#135B3A] dark:text-white mb-2">Community Support</h3>
-                        <p className="text-gray-600 dark:text-gray-300">Providing assistance to families in need during difficult times.</p>
+                    <div className="bg-[#F0B52E] p-6 rounded-lg shadow-md border border-white/10 transition-colors">
+                        <div className="h-48 bg-white/20 mb-4 rounded flex items-center justify-center text-white/50 text-sm">Image Placeholder</div>
+                        <h3 className="text-xl font-bold text-white mb-2">Community Support</h3>
+                        <p className="text-white/80">Providing assistance to families in need during difficult times.</p>
                     </div>
-                    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md border border-gray-100 dark:border-gray-700 transition-colors">
-                        <div className="h-48 bg-gray-200 dark:bg-gray-700 mb-4 rounded flex items-center justify-center text-gray-400 dark:text-gray-500 text-sm">Image Placeholder</div>
-                        <h3 className="text-xl font-bold text-[#135B3A] dark:text-white mb-2">Education Initiative</h3>
-                        <p className="text-gray-600 dark:text-gray-300">Scholarships and training programs for local youth.</p>
+                    <div className="bg-[#F0B52E] p-6 rounded-lg shadow-md border border-white/10 transition-colors">
+                        <div className="h-48 bg-white/20 mb-4 rounded flex items-center justify-center text-white/50 text-sm">Image Placeholder</div>
+                        <h3 className="text-xl font-bold text-white mb-2">Education Initiative</h3>
+                        <p className="text-white/80">Scholarships and training programs for local youth.</p>
                     </div>
-                    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md border border-gray-100 dark:border-gray-700 transition-colors">
-                        <div className="h-48 bg-gray-200 dark:bg-gray-700 mb-4 rounded flex items-center justify-center text-gray-400 dark:text-gray-500 text-sm">Image Placeholder</div>
-                        <h3 className="text-xl font-bold text-[#135B3A] dark:text-white mb-2">Heritage Preservation</h3>
-                        <p className="text-gray-600 dark:text-gray-300">Projects dedicated to maintaining our cultural history and traditions.</p>
+                    <div className="bg-[#F0B52E] p-6 rounded-lg shadow-md border border-white/10 transition-colors">
+                        <div className="h-48 bg-white/20 mb-4 rounded flex items-center justify-center text-white/50 text-sm">Image Placeholder</div>
+                        <h3 className="text-xl font-bold text-white mb-2">Heritage Preservation</h3>
+                        <p className="text-white/80">Projects dedicated to maintaining our cultural history and traditions.</p>
                     </div>
                 </div>
 

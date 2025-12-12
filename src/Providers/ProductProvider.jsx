@@ -97,8 +97,31 @@ const ProductProvider = ({ children }) => {
     return cart.reduce((total, item) => total + item.price, 0);
   };
 
+  const [favorites, setFavorites] = useState(() => {
+    const savedFavorites = localStorage.getItem('favorites');
+    return savedFavorites ? JSON.parse(savedFavorites) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+  }, [favorites]);
+
+  const toggleFavorite = (product) => {
+    setFavorites(prev => {
+      if (prev.some(item => item.id === product.id)) {
+        return prev.filter(item => item.id !== product.id);
+      } else {
+        return [...prev, product];
+      }
+    });
+  };
+
+  const isFavorite = (productId) => {
+    return favorites.some(item => item.id === productId);
+  };
+
   return (
-    <ProductContext.Provider value={{ products, cart, addToCart, removeFromCart, clearCart, checkout, getTotalPrice, orderHistory, loading }}>
+    <ProductContext.Provider value={{ products, cart, addToCart, removeFromCart, clearCart, checkout, getTotalPrice, orderHistory, loading, favorites, toggleFavorite, isFavorite }}>
       {children}
     </ProductContext.Provider>
   );

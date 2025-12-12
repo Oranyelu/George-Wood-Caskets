@@ -48,7 +48,6 @@ const OrderProvider = ({ children }) => {
     orders,
     loading,
     getOrderById,
-    getOrderById,
   };
 
   return (

@@ -10,12 +10,14 @@ import ThemeProvider from "./Providers/ThemeContext";
 
 import { HelmetProvider } from 'react-helmet-async';
 import { SpeedInsights } from "@vercel/speed-insights/react"
+import ScrollToTop from "./Components/ScrollToTop";
 import './i18n';
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <HelmetProvider>
       <BrowserRouter>
+        <ScrollToTop />
         <AuthProvider>
           <ThemeProvider>
             <ProductProvider>

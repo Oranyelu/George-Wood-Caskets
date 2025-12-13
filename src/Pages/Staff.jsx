@@ -1,5 +1,6 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+import StaffModal from "../Components/StaffModal";
 import GeorgeChiemerieChime from "../assets/StaffPicture/WhatsApp Image 2025-04-06 at 19.34.03_7af4c85b.jpg";
 import GeorgeWoodChime from "../assets/StaffPicture/WhatsApp Image 2025-04-06 at 19.13.00_97d1e770.jpg";
 import EkwyChime from "../assets/StaffPicture/WhatsApp Image 2025-04-06 at 19.13.02_870855e6.jpg";
@@ -32,32 +33,32 @@ const staffData = [
     bio: `Nelson Chukwudi Onoh is a dedicated executive member at George Wood Casket, contributing significantly to the company’s strategic direction and daily operations. With a strong sense of discipline and a results-driven mindset, he plays a vital role in overseeing logistics, team coordination, and customer relations. Nelson is passionate about upholding the legacy of excellence that defines George Wood Casket, ensuring that each service delivered meets the company’s high standards of dignity and professionalism. His commitment to integrity, innovation, and teamwork makes him an indispensable part of the leadership team driving the brand forward.`,
   },
 ];
-const StaffCard = ({ name, title, image, bio }) => {
-  const [expanded, setExpanded] = useState(false);
+
+const StaffCard = ({ name, title, image, bio, onReadMore }) => {
   const preview = bio.slice(0, 100);
 
   return (
-    <div className="flex flex-col md:flex-row items-start gap-4 border border-white/10 p-4 rounded-xl shadow-md bg-[#F0B52E] transition-colors">
+    <div className="flex flex-col items-center text-center p-6 border border-white/10 rounded-xl shadow-lg bg-[#F0B52E] transition-all duration-300 transform hover:scale-105 hover:shadow-2xl">
       <img
         src={image}
         alt={name}
-        className="w-32 h-32 object-cover rounded-full flex-shrink-0"
+        className="w-32 h-32 object-cover rounded-full shadow-md mb-4 border-2 border-white/30"
       />
-      <div>
-        <h3 className="text-lg font-semibold text-white">{name}</h3>
-        <p className="text-white/80 font-medium">{title}</p>
-        <p className="mt-2 text-sm leading-relaxed text-white/90">
-          {expanded ? bio : `${preview}...`}
-        </p>
-        {bio.length > 100 && (
-          <button
-            className="mt-2 text-white hover:underline text-sm font-bold"
-            onClick={() => setExpanded(!expanded)}
-          >
-            {expanded ? "Read less" : "Read more"}
-          </button>
-        )}
-      </div>
+
+      <h3 className="text-xl font-bold text-[#011309] mb-1">{name}</h3>
+      <p className="text-[#011309]/80 font-bold uppercase text-xs tracking-wider mb-3">{title}</p>
+
+      <p className="text-sm leading-relaxed text-[#011309]/90 mb-4 line-clamp-3">
+        {preview}...
+      </p>
+
+      <button
+        className="mt-auto bg-[#135B3A] text-white px-6 py-2 rounded-full font-bold text-sm hover:bg-[#0E462D] transition-colors shadow-md"
+        onClick={onReadMore}
+        aria-label={`Read more about ${name}`}
+      >
+        Read More
+      </button>
     </div>
   );
 };
@@ -67,32 +68,51 @@ StaffCard.propTypes = {
   title: PropTypes.string,
   image: PropTypes.string,
   bio: PropTypes.string,
+  onReadMore: PropTypes.func.isRequired,
 };
 
 function Staff() {
+  const [selectedStaff, setSelectedStaff] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleReadMore = (staff) => {
+    setSelectedStaff(staff);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedStaff(null);
+  };
+
   return (
-    <div>
-
-
-      <main className="max-w-6xl mx-auto py-12 mt-[70px] px-4">
-        <h1 className="text-4xl font-bold mb-8 text-center">Our Staff</h1>
-
-        <p className="mb-8 text-center max-w-3xl mx-auto">
-          At George Wood Casket and Furniture, we pride ourselves on having a
-          dedicated and talented team. Our staff is committed to providing
-          exceptional service and ensuring customer satisfaction.
-        </p>
-
-        <h2 className="text-2xl font-bold mt-6 mb-6 text-center">
-          Meet Our Team
-        </h2>
+    <div className="bg-[#135B3A]/5 min-h-screen">
+      <main className="max-w-7xl mx-auto py-16 mt-[70px] px-6">
+        <div className="text-center mb-16">
+          <h1 className="text-4xl md:text-5xl font-extrabold mb-6 text-[#135B3A] dark:text-green-500">Our Team</h1>
+          <div className="h-1 w-24 bg-[#F0B52E] mx-auto mb-6 rounded-full"></div>
+          <p className="text-lg text-gray-700 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
+            At George Wood Casket, we pride ourselves on having a dedicated and talented team committed to providing exceptional service and honoring legacies with dignity.
+          </p>
+        </div>
 
         {/* Responsive Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {staffData.map((staff, index) => (
-            <StaffCard key={index} {...staff} />
+            <StaffCard
+              key={index}
+              {...staff}
+              onReadMore={() => handleReadMore(staff)}
+            />
           ))}
         </div>
+
+        {/* Staff Detail Modal */}
+        <StaffModal
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+          staff={selectedStaff}
+        />
       </main>
     </div>
   );

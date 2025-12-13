@@ -314,8 +314,8 @@ function Home() {
               </div>
             </div>
 
-            <Link 
-              to="/book-of-life" 
+            <Link
+              to="/book-of-life"
               className="w-full h-[250px] bg-no-repeat bg-center bg-cover rounded-xl relative overflow-hidden group cursor-pointer"
               style={{ backgroundImage: `url(${BKOL})` }}
             >
@@ -379,6 +379,7 @@ function Home() {
                   src={post.image}
                   alt={post.title}
                   className="w-full h-48 object-cover cursor-pointer transition-transform duration-300 hover:scale-105"
+                  loading="lazy"
                 />
               </Link>
               <CardContent className="p-5">

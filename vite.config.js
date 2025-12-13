@@ -11,6 +11,9 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['Favicon.svg'],
+      devOptions: {
+        enabled: true
+      },
       manifest: {
         name: 'George Wood Casket',
         short_name: 'George Wood',

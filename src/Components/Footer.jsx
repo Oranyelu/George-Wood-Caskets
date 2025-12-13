@@ -118,6 +118,7 @@ function Footer() {
             onSubmit={handleSubmit}
           >
             <h2 className="font-bold text-lg mb-2 text-secondary">Contact Us</h2>
+            <label htmlFor="contact-email" className="sr-only">Your Email</label>
             <input
               type="email"
               name="email"
@@ -128,6 +129,7 @@ function Footer() {
               className="mb-2 p-2 rounded text-brand-black bg-white dark:bg-gray-800 dark:text-brand-white dark:border dark:border-gray-700/50 focus:outline-none focus:ring-2 focus:ring-secondary"
               required
             />
+            <label htmlFor="contact-message" className="sr-only">Your Message</label>
             <textarea
               name="message"
               id="contact-message"

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import AboutImage from "../assets/woodworking_workshop.png";
+import AboutImage from "../assets/nigerian_workshop_team.png";
 
 const AboutUs = () => {
   return (
@@ -14,7 +14,7 @@ const AboutUs = () => {
             Dedicated to craftsmanship, compassion, and community.
           </p>
           <div className="w-full h-64 md:h-96 rounded-xl overflow-hidden shadow-xl mb-10">
-            <img src={AboutImage} alt="Woodworking Workshop" className="w-full h-full object-cover" />
+            <img src={AboutImage} alt="George Wood Caskets Team" className="w-full h-full object-cover" />
           </div>
         </section>
 

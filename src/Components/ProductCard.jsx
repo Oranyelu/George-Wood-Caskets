@@ -25,6 +25,9 @@ const ProductCard = ({ product }) => {
         alert("Added to cart!");
     };
 
+    // Robust image fallback
+    const mainImage = product.thumbnail || product.image || (product.images && product.images.length > 0 ? product.images[0] : null) || "https://placehold.co/600x400?text=No+Image";
+
     return (
         <div className="bg-[#F0B52E] p-4 rounded-lg shadow-lg flex flex-col transition-transform hover:scale-105 duration-300 relative group">
             {/* Favorite Button */}
@@ -48,7 +51,7 @@ const ProductCard = ({ product }) => {
                 className="overflow-hidden rounded-md"
             >
                 <img
-                    src={product.thumbnail}
+                    src={mainImage}
                     alt={product.name}
                     className="w-full h-48 object-cover rounded-md"
                     loading="lazy"

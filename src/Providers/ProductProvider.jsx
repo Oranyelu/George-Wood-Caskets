@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { collection, onSnapshot, addDoc } from "firebase/firestore";
+import { collection, onSnapshot, addDoc, query, limit, startAfter, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 
 export const ProductContext = createContext();
@@ -18,21 +18,46 @@ const ProductProvider = ({ children }) => {
 
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [lastDoc, setLastDoc] = useState(null);
+  const [hasMore, setHasMore] = useState(true);
+  const PRODUCTS_PER_PAGE = 20;
 
-  useEffect(() => {
-    const unsubscribe = onSnapshot(collection(db, "products"), (snapshot) => {
-      const productList = snapshot.docs.map((doc) => ({
+  const fetchProducts = async (isNextPage = false) => {
+    setLoading(true);
+    try {
+      const productsRef = collection(db, "products");
+      let q;
+
+      if (isNextPage && lastDoc) {
+        q = query(productsRef, limit(PRODUCTS_PER_PAGE), startAfter(lastDoc));
+      } else {
+        // Initial load
+        q = query(productsRef, limit(PRODUCTS_PER_PAGE));
+      }
+
+      const snapshot = await getDocs(q);
+      const newProducts = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
-      setProducts(productList);
-      setLoading(false);
-    }, (error) => {
-      console.error("Error fetching products:", error);
-      setLoading(false);
-    });
 
-    return () => unsubscribe();
+      setLastDoc(snapshot.docs[snapshot.docs.length - 1]);
+      setHasMore(snapshot.docs.length === PRODUCTS_PER_PAGE);
+
+      if (isNextPage) {
+        setProducts(prev => [...prev, ...newProducts]);
+      } else {
+        setProducts(newProducts);
+      }
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
   }, []);
 
   useEffect(() => {
@@ -121,7 +146,7 @@ const ProductProvider = ({ children }) => {
   };
 
   return (
-    <ProductContext.Provider value={{ products, cart, addToCart, removeFromCart, clearCart, checkout, getTotalPrice, orderHistory, loading, favorites, toggleFavorite, isFavorite }}>
+    <ProductContext.Provider value={{ products, cart, addToCart, removeFromCart, clearCart, checkout, getTotalPrice, orderHistory, loading, favorites, toggleFavorite, isFavorite, fetchProducts, hasMore }}>
       {children}
     </ProductContext.Provider>
   );

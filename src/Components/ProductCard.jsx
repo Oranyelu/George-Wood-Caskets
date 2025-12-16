@@ -1,47 +1,83 @@
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
-import { FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart, FaStar } from "react-icons/fa";
 import { useContext } from "react";
 import { ProductContext } from "../Providers/ProductProvider";
 
 const ProductCard = ({ product }) => {
-    const { addToCart } = useContext(ProductContext);
+    const { addToCart, toggleFavorite, isFavorite } = useContext(ProductContext);
+
+    const handleToggleFavorite = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        toggleFavorite(product);
+    };
 
     const handleAddToCart = (e) => {
-        e.preventDefault(); // Prevent navigation if clicking the button
+        e.preventDefault();
+        e.stopPropagation();
         addToCart(product);
-        alert("Added to cart!"); // Simple feedback for now
+        // Alert handled by context or component (Home uses notification state, we can use simple alert or rely on parent feedback if needed, but Home has local state notification. We'll stick to simple alert or nothing for now to match Home's visual style primarily)
+        // Actually Home.jsx sets a notification state. ProductCard doesn't have access to Home's state. 
+        // We'll leave the feedback side-effect simple or assume a global toast later. For now, simple alert or nothing.
+        // The original Home code did: addToCart(item); setNotification(...)
+        // The original ProductCard code did: addToCart(product); alert("Added to cart!");
+        alert("Added to cart!");
     };
 
     return (
-        <Link to={`/product/${product.id}`} className="group block bg-[#F0B52E] rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-white/10">
-            <div className="relative h-64 overflow-hidden">
+        <div className="bg-[#F0B52E] p-4 rounded-lg shadow-lg flex flex-col transition-transform hover:scale-105 duration-300 relative group">
+            {/* Favorite Button */}
+            <button
+                onClick={handleToggleFavorite}
+                className={`absolute top-2 right-2 p-2 rounded-full transition-colors z-10 ${isFavorite(product.id) ? 'text-[#135B3A]' : 'text-[#011309]/20 hover:text-[#135B3A]'}`}
+                title={isFavorite(product.id) ? "Remove from Favorites" : "Add to Favorites"}
+            >
+                <FaStar className="w-6 h-6 drop-shadow-sm" />
+            </button>
+
+            {/* Label */}
+            {product.label && (
+                <span className="absolute top-2 left-2 bg-black/50 text-white text-xs font-bold px-2 py-1 rounded backdrop-blur-sm z-10">
+                    {product.label}
+                </span>
+            )}
+
+            <Link
+                to={`/product/${product.id}`}
+                className="overflow-hidden rounded-md"
+            >
                 <img
                     src={product.thumbnail}
                     alt={product.name}
-                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-48 object-cover rounded-md"
+                    loading="lazy"
                 />
-                {product.label && (
-                    <span className="absolute top-2 left-2 bg-black/50 text-white text-xs font-bold px-2 py-1 rounded backdrop-blur-sm">
-                        {product.label}
-                    </span>
-                )}
+            </Link>
+
+            <div className="mt-3 flex flex-col flex-1">
+                <Link to={`/product/${product.id}`}>
+                    <h1 className="text-lg font-semibold text-[#011309] hover:text-[#135B3A] transition-colors">
+                        {product.name}
+                    </h1>
+                </Link>
+                <p className="text-[#011309] font-medium mt-1">
+                    Price: {product.price.toLocaleString()} NGN
+                </p>
+                <p className="text-[#011309]/80 mt-1">
+                    Color: {product.colors?.join(', ') || 'N/A'}
+                </p>
             </div>
-            <div className="p-4">
-                <h3 className="text-lg font-serif font-bold text-white mb-1">{product.name}</h3>
-                <p className="text-sm text-white/80 mb-2">{product.category} • {product.material}</p>
-                <div className="flex justify-between items-center">
-                    <span className="text-lg font-bold text-white">{product.price.toLocaleString()} NGN</span>
-                    <button
-                        onClick={handleAddToCart}
-                        className="bg-primary text-white p-2 rounded-full hover:bg-secondary transition-colors"
-                        title="Add to Cart"
-                    >
-                        <FaShoppingCart />
-                    </button>
-                </div>
+
+            <div className="mt-4 flex justify-center">
+                <button
+                    className="bg-[#135B3A] text-white px-4 py-2 rounded w-full hover:bg-[#0E462D] transition-colors font-bold"
+                    onClick={handleAddToCart}
+                >
+                    Order Now
+                </button>
             </div>
-        </Link>
+        </div>
     );
 };
 
@@ -54,6 +90,7 @@ ProductCard.propTypes = {
         category: PropTypes.string,
         material: PropTypes.string,
         label: PropTypes.string,
+        colors: PropTypes.arrayOf(PropTypes.string),
     }).isRequired,
 };
 

@@ -118,10 +118,8 @@ const ProductForm = ({ initialData, onSuccess, onCancel }) => {
                             onChange={handleChange}
                             className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-primary"
                         >
-                            <option value="Traditional">Traditional</option>
-                            <option value="Modern">Modern</option>
-                            <option value="Premium">Premium</option>
-                            <option value="Religious">Religious</option>
+                            <option value="Classic">Classic</option>
+                            <option value="Xclusive">Xclusive</option>
                         </select>
                     </div>
                     <div>

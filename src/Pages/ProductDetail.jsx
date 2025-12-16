@@ -3,7 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Services from "../assets/service-api";
 import { ProductContext } from "../Providers/ProductProvider";
-import { FaPlus, FaHeart, FaShareAlt, FaCheck } from "react-icons/fa";
+import { FaPlus, FaStar, FaShareAlt, FaCheck } from "react-icons/fa";
 import { Helmet } from "react-helmet-async";
 
 const ProductDetail = () => {
@@ -12,7 +12,7 @@ const ProductDetail = () => {
   const [activeTab, setActiveTab] = useState("description");
   const [selectedColor, setSelectedColor] = useState("");
   const [showPopup, setShowPopup] = useState(false);
-  const { products, addToCart } = useContext(ProductContext);
+  const { products, addToCart, toggleFavorite, isFavorite } = useContext(ProductContext);
   const { servicesData } = Services;
 
   useEffect(() => {
@@ -36,9 +36,6 @@ const ProductDetail = () => {
     setTimeout(() => setShowPopup(false), 2000);
   };
 
-  const handleAddToFavourites = (item) => {
-    alert(`${item.name} added to favourites`);
-  };
 
   // Mock data for extended details if not present in product object
   const extendedDetails = {
@@ -135,6 +132,27 @@ const ProductDetail = () => {
       <Helmet>
         <title>{product.name} | George Wood Caskets</title>
         <meta name="description" content={product.description} />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org/",
+            "@type": "Product",
+            "name": product.name,
+            "image": [product.thumbnail],
+            "description": product.description || extendedDetails.story,
+            "brand": {
+              "@type": "Brand",
+              "name": "George Wood Casket"
+            },
+            "offers": {
+              "@type": "Offer",
+              "url": window.location.href,
+              "priceCurrency": "NGN",
+              "price": product.price,
+              "availability": "https://schema.org/InStock",
+              "itemCondition": "https://schema.org/NewCondition"
+            }
+          })}
+        </script>
       </Helmet>
 
       <div className="max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8 py-12 mt-16">
@@ -195,11 +213,12 @@ const ProductDetail = () => {
               </button>
 
               <button
-                onClick={() => handleAddToFavourites(product)}
-                className="ml-4 py-3 px-3 rounded-md flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-500"
+                onClick={() => toggleFavorite(product)}
+                className={`ml-4 py-3 px-3 rounded-md flex items-center justify-center transition-colors ${isFavorite(product.id) ? 'text-[#F0B52E] bg-yellow-50' : 'text-gray-400 hover:bg-gray-100 hover:text-gray-500'}`}
+                title={isFavorite(product.id) ? "Remove from Favorites" : "Add to Favorites"}
               >
-                <FaHeart className="h-6 w-6 flex-shrink-0" aria-hidden="true" />
-                <span className="sr-only">Add to favorites</span>
+                <FaStar className="h-6 w-6 flex-shrink-0" />
+                <span className="sr-only">{isFavorite(product.id) ? "Remove from favorites" : "Add to favorites"}</span>
               </button>
 
               <button

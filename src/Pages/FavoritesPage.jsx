@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { ProductContext } from "../Providers/ProductProvider";
 import { Link } from "react-router-dom";
-import { FaHeart } from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
 
 const FavoritesPage = () => {
     const { favorites, toggleFavorite } = useContext(ProductContext);
@@ -10,7 +10,7 @@ const FavoritesPage = () => {
         <div className="min-h-screen pt-24 pb-12 font-montserrat transition-colors duration-300">
             <div className="max-w-[1300px] mx-auto px-4 md:px-8">
                 <h1 className="text-3xl font-bold text-[#135B3A] dark:text-green-500 mb-8 flex items-center gap-2">
-                    <FaHeart className="text-red-500" /> Your Favorites
+                    <FaStar className="text-[#F0B52E]" /> Your Favorites
                 </h1>
 
                 {favorites.length === 0 ? (
@@ -28,10 +28,10 @@ const FavoritesPage = () => {
                             <div key={product.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow relative group border border-gray-100 dark:border-gray-700">
                                 <button
                                     onClick={() => toggleFavorite(product)}
-                                    className="absolute top-2 right-2 z-10 bg-white/80 p-2 rounded-full text-red-500 hover:bg-white transition-colors shadow-sm"
+                                    className="absolute top-2 right-2 z-10 bg-white/80 p-2 rounded-full text-[#F0B52E] hover:bg-white transition-colors shadow-sm"
                                     title="Remove from Favorites"
                                 >
-                                    <FaHeart />
+                                    <FaStar />
                                 </button>
                                 <Link to={`/product/${product.id}`}>
                                     <div className="h-64 overflow-hidden bg-gray-100 dark:bg-gray-700">

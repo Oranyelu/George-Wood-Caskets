@@ -21,6 +21,7 @@ export default function Header() {
   const [isHovered, setIsHovered] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,8 +31,8 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Expanded IF: (At Top) OR (Hovered)
-  const isExpanded = !isScrolled || isHovered;
+  // Expanded IF: (At Top) OR (Hovered) OR (User Menu Open)
+  const isExpanded = !isScrolled || isHovered || isUserMenuOpen;
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50 text-[1rem] font-sans">
@@ -81,7 +82,7 @@ export default function Header() {
             relative z-50 flex items-center justify-between 
             bg-[#135B3A] text-white shadow-2xl rounded-full 
             transition-all duration-700 cubic-bezier(0.4, 0, 0.2, 1)
-            overflow-hidden
+            ${isExpanded ? "overflow-visible" : "overflow-hidden"}
             ${isExpanded
               ? "max-w-[1400px] w-full px-8 py-3" // Expanded state
               : "max-w-[200px] w-full px-5 py-2" // Collapsed state (Fixed width for smooth transition)
@@ -160,18 +161,24 @@ export default function Header() {
             {/* User Profile */}
             <div
               className={`
-                 relative group transition-all duration-500 ease-in-out overflow-hidden
+                 relative transition-all duration-500 ease-in-out
+                 ${isUserMenuOpen ? "overflow-visible" : "overflow-hidden"}
                  ${isExpanded ? "max-w-[50px] opacity-100" : "max-w-0 opacity-0"}
                `}
             >
               {user ? (
                 <>
-                  <button className="flex items-center hover:text-[#F0B52E] focus:outline-none">
+                  <button
+                    onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                    className="flex items-center hover:text-[#F0B52E] focus:outline-none"
+                    aria-label="User Menu"
+                    aria-expanded={isUserMenuOpen}
+                  >
                     <FaUserCircle size={24} />
                   </button>
                   {/* Dropdown */}
-                  {isExpanded && (
-                    <div className="absolute right-0 mt-4 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-xl py-2 z-50 hidden group-hover:block border border-gray-100 dark:border-gray-700 animate-fade-in-up">
+                  {isExpanded && isUserMenuOpen && (
+                    <div className="absolute right-0 mt-4 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-xl py-2 z-50 animate-fade-in-up border border-gray-100 dark:border-gray-700">
                       <div className="px-4 py-2 text-sm text-gray-700 dark:text-gray-200 border-b dark:border-gray-700 mb-1">
                         Signed in as <br />
                         <span className="font-bold truncate block text-[#135B3A] dark:text-green-400">{user.email}</span>
@@ -179,6 +186,7 @@ export default function Header() {
 
                       <NavLink
                         to="/user/dashboard"
+                        onClick={() => setIsUserMenuOpen(false)}
                         className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-[#135B3A]"
                       >
                         User Dashboard
@@ -186,6 +194,7 @@ export default function Header() {
 
                       <NavLink
                         to="/favorites"
+                        onClick={() => setIsUserMenuOpen(false)}
                         className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-[#135B3A]"
                       >
                         My Favorites
@@ -194,13 +203,17 @@ export default function Header() {
                       {isAdmin && (
                         <NavLink
                           to="/admin/dashboard"
+                          onClick={() => setIsUserMenuOpen(false)}
                           className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-[#135B3A]"
                         >
                           {t("admin_dashboard")}
                         </NavLink>
                       )}
                       <button
-                        onClick={() => signOut(auth)}
+                        onClick={() => {
+                          signOut(auth);
+                          setIsUserMenuOpen(false);
+                        }}
                         className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600"
                       >
                         {t("logout")}

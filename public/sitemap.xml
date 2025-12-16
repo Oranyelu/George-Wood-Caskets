@@ -122,11 +122,6 @@
   <priority>0.7</priority>
 </url>
 
-<url>
-  <loc>https://georgewoodcasket.com/product/{productId}</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.8</priority>
-</url>
 
 <url>
   <loc>https://georgewoodcasket.com/products</loc>
@@ -160,11 +155,6 @@
   <priority>0.9</priority>
 </url>
 
-<url>
-  <loc>https://georgewoodcasket.com/order-tracking/{orderId}</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
 
 <url>
   <loc>https://georgewoodcasket.com/404</loc>

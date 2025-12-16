@@ -1,4 +1,4 @@
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Layout } from "./Layout";
 import PrivateRoute from "./Components/PrivateRoute";
@@ -44,6 +44,19 @@ const Bonds = lazy(() => import("./Pages/Bonds"));
 const Charity = lazy(() => import("./Pages/Charity"));
 
 export default function App() {
+  // === Image Protection ===
+  useEffect(() => {
+    const handleContextMenu = (e) => {
+      if (e.target.tagName === 'IMG') {
+        e.preventDefault();
+      }
+    };
+    document.addEventListener("contextmenu", handleContextMenu);
+    return () => {
+      document.removeEventListener("contextmenu", handleContextMenu);
+    };
+  }, []);
+
   return (
     <>
       <Suspense fallback={<LoadingSpinner />}>

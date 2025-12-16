@@ -259,6 +259,84 @@ const AdminDashboard = () => {
             )}
           </div>
         )}
+
+        {activeTab === "projects" && (
+          <div>
+            <div className="flex justify-end mb-4">
+              {!showProductForm && (
+                <button
+                  onClick={() => {
+                    setEditingProduct(null);
+                    setShowProductForm(true);
+                  }}
+                  className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors"
+                >
+                  Add New Project
+                </button>
+              )}
+            </div>
+
+            {showProductForm ? (
+              <ProjectForm
+                initialData={editingProduct}
+                onSuccess={() => {
+                  setShowProductForm(false);
+                  setEditingProduct(null);
+                }}
+                onCancel={() => {
+                  setShowProductForm(false);
+                  setEditingProduct(null);
+                }}
+              />
+            ) : (
+              <ProjectList
+                onEdit={(project) => {
+                  setEditingProduct(project);
+                  setShowProductForm(true);
+                }}
+              />
+            )}
+          </div>
+        )}
+
+        {activeTab === "memorials" && (
+          <div>
+            <div className="flex justify-end mb-4">
+              {!showProductForm && (
+                <button
+                  onClick={() => {
+                    setEditingProduct(null);
+                    setShowProductForm(true);
+                  }}
+                  className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors"
+                >
+                  Add New Memorial
+                </button>
+              )}
+            </div>
+
+            {showProductForm ? (
+              <MemorialForm
+                initialData={editingProduct}
+                onSuccess={() => {
+                  setShowProductForm(false);
+                  setEditingProduct(null);
+                }}
+                onCancel={() => {
+                  setShowProductForm(false);
+                  setEditingProduct(null);
+                }}
+              />
+            ) : (
+              <MemorialList
+                onEdit={(memorial) => {
+                  setEditingProduct(memorial);
+                  setShowProductForm(true);
+                }}
+              />
+            )}
+          </div>
+        )}
       </section>
     </div>
   );

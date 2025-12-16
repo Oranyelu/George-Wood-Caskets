@@ -27,9 +27,11 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
-    // Orders: Public create (for guest checkout), User read own, Admin read/update
+    // Orders: Public create (for guest checkout) but require basic data, User read own, Admin read/update
     match /orders/{orderId} {
-      allow create: if true;
+      allow create: if request.resource.data.keys().hasAll(['items', 'totalPrice', 'createdAt']) &&
+                       (request.resource.data.totalPrice is number) &&
+                       (request.resource.data.totalPrice > 0);
       allow read: if (request.auth != null && request.auth.uid == resource.data.userId) || isAdmin();
       allow update: if isAdmin();
     }
@@ -42,7 +44,8 @@ service cloud.firestore {
 
     // Blog Posts: Public read, Admin write
     match /memorials/{memorialId} {
-      allow read, write: if true;
+      allow read: if true;
+      allow write: if isAdmin();
     }
     match /posts/{postId} {
       allow read: if true;

@@ -142,3 +142,15 @@
 .perspective-\[1000px\] {
   perspective: 1000px;
 }
+
+/* === Image Protection === */
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+  user-select: none;
+  -webkit-user-select: none;
+  pointer-events: auto;
+}

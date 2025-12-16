@@ -28,6 +28,9 @@ const ProductDetail = () => {
 
   if (!product) return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
 
+  // Robust image fallback
+  const mainImage = product.thumbnail || product.image || (product.images && product.images.length > 0 ? product.images[0] : null) || "https://placehold.co/600x400?text=No+Image";
+
   const isXclusive = product.label === "Xclusive";
 
   const handleAddToCart = (item) => {
@@ -63,14 +66,14 @@ const ProductDetail = () => {
         <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0 z-0">
             {/* Use product image as background with heavy overlay */}
-            <img src={product.thumbnail} alt="" className="w-full h-full object-cover opacity-30 blur-sm scale-110" />
+            <img src={mainImage} alt="" className="w-full h-full object-cover opacity-30 blur-sm scale-110" />
             <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-transparent to-[#0a0a0a]"></div>
           </div>
 
           <div className="relative z-10 max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
             <div className="order-2 md:order-1">
               <img
-                src={product.thumbnail}
+                src={mainImage}
                 alt={product.name}
                 className="w-full h-auto max-h-[600px] object-contain drop-shadow-2xl rounded-sm border border-[#333]"
               />
@@ -161,7 +164,7 @@ const ProductDetail = () => {
           <div className="flex flex-col-reverse">
             <div className="w-full aspect-w-1 aspect-h-1 rounded-lg overflow-hidden bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700">
               <img
-                src={product.thumbnail}
+                src={mainImage}
                 alt={product.name}
                 className="w-full h-full object-center object-contain p-8"
               />

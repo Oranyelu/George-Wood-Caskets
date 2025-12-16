@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import Services from "../assets/service-api"; // Importing the service data
 
 const ServicesPage = () => {
@@ -34,6 +35,11 @@ const ServicesPage = () => {
 
   return (
     <div className="min-h-screen font-montserrat pt-24 pb-12 transition-colors duration-300">
+      <Helmet>
+        <title>Funeral Services | George Wood Caskets</title>
+        <meta name="description" content="Professional funeral services including ambulance, hearse, and pallbearers in Enugu, Nigeria." />
+        <link rel="canonical" href="https://georgewoodcasket.com/services" />
+      </Helmet>
       <div className="max-w-[1300px] mx-auto w-full px-4 md:px-8">
         <h1 className="text-3xl md:text-5xl font-bold text-center mb-12 text-[#135B3A] dark:text-green-500 font-serif">All Services</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">

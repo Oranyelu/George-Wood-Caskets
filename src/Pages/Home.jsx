@@ -6,6 +6,8 @@ import { Card, CardContent } from "@mui/material";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 import { ProductContext } from "../Providers/ProductProvider";
+import { Helmet } from "react-helmet-async";
+import ProductCard from "../Components/ProductCard";
 import Services from "../assets/service-api"; // service data
 import TestimonialsData from "../assets/Testinonials-api"; // testimonials
 import Logo from "../assets/Favicon.svg"; // hero logo
@@ -95,7 +97,7 @@ function HeroSection() {
 }
 
 function Home() {
-  const { addToCart, products } = useContext(ProductContext);
+  const { addToCart, products, fetchProducts } = useContext(ProductContext);
   const { servicesData } = Services;
 
   const [notification, setNotification] = useState(null);
@@ -111,6 +113,13 @@ function Home() {
     setNotification(`Added to cart: ${item.name}`);
     setTimeout(() => setNotification(null), 3000);
   };
+
+  // --- Ensure products are loaded (for direct landing on Home) ---
+  useEffect(() => {
+    if (products.length === 0) {
+      fetchProducts();
+    }
+  }, [products.length, fetchProducts]);
 
   // --- Select random products ---
   useEffect(() => {
@@ -160,6 +169,11 @@ function Home() {
 
   return (
     <div className="min-h-screen flex flex-col font-sans overflow-x-hidden transition-colors duration-300">
+      <Helmet>
+        <title>George Wood Casket | Premium Caskets & Funeral Services</title>
+        <meta name="description" content="Based in Enugu since 1984, we provide high-quality caskets and professional funeral services. Honouring life and legacies." />
+        <link rel="canonical" href="https://georgewoodcasket.com/" />
+      </Helmet>
       {/* === Hero Section === */}
       <HeroSection />
 
@@ -185,43 +199,7 @@ function Home() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {featuredProducts.map((product) => (
-            <div
-              key={product.id}
-              className="bg-[#F0B52E] p-4 rounded-lg shadow-lg flex flex-col transition-transform hover:scale-105 duration-300"
-            >
-              <Link
-                to={`/product/${product.id}`}
-                className="overflow-hidden rounded-md"
-              >
-                <img
-                  src={product.thumbnail}
-                  alt={product.name}
-                  className="w-full h-48 object-cover rounded-md"
-                  loading="lazy"
-                />
-              </Link>
-
-              <div className="mt-3 flex flex-col flex-1">
-                <h1 className="text-lg font-semibold text-[#011309]">
-                  {product.name}
-                </h1>
-                <p className="text-[#011309] font-medium mt-1">
-                  Price: {product.price.toLocaleString()} NGN
-                </p>
-                <p className="text-[#011309]/80 mt-1">
-                  Color: {product.colors?.join(', ') || 'N/A'}
-                </p>
-              </div>
-
-              <div className="mt-4 flex justify-center">
-                <button
-                  className="bg-[#135B3A] text-white px-4 py-2 rounded w-full hover:bg-[#0E462D] transition-colors"
-                  onClick={() => handleAddToCart(product)}
-                >
-                  Order Now
-                </button>
-              </div>
-            </div>
+            <ProductCard key={product.id} product={product} />
           ))}
         </div>
 

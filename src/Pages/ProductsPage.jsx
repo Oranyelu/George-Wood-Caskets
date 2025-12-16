@@ -2,9 +2,10 @@ import { useState, useContext, useMemo } from "react";
 import { ProductContext } from "../Providers/ProductProvider";
 import ProductCard from "../Components/ProductCard";
 import { FaFilter } from "react-icons/fa";
+import { Helmet } from "react-helmet-async";
 
 const ProductsPage = () => {
-  const { products, loading } = useContext(ProductContext);
+  const { products, loading, fetchProducts, hasMore } = useContext(ProductContext);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedMaterial, setSelectedMaterial] = useState("All");
@@ -27,6 +28,11 @@ const ProductsPage = () => {
 
   return (
     <div className="pt-24 pb-12 min-h-screen transition-colors duration-300">
+      <Helmet>
+        <title>Our Products | George Wood Caskets</title>
+        <meta name="description" content="Browse our premium selection of handcrafted caskets. Find the perfect final resting place for your loved ones." />
+        <link rel="canonical" href="https://georgewoodcasket.com/products" />
+      </Helmet>
       <div className="max-w-[1300px] mx-auto px-4 md:px-8">
         <h1 className="text-4xl font-serif font-bold text-center text-primary dark:text-green-500 mb-8">Our Collection</h1>
 
@@ -96,14 +102,27 @@ const ProductsPage = () => {
 
           {/* Product Grid */}
           <main className="lg:w-3/4">
-            {loading ? (
+            {loading && products.length === 0 ? (
               <p className="text-center text-xl dark:text-gray-300">Loading products...</p>
             ) : filteredProducts.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredProducts.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              </div>
+              <>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {filteredProducts.map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                  ))}
+                </div>
+                {hasMore && (
+                  <div className="flex justify-center mt-8">
+                    <button
+                      onClick={() => fetchProducts(true)}
+                      disabled={loading}
+                      className="bg-[#A37E2C] text-white px-6 py-2 rounded hover:bg-[#8e6e26] transition-colors disabled:opacity-50"
+                    >
+                      {loading ? 'Loading...' : 'Load More'}
+                    </button>
+                  </div>
+                )}
+              </>
             ) : (
               <p className="text-center text-xl text-gray-500 dark:text-gray-400">No products found matching your criteria.</p>
             )}

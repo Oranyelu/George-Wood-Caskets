@@ -1,11 +1,14 @@
 import { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../Providers/AuthProvider';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const SignupPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState('');
   const { signup } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -41,29 +44,47 @@ const SignupPage = () => {
             placeholder="Enter your email"
           />
         </div>
-        <div className="mb-4">
+        <div className="mb-4 relative">
           <label className="block text-white mb-2 font-medium">Password</label>
-          <input
-            type="password"
-            name="password"
-            className="w-full p-3 border border-white/30 rounded bg-white/90 text-black focus:outline-none focus:ring-2 focus:ring-white"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            placeholder="Create a password"
-          />
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              className="w-full p-3 pr-10 border border-white/30 rounded bg-white/90 text-black focus:outline-none focus:ring-2 focus:ring-white"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              placeholder="Create a password"
+            />
+            <button
+              type="button"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
+            </button>
+          </div>
         </div>
-        <div className="mb-6">
+        <div className="mb-6 relative">
           <label className="block text-white mb-2 font-medium">Confirm Password</label>
-          <input
-            type="password"
-            name="confirmPassword"
-            className="w-full p-3 border border-white/30 rounded bg-white/90 text-black focus:outline-none focus:ring-2 focus:ring-white"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-            placeholder="Confirm your password"
-          />
+          <div className="relative">
+            <input
+              type={showConfirmPassword ? "text" : "password"}
+              name="confirmPassword"
+              className="w-full p-3 pr-10 border border-white/30 rounded bg-white/90 text-black focus:outline-none focus:ring-2 focus:ring-white"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+              placeholder="Confirm your password"
+            />
+            <button
+              type="button"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+            >
+              {showConfirmPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
+            </button>
+          </div>
         </div>
         <button type="submit" className="w-full bg-[#135B3A] text-white p-3 rounded font-bold hover:bg-[#0f462c] transition-colors shadow-md border border-white/20">
           Sign Up

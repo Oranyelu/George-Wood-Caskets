@@ -2,7 +2,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { collection, getDocs, doc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase"; // Import the initialized db from your firebase config
-import { migrateProducts } from "../utils/migrateProducts";
 import ProductList from "../Components/Admin/ProductList";
 import ProductForm from "../Components/Admin/ProductForm";
 import PostList from "../Components/Admin/PostList";
@@ -59,20 +58,6 @@ const AdminDashboard = () => {
     }
   };
 
-  const handleMigration = async () => {
-    if (!window.confirm("Are you sure you want to migrate products? This should only be done once.")) return;
-    setLoading(true);
-    try {
-      const result = await migrateProducts();
-      alert(`Migration Complete! Success: ${result.successCount}, Errors: ${result.errorCount}`);
-      fetchOrders(); // Refresh or whatever needs refreshing
-    } catch (err) {
-      console.error("Migration failed:", err);
-      alert("Migration failed. Check console.");
-    } finally {
-      setLoading(false);
-    }
-  };
 
   if (loading) {
     return <div className="mt-[120px] p-5">Loading orders...</div>;
@@ -87,12 +72,6 @@ const AdminDashboard = () => {
       <section className="mt-[120px]">
         <div className="flex justify-between items-center mb-5">
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Admin Dashboard</h1>
-          <button
-            onClick={handleMigration}
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors"
-          >
-            Migrate Products
-          </button>
         </div>
 
         <div className="flex mb-6 border-b border-gray-200 dark:border-gray-700">

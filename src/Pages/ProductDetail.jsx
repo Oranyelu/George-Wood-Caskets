@@ -11,6 +11,7 @@ const ProductDetail = () => {
   const [product, setProduct] = useState(null);
   const [activeTab, setActiveTab] = useState("description");
   const [selectedColor, setSelectedColor] = useState("");
+  const [activeImage, setActiveImage] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const { products, addToCart, toggleFavorite, isFavorite } = useContext(ProductContext);
   const { servicesData } = Services;
@@ -29,7 +30,7 @@ const ProductDetail = () => {
   if (!product) return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
 
   // Robust image fallback
-  const mainImage = product.thumbnail || product.image || (product.images && product.images.length > 0 ? product.images[0] : null) || "https://placehold.co/600x400?text=No+Image";
+  const mainImage = activeImage || product.thumbnail || product.image || (product.images && product.images.length > 0 ? product.images[0] : null) || "https://placehold.co/600x400?text=No+Image";
 
   const isXclusive = product.label === "Xclusive";
 
@@ -162,13 +163,32 @@ const ProductDetail = () => {
         <div className="lg:grid lg:grid-cols-2 lg:gap-x-12 lg:items-start">
           {/* Image Gallery */}
           <div className="flex flex-col-reverse">
-            <div className="w-full aspect-w-1 aspect-h-1 rounded-lg overflow-hidden bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700">
+            <div className="w-full aspect-w-4 aspect-h-3 rounded-lg overflow-hidden bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 mb-4">
               <img
                 src={mainImage}
                 alt={product.name}
                 className="w-full h-full object-center object-contain p-8"
               />
             </div>
+            {/* Thumbnails */}
+            {product.images && product.images.length > 1 && (
+              <div className="flex gap-4 overflow-x-auto pb-2">
+                {product.images.map((img, idx) => (
+                  <img
+                    key={idx}
+                    src={img}
+                    alt={`View ${idx}`}
+                    className="h-20 w-20 object-cover rounded cursor-pointer border border-gray-200 hover:border-yellow-500"
+                    onClick={() => {
+                      const newMain = product.images[idx];
+                      // If we wanted local state to override mainImage, we'd need another state variable.
+                      // For now, to keep it simple, this onClick ignores state updates because mainImage is derived.
+                      // Let's verify if we should add state for active image. Yes.
+                    }}
+                  />
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Product Info */}
@@ -275,17 +295,53 @@ const ProductDetail = () => {
                 )}
                 {activeTab === 'specifications' && (
                   <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
-                    <div className="sm:col-span-1">
+                    <div className="sm:col-span-1 border-b border-gray-100 pb-2">
+                      <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Category</dt>
+                      <dd className="mt-1 text-sm text-gray-900 dark:text-white">{product.category}</dd>
+                    </div>
+                    <div className="sm:col-span-1 border-b border-gray-100 pb-2">
+                      <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Label</dt>
+                      <dd className="mt-1 text-sm text-gray-900 dark:text-white">{product.label || "N/A"}</dd>
+                    </div>
+                    <div className="sm:col-span-1 border-b border-gray-100 pb-2">
                       <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Material</dt>
-                      <dd className="mt-1 text-sm text-gray-900 dark:text-white">{extendedDetails.material}</dd>
+                      <dd className="mt-1 text-sm text-gray-900 dark:text-white">{product.material}</dd>
                     </div>
-                    <div className="sm:col-span-1">
+                    <div className="sm:col-span-1 border-b border-gray-100 pb-2">
                       <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Dimensions</dt>
-                      <dd className="mt-1 text-sm text-gray-900 dark:text-white">{extendedDetails.dimensions}</dd>
+                      <dd className="mt-1 text-sm text-gray-900 dark:text-white">{product.size || extendedDetails.dimensions}</dd>
                     </div>
-                    <div className="sm:col-span-1">
+                    <div className="sm:col-span-1 border-b border-gray-100 pb-2">
                       <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Weight</dt>
-                      <dd className="mt-1 text-sm text-gray-900 dark:text-white">{extendedDetails.weight}</dd>
+                      <dd className="mt-1 text-sm text-gray-900 dark:text-white">{product.weight || extendedDetails.weight}</dd>
+                    </div>
+                    <div className="sm:col-span-1 border-b border-gray-100 pb-2">
+                      <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Hardware</dt>
+                      <dd className="mt-1 text-sm text-gray-900 dark:text-white">{product.hardware}</dd>
+                    </div>
+                    <div className="sm:col-span-1 border-b border-gray-100 pb-2">
+                      <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Handle</dt>
+                      <dd className="mt-1 text-sm text-gray-900 dark:text-white">{product.handle}</dd>
+                    </div>
+                    <div className="sm:col-span-1 border-b border-gray-100 pb-2">
+                      <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Interior Color</dt>
+                      <dd className="mt-1 text-sm text-gray-900 dark:text-white">{product.interiorColor}</dd>
+                    </div>
+                    <div className="sm:col-span-1 border-b border-gray-100 pb-2">
+                      <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Finish</dt>
+                      <dd className="mt-1 text-sm text-gray-900 dark:text-white">{product.finish}</dd>
+                    </div>
+                    <div className="sm:col-span-1 border-b border-gray-100 pb-2">
+                      <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Shell Shape</dt>
+                      <dd className="mt-1 text-sm text-gray-900 dark:text-white">{product.shellShape}</dd>
+                    </div>
+                    <div className="sm:col-span-1 border-b border-gray-100 pb-2">
+                      <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Shell Cover</dt>
+                      <dd className="mt-1 text-sm text-gray-900 dark:text-white">{product.shellCover}</dd>
+                    </div>
+                    <div className="sm:col-span-1 border-b border-gray-100 pb-2">
+                      <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Couch</dt>
+                      <dd className="mt-1 text-sm text-gray-900 dark:text-white">{product.couch}</dd>
                     </div>
                   </dl>
                 )}

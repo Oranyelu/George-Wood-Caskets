@@ -8,23 +8,26 @@ const ProductsPage = () => {
   const { products, loading, fetchProducts, hasMore } = useContext(ProductContext);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedLabel, setSelectedLabel] = useState("All");
   const [selectedMaterial, setSelectedMaterial] = useState("All");
   const [priceRange, setPriceRange] = useState(1000000); // Max price
   const [showFilters, setShowFilters] = useState(false);
 
   // Derive unique categories and materials
   const categories = ["All", ...new Set(products.map(p => p.category).filter(Boolean))];
+  const labels = ["All", ...new Set(products.map(p => p.label).filter(Boolean))];
   const materials = ["All", ...new Set(products.map(p => p.material).filter(Boolean))];
 
   const filteredProducts = useMemo(() => {
     return products.filter((product) => {
       const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesCategory = selectedCategory === "All" || product.category === selectedCategory;
+      const matchesLabel = selectedLabel === "All" || product.label === selectedLabel;
       const matchesMaterial = selectedMaterial === "All" || product.material === selectedMaterial;
       const matchesPrice = product.price <= priceRange;
-      return matchesSearch && matchesCategory && matchesMaterial && matchesPrice;
+      return matchesSearch && matchesCategory && matchesLabel && matchesMaterial && matchesPrice;
     });
-  }, [products, searchTerm, selectedCategory, selectedMaterial, priceRange]);
+  }, [products, searchTerm, selectedCategory, selectedLabel, selectedMaterial, priceRange]);
 
   return (
     <div className="pt-24 pb-12 min-h-screen transition-colors duration-300">
@@ -63,13 +66,25 @@ const ProductsPage = () => {
 
             {/* Category */}
             <div className="mb-6">
-              <label className="block text-sm font-bold mb-2 text-gray-700 dark:text-gray-300">Category</label>
+              <label className="block text-sm font-bold mb-2 text-gray-700 dark:text-gray-300">Category (Model)</label>
               <select
                 className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
               >
                 {categories.map(c => <option key={c} value={c}>{c}</option>)}
+              </select>
+            </div>
+
+            {/* Label */}
+            <div className="mb-6">
+              <label className="block text-sm font-bold mb-2 text-gray-700 dark:text-gray-300">Label (Tier)</label>
+              <select
+                className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                value={selectedLabel}
+                onChange={(e) => setSelectedLabel(e.target.value)}
+              >
+                {labels.map(l => <option key={l} value={l}>{l}</option>)}
               </select>
             </div>
 

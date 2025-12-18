@@ -97,9 +97,7 @@ const Xclusive = () => {
       {/* Footer Teaser / Brand Statement */}
       <section className="py-20 bg-[#050505] text-center px-4">
         <h3 className="text-2xl md:text-3xl font-serif text-[#D4AF37] mb-6">George Wood Caskets</h3>
-        <p className="text-gray-400 max-w-xl mx-auto italic">
-          "Honoring lives with the dignity and grace they deserve."
-        </p>
+        &quot;Honoring lives with the dignity and grace they deserve.&quot;
       </section>
     </div>
   );

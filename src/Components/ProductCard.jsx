@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
-import { FaShoppingCart, FaStar } from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
 import { useContext } from "react";
 import { ProductContext } from "../Providers/ProductProvider";
 
@@ -89,6 +89,8 @@ ProductCard.propTypes = {
         id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
         thumbnail: PropTypes.string.isRequired,
+        image: PropTypes.string,
+        images: PropTypes.arrayOf(PropTypes.string),
         price: PropTypes.number.isRequired,
         category: PropTypes.string,
         material: PropTypes.string,

@@ -1,4 +1,4 @@
-import React from 'react';
+
 
 const TermsAndConditions = () => {
     return (
@@ -11,7 +11,7 @@ const TermsAndConditions = () => {
                     <section className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 transition-colors">
                         <h2 className="text-2xl font-semibold mb-3 text-gray-900 dark:text-white">1. Agreement to Terms</h2>
                         <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                            These Terms and Conditions constitute a legally binding agreement made between you, whether personally or on behalf of an entity (“you”) and George Wood Caskets ("we," "us" or "our"), concerning your access to and use of our website.
+                            These Terms and Conditions constitute a legally binding agreement made between you, whether personally or on behalf of an entity (“you”) and George Wood Caskets (&quot;we,&quot; &quot;us&quot; or &quot;our&quot;), concerning your access to and use of our website.
                         </p>
                     </section>
 

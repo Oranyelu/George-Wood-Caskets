@@ -139,7 +139,7 @@ function GetInvolved() {
         <div className="mt-20 bg-[#F0B52E] rounded-2xl p-8 md:p-12 text-center shadow-xl">
           <h2 className="text-3xl font-bold mb-4 text-[#135B3A]">Have Questions?</h2>
           <p className="text-[#011309] text-lg mb-8 max-w-2xl mx-auto">
-            We are here to help. If you're unsure how you can help or need more specific information, don't hesitate to reach out.
+            We are here to help. If you&apos;re unsure how you can help or need more specific information, don&apos;t hesitate to reach out.
           </p>
           <Link to="/contacts">
             <button className="bg-[#135B3A] text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-[#0E462D] transition-colors shadow-lg">

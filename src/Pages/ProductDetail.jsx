@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import Services from "../assets/service-api";
+
 import { ProductContext } from "../Providers/ProductProvider";
 import { FaPlus, FaStar, FaShareAlt, FaCheck } from "react-icons/fa";
 import { Helmet } from "react-helmet-async";
@@ -14,7 +14,7 @@ const ProductDetail = () => {
   const [activeImage, setActiveImage] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const { products, addToCart, toggleFavorite, isFavorite } = useContext(ProductContext);
-  const { servicesData } = Services;
+
 
   useEffect(() => {
     const foundProduct = products.find((item) => item.id === productId);
@@ -84,7 +84,7 @@ const ProductDetail = () => {
               <h1 className="text-5xl md:text-6xl font-serif font-bold mb-6 text-white leading-tight">{product.name}</h1>
               <div className="h-1 w-20 bg-[#D4AF37] mb-8 mx-auto md:mx-0"></div>
               <p className="text-lg text-gray-300 leading-relaxed font-light italic mb-8">
-                "{extendedDetails.story}"
+                &quot;{extendedDetails.story}&quot;
               </p>
 
               <div className="space-y-4">
@@ -180,10 +180,7 @@ const ProductDetail = () => {
                     alt={`View ${idx}`}
                     className="h-20 w-20 object-cover rounded cursor-pointer border border-gray-200 hover:border-yellow-500"
                     onClick={() => {
-                      const newMain = product.images[idx];
-                      // If we wanted local state to override mainImage, we'd need another state variable.
-                      // For now, to keep it simple, this onClick ignores state updates because mainImage is derived.
-                      // Let's verify if we should add state for active image. Yes.
+                      setActiveImage(product.images[idx]);
                     }}
                   />
                 ))}

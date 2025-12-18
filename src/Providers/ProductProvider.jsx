@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { collection, onSnapshot, addDoc, query, limit, startAfter, getDocs } from "firebase/firestore";
+import { collection, addDoc, query, limit, startAfter, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 
 export const ProductContext = createContext();

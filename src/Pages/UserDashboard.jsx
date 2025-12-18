@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import PropTypes from 'prop-types';
 import { FaUserCircle, FaPenFancy, FaCalendarAlt, FaHandsHelping, FaSignOutAlt, FaHeart } from "react-icons/fa";
 import { useAuth } from "../Providers/AuthProvider";
 import { auth } from "../firebase";
@@ -11,6 +12,13 @@ const DashboardCard = ({ icon, title, description, link }) => (
         <p className="text-gray-600 dark:text-gray-300 text-sm">{description}</p>
     </Link>
 );
+
+DashboardCard.propTypes = {
+    icon: PropTypes.element,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    link: PropTypes.string
+};
 
 const UserDashboard = () => {
     const { user, isAdmin } = useAuth();

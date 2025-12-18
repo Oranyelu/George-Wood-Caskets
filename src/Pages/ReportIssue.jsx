@@ -17,7 +17,7 @@ function ReportIssue() {
       email: formData.email,
       issue: formData.issue
     })
-      .then((data) => {
+      .then(() => {
         alert("Report sent successfully.");
         setFormData({ name: '', email: '', issue: '' });
       })

@@ -3,7 +3,6 @@ import Modal from 'react-modal';
 import { collection, onSnapshot, doc, updateDoc, increment } from "firebase/firestore";
 import { db } from "../firebase";
 import { usePaystackPayment } from 'react-paystack';
-import { Link } from 'react-router-dom';
 
 const customStyles = {
   content: {
@@ -59,14 +58,13 @@ const Giving = () => {
 
   // --- Paystack Config ---
   const config = {
-    reference: (new Date()).getTime().toString(),
     email: donorEmail,
     amount: Math.round(parseFloat(donationAmount || 0) * 100), // convert NGN to kobo
     publicKey: import.meta.env.VITE_PAYSTACK_PUBLIC_KEY,
     firstname: donorName,
   };
 
-  const onSuccess = async (reference) => {
+  const onSuccess = async () => {
     try {
       if (selectedProject) {
         // Update Firestore raisedAmount

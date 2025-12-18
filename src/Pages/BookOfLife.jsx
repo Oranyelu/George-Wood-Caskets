@@ -143,7 +143,7 @@ const BookOfLife = () => {
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-6xl font-serif font-bold text-[#A37E2C] dark:text-yellow-500 mb-4 tracking-wide">The Book of Life</h1>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto font-light italic">
-            "To live in hearts we leave behind is not to die."
+            &quot;To live in hearts we leave behind is not to die.&quot;
           </p>
           <div className="mt-8 flex flex-col md:flex-row justify-center gap-4">
             <button
@@ -284,7 +284,7 @@ const BookOfLife = () => {
                   {(activePerson.tributes && activePerson.tributes.length > 0) ? (
                     activePerson.tributes.map((tribute, idx) => (
                       <div key={idx} className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg border-l-4 border-[#A37E2C]">
-                        <p className="text-gray-600 dark:text-gray-300 italic mb-2">"{tribute.text}"</p>
+                        <p className="text-gray-600 dark:text-gray-300 italic mb-2">&quot;{tribute.text}&quot;</p>
                         <p className="text-right text-sm font-bold text-gray-800 dark:text-gray-400">- {tribute.signer}</p>
                       </div>
                     ))

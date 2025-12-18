@@ -22,7 +22,7 @@ const PrivateRoute = ({ children, adminOnly = false }) => {
         <p className="mt-2">You are logged in as: {user.email}</p>
         <p className="mt-2 text-sm text-gray-500">UID: {user.uid}</p>
         <p className="mt-4">You do not have admin privileges.</p>
-        <p className="mt-2 text-sm">Please check your Firestore "users" collection.</p>
+        <p className="mt-2 text-sm">Please check your Firestore &quot;users&quot; collection.</p>
         <div className="mt-4 p-4 bg-gray-100 rounded text-xs text-left">
           <p><strong>Debug Info:</strong></p>
           <p>Admin Status: {isAdmin ? "True" : "False"}</p>

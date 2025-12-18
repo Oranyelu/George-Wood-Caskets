@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState, useRef } from "react";
 import PropTypes from 'prop-types';
+import Snowfall from 'react-snowfall';
 import { Link } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 import { Card, CardContent } from "@mui/material";
@@ -55,6 +56,7 @@ function HeroSection() {
 
   return (
     <section className="bg-[#135B3A] rounded-b-[50px] w-full pt-28 pb-20 relative z-0">
+      <Snowfall color="#fff" />
       <div className="max-w-[1300px] mx-auto px-6 md:px-10 lg:px-20 flex flex-col md:flex-row items-center justify-between text-white gap-10">
         {/* Left Content */}
         <div className="max-w-xl text-center md:text-left">
@@ -97,22 +99,14 @@ function HeroSection() {
 }
 
 function Home() {
-  const { addToCart, products, fetchProducts } = useContext(ProductContext);
+  const { products, fetchProducts } = useContext(ProductContext);
   const { servicesData } = Services;
 
-  const [notification, setNotification] = useState(null);
   const [randomServices, setRandomServices] = useState([]);
   const [featuredProducts, setRandomProducts] = useState([]);
   const [testimonials, setTestimonials] = useState([]);
   const [averageRating, setAverageRating] = useState(0);
   const [posts, setPosts] = useState([]);
-
-  // --- Handle Add to Cart ---
-  const handleAddToCart = (item) => {
-    addToCart(item);
-    setNotification(`Added to cart: ${item.name}`);
-    setTimeout(() => setNotification(null), 3000);
-  };
 
   // --- Ensure products are loaded (for direct landing on Home) ---
   useEffect(() => {
@@ -168,7 +162,16 @@ function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col font-sans overflow-x-hidden transition-colors duration-300">
+    <div className="min-h-screen flex flex-col font-sans overflow-x-hidden transition-colors duration-300 relative">
+      <Snowfall
+        style={{
+          position: 'fixed',
+          width: '100vw',
+          height: '100vh',
+          zIndex: 50,
+        }}
+        snowflakeCount={40}
+      />
       <Helmet>
         <title>George Wood Casket | Premium Caskets & Funeral Services</title>
         <meta name="description" content="Based in Enugu since 1984, we provide high-quality caskets and professional funeral services. Honouring life and legacies." />
@@ -177,14 +180,7 @@ function Home() {
       {/* === Hero Section === */}
       <HeroSection />
 
-      {/* === Notification === */}
-      {notification && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="bg-green-500 text-white px-4 py-2 rounded shadow-lg text-center">
-            {notification}
-          </div>
-        </div>
-      )}
+
 
       {/* === Featured Products Section === */}
       <section className="pt-20 px-6 md:px-10 lg:px-20 max-w-[1300px] mx-auto w-full">

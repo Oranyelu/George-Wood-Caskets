@@ -33,6 +33,7 @@
     "react-paystack": "^6.0.0",
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.25.1",
+    "react-snowfall": "^2.4.0",
     "typescript": "^5.9.3",
     "use-cart": "^1.1.0"
   },

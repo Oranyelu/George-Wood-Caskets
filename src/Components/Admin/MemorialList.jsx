@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { collection, deleteDoc, doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 
+import PropTypes from 'prop-types';
+
 const MemorialList = ({ onEdit }) => {
     const [memorials, setMemorials] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -110,3 +112,7 @@ const MemorialList = ({ onEdit }) => {
 };
 
 export default MemorialList;
+
+MemorialList.propTypes = {
+    onEdit: PropTypes.func.isRequired,
+};

@@ -3,6 +3,8 @@ import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { db, storage } from "../../firebase";
 
+import PropTypes from 'prop-types';
+
 const ProjectForm = ({ initialData, onSuccess, onCancel }) => {
     const [formData, setFormData] = useState({
         title: "",
@@ -206,3 +208,18 @@ const ProjectForm = ({ initialData, onSuccess, onCancel }) => {
 };
 
 export default ProjectForm;
+
+ProjectForm.propTypes = {
+    initialData: PropTypes.shape({
+        id: PropTypes.string,
+        title: PropTypes.string,
+        description: PropTypes.string,
+        targetAmount: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        raisedAmount: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        status: PropTypes.string,
+        articleLink: PropTypes.string,
+        image: PropTypes.string,
+    }),
+    onSuccess: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
+};

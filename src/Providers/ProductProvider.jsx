@@ -1,7 +1,8 @@
 import { createContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { collection, addDoc, query, limit, startAfter, getDocs } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
 import { db } from "../firebase";
+import { staticProducts } from "../assets/productsData";
 
 export const ProductContext = createContext();
 
@@ -16,48 +17,19 @@ const ProductProvider = ({ children }) => {
     return savedHistory ? JSON.parse(savedHistory) : [];
   });
 
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [lastDoc, setLastDoc] = useState(null);
-  const [hasMore, setHasMore] = useState(true);
-  const PRODUCTS_PER_PAGE = 20;
+  const [products, setProducts] = useState(staticProducts);
+  const [loading, setLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(false);
 
+  // Stub function to replace dynamic fetch
   const fetchProducts = async (isNextPage = false) => {
-    setLoading(true);
-    try {
-      const productsRef = collection(db, "products");
-      let q;
-
-      if (isNextPage && lastDoc) {
-        q = query(productsRef, limit(PRODUCTS_PER_PAGE), startAfter(lastDoc));
-      } else {
-        // Initial load
-        q = query(productsRef, limit(PRODUCTS_PER_PAGE));
-      }
-
-      const snapshot = await getDocs(q);
-      const newProducts = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-
-      setLastDoc(snapshot.docs[snapshot.docs.length - 1]);
-      setHasMore(snapshot.docs.length === PRODUCTS_PER_PAGE);
-
-      if (isNextPage) {
-        setProducts(prev => [...prev, ...newProducts]);
-      } else {
-        setProducts(newProducts);
-      }
-    } catch (error) {
-      console.error("Error fetching products:", error);
-    } finally {
-      setLoading(false);
-    }
+    // No-op for hardcoded data route
+    return;
   };
 
   useEffect(() => {
-    fetchProducts();
+    // Hardcoded products are always available synchronously
+    // fetchProducts is kept around as a dummy stub just in case components call it
   }, []);
 
   useEffect(() => {

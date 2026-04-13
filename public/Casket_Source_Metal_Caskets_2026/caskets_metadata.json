@@ -1,0 +1,586 @@
+{
+  "10.jpg": {
+    "newName": "black_ext_grey_panels_silver_acc_white_int.jpg",
+    "description": "Black metallic exterior casket with grey side panels, silver handles/hardware, and white interior."
+  },
+  "100.jpg": {
+    "newName": "blue_ext_dark_panels_silver_acc_white_int_going_home.jpg",
+    "description": "Blue metallic exterior casket with dark top/panels, silver handles/hardware, and white interior featuring 'Going Home' graphic."
+  },
+  "102.jpg": {
+    "newName": "silver_ext_silver_acc_white_int.jpg",
+    "description": "Silver metallic exterior casket with matching silver handles/hardware, and white interior."
+  },
+  "103.jpg": {
+    "newName": "mauve_ext_grey_panels_rosegold_acc_white_int.jpg",
+    "description": "Mauve/Purple metallic exterior casket with grey side panels, rose-gold/bronze handles/hardware, and white interior."
+  },
+  "105.jpg": {
+    "newName": "mauve_ext_silver_acc_pink_int.jpg",
+    "description": "Mauve/Purple metallic exterior casket with silver handles/hardware, and pink interior."
+  },
+  "107.jpg": {
+    "newName": "black_ext_grey_panels_silver_acc_white_int_v2.jpg",
+    "description": "Black metallic exterior casket with grey side panels, silver handles/hardware, and white interior."
+  },
+  "108.jpg": {
+    "newName": "bronze_ext_copper_acc_white_int.jpg",
+    "description": "Bronze/Dark Brown exterior casket with antique copper hardware, and white interior."
+  },
+  "11.jpg": {
+    "newName": "black_ext_grey_panels_silver_acc_white_int_v3.jpg",
+    "description": "Black metallic exterior casket with grey side panels, silver handles/hardware, and white interior."
+  },
+  "110.jpg": {
+    "newName": "black_ext_silver_acc_white_int_going_home.jpg",
+    "description": "Black metallic exterior casket with silver handles/hardware, and light blue/white interior featuring 'Going Home' graphic."
+  },
+  "112.jpg": {
+    "newName": "black_ext_blue_panels_gold_acc_blue_int_going_home.jpg",
+    "description": "Black metallic exterior casket with blue side panels, gold handles/hardware, and blue interior featuring 'Going Home' graphic."
+  },
+  "114.jpg": {
+    "newName": "lightblue_ext_darkblue_panels_silver_acc_lightblue_int.jpg",
+    "description": "Light blue metallic exterior casket with dark blue top accent, silver hardware, and light blue interior featuring a graphic on the lid."
+  },
+  "116.jpg": {
+    "newName": "pink_ext_darkpink_panels_gold_acc_pink_int_goinghome.jpg",
+    "description": "Soft pink casket with darker pink top accent, gold handles/hardware, and light pink interior featuring 'Going Home' graphic."
+  },
+  "117.jpg": {
+    "newName": "paleblue_ext_rosegold_acc_white_int_rose_graphic.jpg",
+    "description": "Very pale blue/white casket with rose gold/copper hardware and a pink flower/rose graphic on the interior lid."
+  },
+  "118.jpg": {
+    "newName": "pink_ext_darkpink_panels_gold_acc_pink_int_goinghome_v2.jpg",
+    "description": "Soft pink casket with darker pink top accent, gold handles/hardware, and light pink interior featuring 'Going Home' graphic."
+  },
+  "120.jpg": {
+    "newName": "palepink_ext_rosegold_acc_white_int_rose_graphic.jpg",
+    "description": "Pale pink casket with rose gold/copper hardware, and a pink rose graphic on the white interior lid."
+  },
+  "121.jpg": {
+    "newName": "white_ext_silver_acc_purple_int.jpg",
+    "description": "White exterior casket with silver hardware and lavender/purple interior."
+  },
+  "122.jpg": {
+    "newName": "silver_ext_silver_acc_white_int_v2.jpg",
+    "description": "Silver/grey metallic casket with silver hardware and white interior."
+  },
+  "123.jpg": {
+    "newName": "bronze_ext_silver_acc_pink_int_rose_graphic.jpg",
+    "description": "Dark bronze/brown casket with silver hardware and pink interior carrying a rose graphic."
+  },
+  "125.jpg": {
+    "newName": "darkgreen_ext_silver_acc_white_int.jpg",
+    "description": "Dark green/teal metallic casket with silver hardware and white interior."
+  },
+  "127.jpg": {
+    "newName": "navyblue_ext_silver_acc_white_int.jpg",
+    "description": "Dark navy blue casket with silver hardware and white interior."
+  },
+  "129.jpg": {
+    "newName": "silver_ext_green_acc_white_int.jpg",
+    "description": "Silver metallic exterior casket with light green accents/handles and white interior."
+  },
+  "130.jpg": {
+    "newName": "navyblue_ext_green_acc_white_int.jpg",
+    "description": "Navy blue/dark blue casket with green/silver handles and white interior."
+  },
+  "131.jpg": {
+    "newName": "silver_ext_green_acc_white_int_v2.jpg",
+    "description": "Silver metallic exterior casket with green/silver handles and white interior."
+  },
+  "132.jpg": {
+    "newName": "silver_ext_silver_acc_white_int_v3.jpg",
+    "description": "Silver/grey metallic casket with silver handles and white interior."
+  },
+  "133.jpg": {
+    "newName": "champagne_ext_silver_acc_white_int.jpg",
+    "description": "Light gold/champagne metallic exterior with silver hardware and white interior."
+  },
+  "134.jpg": {
+    "newName": "lightblue_ext_silver_acc_lightblue_int.jpg",
+    "description": "Light blue metallic casket with silver hardware and light blue interior."
+  },
+  "135.jpg": {
+    "newName": "bronze_ext_gold_acc_white_int.jpg",
+    "description": "Dark bronze/brown casket with gold/brass hardware and white interior."
+  },
+  "137.jpg": {
+    "newName": "paleblue_ext_rosegold_acc_white_int.jpg",
+    "description": "Very pale blue/white casket with rose gold/copper hardware and white interior."
+  },
+  "138.jpg": {
+    "newName": "white_ext_gold_acc_white_int.jpg",
+    "description": "White casket with gold/brass hardware and white interior."
+  },
+  "14.jpg": {
+    "newName": "darkbrown_ext_bronze_acc_white_int.jpg",
+    "description": "Dark brown/bronze casket with bronze/copper hardware and white interior."
+  },
+  "140.jpg": {
+    "newName": "bronze_ext_gold_acc_white_int_v2.jpg",
+    "description": "Dark bronze/brown casket with gold/brass hardware and white interior."
+  },
+  "141.jpg": {
+    "newName": "white_ext_gold_acc_white_int_bible_graphic.jpg",
+    "description": "White casket with gold/brass hardware, white interior featuring an open bible/book graphic."
+  },
+  "142.jpg": {
+    "newName": "white_ext_gold_acc_white_int_bible_graphic_v2.jpg",
+    "description": "White casket with gold/brass hardware, white interior featuring an open bible/book graphic."
+  },
+  "143.jpg": {
+    "newName": "silver_ext_silver_acc_white_int_flag_graphic.jpg",
+    "description": "Silver/grey casket with silver hardware, white interior featuring an American flag graphic."
+  },
+  "144.jpg": {
+    "newName": "darkblue_ext_gold_acc_lightblue_int_goinghome.jpg",
+    "description": "Dark blue casket with gold/brass hardware, light blue interior featuring 'Going Home' graphic."
+  },
+  "146.jpg": {
+    "newName": "darkgrey_ext_silver_acc_white_int.jpg",
+    "description": "Dark grey/black casket with silver hardware and white interior."
+  },
+  "148.jpg": {
+    "newName": "darkbrown_ext_bronze_acc_white_int_v2.jpg",
+    "description": "Dark brown/bronze casket with bronze/copper hardware and white interior."
+  },
+  "150.jpg": {
+    "newName": "paleblue_ext_rosegold_acc_white_int_rose_graphic_v2.jpg",
+    "description": "Very pale blue/white casket with rose gold/copper hardware, white interior featuring pink rose graphics."
+  },
+  "151.jpg": {
+    "newName": "white_ext_gold_acc_white_int_rose_graphic.jpg",
+    "description": "White casket with gold/brass hardware, white interior featuring pink rose graphics."
+  },
+  "152.jpg": {
+    "newName": "black_ext_silver_acc_white_int_goinghome.jpg",
+    "description": "Black casket with silver hardware, white interior featuring 'Going Home' graphic with doves."
+  },
+  "153.jpg": {
+    "newName": "darkgreen_ext_gold_acc_white_int_trees.jpg",
+    "description": "Dark green metallic casket with gold/brass hardware and white interior featuring a green pine trees graphic on the lid."
+  },
+  "155.jpg": {
+    "newName": "burgundy_ext_silver_acc_white_int_tree.jpg",
+    "description": "Dark woodgrain/burgundy casket with silver/grey hardware and white interior featuring a tree graphic."
+  },
+  "156.jpg": {
+    "newName": "bronze_ext_gold_acc_white_int_cabin.jpg",
+    "description": "Dark bronze/brown casket with gold/brass hardware and white interior featuring a graphic of a house/cabin in the woods on the lid."
+  },
+  "158.jpg": {
+    "newName": "purple_ext_gold_acc_pink_int_rose.jpg",
+    "description": "Purple/plum casket with gold/brass hardware and light pink interior featuring a pink rose graphic on the lid."
+  },
+  "159.jpg": {
+    "newName": "paleblue_ext_silver_acc_white_int_rose.jpg",
+    "description": "Very pale blue/white casket with silver hardware and white interior featuring a pink rose graphic."
+  },
+  "16.jpg": {
+    "newName": "white_ext_gold_acc_white_int_v2.jpg",
+    "description": "White casket with gold/brass hardware and white interior."
+  },
+  "162.jpg": {
+    "newName": "mahogany_ext_gold_acc_white_int_lastsupper.jpg",
+    "description": "Dark woodgrain/mahogany casket with gold/brass hardware and white interior featuring a 'Last Supper' mural/graphic on the lid."
+  },
+  "164.jpg": {
+    "newName": "paleblue_ext_black_acc_white_int_rose.jpg",
+    "description": "Pale blue/white casket with black handles, pink rose accents on hardware, and white interior featuring a pink flower graphic."
+  },
+  "166.jpg": {
+    "newName": "silver_ext_silver_acc_white_int_v4.jpg",
+    "description": "Silver casket with silver hardware and white interior."
+  },
+  "167.jpg": {
+    "newName": "oversized_silver_ext_silver_acc_white_int.jpg",
+    "description": "Oversized silver casket with silver hardware and white interior. Dimensions shown on screen: Width 30.5 inches, Length 85.5 inches."
+  },
+  "168.jpg": {
+    "newName": "oversized_bronze_ext_gold_acc_white_int.jpg",
+    "description": "Oversized dark bronze casket. Features inside dimension Width 30.5 inches, length 85.5 inches. Gold/brass hardware, white interior."
+  },
+  "169.jpg": {
+    "newName": "oversized_lightblue_ext_silver_acc_white_int.jpg",
+    "description": "Oversized light blue/turquoise metallic casket. Width 30.5 inches, length 85.5 inches. Silver hardware, white interior."
+  },
+  "171.jpg": {
+    "newName": "white_ext_gold_acc_white_int_v3.jpg",
+    "description": "White casket with gold hardware and white interior."
+  },
+  "172.jpg": {
+    "newName": "silver_ext_silver_acc_white_int_v5.jpg",
+    "description": "Silver casket with silver hardware and white interior."
+  },
+  "173.jpg": {
+    "newName": "metallicblue_ext_silver_acc_lightblue_int.jpg",
+    "description": "Metallic blue casket with silver hardware and light blue interior."
+  },
+  "175.jpg": {
+    "newName": "darkbrown_ext_gold_acc_white_int.jpg",
+    "description": "Dark brown/mahogany casket with gold/brass hardware and white interior."
+  },
+  "176.jpg": {
+    "newName": "rosegold_ext_silver_acc_lightpink_int.jpg",
+    "description": "Rose gold/copper casket with silver hardware and light pink/white interior."
+  },
+  "177.jpg": {
+    "newName": "paleblue_ext_rosegold_acc_white_int_v2.jpg",
+    "description": "Very pale blue/white casket with rose gold/copper hardware and white interior."
+  },
+  "178.jpg": {
+    "newName": "champagne_ext_gold_acc_white_int_cross.jpg",
+    "description": "Champagne/light bronze casket with gold/brass and black handle details, white interior, embroidered lid corners (cross graphic)."
+  },
+  "179.jpg": {
+    "newName": "palesilver_ext_silver_acc_white_int.jpg",
+    "description": "Pale silver/grey casket with silver hardware and white interior."
+  },
+  "18.jpg": {
+    "newName": "gold_ext_gold_acc_white_int.jpg",
+    "description": "Gold/bronze casket with gold hardware and white interior."
+  },
+  "180.jpg": {
+    "newName": "silver_ext_silver_acc_white_int_v6.jpg",
+    "description": "Silver casket with silver hardware and white interior."
+  },
+  "181.jpg": {
+    "newName": "mediumblue_ext_silver_acc_lightblue_int.jpg",
+    "description": "Medium blue casket with silver hardware and light blue interior."
+  },
+  "182.jpg": {
+    "newName": "mahogany_ext_silver_acc_white_int.jpg",
+    "description": "Dark reddish brown/mahogany casket with silver hardware and white interior."
+  },
+  "183.jpg": {
+    "newName": "silver_ext_gold_acc_white_int.jpg",
+    "description": "Silver casket with gold hardware and white interior."
+  },
+  "184.jpg": {
+    "newName": "black_ext_silver_acc_white_int_goinghome_v2.jpg",
+    "description": "Black casket with silver hardware and white interior featuring 'Going Home' graphic."
+  },
+  "185.jpg": {
+    "newName": "black_ext_silver_acc_lightblue_int_guadalupe.jpg",
+    "description": "Black casket with silver hardware and light blue interior featuring 'Our Lady of Guadalupe' graphic."
+  },
+  "186.jpg": {
+    "newName": "white_ext_gold_acc_white_int_guadalupe.jpg",
+    "description": "White casket with gold hardware and white interior featuring 'Our Lady of Guadalupe' graphic."
+  },
+  "187.jpg": {
+    "newName": "white_ext_silver_acc_white_int_guadalupe.jpg",
+    "description": "White/pale blue casket with silver/grey hardware and white interior featuring 'Our Lady of Guadalupe' graphic."
+  },
+  "188.jpg": {
+    "newName": "white_ext_gold_acc_white_int_v4.jpg",
+    "description": "White casket with gold hardware and white interior."
+  },
+  "189.jpg": {
+    "newName": "silver_ext_silver_acc_white_int_v7.jpg",
+    "description": "Silver casket with silver hardware and white interior."
+  },
+  "190.jpg": {
+    "newName": "bronze_ext_gold_acc_white_int_v2.jpg",
+    "description": "Bronze/brown casket with gold/brass hardware and white interior."
+  },
+  "191.jpg": {
+    "newName": "lightblue_ext_silver_acc_lightblue_int.jpg",
+    "description": "Light blue metallic casket with silver hardware and light blue interior."
+  },
+  "192.jpg": {
+    "newName": "rosegold_ext_rosegold_acc_white_int_rose.jpg",
+    "description": "Rose gold/copper casket with rose gold hardware and white interior featuring an embroidered rose."
+  },
+  "194.jpg": {
+    "newName": "white_ext_gold_acc_white_int_v6.jpg",
+    "description": "White casket with gold hardware and white interior."
+  },
+  "195.jpg": {
+    "newName": "copper_ext_rosegold_acc_white_int.jpg",
+    "description": "Copper/bronze casket with rosegold/bronze hardware and white interior."
+  },
+  "197.jpg": {
+    "newName": "darkblue_ext_silver_acc_white_int_prayinghands.jpg",
+    "description": "Dark blue metallic casket with silver hardware and white interior featuring embroidered praying hands."
+  },
+  "198.jpg": {
+    "newName": "lilac_ext_silver_acc_lightpink_int.jpg",
+    "description": "Lilac/light purple metallic casket with silver hardware and light pink/white interior."
+  },
+  "199.jpg": {
+    "newName": "mahogany_ext_silver_acc_white_int_v2.jpg",
+    "description": "Dark cherry/mahogany casket with silver hardware and white interior."
+  },
+  "20.jpg": {
+    "newName": "darkblue_ext_silver_acc_lightblue_int.jpg",
+    "description": "Dark blue casket with silver hardware and light blue interior, tufted panel."
+  },
+  "200.jpg": {
+    "newName": "darkblue_ext_silver_acc_white_int_v3.jpg",
+    "description": "Dark blue casket with silver hardware and white interior."
+  },
+  "202.jpg": {
+    "newName": "mediumblue_ext_silver_acc_lightblue_int_v2.jpg",
+    "description": "Medium blue casket with silver hardware and light blue interior."
+  },
+  "203.jpg": {
+    "newName": "palesilver_ext_silver_acc_white_int_v2.jpg",
+    "description": "Pale silver/grey casket with silver hardware and white interior."
+  },
+  "205.jpg": {
+    "newName": "lilac_ext_silver_acc_lightpink_int_v2.jpg",
+    "description": "Lilac/light purple casket with silver hardware and light pink interior."
+  },
+  "206.jpg": {
+    "newName": "white_ext_gold_acc_white_int_v7.jpg",
+    "description": "White casket with gold hardware and white interior."
+  },
+  "207.jpg": {
+    "newName": "mauve_ext_silver_acc_white_int.jpg",
+    "description": "Mauve/purple metallic casket with silver hardware and white interior."
+  },
+  "208.jpg": {
+    "newName": "mahogany_ext_silver_acc_white_int_v3.jpg",
+    "description": "Dark cherry/mahogany finish casket with silver hardware and white interior."
+  },
+  "209.jpg": {
+    "newName": "darkcherry_ext_silver_acc_white_int.jpg",
+    "description": "Dark cherry red casket with silver hardware and white interior."
+  },
+  "210.jpg": {
+    "newName": "black_ext_gold_acc_white_int.jpg",
+    "description": "Black casket with gold/brass hardware and white interior."
+  },
+  "212.jpg": {
+    "newName": "bronze_ext_gold_acc_white_int_v3.jpg",
+    "description": "Bronze/champagne casket with gold hardware and white interior."
+  },
+  "214.jpg": {
+    "newName": "darkblue_ext_silver_acc_lightblue_int_v3.jpg",
+    "description": "Dark blue casket with silver hardware and light blue interior, sunburst panel."
+  },
+  "215.jpg": {
+    "newName": "bronze_ext_silver_acc_white_int.jpg",
+    "description": "Bronze/brown casket with silver hardware and white interior."
+  },
+  "216.jpg": {
+    "newName": "palesilver_ext_silver_acc_white_int_v3.jpg",
+    "description": "Pale silver/grey casket with silver hardware and white interior."
+  },
+  "218.jpg": {
+    "newName": "bronze_ext_bronze_acc_white_int.jpg",
+    "description": "Bronze casket with bronze/rosegold hardware and white interior."
+  },
+  "221.jpg": {
+    "newName": "black_ext_silver_acc_white_int_v4.jpg",
+    "description": "Black casket with silver hardware and white interior."
+  },
+  "222.jpg": {
+    "newName": "black_ext_silver_acc_lightblue_int.jpg",
+    "description": "Black casket with silver hardware and light blue interior."
+  },
+  "223.jpg": {
+    "newName": "black_ext_silver_acc_white_int_v5.jpg",
+    "description": "Black casket with silver hardware and white interior."
+  },
+  "224.jpg": {
+    "newName": "silver_ext_silver_acc_white_int_flag.jpg",
+    "description": "Silver casket with silver hardware and white interior featuring an embroidered American flag."
+  },
+  "226.jpg": {
+    "newName": "rosegold_ext_gold_acc_lightpink_int.jpg",
+    "description": "Rose gold/copper casket with gold hardware and light pink interior."
+  },
+  "228.jpg": {
+    "newName": "bronze_ext_gold_acc_white_int_v4.jpg",
+    "description": "Bronze casket with gold hardware and white interior."
+  },
+  "23.jpg": {
+    "newName": "darkblue_ext_gold_acc_lightblue_int_v2.jpg",
+    "description": "Dark blue casket with gold hardware and light blue interior."
+  },
+  "25.jpg": {
+    "newName": "black_ext_silver_acc_white_int_v6.jpg",
+    "description": "Black casket with silver hardware and white interior."
+  },
+  "26.jpg": {
+    "newName": "bronze_ext_gold_acc_white_int_v5.jpg",
+    "description": "Bronze casket with gold hardware and white interior."
+  },
+  "28.jpg": {
+    "newName": "silver_ext_silver_acc_white_int_v8.jpg",
+    "description": "Silver casket with silver hardware and white interior."
+  },
+  "30.jpg": {
+    "newName": "bronze_ext_bronze_acc_white_int_v2.jpg",
+    "description": "Bronze casket with bronze/antique hardware and white interior."
+  },
+  "32.jpg": {
+    "newName": "black_ext_silver_acc_white_int_v7.jpg",
+    "description": "Black casket with silver hardware and white interior."
+  },
+  "34.jpg": {
+    "newName": "darkblue_ext_silver_acc_lightblue_int_v4.jpg",
+    "description": "Dark blue casket with silver hardware and light blue interior, tufted panel."
+  },
+  "37.jpg": {
+    "newName": "darkgrey_ext_silver_acc_white_int.jpg",
+    "description": "Dark grey/gunmetal casket with silver hardware and white interior."
+  },
+  "39.jpg": {
+    "newName": "silver_ext_silver_acc_white_int_v9.jpg",
+    "description": "Silver/pewter casket with silver hardware and white interior."
+  },
+  "40.jpg": {
+    "newName": "black_ext_gold_acc_white_int_v2.jpg",
+    "description": "Black casket with gold hardware and white interior."
+  },
+  "42.jpg": {
+    "newName": "darkblue_ext_silver_acc_lightblue_int_v5.jpg",
+    "description": "Dark blue casket with silver hardware and light blue interior."
+  },
+  "44.jpg": {
+    "newName": "bronze_ext_bronze_acc_lightpink_int.jpg",
+    "description": "Bronze/copper casket with rosegold/bronze hardware and light pink interior with a rose."
+  },
+  "46.jpg": {
+    "newName": "darkcherry_ext_silver_acc_white_int_v2.jpg",
+    "description": "Dark cherry red casket with silver hardware and white interior."
+  },
+  "48.jpg": {
+    "newName": "darkgrey_ext_silver_acc_white_int_v2.jpg",
+    "description": "Dark grey casket with silver hardware and white interior."
+  },
+  "49.jpg": {
+    "newName": "rosegold_ext_gold_acc_lightpink_int_v2.jpg",
+    "description": "Rose gold/copper casket with gold hardware and light pink interior."
+  },
+  "51.jpg": {
+    "newName": "mauve_ext_silver_acc_lightpink_int.jpg",
+    "description": "Mauve/purple metallic casket with silver hardware and light pink interior."
+  },
+  "53.jpg": {
+    "newName": "silver_ext_silver_acc_white_int_v10.jpg",
+    "description": "Silver casket with silver hardware and white interior."
+  },
+  "55.jpg": {
+    "newName": "white_ext_gold_acc_white_int_v8.jpg",
+    "description": "White casket with gold hardware and white interior."
+  },
+  "57.jpg": {
+    "newName": "mahogany_ext_gold_acc_white_int.jpg",
+    "description": "Dark mahogany/brown casket with gold hardware and white interior."
+  },
+  "58.jpg": {
+    "newName": "purple_ext_silver_acc_white_int.jpg",
+    "description": "Purple/indigo casket with silver hardware and white interior."
+  },
+  "6.jpg": {
+    "newName": "bronze_ext_gold_acc_white_int_v6.jpg",
+    "description": "Bronze casket with gold hardware and white interior."
+  },
+  "60.jpg": {
+    "newName": "black_ext_silver_acc_white_int_v8.jpg",
+    "description": "Black casket with silver hardware and white interior."
+  },
+  "62.jpg": {
+    "newName": "bronze_ext_bronze_acc_white_int_v3.jpg",
+    "description": "Bronze casket with bronze/rosegold hardware and white interior."
+  },
+  "63.jpg": {
+    "newName": "rosegold_ext_gold_acc_lightpink_int_v3.jpg",
+    "description": "Rose gold casket with gold hardware and light pink interior features an embroidered rose."
+  },
+  "64.jpg": {
+    "newName": "blue_ext_silver_acc_white_int.jpg",
+    "description": "Blue metallic casket with silver hardware and white interior."
+  },
+  "66.jpg": {
+    "newName": "palesilver_ext_silver_acc_white_int_v4.jpg",
+    "description": "Pale silver casket with silver hardware and white interior."
+  },
+  "68.jpg": {
+    "newName": "palesilver_ext_silver_acc_white_int_v5.jpg",
+    "description": "Pale silver casket with silver hardware and white interior."
+  },
+  "71.jpg": {
+    "newName": "black_ext_silver_acc_lightblue_int_prayinghands.jpg",
+    "description": "Black casket with silver hardware and light blue interior features embroidered praying hands."
+  },
+  "72.jpg": {
+    "newName": "darkcherry_ext_gold_acc_lightpink_int.jpg",
+    "description": "Dark cherry/plum casket with gold hardware and light pink interior with a rose."
+  },
+  "74.jpg": {
+    "newName": "bronze_ext_bronze_acc_white_int_v4.jpg",
+    "description": "Bronze/champagne casket with bronze/antique hardware and white interior."
+  },
+  "76.jpg": {
+    "newName": "mahogany_ext_rosegold_acc_white_int.jpg",
+    "description": "Dark mahogany/cherry casket with rosegold/bronze hardware and white interior."
+  },
+  "78.jpg": {
+    "newName": "darkcherry_ext_silver_acc_white_int_v3.jpg",
+    "description": "Dark cherry red casket with silver/nickel hardware and white interior."
+  },
+  "8.jpg": {
+    "newName": "black_ext_silver_acc_white_int_v9.jpg",
+    "description": "Black casket with silver hardware and white interior."
+  },
+  "80.jpg": {
+    "newName": "red_ext_gold_acc_white_int_v2.jpg",
+    "description": "Dark red/burgundy casket with gold hardware and white interior."
+  },
+  "81.jpg": {
+    "newName": "black_ext_silver_acc_white_int_v10.jpg",
+    "description": "Black casket with silver hardware and white interior."
+  },
+  "82.jpg": {
+    "newName": "silver_ext_silver_acc_white_int_v11.jpg",
+    "description": "Silver casket with silver hardware and white interior."
+  },
+  "83.jpg": {
+    "newName": "blue_ext_gold_acc_white_int_v2.jpg",
+    "description": "Light blue or teal casket with gold hardware and white interior."
+  },
+  "85.jpg": {
+    "newName": "silver_ext_silver_acc_white_int_v12.jpg",
+    "description": "Silver casket with silver hardware and white interior."
+  },
+  "86.jpg": {
+    "newName": "bronze_ext_gold_acc_white_int_v7.jpg",
+    "description": "Bronze/copper casket with gold hardware and white interior."
+  },
+  "88.jpg": {
+    "newName": "blue_ext_silver_acc_white_int_prayinghands.jpg",
+    "description": "Light blue casket with silver hardware and white interior features embroidered praying hands."
+  },
+  "89.jpg": {
+    "newName": "bronze_ext_gold_acc_white_int_prayinghands.jpg",
+    "description": "Bronze/copper casket with gold hardware and white interior features embroidered praying hands."
+  },
+  "90.jpg": {
+    "newName": "palesilver_ext_silver_acc_white_int_usflag.jpg",
+    "description": "Pale silver casket with silver hardware and white interior features embroidered US flag circle of stars."
+  },
+  "92.jpg": {
+    "newName": "darkbrown_ext_rosegold_acc_white_int_v2.jpg",
+    "description": "Dark brown casket with rosegold/bronze hardware and white interior."
+  },
+  "94.jpg": {
+    "newName": "silver_ext_silver_acc_white_int_v13.jpg",
+    "description": "Silver casket with silver hardware and white interior."
+  },
+  "96.jpg": {
+    "newName": "black_ext_silver_acc_white_int_v11.jpg",
+    "description": "Black casket with silver hardware and white interior."
+  },
+  "97.jpg": {
+    "newName": "lightblue_ext_silver_acc_blue_int.jpg",
+    "description": "Light blue casket with silver hardware and light blue interior."
+  }
+}

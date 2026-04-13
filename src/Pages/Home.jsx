@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState, useRef } from "react";
 import PropTypes from 'prop-types';
-import Snowfall from 'react-snowfall';
+
 import { Link } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 import { Card, CardContent } from "@mui/material";
@@ -56,7 +56,7 @@ function HeroSection() {
 
   return (
     <section className="bg-[#135B3A] rounded-b-[50px] w-full pt-28 pb-20 relative z-0">
-      <Snowfall color="#fff" />
+
       <div className="max-w-[1300px] mx-auto px-6 md:px-10 lg:px-20 flex flex-col md:flex-row items-center justify-between text-white gap-10">
         {/* Left Content */}
         <div className="max-w-xl text-center md:text-left">
@@ -163,15 +163,7 @@ function Home() {
 
   return (
     <div className="min-h-screen flex flex-col font-sans overflow-x-hidden transition-colors duration-300 relative">
-      <Snowfall
-        style={{
-          position: 'fixed',
-          width: '100vw',
-          height: '100vh',
-          zIndex: 50,
-        }}
-        snowflakeCount={40}
-      />
+
       <Helmet>
         <title>George Wood Casket | Premium Caskets & Funeral Services</title>
         <meta name="description" content="Based in Enugu since 1984, we provide high-quality caskets and professional funeral services. Honouring life and legacies." />

@@ -9,6 +9,17 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+import rateLimit from 'express-rate-limit';
+
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 10, // limit each IP to 10 requests per windowMs
+    message: { message: "Too many requests, please try again later." }
+});
+
+// Apply rate limiter to all email routes
+app.use('/api/email', limiter);
+
 // Nodemailer setup
 const transporter = nodemailer.createTransport({
     service: 'Gmail',
@@ -18,7 +29,7 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-const ADMIN_EMAIL = 'georgechime91@icloud.com';
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'georgechime91@icloud.com';
 
 // Verify transporter
 transporter.verify(function (error, success) {
@@ -62,9 +73,9 @@ app.post('/api/email/order', async (req, res) => {
             <div style="margin-top: 15px;">
                 <p>To complete your order, please update us with payment details if you haven't already.</p>
                 <p style="font-size: 1.1em;">
-                    <strong>NO:</strong> 2198210889 <br />
-                    <strong>Name:</strong> George Chiemerie Chime <br />
-                    <strong>Bank:</strong> United Bank of Africa (UBA)
+                    <strong>NO:</strong> ${process.env.BANK_ACCOUNT_NO || '2198210889'} <br />
+                    <strong>Name:</strong> ${process.env.BANK_ACCOUNT_NAME || 'George Chiemerie Chime'} <br />
+                    <strong>Bank:</strong> ${process.env.BANK_NAME || 'United Bank of Africa (UBA)'}
                 </p>
             </div>
             <p>We will contact you at: <strong>${phone}</strong>.</p>

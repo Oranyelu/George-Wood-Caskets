@@ -5,6 +5,7 @@ import { db, storage } from "../firebase";
 import Modal from 'react-modal';
 import { FaSearch, FaFire, FaPenFancy, FaPrint } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const customStyles = {
   content: {
@@ -84,12 +85,12 @@ const BookOfLife = () => {
         candles: 0
       });
 
-      alert("Memorial submitted successfully! It will be visible after admin approval.");
+      toast.success("Memorial submitted successfully! It will be visible after admin approval.");
       setCreateModalOpen(false);
       setNewMemorial({ name: '', birthYear: '', deathYear: '', bio: '', submittedBy: '', contactEmail: '', image: null });
     } catch (error) {
       console.error("Error creating memorial:", error);
-      alert("Failed to create memorial.");
+      toast.error("Failed to create memorial.");
     } finally {
       setUploading(false);
     }
@@ -122,13 +123,10 @@ const BookOfLife = () => {
 
       setTributeText("");
       setTributeSigner("");
-      // Note: selectedPerson used in render is the state *snapshot*, it won't update automatically
-      // until we close/reopen or update local state.
-      // For simplicity, we just rely on the real-time update to the list, 
-      // but our modal view uses 'selectedPerson'. We should re-fetch or find from 'memorials'.
-      // Let's find the updated person from 'memorials' in the render logic instead.
+      toast.success("Tribute posted successfully!");
     } catch (error) {
       console.error("Error submitting tribute:", error);
+      toast.error("Failed to post tribute.");
     }
   }
 

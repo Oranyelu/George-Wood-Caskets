@@ -3,6 +3,7 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { ProductContext } from '../Providers/ProductProvider';
+import toast from 'react-hot-toast';
 
 const Xclusive = () => {
   const { products, addToCart } = useContext(ProductContext);
@@ -12,9 +13,17 @@ const Xclusive = () => {
 
   const handleAddToCart = (product) => {
     addToCart(product);
-    // Ideally use a toast notification here instead of alert for a premium feel, 
-    // but keeping alert for now to match existing functionality until a toast system is added.
-    alert(`${product.name} added to cart`);
+    toast.success(`${product.name} added to cart!`, {
+      style: {
+        background: '#333',
+        color: '#D4AF37',
+        border: '1px solid #D4AF37',
+      },
+      iconTheme: {
+        primary: '#D4AF37',
+        secondary: '#333',
+      },
+    });
   }
 
   return (

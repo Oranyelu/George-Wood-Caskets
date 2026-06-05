@@ -44,13 +44,13 @@ function Footer() {
             <Link to="/about-us" className="hover:text-secondary">
               About Us
             </Link>
-            <Link to="/get-involved" className="hover:text-secondary">
+            <Link to="/info/get-involved" className="hover:text-secondary">
               Get Involved
             </Link>
             <Link to="/book-of-life" className="hover:text-secondary">
               Book of Life
             </Link>
-            <Link to="/hiring" className="hover:text-secondary">
+            <Link to="/info/hiring" className="hover:text-secondary">
               We are hiring
             </Link>
             <Link to="/bonds" className="hover:text-secondary">
@@ -70,10 +70,10 @@ function Footer() {
             <Link to="/refund-policy" className="hover:text-secondary">
               Refund Policy
             </Link>
-            <Link to="/cookies" className="hover:text-secondary">
+            <Link to="/info/cookies" className="hover:text-secondary">
               Cookies Policy
             </Link>
-            <Link to="/accessibility" className="hover:text-secondary">
+            <Link to="/info/accessibility" className="hover:text-secondary">
               Accessibility
             </Link>
           </nav>
@@ -81,16 +81,16 @@ function Footer() {
           {/* Support Section */}
           <nav className="flex flex-col mb-6 md:mb-4">
             <h2 className="font-bold text-lg mb-2 text-secondary">Support</h2>
-            <Link to="/help" className="hover:text-secondary">
+            <Link to="/info/help" className="hover:text-secondary">
               Help Center
             </Link>
             <Link to="/contacts" className="hover:text-secondary">
               Contact Us
             </Link>
-            <Link to="/safety" className="hover:text-secondary">
+            <Link to="/info/safety" className="hover:text-secondary">
               Safety Center
             </Link>
-            <Link to="/report" className="hover:text-secondary">
+            <Link to="/info/report" className="hover:text-secondary">
               Report an Issue
             </Link>
           </nav>

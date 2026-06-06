@@ -4,6 +4,7 @@ import { ProductContext } from "../Providers/ProductProvider";
 import { Link } from "react-router-dom";
 import { FiChevronRight } from "react-icons/fi"; // right-pointing arrow
 import { sendOrderEmail } from "../utils/api";
+import toast from 'react-hot-toast';
 
 const Checkout = () => {
   const { cart, removeFromCart, getTotalPrice, checkout } = useContext(ProductContext);
@@ -14,12 +15,16 @@ const Checkout = () => {
     lastName: "",
     email: "",
     phone: "",
+    address: "",
+    city: "",
+    state: "",
     referredBy: "",
   });
 
   const [orderSuccess, setOrderSuccess] = useState(false);
   const [trackingId, setTrackingId] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState("paystack"); // paystack, bank_transfer, call_to_order
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -43,14 +48,20 @@ const Checkout = () => {
     try {
       const orderDataWithPayment = {
         ...formData,
-        paymentInfo: reference
+        paymentInfo: {
+          reference: reference.reference || reference,
+          status: "paid",
+          method: "paystack"
+        }
       };
+      
       const orderId = await checkout(orderDataWithPayment);
       setTrackingId(orderId);
       setOrderSuccess(true);
+      toast.success("Order Placed Successfully!");
 
-      // Send Email Notification
-      await sendOrderEmail({
+      // Send Email Notification in the background (non-blocking)
+      sendOrderEmail({
         firstName: formData.firstName,
         lastName: formData.lastName,
         email: formData.email,
@@ -59,6 +70,8 @@ const Checkout = () => {
         totalPrice: totalPrice,
         trackingId: orderId,
         referral: formData.referredBy
+      }).catch(emailErr => {
+        console.error("Background email notification failed:", emailErr);
       });
 
     } catch (error) {
@@ -76,16 +89,55 @@ const Checkout = () => {
 
   const initializePayment = usePaystackPayment(config);
 
-  const handleCompleteOrder = () => {
+  const handleCompleteOrder = async () => {
     if (isSubmitting) return;
 
-    if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone) {
+    if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone || !formData.address || !formData.city || !formData.state) {
       alert("Please fill in all required fields.");
       return;
     }
 
     setIsSubmitting(true);
-    initializePayment(onSuccess, onClose);
+
+    if (paymentMethod === 'paystack') {
+      initializePayment(onSuccess, onClose);
+    } else {
+      try {
+        const orderData = {
+          ...formData,
+          paymentInfo: {
+            method: paymentMethod,
+            status: "pending",
+            reference: `offline_${Date.now()}`
+          }
+        };
+
+        const orderId = await checkout(orderData);
+        setTrackingId(orderId);
+        setOrderSuccess(true);
+        toast.success("Order Placed Successfully!");
+
+        // Send Email Notification in the background
+        sendOrderEmail({
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          phone: formData.phone,
+          cart: cart,
+          totalPrice: totalPrice,
+          trackingId: orderId,
+          referral: formData.referredBy
+        }).catch(emailErr => {
+          console.error("Background email notification failed:", emailErr);
+        });
+
+      } catch (error) {
+        console.error("Error placing order:", error);
+        alert(`There was an error placing your order: ${error.message}`);
+      } finally {
+        setIsSubmitting(false);
+      }
+    }
   };
 
   return (
@@ -260,6 +312,67 @@ const Checkout = () => {
                     />
                   </div>
 
+                  {/* Payment Method Selector */}
+                  <div className="flex flex-col gap-2 mt-4">
+                    <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">Select Payment Method</label>
+                    <div className="grid grid-cols-1 gap-2">
+                      <label className={`flex items-center gap-3 p-3 border rounded-lg cursor-pointer transition-colors ${paymentMethod === 'paystack' ? 'border-[#135B3A] bg-green-50/5' : 'border-gray-200 dark:border-gray-700'}`}>
+                        <input
+                          type="radio"
+                          name="paymentMethod"
+                          value="paystack"
+                          checked={paymentMethod === 'paystack'}
+                          onChange={() => setPaymentMethod('paystack')}
+                          className="accent-[#135B3A]"
+                        />
+                        <div>
+                          <p className="font-bold text-gray-900 dark:text-white">Pay Online (Paystack)</p>
+                          <p className="text-xs text-gray-500">Pay securely with card, bank transfer, or USSD.</p>
+                        </div>
+                      </label>
+
+                      <label className={`flex items-center gap-3 p-3 border rounded-lg cursor-pointer transition-colors ${paymentMethod === 'bank_transfer' ? 'border-[#135B3A] bg-green-50/5' : 'border-gray-200 dark:border-gray-700'}`}>
+                        <input
+                          type="radio"
+                          name="paymentMethod"
+                          value="bank_transfer"
+                          checked={paymentMethod === 'bank_transfer'}
+                          onChange={() => setPaymentMethod('bank_transfer')}
+                          className="accent-[#135B3A]"
+                        />
+                        <div>
+                          <p className="font-bold text-gray-900 dark:text-white">Bank Transfer / Cash Deposit</p>
+                          <p className="text-xs text-gray-500">Transfer directly to our corporate bank account.</p>
+                        </div>
+                      </label>
+
+                      <label className={`flex items-center gap-3 p-3 border rounded-lg cursor-pointer transition-colors ${paymentMethod === 'call_to_order' ? 'border-[#135B3A] bg-green-50/5' : 'border-gray-200 dark:border-gray-700'}`}>
+                        <input
+                          type="radio"
+                          name="paymentMethod"
+                          value="call_to_order"
+                          checked={paymentMethod === 'call_to_order'}
+                          onChange={() => setPaymentMethod('call_to_order')}
+                          className="accent-[#135B3A]"
+                        />
+                        <div>
+                          <p className="font-bold text-gray-900 dark:text-white">Request a Call to Order</p>
+                          <p className="text-xs text-gray-500">We will call you on your phone number to finalize your order.</p>
+                        </div>
+                      </label>
+                    </div>
+                  </div>
+
+                  {paymentMethod === 'bank_transfer' && (
+                    <div className="mt-4 p-4 bg-yellow-500/10 border border-[#A37E2C]/50 rounded-lg text-sm text-gray-700 dark:text-gray-300">
+                      <p className="font-bold mb-2 text-[#A37E2C]">Corporate Bank Account Details:</p>
+                      <p><strong>Account Name:</strong> George Chiemerie Chime</p>
+                      <p><strong>Account Number:</strong> 2198210889</p>
+                      <p><strong>Bank:</strong> United Bank of Africa (UBA)</p>
+                      <p className="text-xs text-gray-500 mt-2">* Please send proof of payment to our support team.</p>
+                    </div>
+                  )}
+
                   {cart.length > 0 && (
                     <button
                       type="button"
@@ -267,12 +380,19 @@ const Checkout = () => {
                       className="bg-[#135B3A] text-white w-full h-[56px] rounded-lg mt-4 text-lg font-bold hover:bg-[#0e422b] transition-colors shadow-lg disabled:bg-gray-400 dark:disabled:bg-gray-600"
                       disabled={isSubmitting}
                     >
-                      {isSubmitting ? 'Placing Order...' : 'Pay with Paystack'}
+                      {isSubmitting
+                        ? 'Placing Order...'
+                        : paymentMethod === 'paystack'
+                          ? 'Pay with Paystack'
+                          : paymentMethod === 'bank_transfer'
+                            ? 'Complete Order (Bank Transfer)'
+                            : 'Request Call to Order'}
                     </button>
                   )}
                   <p className="text-xs text-center text-gray-500 dark:text-gray-400 mt-2">
-                    Secured by Paystack. Your data is safe.
+                    Your checkout process is safe and secure.
                   </p>
+
                 </form>
               </aside>
             </>

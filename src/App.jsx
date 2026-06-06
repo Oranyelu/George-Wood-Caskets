@@ -67,11 +67,7 @@ export default function App() {
             <Route path="blog/:id" element={<BlogPost />} />
             <Route path="book-of-life" element={<BookOfLife />} />
             <Route path="cart" element={<Cart />} />
-            <Route path="checkout" element={
-              <PrivateRoute>
-                <Checkout />
-              </PrivateRoute>
-            } />
+            <Route path="checkout" element={<Checkout />} />
             <Route path="contacts" element={<Contacts />} />
             <Route path="events" element={<Events />} />
             <Route path="services" element={<Services />} />

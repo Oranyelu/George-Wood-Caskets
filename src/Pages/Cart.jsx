@@ -6,7 +6,7 @@ import { FiChevronRight } from "react-icons/fi"; // right-pointing arrow
 
 
 const Cart = () => {
-  const { cart, addToCart, removeFromCart } = useContext(ProductContext);
+  const { cart, removeFromCart } = useContext(ProductContext);
   const { servicesData } = Services;
 
   // Group items by ID and calculate the total price
@@ -25,9 +25,6 @@ const Cart = () => {
   const vat = totalPrice * 0.08;
   const finalTotal = totalPrice + vat;
 
-  const handleBookNowClick = (service) => {
-    addToCart(service);
-  };
 
   return (
     <div className="min-h-screen flex flex-col font-montserrat pt-24 pb-12 transition-colors duration-300">
@@ -144,15 +141,15 @@ const Cart = () => {
                   <h3 className="text-gray-900 dark:text-white font-semibold text-lg mb-1">
                     {service.name}
                   </h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">Color: {service.color}</p>
-                  <p className="text-[#135B3A] dark:text-green-400 font-bold mb-4">{service.price.toLocaleString()} NGN</p>
+                  {service.color && <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">Color: {service.color}</p>}
+                  <p className="text-[#135B3A] dark:text-green-400 font-bold mb-4">Price on Request</p>
 
-                  <button
-                    className="mt-auto w-full bg-[#A37E2C] text-white py-2 rounded hover:bg-[#8c6b25] transition-colors"
-                    onClick={() => handleBookNowClick(service)}
+                  <Link
+                    to={`/book-service/${service.name.replace(/\s+/g, '-').toLowerCase()}`}
+                    className="mt-auto w-full text-center bg-[#A37E2C] text-white py-2 rounded hover:bg-[#8c6b25] transition-colors block font-semibold text-sm"
                   >
-                    Add to Cart
-                  </button>
+                    Request Quote
+                  </Link>
                 </div>
               </div>
             ))}

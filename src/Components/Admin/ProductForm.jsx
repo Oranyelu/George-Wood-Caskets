@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { doc, addDoc, updateDoc, collection } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { db, storage } from "../../firebase";
+import { API_MODE, createProduct, updateProduct, uploadFile } from "../../utils/api";
 import PropTypes from 'prop-types';
 import { FaTimes } from "react-icons/fa";
 import { CircularProgress, Snackbar, Alert, Button } from "@mui/material";
@@ -146,20 +147,25 @@ const ProductForm = ({ initialData, onSuccess, onCancel }) => {
                 if (img.isNew && img.file) {
                     try {
                         console.log(`Uploading file: ${img.file.name}`);
-                        const storageRef = ref(storage, `products/${Date.now()}_${img.file.name}`);
+                        if (API_MODE === 'backend') {
+                            const url = await uploadFile(img.file, "products");
+                            return url;
+                        } else {
+                            const storageRef = ref(storage, `products/${Date.now()}_${img.file.name}`);
 
-                        // Add timeout to upload
-                        const uploadTask = uploadBytes(storageRef, img.file);
-                        const timeoutPromise = new Promise((_, reject) =>
-                            setTimeout(() => reject(new Error("Upload timed out")), 15000) // 15 seconds timeout
-                        );
+                            // Add timeout to upload
+                            const uploadTask = uploadBytes(storageRef, img.file);
+                            const timeoutPromise = new Promise((_, reject) =>
+                                setTimeout(() => reject(new Error("Upload timed out")), 15000) // 15 seconds timeout
+                            );
 
-                        await Promise.race([uploadTask, timeoutPromise]);
+                            await Promise.race([uploadTask, timeoutPromise]);
 
-                        console.log(`File uploaded: ${img.file.name}, getting URL...`);
-                        const url = await getDownloadURL(storageRef);
-                        console.log(`Got URL for: ${img.file.name}`);
-                        return url;
+                            console.log(`File uploaded: ${img.file.name}, getting URL...`);
+                            const url = await getDownloadURL(storageRef);
+                            console.log(`Got URL for: ${img.file.name}`);
+                            return url;
+                        }
                     } catch (uploadErr) {
                         console.error(`Error uploading ${img.file.name}:`, uploadErr);
                         throw new Error(`Failed to upload ${img.file.name}: ${uploadErr.message}`);
@@ -193,18 +199,30 @@ const ProductForm = ({ initialData, onSuccess, onCancel }) => {
                 weight: formData.weight,
                 thumbnail: finalImageUrls.length > 0 ? finalImageUrls[0] : "", // First image is main
                 images: finalImageUrls,
-                updatedAt: new Date(),
+                updatedAt: new Date().toISOString(),
             };
 
-            console.log("Saving product data to Firestore...", productData);
-            if (initialData) {
-                const productRef = doc(db, "products", initialData.id);
-                await updateDoc(productRef, productData);
-                console.log("Product updated successfully.");
+            console.log("Saving product data...", productData);
+            if (API_MODE === 'backend') {
+                if (initialData) {
+                    await updateProduct(initialData.id, productData);
+                    console.log("Product updated successfully via API.");
+                } else {
+                    productData.createdAt = new Date().toISOString();
+                    await createProduct(productData);
+                    console.log("Product created successfully via API.");
+                }
             } else {
-                productData.createdAt = new Date();
-                await addDoc(collection(db, "products"), productData);
-                console.log("Product created successfully.");
+                productData.updatedAt = new Date();
+                if (initialData) {
+                    const productRef = doc(db, "products", initialData.id);
+                    await updateDoc(productRef, productData);
+                    console.log("Product updated successfully.");
+                } else {
+                    productData.createdAt = new Date();
+                    await addDoc(collection(db, "products"), productData);
+                    console.log("Product created successfully.");
+                }
             }
 
             setSnackbar({ open: true, message: "Product saved successfully!", severity: "success" });

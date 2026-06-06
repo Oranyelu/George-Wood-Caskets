@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { db, storage } from "../../firebase";
-
+import { API_MODE, createMemorial, updateMemorial, uploadFile } from "../../utils/api";
 import PropTypes from 'prop-types';
 
 const MemorialForm = ({ initialData, onSuccess, onCancel }) => {
@@ -55,9 +55,13 @@ const MemorialForm = ({ initialData, onSuccess, onCancel }) => {
 
             // Upload new image if selected
             if (formData.image) {
-                const imageRef = ref(storage, `memorials/${Date.now()}_${formData.image.name}`);
-                const snapshot = await uploadBytes(imageRef, formData.image);
-                imageUrl = await getDownloadURL(snapshot.ref);
+                if (API_MODE === 'backend') {
+                    imageUrl = await uploadFile(formData.image, "memorials");
+                } else {
+                    const imageRef = ref(storage, `memorials/${Date.now()}_${formData.image.name}`);
+                    const snapshot = await uploadBytes(imageRef, formData.image);
+                    imageUrl = await getDownloadURL(snapshot.ref);
+                }
             }
 
             const memorialData = {
@@ -69,17 +73,28 @@ const MemorialForm = ({ initialData, onSuccess, onCancel }) => {
                 image: imageUrl,
                 submittedBy: formData.submittedBy,
                 contactEmail: formData.contactEmail,
-                updatedAt: new Date(),
+                updatedAt: new Date().toISOString(),
             };
 
-            if (initialData) {
-                await updateDoc(doc(db, "memorials", initialData.id), memorialData);
+            if (API_MODE === 'backend') {
+                if (initialData) {
+                    await updateMemorial(initialData.id, memorialData);
+                } else {
+                    memorialData.createdAt = new Date().toISOString();
+                    memorialData.tributes = [];
+                    await createMemorial(memorialData);
+                }
             } else {
-                await addDoc(collection(db, "memorials"), {
-                    ...memorialData,
-                    createdAt: new Date(),
-                    tributes: [] // Initialize empty tributes
-                });
+                memorialData.updatedAt = new Date();
+                if (initialData) {
+                    await updateDoc(doc(db, "memorials", initialData.id), memorialData);
+                } else {
+                    await addDoc(collection(db, "memorials"), {
+                        ...memorialData,
+                        createdAt: new Date(),
+                        tributes: [] // Initialize empty tributes
+                    });
+                }
             }
 
             onSuccess();

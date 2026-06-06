@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { staticProducts } from "../assets/productsData";
+import { API_MODE, createOrder } from "../utils/api";
 
 export const ProductContext = createContext();
 
@@ -16,13 +17,12 @@ const ProductProvider = ({ children }) => {
     const savedHistory = localStorage.getItem('orderHistory');
     return savedHistory ? JSON.parse(savedHistory) : [];
   });
-
-  const [products, setProducts] = useState(staticProducts);
-  const [loading, setLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(false);
+  const [products] = useState(staticProducts);
+  const [loading] = useState(false);
+  const [hasMore] = useState(false);
 
   // Stub function to replace dynamic fetch
-  const fetchProducts = async (isNextPage = false) => {
+  const fetchProducts = async () => {
     // No-op for hardcoded data route
     return;
   };
@@ -74,16 +74,23 @@ const ProductProvider = ({ children }) => {
     };
 
     try {
-      // Add a new document with a generated id.
-      const docRef = await addDoc(collection(db, "orders"), orderData);
+      let orderId;
+      if (API_MODE === 'backend') {
+        const response = await createOrder(orderData);
+        orderId = response.orderId || response.id;
+      } else {
+        // Add a new document with a generated id.
+        const docRef = await addDoc(collection(db, "orders"), orderData);
+        orderId = docRef.id;
+      }
 
-      const newOrder = { id: docRef.id, ...orderData };
+      const newOrder = { id: orderId, ...orderData };
 
       // Add to local order history
       setOrderHistory(prevHistory => [...prevHistory, newOrder]);
 
       clearCart();
-      return docRef.id;
+      return orderId;
     } catch (error) {
       console.error("Error placing order:", error);
       throw error;

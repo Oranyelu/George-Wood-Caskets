@@ -6,15 +6,13 @@ import { BsBag } from "react-icons/bs";
 import { FaUserCircle, FaSun, FaMoon } from "react-icons/fa";
 import { ProductContext } from "../Providers/ProductProvider";
 import { useAuth } from "../Providers/AuthProvider";
-import { signOut } from "firebase/auth";
-import { auth } from "../firebase";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { useTheme } from "../Providers/ThemeContext";
 import { useTranslation } from "react-i18next";
 
 export default function Header() {
   const { cart } = useContext(ProductContext);
-  const { user, isAdmin } = useAuth();
+  const { user, isAdmin, logout } = useAuth();
   const cartItemCount = cart.length;
   const { theme, toggleTheme } = useTheme();
   const { t } = useTranslation();
@@ -211,7 +209,7 @@ export default function Header() {
                       )}
                       <button
                         onClick={() => {
-                          signOut(auth);
+                          logout();
                           setIsUserMenuOpen(false);
                         }}
                         className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600"

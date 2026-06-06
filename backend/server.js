@@ -73,9 +73,9 @@ app.post('/api/email/order', async (req, res) => {
             <div style="margin-top: 15px;">
                 <p>To complete your order, please update us with payment details if you haven't already.</p>
                 <p style="font-size: 1.1em;">
-                    <strong>NO:</strong> ${process.env.BANK_ACCOUNT_NO || '2198210889'} <br />
-                    <strong>Name:</strong> ${process.env.BANK_ACCOUNT_NAME || 'George Chiemerie Chime'} <br />
-                    <strong>Bank:</strong> ${process.env.BANK_NAME || 'United Bank of Africa (UBA)'}
+                    <strong>NO:</strong> ${process.env.BANK_ACCOUNT_NO || '8143904414'} <br />
+                    <strong>Name:</strong> ${process.env.BANK_ACCOUNT_NAME || 'George Wood Casket'} <br />
+                    <strong>Bank:</strong> ${process.env.BANK_NAME || 'Moniepoint Microfinance Bank'}
                 </p>
             </div>
             <p>We will contact you at: <strong>${phone}</strong>.</p>

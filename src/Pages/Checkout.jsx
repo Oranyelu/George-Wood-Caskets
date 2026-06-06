@@ -366,9 +366,9 @@ const Checkout = () => {
                   {paymentMethod === 'bank_transfer' && (
                     <div className="mt-4 p-4 bg-yellow-500/10 border border-[#A37E2C]/50 rounded-lg text-sm text-gray-700 dark:text-gray-300">
                       <p className="font-bold mb-2 text-[#A37E2C]">Corporate Bank Account Details:</p>
-                      <p><strong>Account Name:</strong> George Chiemerie Chime</p>
-                      <p><strong>Account Number:</strong> 2198210889</p>
-                      <p><strong>Bank:</strong> United Bank of Africa (UBA)</p>
+                      <p><strong>Account Name:</strong> George Wood Casket</p>
+                      <p><strong>Account Number:</strong> 8143904414</p>
+                      <p><strong>Bank:</strong> Moniepoint Microfinance Bank</p>
                       <p className="text-xs text-gray-500 mt-2">* Please send proof of payment to our support team.</p>
                     </div>
                   )}

@@ -2,8 +2,6 @@ import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { FaUserCircle, FaPenFancy, FaCalendarAlt, FaHandsHelping, FaSignOutAlt, FaHeart } from "react-icons/fa";
 import { useAuth } from "../Providers/AuthProvider";
-import { auth } from "../firebase";
-import { signOut } from "firebase/auth";
 
 const DashboardCard = ({ icon, title, description, link }) => (
     <Link to={link || "#"} className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow border border-gray-100 dark:border-gray-700 hover:shadow-lg transition-all flex flex-col items-center text-center">
@@ -21,7 +19,7 @@ DashboardCard.propTypes = {
 };
 
 const UserDashboard = () => {
-    const { user, isAdmin } = useAuth();
+    const { user, isAdmin, logout } = useAuth();
 
     if (!user) {
         return (
@@ -85,7 +83,7 @@ const UserDashboard = () => {
 
                 <div className="mt-8 border-t dark:border-gray-700 pt-6">
                     <button
-                        onClick={() => signOut(auth)}
+                        onClick={logout}
                         className="flex items-center gap-2 text-red-600 hover:text-red-700 font-bold bg-white dark:bg-gray-800 px-6 py-3 rounded-lg shadow-sm hover:shadow-md transition-all border border-red-100"
                     >
                         <FaSignOutAlt /> Log Out

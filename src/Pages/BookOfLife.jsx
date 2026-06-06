@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { collection, onSnapshot, addDoc, doc, updateDoc, arrayUnion } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { db, storage } from "../firebase";
+import { API_MODE, fetchMemorials, createMemorial, updateMemorial, uploadFile } from "../utils/api";
 import Modal from 'react-modal';
 import { FaSearch, FaFire, FaPenFancy, FaPrint } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
@@ -44,6 +45,19 @@ const BookOfLife = () => {
   const [tributeSigner, setTributeSigner] = useState("");
 
   useEffect(() => {
+    if (API_MODE === 'backend') {
+      const loadMemorials = async () => {
+        try {
+          const data = await fetchMemorials();
+          setMemorials(data);
+        } catch (error) {
+          console.error("Error fetching memorials from API:", error);
+        }
+      };
+      loadMemorials();
+      return;
+    }
+
     const unsubscribe = onSnapshot(collection(db, "memorials"), (snapshot) => {
       const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       // Filter only approved memorials for public view
@@ -71,19 +85,29 @@ const BookOfLife = () => {
     try {
       let imageUrl = "https://via.placeholder.com/300?text=No+Image";
       if (newMemorial.image) {
-        const imageRef = ref(storage, `memorials/${Date.now()}_${newMemorial.image.name}`);
-        const snapshot = await uploadBytes(imageRef, newMemorial.image);
-        imageUrl = await getDownloadURL(snapshot.ref);
+        if (API_MODE === 'backend') {
+          imageUrl = await uploadFile(newMemorial.image, "memorials");
+        } else {
+          const imageRef = ref(storage, `memorials/${Date.now()}_${newMemorial.image.name}`);
+          const snapshot = await uploadBytes(imageRef, newMemorial.image);
+          imageUrl = await getDownloadURL(snapshot.ref);
+        }
       }
 
-      await addDoc(collection(db, "memorials"), {
+      const memorialData = {
         ...newMemorial,
         image: imageUrl,
         status: 'pending', // Requires admin approval
-        createdAt: new Date(),
+        createdAt: new Date().toISOString(),
         tributes: [],
         candles: 0
-      });
+      };
+
+      if (API_MODE === 'backend') {
+        await createMemorial(memorialData);
+      } else {
+        await addDoc(collection(db, "memorials"), memorialData);
+      }
 
       toast.success("Memorial submitted successfully! It will be visible after admin approval.");
       setCreateModalOpen(false);
@@ -97,12 +121,22 @@ const BookOfLife = () => {
   }
 
   const handleLightCandle = async (person) => {
-    // Prevent spamming locally or implement more robust logic
-    const personRef = doc(db, "memorials", person.id);
-    await updateDoc(personRef, {
-      candles: (person.candles || 0) + 1
-    });
-    // Optimistic update for UI feel if needed, but onSnapshot handles it
+    const updatedCandles = (person.candles || 0) + 1;
+    // Optimistic update
+    setMemorials(prev => prev.map(m => m.id === person.id ? { ...m, candles: updatedCandles } : m));
+
+    try {
+      if (API_MODE === 'backend') {
+        await updateMemorial(person.id, { candles: updatedCandles });
+      } else {
+        const personRef = doc(db, "memorials", person.id);
+        await updateDoc(personRef, {
+          candles: updatedCandles
+        });
+      }
+    } catch (error) {
+      console.error("Error lighting candle:", error);
+    }
   }
 
   const handleSubmitTribute = async (e) => {
@@ -110,16 +144,25 @@ const BookOfLife = () => {
     if (!tributeText || !tributeSigner) return;
 
     try {
-      const personRef = doc(db, "memorials", selectedPerson.id);
       const newTribute = {
         text: tributeText,
         signer: tributeSigner,
-        date: new Date()
+        date: new Date().toISOString()
       };
 
-      await updateDoc(personRef, {
-        tributes: arrayUnion(newTribute)
-      });
+      const updatedTributes = [...(activePerson.tributes || []), newTribute];
+
+      // Optimistic update
+      setMemorials(prev => prev.map(m => m.id === selectedPerson.id ? { ...m, tributes: updatedTributes } : m));
+
+      if (API_MODE === 'backend') {
+        await updateMemorial(selectedPerson.id, { tributes: updatedTributes });
+      } else {
+        const personRef = doc(db, "memorials", selectedPerson.id);
+        await updateDoc(personRef, {
+          tributes: arrayUnion(newTribute)
+        });
+      }
 
       setTributeText("");
       setTributeSigner("");

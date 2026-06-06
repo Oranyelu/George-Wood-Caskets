@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../firebase";
+import { API_MODE, createMessage } from "../utils/api";
 
 function Footer() {
   const [email, setEmail] = useState("");
@@ -12,12 +13,18 @@ function Footer() {
     e.preventDefault();
 
     try {
-      await addDoc(collection(db, "messages"), {
+      const messageData = {
         email,
         message,
         createdAt: new Date().toISOString(),
         status: 'unread'
-      });
+      };
+
+      if (API_MODE === 'backend') {
+        await createMessage(messageData);
+      } else {
+        await addDoc(collection(db, "messages"), messageData);
+      }
 
       setIsSubmitted(true);
       setEmail("");

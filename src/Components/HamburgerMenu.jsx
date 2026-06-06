@@ -2,15 +2,13 @@ import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { useAuth } from '../Providers/AuthProvider';
-import { signOut } from 'firebase/auth';
-import { auth } from '../firebase';
 import LanguageSwitcher from './LanguageSwitcher';
 import { useTheme } from '../Providers/ThemeContext';
 import { FaSun, FaMoon } from 'react-icons/fa';
 
 const HamburgerMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { user, isAdmin } = useAuth();
+  const { user, isAdmin, logout } = useAuth();
   const { theme, toggleTheme } = useTheme();
 
   const toggleMenu = () => {
@@ -73,7 +71,7 @@ const HamburgerMenu = () => {
               )}
               <button
                 onClick={() => {
-                  signOut(auth);
+                  logout();
                   toggleMenu();
                 }}
                 className="text-xl font-serif font-bold text-white hover:text-secondary transition-colors"

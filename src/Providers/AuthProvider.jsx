@@ -1,4 +1,3 @@
-
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
@@ -10,6 +9,7 @@ import {
 } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
+import { API_MODE, loginUser, signupUser, getCurrentUser, logoutUser } from '../utils/api';
 
 export const AuthContext = createContext();
 
@@ -22,24 +22,63 @@ const AuthProvider = ({ children }) => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const signup = (email, password) => {
+  const signup = async (email, password, additionalData = {}) => {
+    if (API_MODE === 'backend') {
+      const data = await signupUser(email, password, additionalData);
+      setUser(data.user);
+      setIsAdmin(data.user.role === 'admin');
+      return data;
+    }
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  const login = (email, password) => {
+  const login = async (email, password) => {
+    if (API_MODE === 'backend') {
+      const data = await loginUser(email, password);
+      setUser(data.user);
+      setIsAdmin(data.user.role === 'admin');
+      return data;
+    }
     return signInWithEmailAndPassword(auth, email, password);
   };
 
   const logout = () => {
+    if (API_MODE === 'backend') {
+      setUser(null);
+      setIsAdmin(false);
+      return logoutUser();
+    }
     return signOut(auth);
   };
 
   useEffect(() => {
+    if (API_MODE === 'backend') {
+      const initAuth = async () => {
+        try {
+          const data = await getCurrentUser();
+          if (data && data.user) {
+            setUser(data.user);
+            setIsAdmin(data.user.role === 'admin');
+          } else {
+            setUser(null);
+            setIsAdmin(false);
+          }
+        } catch (error) {
+          console.error("Error loading current user from backend:", error);
+          setUser(null);
+          setIsAdmin(false);
+        } finally {
+          setLoading(false);
+        }
+      };
+      initAuth();
+      return;
+    }
+
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       try {
         setUser(user);
         if (user) {
-          // Check Firestore for admin role
           const userDocRef = doc(db, "users", user.uid);
           console.log("Checking admin role for:", user.uid);
 
@@ -71,6 +110,7 @@ const AuthProvider = ({ children }) => {
 
     return unsubscribe;
   }, []);
+
 
   // Session Timeout Logic
   useEffect(() => {

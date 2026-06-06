@@ -17,6 +17,7 @@ const BookService = () => {
         email: '',
         phone: '',
         serviceName: initialServiceName,
+        location: '',
         date: '',
         message: ''
     });
@@ -102,6 +103,22 @@ const BookService = () => {
                                     className="w-full p-3 rounded bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#135B3A]"
                                     required
                                 />
+                            </div>
+
+                            <div>
+                                <label className="block text-[#011309] font-semibold mb-2">Event/Service Location</label>
+                                <input
+                                    type="text"
+                                    name="location"
+                                    value={formData.location}
+                                    onChange={handleChange}
+                                    placeholder="e.g. Enugu, Awka, Lagos"
+                                    className="w-full p-3 rounded bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#135B3A] mb-1"
+                                    required
+                                />
+                                <p className="text-xs text-[#135B3A] font-bold mb-4">
+                                    * Service pricing is calculated dynamically depending on the location of the event to cover travel and logistics costs.
+                                </p>
                             </div>
 
                             <div>

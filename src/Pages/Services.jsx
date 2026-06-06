@@ -61,10 +61,10 @@ const ServicesPage = () => {
                   <h2 className="text-lg font-bold mt-2 text-[#011309] mb-2">{service.name}</h2>
                   <p className="text-[#011309]/80 text-sm mb-4 line-clamp-3 flex-1 font-medium">{service.description}</p>
                   <div className="mt-auto">
-                    <p className="text-[#135B3A] font-extrabold text-lg mb-2">
-                      {service.price.toLocaleString()} NGN
-                    </p>
-                    <button className="w-full mt-1 bg-[#135B3A] text-white py-2 rounded hover:bg-[#0E462D] transition-colors font-bold shadow-md">
+                    <div className="inline-block px-3 py-1 text-xs font-bold bg-[#135B3A]/10 text-[#135B3A] rounded-full mb-3">
+                      Price on Request
+                    </div>
+                    <button className="w-full bg-[#135B3A] text-white py-2.5 rounded hover:bg-[#0E462D] transition-colors font-bold shadow-md">
                       Book Now
                     </button>
                   </div>

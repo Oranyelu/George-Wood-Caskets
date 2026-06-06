@@ -1,36 +1,35 @@
-import Mercedes from './serivices svgs/mercedes.svg'
+import Mercedes from './serivices svgs/mercedes.svg';
 import loweringDevice from './serivices svgs/loweringDevice.svg';
+import photographyService from './photography_service.png';
+import graphicsDesignService from './graphics_design_service.png';
 
-
-const Services={
+const Services = {
     servicesData: [
         {
           id: "Ambulance and Pall Bearing Service",
           name: "Ambulance and Pall Bearing Service",
           description: "Our Luxury SUV Ambulance for an Honorable Departure.",
-          price: 50000,
-          thumbnail: [Mercedes],
+          thumbnail: Mercedes,
         },
         {
           id: "Lowering Device",
           name: "Lowering Device",
           description: "Smooth and respectful lowering device rental for graveside services.",
-          price: 15000,
-          thumbnail: [loweringDevice],
+          thumbnail: loweringDevice,
         },
         {
           id: "Graphics Design and Printing Services",
           name: "Graphics Design and Printing Services",
           description: "Customized design and printing for obituaries, funeral programs, and more.",
-          price: 10000,
-          thumbnail: "/path-to-image/graphics-design.jpg",
+          thumbnail: graphicsDesignService,
+        },
+        {
+          id: "Photography and Video Coverage",
+          name: "Photography and Video Coverage",
+          description: "Professional photography and high-definition video coverage to document and preserve funeral service memories with dignity.",
+          thumbnail: photographyService,
         }
-    
-       ]
-  }
-  
+    ]
+};
+
 export default Services;
-  
-
-
-

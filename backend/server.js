@@ -255,29 +255,144 @@ app.post('/api/email/bond', async (req, res) => {
     }
 });
 
-// 6. Service Booking Emails (To Admin)
+// 6. Service Booking Emails (To Admin and Customer with location-based calculations)
 app.post('/api/email/booking', async (req, res) => {
     try {
-        const { name, email, phone, serviceName, date, message } = req.body;
+        const { name, email, phone, serviceName, location, date, message } = req.body;
 
-        const adminEmailBody = `
-        <div style="font-family: Arial, sans-serif; padding: 20px;">
-            <h2 style="color: #135b3a;">New Service Booking Request</h2>
-            <p><strong>Service:</strong> ${serviceName}</p>
-            <p><strong>Customer Name:</strong> ${name}</p>
-            <p><strong>Email:</strong> ${email}</p>
-            <p><strong>Phone:</strong> ${phone}</p>
-            <p><strong>Preferred Date:</strong> ${date}</p>
-            <hr />
-            <h3>Additional Details:</h3>
-            <p style="white-space: pre-wrap;">${message || 'No additional details.'}</p>
+        // Base price calculation map
+        const normalizedService = (serviceName || "").toLowerCase();
+        let basePrice = 20000; // default base price
+        let detectedService = "Custom Service";
+
+        if (normalizedService.includes("ambulance") || normalizedService.includes("pall")) {
+            basePrice = 50000;
+            detectedService = "Ambulance and Pall Bearing Service";
+        } else if (normalizedService.includes("lowering")) {
+            basePrice = 15000;
+            detectedService = "Lowering Device";
+        } else if (normalizedService.includes("graphics") || normalizedService.includes("print")) {
+            basePrice = 10000;
+            detectedService = "Graphics Design and Printing Services";
+        } else if (normalizedService.includes("photo") || normalizedService.includes("video") || normalizedService.includes("coverage")) {
+            basePrice = 40000;
+            detectedService = "Photography and Video Coverage";
+        }
+
+        // Location surcharge calculations
+        const normalizedLocation = (location || "").toLowerCase();
+        let travelSurcharge = 25000; // default travel surcharge outside Enugu
+        let surchargeReason = "Standard Travel Surcharge";
+
+        if (normalizedLocation.includes("enugu")) {
+            travelSurcharge = 0;
+            surchargeReason = "Local Enugu State (No Surcharge)";
+        } else if (normalizedLocation.includes("ebonyi") || normalizedLocation.includes("abakaliki")) {
+            travelSurcharge = 12000;
+            surchargeReason = "Ebonyi State Travel Surcharge";
+        } else if (normalizedLocation.includes("anambra") || normalizedLocation.includes("awka") || normalizedLocation.includes("onitsha")) {
+            travelSurcharge = 15000;
+            surchargeReason = "Anambra State Travel Surcharge";
+        } else if (normalizedLocation.includes("abia") || normalizedLocation.includes("umuahia") || normalizedLocation.includes("aba")) {
+            travelSurcharge = 18000;
+            surchargeReason = "Abia State Travel Surcharge";
+        } else if (normalizedLocation.includes("imo") || normalizedLocation.includes("owerri")) {
+            travelSurcharge = 20000;
+            surchargeReason = "Imo State Travel Surcharge";
+        } else if (normalizedLocation.includes("lagos")) {
+            travelSurcharge = 80000;
+            surchargeReason = "Lagos Logistics Surcharge";
+        } else if (normalizedLocation.includes("abuja")) {
+            travelSurcharge = 70000;
+            surchargeReason = "Abuja Logistics Surcharge";
+        } else if (normalizedLocation.includes("rivers") || normalizedLocation.includes("port harcourt")) {
+            travelSurcharge = 45000;
+            surchargeReason = "Rivers State Travel Surcharge";
+        }
+
+        const estimatedCost = basePrice + travelSurcharge;
+
+        // Customer Email Template
+        const customerEmailBody = `
+        <div style="font-family: Arial, sans-serif; color: #000; background-color: #fff; padding: 20px; max-width: 600px; margin: 0 auto;">
+            <header style="border: 2px solid #135b3a; border-radius: 10px; padding: 10px; text-align: center;">
+                <h2 style="color: #135b3a; margin: 0;">SERVICE BOOKING REQUEST</h2>
+                <h4 style="margin: 5px 0 0 0; color: #a37e2c;">Estimated Quote</h4>
+            </header>
+            <div style="background-color: #f0b52e; border-radius: 10px; padding: 15px; margin-top: 15px; color: #011309;">
+                <h3 style="margin-top: 0;">Hello ${name},</h3>
+                <p>Thank you for requesting our <strong>${detectedService}</strong>. We have received your booking details and computed a dynamic price estimate based on your service location.</p>
+            </div>
+            <div style="margin-top: 15px; border: 1px solid #ddd; padding: 15px; border-radius: 5px;">
+                <h3 style="color: #135b3a; margin-top: 0;">Pricing Details:</h3>
+                <table style="width: 100%; border-collapse: collapse;">
+                    <tr>
+                        <td style="padding: 8px 0; border-bottom: 1px solid #eee;"><strong>Base Service Fee:</strong></td>
+                        <td style="padding: 8px 0; border-bottom: 1px solid #eee; text-align: right;">${basePrice.toLocaleString()} NGN</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px 0; border-bottom: 1px solid #eee;"><strong>Travel & Logistics Surcharge:</strong><br/><span style="font-size: 0.8em; color: #666;">(${surchargeReason})</span></td>
+                        <td style="padding: 8px 0; border-bottom: 1px solid #eee; text-align: right;">${travelSurcharge.toLocaleString()} NGN</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px 0; font-size: 1.1em;"><strong>Estimated Total Cost:</strong></td>
+                        <td style="padding: 12px 0; font-size: 1.1em; font-weight: bold; text-align: right; color: #135b3a;">${estimatedCost.toLocaleString()} NGN</td>
+                    </tr>
+                </table>
+            </div>
+            <div style="margin-top: 15px; background-color: #f9f9f9; padding: 10px; border-left: 4px solid #135b3a; border-radius: 4px;">
+                <p style="margin: 0;"><strong>Event Details:</strong></p>
+                <p style="margin: 5px 0 0 0; font-size: 0.95em;">
+                    <strong>Location:</strong> ${location}<br/>
+                    <strong>Date:</strong> ${date || 'To be determined'}<br/>
+                    <strong>Phone Number:</strong> ${phone}
+                </p>
+            </div>
+            <p style="font-size: 0.95em; line-height: 1.5;">* Please note that this is an initial estimate. A representative from George Wood Caskets will contact you shortly at <strong>${phone}</strong> to finalize details, confirm schedule, and provide a final booking invoice.</p>
+            <p style="font-size: 0.9em; text-align: right;">Thank you for choosing George Wood Caskets!</p>
+            <footer style="background-color: #135b3a; color: #fff; padding: 15px; margin-top: 20px; text-align: center; border-radius: 5px;">
+                <p style="margin: 0; font-size: 0.9em;">Contact Us: <br />
+                    Call - 08143904414 | Email - georgewoodcasket@gmail.com
+                </p>
+            </footer>
         </div>
         `;
 
+        // Admin Email Template
+        const adminEmailBody = `
+        <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
+            <h2 style="color: #135b3a; border-bottom: 2px solid #135b3a; padding-bottom: 10px;">NEW SERVICE BOOKING REQUEST</h2>
+            <p><strong>Customer Name:</strong> ${name}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Phone:</strong> ${phone}</p>
+            <p><strong>Requested Service:</strong> ${detectedService} (User input: "${serviceName}")</p>
+            <p><strong>Location:</strong> ${location}</p>
+            <p><strong>Preferred Date:</strong> ${date || 'Not specified'}</p>
+            <hr style="border: none; border-top: 1px solid #ccc; margin: 20px 0;" />
+            <h3 style="color: #135b3a;">Calculated Surcharge & Estimate:</h3>
+            <p><strong>Base Service Price:</strong> ${basePrice.toLocaleString()} NGN</p>
+            <p><strong>Surcharge Details:</strong> ${surchargeReason}</p>
+            <p><strong>Travel Surcharge:</strong> ${travelSurcharge.toLocaleString()} NGN</p>
+            <p style="font-size: 1.2em; color: #135b3a;"><strong>Estimated Total Cost: ${estimatedCost.toLocaleString()} NGN</strong></p>
+            <hr style="border: none; border-top: 1px solid #ccc; margin: 20px 0;" />
+            <h3>Customer Message / Details:</h3>
+            <p style="white-space: pre-wrap; background-color: #f5f5f5; padding: 15px; border-radius: 4px;">${message || 'No additional details.'}</p>
+        </div>
+        `;
+
+        // Send Customer Email
+        await transporter.sendMail({
+            from: process.env.EMAIL_USER,
+            to: email,
+            subject: `Booking Request Confirmation - ${detectedService}`,
+            html: customerEmailBody
+        }).catch(err => console.error("Error mailing customer booking confirmation:", err));
+
+        // Send Admin Email
         await transporter.sendMail({
             from: process.env.EMAIL_USER,
             to: ADMIN_EMAIL,
-            subject: `Service Booking: ${serviceName} - ${name}`,
+            subject: `New Service Booking Alert: ${detectedService} - ${name}`,
             html: adminEmailBody
         });
 

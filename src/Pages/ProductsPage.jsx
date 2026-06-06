@@ -1,4 +1,4 @@
-import { useState, useContext, useMemo } from "react";
+import { useState, useContext, useMemo, useEffect } from "react";
 import { ProductContext } from "../Providers/ProductProvider";
 import ProductCard from "../Components/ProductCard";
 import { FaFilter } from "react-icons/fa";
@@ -10,8 +10,20 @@ const ProductsPage = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedLabel, setSelectedLabel] = useState("All");
   const [selectedMaterial, setSelectedMaterial] = useState("All");
-  const [priceRange, setPriceRange] = useState(1000000); // Max price
+
+  const maxProductPrice = useMemo(() => {
+    if (products.length === 0) return 3000000;
+    return Math.max(...products.map(p => p.price || 0), 3000000);
+  }, [products]);
+
+  const [priceRange, setPriceRange] = useState(3000000);
   const [showFilters, setShowFilters] = useState(false);
+
+  useEffect(() => {
+    if (products.length > 0) {
+      setPriceRange(Math.max(...products.map(p => p.price || 0)));
+    }
+  }, [products]);
 
   // Derive unique categories and materials
   const categories = ["All", ...new Set(products.map(p => p.category).filter(Boolean))];
@@ -106,8 +118,8 @@ const ProductsPage = () => {
               <input
                 type="range"
                 min="0"
-                max="1000000"
-                step="10000"
+                max={maxProductPrice}
+                step="50000"
                 value={priceRange}
                 onChange={(e) => setPriceRange(Number(e.target.value))}
                 className="w-full accent-primary"

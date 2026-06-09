@@ -33,15 +33,19 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen transition-colors duration-300 font-montserrat px-4">
-      <form onSubmit={handleSubmit} className="bg-[#F0B52E] p-8 rounded-lg shadow-lg w-full max-w-md border border-white/10">
-        <h2 className="text-2xl font-bold mb-6 text-center text-white">Welcome Back</h2>
-        {error && <p className="text-red-500 text-sm mb-4 text-center">{error}</p>}
+    <div className="flex justify-center items-center min-h-screen transition-colors duration-300 font-montserrat px-4 bg-brand-cream dark:bg-primary-dark">
+      <form onSubmit={handleSubmit} className="bg-brand-card dark:bg-brand-card-dark p-8 rounded-2xl shadow-xl w-full max-w-md border border-[#135B3A]/10 dark:border-white/5 transition-colors duration-300 mt-16">
+        <h2 className="text-3xl font-bold mb-6 text-center font-serif text-[#135B3A] dark:text-green-500">Welcome Back</h2>
+        {error && (
+          <div className="text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/20 py-2 px-4 rounded-lg text-sm mb-4 text-center border border-red-100 dark:border-red-900/30">
+            {error}
+          </div>
+        )}
         <div className="mb-4">
-          <label className="block text-white mb-2 font-medium">Email Address</label>
+          <label className="block text-sm font-semibold mb-2 text-brand-black/80 dark:text-gray-300">Email Address</label>
           <input
             type="email"
-            className="w-full p-3 border border-white/30 rounded bg-white/90 text-black focus:outline-none focus:ring-2 focus:ring-white"
+            className="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-brand-white dark:bg-[#1a2e23]/30 text-brand-black dark:text-brand-white focus:outline-none focus:ring-2 focus:ring-[#135B3A] dark:focus:ring-green-600 focus:border-transparent text-sm transition-all"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -49,11 +53,11 @@ const LoginPage = () => {
           />
         </div>
         <div className="mb-6 relative">
-          <label className="block text-white mb-2 font-medium">Password</label>
+          <label className="block text-sm font-semibold mb-2 text-brand-black/80 dark:text-gray-300">Password</label>
           <div className="relative">
             <input
               type={showPassword ? "text" : "password"}
-              className="w-full p-3 pr-10 border border-white/30 rounded bg-white/90 text-black focus:outline-none focus:ring-2 focus:ring-white"
+              className="w-full p-3 pr-10 rounded-xl border border-gray-300 dark:border-gray-700 bg-brand-white dark:bg-[#1a2e23]/30 text-brand-black dark:text-brand-white focus:outline-none focus:ring-2 focus:ring-[#135B3A] dark:focus:ring-green-600 focus:border-transparent text-sm transition-all"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -61,18 +65,18 @@ const LoginPage = () => {
             />
             <button
               type="button"
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 transition-colors"
               onClick={() => setShowPassword(!showPassword)}
             >
-              {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
+              {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
             </button>
           </div>
         </div>
-        <button type="submit" className="w-full bg-[#135B3A] text-white p-3 rounded font-bold hover:bg-[#0f462c] transition-colors shadow-md border border-white/20">
+        <button type="submit" className="w-full bg-[#135B3A] hover:bg-[#0E462D] dark:bg-green-700 dark:hover:bg-green-800 text-white font-bold py-3.5 px-4 rounded-xl transition-all shadow-md text-sm uppercase tracking-wider">
           Login
         </button>
-        <p className="mt-6 text-center text-white/90">
-          Don&apos;t have an account? <Link to="/signup" className="text-white hover:underline font-bold">Sign up</Link>
+        <p className="mt-6 text-center text-sm text-brand-black/80 dark:text-gray-300">
+          Don&apos;t have an account? <Link to="/signup" className="text-[#135B3A] dark:text-green-400 hover:underline font-bold pl-1">Sign up</Link>
         </p>
       </form>
     </div>

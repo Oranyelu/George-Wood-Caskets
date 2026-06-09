@@ -99,6 +99,7 @@ export default function App() {
             <Route path="terms" element={<Navigate to="/terms-and-conditions" replace />} />
             <Route path="privacy" element={<Navigate to="/privacy-policy" replace />} />
             <Route path="giving" element={<Navigate to="/charity" replace />} />
+            <Route path="tracking" element={<Navigate to="/track-order" replace />} />
 
             <Route path="*" element={<NotFoundPage />} />
           </Route>

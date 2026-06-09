@@ -47,9 +47,10 @@ function HeroSection() {
       },
       { threshold: 0.5 } // Trigger when 50% visible
     );
-    if (logoRef.current) observer.observe(logoRef.current);
+    const currentLogo = logoRef.current;
+    if (currentLogo) observer.observe(currentLogo);
     return () => {
-      if (logoRef.current) observer.unobserve(logoRef.current);
+      if (currentLogo) observer.unobserve(currentLogo);
     };
   }, []);
 

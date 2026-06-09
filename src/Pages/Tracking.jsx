@@ -2,6 +2,8 @@ import { useState } from "react";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { FaBoxOpen, FaShippingFast, FaCheckCircle, FaClipboardList } from "react-icons/fa";
+import ScrollReveal from "../Components/ScrollReveal";
+import toast from 'react-hot-toast';
 
 const OrderTracking = () => {
   const [orderId, setOrderId] = useState("");
@@ -17,17 +19,20 @@ const OrderTracking = () => {
     setOrder(null);
 
     try {
-      const docRef = doc(db, "orders", orderId);
+      const docRef = doc(db, "orders", orderId.trim());
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
         setOrder({ id: docSnap.id, ...docSnap.data() });
+        toast.success("Order retrieved successfully!");
       } else {
         setError("Order not found. Please check the ID and try again.");
+        toast.error("Order not found.");
       }
     } catch (err) {
       console.error("Error tracking order:", err);
       setError(`Failed to track order: ${err.message}`);
+      toast.error("Error retrieving order.");
     } finally {
       setLoading(false);
     }
@@ -42,10 +47,10 @@ const OrderTracking = () => {
         expediteRequested: true
       });
       setOrder(prev => ({ ...prev, expediteRequested: true }));
-      alert("Expedite request sent! We will prioritize your order.");
+      toast.success("Expedite request sent! We will prioritize your order.");
     } catch (err) {
       console.error("Error requesting expedite:", err);
-      alert("Failed to send request. Please try again.");
+      toast.error("Failed to send request. Please try again.");
     } finally {
       setExpediteLoading(false);
     }
@@ -64,33 +69,39 @@ const OrderTracking = () => {
   const currentStep = getStatusStep(order?.status);
 
   return (
-    <div className="min-h-screen flex flex-col font-montserrat p-5 pb-20 transition-colors duration-300">
-      <section className="mt-[120px] max-w-3xl mx-auto bg-[#F0B52E] p-8 rounded-lg shadow-md w-full border border-white/10 transition-colors">
-        <h1 className="text-2xl font-bold mb-5 text-center text-white">Track Your Order</h1>
-        <form onSubmit={handleTrackOrder} className="flex flex-col gap-4 mb-8">
-          <input
-            type="text"
-            value={orderId}
-            onChange={(e) => setOrderId(e.target.value)}
-            placeholder="Enter your Order ID"
-            className="p-3 border border-white/30 rounded-lg bg-white/90 text-black focus:outline-none focus:ring-2 focus:ring-white"
-            required
-          />
-          <button
-            type="submit"
-            className="bg-[#135B3A] text-white w-full h-[56px] rounded-[5px] disabled:bg-gray-400 font-bold hover:bg-[#0e462d] transition-colors shadow-md"
-            disabled={loading}
-          >
-            {loading ? 'Tracking...' : 'Track Order'}
-          </button>
-        </form>
+    <div className="min-h-screen flex flex-col font-montserrat p-5 pb-20 bg-brand-cream dark:bg-primary-dark transition-colors duration-300">
+      <section className="mt-[120px] max-w-3xl mx-auto bg-brand-card dark:bg-brand-card-dark p-8 rounded-2xl shadow-xl w-full border border-[#135B3A]/10 dark:border-white/5 transition-all duration-300">
+        <ScrollReveal>
+          <h1 className="text-3xl font-serif font-bold mb-6 text-center text-[#135B3A] dark:text-green-500">Track Your Order</h1>
+          <form onSubmit={handleTrackOrder} className="flex flex-col gap-4 mb-8">
+            <input
+              type="text"
+              value={orderId}
+              onChange={(e) => setOrderId(e.target.value)}
+              placeholder="Enter your Order ID"
+              className="w-full p-3.5 rounded-xl border border-gray-300 dark:border-gray-700 bg-brand-white dark:bg-[#1a2e23]/30 text-brand-black dark:text-brand-white focus:outline-none focus:ring-2 focus:ring-[#135B3A] dark:focus:ring-green-600 focus:border-transparent text-sm transition-all"
+              required
+            />
+            <button
+              type="submit"
+              className="bg-[#135B3A] hover:bg-[#0E462D] text-white w-full h-[56px] rounded-xl disabled:bg-gray-400 font-bold transition-all shadow-md uppercase tracking-wider text-sm"
+              disabled={loading}
+            >
+              {loading ? 'Tracking...' : 'Track Order'}
+            </button>
+          </form>
 
-        {error && <p className="text-red-500 mt-4 text-center">{error}</p>}
+          {error && (
+            <div className="text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/20 py-2 px-4 rounded-xl text-sm mb-4 text-center border border-red-100 dark:border-red-900/30">
+              {error}
+            </div>
+          )}
+        </ScrollReveal>
 
         {order && (
-          <div className="animate-fade-in">
+          <div className="animate-fade-in mt-6">
             {/* Status Progress Bar */}
-            <div className="mb-10">
+            <ScrollReveal className="mb-12">
               <div className="flex justify-between mb-2 relative">
                 {/* Progress Line */}
                 <div className="absolute top-1/2 left-0 w-full h-1 bg-gray-200 dark:bg-gray-700 -z-10 transform -translate-y-1/2"></div>
@@ -103,105 +114,114 @@ const OrderTracking = () => {
                   const stepNum = index + 1;
                   const isActive = currentStep >= stepNum;
                   return (
-                    <div key={step} className="flex flex-col items-center bg-white dark:bg-gray-800 px-2 transition-colors">
-                      <div className={`w-8 h-8 rounded-full flex items-center justify-center border-2 ${isActive ? 'bg-[#135B3A] border-[#135B3A] dark:bg-green-600 dark:border-green-600 text-white' : 'bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-300 dark:text-gray-500'}`}>
-                        {isActive ? <FaCheckCircle /> : stepNum}
+                    <div key={step} className="flex flex-col items-center bg-brand-card dark:bg-brand-card-dark px-2 transition-colors">
+                      <div className={`w-9 h-9 rounded-full flex items-center justify-center border-2 transition-all ${
+                        isActive 
+                          ? 'bg-[#135B3A] border-[#135B3A] dark:bg-green-600 dark:border-green-600 text-white' 
+                          : 'bg-brand-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 text-gray-400 dark:text-gray-500'
+                      }`}>
+                        {isActive ? <FaCheckCircle size={14} /> : <span className="text-xs font-bold">{stepNum}</span>}
                       </div>
-                      <span className={`text-xs mt-1 ${isActive ? 'font-bold text-[#135B3A] dark:text-green-500' : 'text-gray-400 dark:text-gray-500'}`}>{step}</span>
+                      <span className={`text-xs mt-1.5 ${isActive ? 'font-bold text-[#135B3A] dark:text-green-500' : 'text-gray-400 dark:text-gray-500'}`}>{step}</span>
                     </div>
                   );
                 })}
               </div>
-            </div>
+            </ScrollReveal>
 
             {/* Animated Illustration Area */}
-            <div className="flex flex-col items-center justify-center py-8 bg-gray-50 dark:bg-gray-700/30 rounded-lg mb-8 transition-colors">
+            <ScrollReveal className="flex flex-col items-center justify-center py-8 bg-brand-white dark:bg-gray-800/50 rounded-2xl mb-8 border border-[#135B3A]/5 dark:border-white/5 transition-all">
               {order.status === 'pending' && (
-                <div className="text-center">
-                  <FaClipboardList className="text-6xl text-gray-400 dark:text-gray-500 mb-4 mx-auto animate-pulse" />
-                  <p className="text-lg font-medium text-gray-600 dark:text-gray-300">Order Received</p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">We have received your order and are reviewing it.</p>
+                <div className="text-center px-4">
+                  <FaClipboardList className="text-5xl text-[#A37E2C] mb-4 mx-auto animate-pulse" />
+                  <p className="text-lg font-serif font-bold text-[#135B3A] dark:text-green-400">Order Received</p>
+                  <p className="text-sm text-brand-black/70 dark:text-gray-400 mt-1 font-light">We have received your order details and are currently preparing it.</p>
                 </div>
               )}
               {order.status === 'processing' && (
-                <div className="text-center">
-                  <FaBoxOpen className="text-6xl text-[#e4c88a] mb-4 mx-auto animate-bounce" />
-                  <p className="text-lg font-medium text-[#135B3A] dark:text-green-400">Packing Your Order</p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Your items are being carefully prepared.</p>
+                <div className="text-center px-4">
+                  <FaBoxOpen className="text-5xl text-[#A37E2C] mb-4 mx-auto animate-bounce" />
+                  <p className="text-lg font-serif font-bold text-[#135B3A] dark:text-green-400">Preparing & Crafting</p>
+                  <p className="text-sm text-brand-black/70 dark:text-gray-400 mt-1 font-light">Our artisans are preparing your order items with exceptional care.</p>
                 </div>
               )}
               {order.status === 'shipped' && (
-                <div className="text-center">
-                  <FaShippingFast className="text-6xl text-[#135B3A] dark:text-green-500 mb-4 mx-auto animate-pulse" />
-                  <p className="text-lg font-medium text-[#135B3A] dark:text-green-400">On The Way</p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Your package is in transit to your destination.</p>
+                <div className="text-center px-4">
+                  <FaShippingFast className="text-5xl text-[#135B3A] dark:text-green-500 mb-4 mx-auto animate-pulse" />
+                  <p className="text-lg font-serif font-bold text-[#135B3A] dark:text-green-400">In Transit</p>
+                  <p className="text-sm text-brand-black/70 dark:text-gray-400 mt-1 font-light">Your order is on its way to the delivery address.</p>
                 </div>
               )}
               {order.status === 'delivered' && (
-                <div className="text-center">
-                  <FaCheckCircle className="text-6xl text-green-600 dark:text-green-400 mb-4 mx-auto" />
-                  <p className="text-lg font-medium text-green-600 dark:text-green-400">Delivered</p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Package has been delivered successfully.</p>
+                <div className="text-center px-4">
+                  <FaCheckCircle className="text-5xl text-green-600 dark:text-green-400 mb-4 mx-auto" />
+                  <p className="text-lg font-serif font-bold text-green-600 dark:text-green-400">Delivered</p>
+                  <p className="text-sm text-brand-black/70 dark:text-gray-400 mt-1 font-light">The order package has been successfully delivered. Thank you.</p>
                 </div>
               )}
               {order.status === 'cancelled' && (
-                <div className="text-center">
-                  <p className="text-lg font-medium text-red-600 dark:text-red-400">Order Cancelled</p>
+                <div className="text-center px-4">
+                  <p className="text-lg font-serif font-bold text-red-600 dark:text-red-400">Order Cancelled</p>
+                  <p className="text-sm text-brand-black/70 dark:text-gray-400 mt-1 font-light">This order has been cancelled. Please contact customer support.</p>
                 </div>
               )}
-            </div>
+            </ScrollReveal>
 
-            <div className="p-6 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 transition-colors">
-              <div className="flex justify-between items-start mb-6">
-                <h2 className="text-xl font-bold text-gray-900 dark:text-white">Order Details</h2>
+            <ScrollReveal className="p-6 border border-[#135B3A]/10 dark:border-white/5 rounded-2xl bg-brand-white dark:bg-gray-800 transition-colors">
+              <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4 mb-6">
+                <h2 className="text-xl font-serif font-bold text-[#135B3A] dark:text-green-500">Order Details</h2>
                 {order.status !== 'delivered' && order.status !== 'cancelled' && (
                   <button
                     onClick={handleExpediteRequest}
                     disabled={order.expediteRequested || expediteLoading}
-                    className={`text-sm px-4 py-2 rounded border ${order.expediteRequested ? 'bg-gray-100 dark:bg-gray-700 text-gray-500 cursor-not-allowed' : 'border-[#135B3A] text-[#135B3A] hover:bg-[#135B3A] hover:text-white dark:border-green-500 dark:text-green-500 dark:hover:bg-green-600 dark:hover:text-white'}`}
+                    className={`text-xs px-4 py-2 rounded-xl border font-bold uppercase tracking-wider transition-all ${
+                      order.expediteRequested 
+                        ? 'bg-gray-100 dark:bg-gray-700/50 text-gray-400 dark:text-gray-500 border-gray-200 dark:border-gray-700 cursor-not-allowed' 
+                        : 'border-[#135B3A] text-[#135B3A] hover:bg-[#135B3A] hover:text-white dark:border-green-500 dark:text-green-500 dark:hover:bg-green-600 dark:hover:text-white'
+                    }`}
                   >
                     {order.expediteRequested ? 'Expedite Requested' : 'Request Expedited Shipping'}
                   </button>
                 )}
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 text-gray-800 dark:text-gray-200">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 text-brand-black dark:text-gray-200">
                 <div>
-                  <p className="text-gray-500 dark:text-gray-400 text-sm">Order ID</p>
-                  <p className="font-mono font-medium">{order.id}</p>
+                  <p className="text-gray-400 dark:text-gray-500 text-xs font-semibold uppercase tracking-wider">Order ID</p>
+                  <p className="font-mono font-bold mt-0.5">{order.id}</p>
                 </div>
                 <div>
-                  <p className="text-gray-500 dark:text-gray-400 text-sm">Date Placed</p>
-                  <p className="font-medium">{new Date(order.createdAt).toLocaleDateString()}</p>
+                  <p className="text-gray-400 dark:text-gray-500 text-xs font-semibold uppercase tracking-wider">Date Placed</p>
+                  <p className="font-semibold mt-0.5">{new Date(order.createdAt).toLocaleDateString()}</p>
                 </div>
                 <div>
-                  <p className="text-gray-500 dark:text-gray-400 text-sm">Total Amount</p>
-                  <p className="font-medium text-lg">{order.totalPrice?.toLocaleString()} NGN</p>
+                  <p className="text-gray-400 dark:text-gray-500 text-xs font-semibold uppercase tracking-wider">Total Amount</p>
+                  <p className="font-bold text-[#135B3A] dark:text-green-400 mt-0.5">{order.totalPrice?.toLocaleString()} NGN</p>
                 </div>
                 <div>
-                  <p className="text-gray-500 dark:text-gray-400 text-sm">Current Status</p>
-                  <p className="font-bold text-[#135B3A] dark:text-green-500 capitalize">{order.status}</p>
+                  <p className="text-gray-400 dark:text-gray-500 text-xs font-semibold uppercase tracking-wider">Current Status</p>
+                  <p className="font-bold text-[#135B3A] dark:text-green-500 capitalize mt-0.5">{order.status}</p>
                 </div>
               </div>
 
-              <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
-                <h3 className="font-bold mb-3 text-gray-900 dark:text-white">Items in Order</h3>
+              <div className="border-t border-[#135B3A]/10 dark:border-white/5 pt-4">
+                <h3 className="font-serif font-bold mb-4 text-[#135B3A] dark:text-green-500">Items in Order</h3>
                 <ul className="space-y-3">
                   {order.items?.map((item, index) => (
-                    <li key={index} className="flex justify-between items-center bg-gray-50 dark:bg-gray-700 p-3 rounded text-gray-800 dark:text-gray-200 transition-colors">
+                    <li key={index} className="flex justify-between items-center bg-brand-cream/50 dark:bg-gray-700/50 p-3.5 rounded-xl text-brand-black dark:text-gray-200 transition-colors border border-gray-150 dark:border-transparent">
                       <div className="flex items-center gap-3">
-                        {item.thumbnail && <img src={item.thumbnail} alt={item.name} className="w-10 h-10 object-cover rounded" />}
+                        {item.thumbnail && <img src={item.thumbnail} alt={item.name} className="w-10 h-10 object-cover rounded-lg shadow-sm" />}
                         <div>
-                          <p className="font-medium">{item.name}</p>
-                          <p className="text-xs text-gray-500 dark:text-gray-400">Qty: {item.qty}</p>
+                          <p className="font-medium text-sm">{item.name}</p>
+                          <p className="text-xs text-gray-400 dark:text-gray-500">Qty: {item.qty}</p>
                         </div>
                       </div>
-                      <span className="font-medium">{item.price?.toLocaleString()} NGN</span>
+                      <span className="font-semibold text-sm">{item.price?.toLocaleString()} NGN</span>
                     </li>
                   ))}
                 </ul>
               </div>
-            </div>
+            </ScrollReveal>
           </div>
         )}
       </section>

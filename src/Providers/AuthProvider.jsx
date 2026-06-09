@@ -7,7 +7,7 @@ import {
   onAuthStateChanged,
   signOut
 } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
 import { API_MODE, loginUser, signupUser, getCurrentUser, logoutUser } from '../utils/api';
 
@@ -29,7 +29,18 @@ const AuthProvider = ({ children }) => {
       setIsAdmin(data.user.role === 'admin');
       return data;
     }
-    return createUserWithEmailAndPassword(auth, email, password);
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    try {
+      await setDoc(doc(db, "users", userCredential.user.uid), {
+        email,
+        role: "user",
+        createdAt: new Date().toISOString(),
+        ...additionalData
+      });
+    } catch (dbError) {
+      console.error("Error creating user document in Firestore during signup:", dbError);
+    }
+    return userCredential;
   };
 
   const login = async (email, password) => {

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { FiChevronRight } from "react-icons/fi"; // right-pointing arrow
 import { sendOrderEmail } from "../utils/api";
 import toast from 'react-hot-toast';
+import ScrollReveal from "../Components/ScrollReveal";
 
 const Checkout = () => {
   const { cart, removeFromCart, getTotalPrice, checkout } = useContext(ProductContext);
@@ -76,7 +77,7 @@ const Checkout = () => {
 
     } catch (error) {
       console.error("Error placing order:", error);
-      alert(`There was an error placing your order: ${error.message}`);
+      toast.error(`There was an error placing your order: ${error.message}`);
     } finally {
       setIsSubmitting(false);
     }
@@ -84,8 +85,8 @@ const Checkout = () => {
 
   const onClose = () => {
     setIsSubmitting(false);
-    alert("Payment cancelled.");
-  }
+    toast.error("Payment cancelled.");
+  };
 
   const initializePayment = usePaystackPayment(config);
 
@@ -93,7 +94,7 @@ const Checkout = () => {
     if (isSubmitting) return;
 
     if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone || !formData.address || !formData.city || !formData.state) {
-      alert("Please fill in all required fields.");
+      toast.error("Please fill in all required fields.");
       return;
     }
 
@@ -133,7 +134,7 @@ const Checkout = () => {
 
       } catch (error) {
         console.error("Error placing order:", error);
-        alert(`There was an error placing your order: ${error.message}`);
+        toast.error(`There was an error placing your order: ${error.message}`);
       } finally {
         setIsSubmitting(false);
       }
@@ -141,279 +142,287 @@ const Checkout = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col font-montserrat pt-24 pb-12 transition-colors duration-300">
+    <div className="min-h-screen flex flex-col font-montserrat pt-24 pb-12 bg-brand-cream dark:bg-primary-dark transition-colors duration-300">
       <div className="max-w-[1300px] mx-auto w-full px-4 md:px-8">
 
         {/* Breadcrumb */}
-        <nav className="flex items-center text-[#135B3A] dark:text-green-500 gap-2 mb-8 text-sm md:text-base">
-          <Link to="/">Home</Link>
-          <FiChevronRight className="inline" />
-          <Link to="/products">Products</Link>
-          <FiChevronRight className="inline" />
-          <Link to="/cart">Shopping Cart</Link>
-          <FiChevronRight className="inline" />
-          <span className="text-[#e4c88a] font-bold">Checkout</span>
-        </nav>
+        <ScrollReveal>
+          <nav className="flex items-center text-[#135B3A] dark:text-green-500 gap-2 mb-8 text-sm md:text-base">
+            <Link to="/" className="hover:underline">Home</Link>
+            <FiChevronRight className="inline" />
+            <Link to="/products" className="hover:underline">Products</Link>
+            <FiChevronRight className="inline" />
+            <Link to="/cart" className="hover:underline">Shopping Cart</Link>
+            <FiChevronRight className="inline" />
+            <span className="text-[#A37E2C] font-bold">Checkout</span>
+          </nav>
+        </ScrollReveal>
 
         <section className="flex flex-col lg:flex-row gap-8">
           {!orderSuccess ? (
             <>
               {/* Order Items */}
-              <main className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm flex-1 border border-gray-100 dark:border-gray-700">
-                <h1 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Review your Order</h1>
-                <div className="bg-[#135B3A] text-white flex justify-between py-3 px-4 rounded-t-md mb-4 hidden md:flex">
-                  <p className="w-1/2">Item</p>
-                  <p className="w-1/2 text-right">Price</p>
-                </div>
-                <ul className="space-y-4">
-                  {cart.map((item, index) => (
-                    <li key={index} className="flex justify-between items-center border-b border-gray-200 dark:border-gray-700 pb-4 last:border-0 last:pb-0">
-                      <div className="flex items-center">
-                        <img
-                          src={item.thumbnail}
-                          alt={item.name}
-                          className="w-12 h-12 mr-4 object-cover rounded"
-                        />
-                        <div>
-                          <p className="font-medium text-gray-900 dark:text-white">{item.name}</p>
+              <main className="bg-brand-card dark:bg-brand-card-dark p-6 rounded-2xl shadow-md flex-grow flex-1 border border-[#135B3A]/10 dark:border-white/5 transition-colors duration-300">
+                <ScrollReveal>
+                  <h1 className="text-2xl font-serif font-bold mb-6 text-[#135B3A] dark:text-green-500">Review your Order</h1>
+                  <div className="bg-[#135B3A] text-white flex justify-between py-3.5 px-6 rounded-xl mb-4 hidden md:flex font-semibold text-sm">
+                    <p className="w-1/2">Item</p>
+                    <p className="w-1/2 text-right">Price</p>
+                  </div>
+                  <ul className="space-y-4">
+                    {cart.map((item, index) => (
+                      <li key={index} className="flex justify-between items-center border-b border-[#135B3A]/10 dark:border-white/5 pb-4 last:border-0 last:pb-0">
+                        <div className="flex items-center">
+                          <img
+                            src={item.thumbnail}
+                            alt={item.name}
+                            className="w-12 h-12 mr-4 object-cover rounded-xl shadow-sm border border-gray-200/50 dark:border-gray-700/50"
+                          />
+                          <div>
+                            <p className="font-medium text-brand-black dark:text-brand-white">{item.name}</p>
+                          </div>
                         </div>
-                      </div>
-                      <div className="flex items-center gap-4">
-                        <p className="font-medium text-gray-900 dark:text-gray-200">{item.price.toLocaleString()} NGN</p>
-                        <button
-                          onClick={() => removeFromCart(item)}
-                          className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 px-2 py-1 rounded"
-                        >
-                          Remove
-                        </button>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
+                        <div className="flex items-center gap-4">
+                          <p className="font-semibold text-brand-black/90 dark:text-gray-200">{item.price.toLocaleString()} NGN</p>
+                          <button
+                            onClick={() => removeFromCart(item)}
+                            className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 px-2.5 py-1 rounded-xl transition-colors font-medium text-sm"
+                          >
+                            Remove
+                          </button>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
 
-                <div className="mt-8 space-y-2 text-gray-700 dark:text-gray-300">
-                  <div className="flex justify-between text-lg">
-                    <p>Subtotal:</p>
-                    <p>{totalPrice.toLocaleString()} NGN</p>
+                  <div className="mt-8 space-y-3 text-brand-black/90 dark:text-gray-300 text-sm">
+                    <div className="flex justify-between text-base">
+                      <p>Subtotal:</p>
+                      <p className="font-semibold">{totalPrice.toLocaleString()} NGN</p>
+                    </div>
+                    <div className="flex justify-between text-base">
+                      <p>VAT (8%):</p>
+                      <p className="font-semibold">{(totalPrice * 0.08).toLocaleString()} NGN</p>
+                    </div>
+                    <div className="flex justify-between mt-4 pt-4 border-t border-[#135B3A]/10 dark:border-white/5 text-lg font-bold text-brand-black dark:text-brand-white">
+                      <p>Total Price:</p>
+                      <p className="text-[#135B3A] dark:text-green-400">{(totalPrice * 1.08).toLocaleString()} NGN</p>
+                    </div>
                   </div>
-                  <div className="flex justify-between text-lg">
-                    <p>VAT (8%):</p>
-                    <p>{(totalPrice * 0.08).toLocaleString()} NGN</p>
-                  </div>
-                  <div className="flex justify-between mt-4 pt-4 border-t border-gray-200 dark:border-gray-700 text-xl font-bold text-gray-900 dark:text-white">
-                    <p>Total Price:</p>
-                    <p>{(totalPrice * 1.08).toLocaleString()} NGN</p>
-                  </div>
-                </div>
+                </ScrollReveal>
               </main>
 
               {/* Checkout Form */}
-              <aside className="lg:w-1/3 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm h-fit border border-gray-100 dark:border-gray-700">
-                <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Shipping Details</h2>
-                <form className="flex flex-col gap-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="flex flex-col gap-1">
-                      <label className="text-sm font-medium text-gray-700 dark:text-gray-300">First Name</label>
-                      <input
-                        type="text"
-                        name="firstName"
-                        value={formData.firstName}
-                        onChange={handleInputChange}
-                        className="p-3 border border-gray-300 dark:border-gray-600 rounded bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#135B3A] dark:focus:ring-green-500"
-                        required
-                      />
-                    </div>
-                    <div className="flex flex-col gap-1">
-                      <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Last Name</label>
-                      <input
-                        type="text"
-                        name="lastName"
-                        value={formData.lastName}
-                        onChange={handleInputChange}
-                        className="p-3 border border-gray-300 dark:border-gray-600 rounded bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#135B3A] dark:focus:ring-green-500"
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col gap-1">
-                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Email Address</label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      className="p-3 border border-gray-300 dark:border-gray-600 rounded bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#135B3A] dark:focus:ring-green-500"
-                      required
-                    />
-                  </div>
-
-                  <div className="flex flex-col gap-1">
-                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Phone Number</label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      className="p-3 border border-gray-300 dark:border-gray-600 rounded bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#135B3A] dark:focus:ring-green-500"
-                      required
-                    />
-                  </div>
-
-                  {/* Delivery Address Section */}
-                  <div className="flex flex-col gap-1">
-                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Delivery Address</label>
-                    <input
-                      type="text"
-                      name="address"
-                      placeholder="Street Address"
-                      value={formData.address || ''}
-                      onChange={handleInputChange}
-                      className="p-3 border border-gray-300 dark:border-gray-600 rounded bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#135B3A] dark:focus:ring-green-500"
-                      required
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="flex flex-col gap-1">
-                      <label className="text-sm font-medium text-gray-700 dark:text-gray-300">City</label>
-                      <input
-                        type="text"
-                        name="city"
-                        placeholder="City"
-                        value={formData.city || ''}
-                        onChange={handleInputChange}
-                        className="p-3 border border-gray-300 dark:border-gray-600 rounded bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#135B3A] dark:focus:ring-green-500"
-                        required
-                      />
-                    </div>
-                    <div className="flex flex-col gap-1">
-                      <label className="text-sm font-medium text-gray-700 dark:text-gray-300">State</label>
-                      <input
-                        type="text"
-                        name="state"
-                        placeholder="State"
-                        value={formData.state || ''}
-                        onChange={handleInputChange}
-                        className="p-3 border border-gray-300 dark:border-gray-600 rounded bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#135B3A] dark:focus:ring-green-500"
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col gap-1">
-                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300">How did you hear about Us <span className="text-gray-400 font-normal">(Optional)</span></label>
-                    <input
-                      type="text"
-                      name="referredBy"
-                      value={formData.referredBy}
-                      onChange={handleInputChange}
-                      className="p-3 border border-gray-300 dark:border-gray-600 rounded bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#135B3A] dark:focus:ring-green-500"
-                    />
-                  </div>
-
-                  {/* Payment Method Selector */}
-                  <div className="flex flex-col gap-2 mt-4">
-                    <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">Select Payment Method</label>
-                    <div className="grid grid-cols-1 gap-2">
-                      <label className={`flex items-center gap-3 p-3 border rounded-lg cursor-pointer transition-colors ${paymentMethod === 'paystack' ? 'border-[#135B3A] bg-green-50/5' : 'border-gray-200 dark:border-gray-700'}`}>
+              <aside className="lg:w-1/3 bg-brand-card dark:bg-brand-card-dark p-6 rounded-2xl shadow-md h-fit border border-[#135B3A]/10 dark:border-white/5 transition-colors duration-300">
+                <ScrollReveal>
+                  <h2 className="text-2xl font-serif font-bold mb-6 text-[#135B3A] dark:text-green-500">Shipping Details</h2>
+                  <form className="flex flex-col gap-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="flex flex-col gap-1">
+                        <label className="text-xs font-semibold text-brand-black/85 dark:text-gray-300">First Name</label>
                         <input
-                          type="radio"
-                          name="paymentMethod"
-                          value="paystack"
-                          checked={paymentMethod === 'paystack'}
-                          onChange={() => setPaymentMethod('paystack')}
-                          className="accent-[#135B3A]"
+                          type="text"
+                          name="firstName"
+                          value={formData.firstName}
+                          onChange={handleInputChange}
+                          className="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-brand-white dark:bg-[#1a2e23]/30 text-brand-black dark:text-brand-white focus:outline-none focus:ring-2 focus:ring-[#135B3A] dark:focus:ring-green-600 focus:border-transparent text-sm transition-all"
+                          required
                         />
-                        <div>
-                          <p className="font-bold text-gray-900 dark:text-white">Pay Online (Paystack)</p>
-                          <p className="text-xs text-gray-500">Pay securely with card, bank transfer, or USSD.</p>
-                        </div>
-                      </label>
-
-                      <label className={`flex items-center gap-3 p-3 border rounded-lg cursor-pointer transition-colors ${paymentMethod === 'bank_transfer' ? 'border-[#135B3A] bg-green-50/5' : 'border-gray-200 dark:border-gray-700'}`}>
+                      </div>
+                      <div className="flex flex-col gap-1">
+                        <label className="text-xs font-semibold text-brand-black/85 dark:text-gray-300">Last Name</label>
                         <input
-                          type="radio"
-                          name="paymentMethod"
-                          value="bank_transfer"
-                          checked={paymentMethod === 'bank_transfer'}
-                          onChange={() => setPaymentMethod('bank_transfer')}
-                          className="accent-[#135B3A]"
+                          type="text"
+                          name="lastName"
+                          value={formData.lastName}
+                          onChange={handleInputChange}
+                          className="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-brand-white dark:bg-[#1a2e23]/30 text-brand-black dark:text-brand-white focus:outline-none focus:ring-2 focus:ring-[#135B3A] dark:focus:ring-green-600 focus:border-transparent text-sm transition-all"
+                          required
                         />
-                        <div>
-                          <p className="font-bold text-gray-900 dark:text-white">Bank Transfer / Cash Deposit</p>
-                          <p className="text-xs text-gray-500">Transfer directly to our corporate bank account.</p>
-                        </div>
-                      </label>
+                      </div>
+                    </div>
 
-                      <label className={`flex items-center gap-3 p-3 border rounded-lg cursor-pointer transition-colors ${paymentMethod === 'call_to_order' ? 'border-[#135B3A] bg-green-50/5' : 'border-gray-200 dark:border-gray-700'}`}>
+                    <div className="flex flex-col gap-1">
+                      <label className="text-xs font-semibold text-brand-black/85 dark:text-gray-300">Email Address</label>
+                      <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        className="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-brand-white dark:bg-[#1a2e23]/30 text-brand-black dark:text-brand-white focus:outline-none focus:ring-2 focus:ring-[#135B3A] dark:focus:ring-green-600 focus:border-transparent text-sm transition-all"
+                        required
+                      />
+                    </div>
+
+                    <div className="flex flex-col gap-1">
+                      <label className="text-xs font-semibold text-brand-black/85 dark:text-gray-300">Phone Number</label>
+                      <input
+                        type="tel"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                        className="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-brand-white dark:bg-[#1a2e23]/30 text-brand-black dark:text-brand-white focus:outline-none focus:ring-2 focus:ring-[#135B3A] dark:focus:ring-green-600 focus:border-transparent text-sm transition-all"
+                        required
+                      />
+                    </div>
+
+                    {/* Delivery Address Section */}
+                    <div className="flex flex-col gap-1">
+                      <label className="text-xs font-semibold text-brand-black/85 dark:text-gray-300">Delivery Address</label>
+                      <input
+                        type="text"
+                        name="address"
+                        placeholder="Street Address"
+                        value={formData.address || ''}
+                        onChange={handleInputChange}
+                        className="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-brand-white dark:bg-[#1a2e23]/30 text-brand-black dark:text-brand-white focus:outline-none focus:ring-2 focus:ring-[#135B3A] dark:focus:ring-green-600 focus:border-transparent text-sm transition-all"
+                        required
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="flex flex-col gap-1">
+                        <label className="text-xs font-semibold text-brand-black/85 dark:text-gray-300">City</label>
                         <input
-                          type="radio"
-                          name="paymentMethod"
-                          value="call_to_order"
-                          checked={paymentMethod === 'call_to_order'}
-                          onChange={() => setPaymentMethod('call_to_order')}
-                          className="accent-[#135B3A]"
+                          type="text"
+                          name="city"
+                          placeholder="City"
+                          value={formData.city || ''}
+                          onChange={handleInputChange}
+                          className="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-brand-white dark:bg-[#1a2e23]/30 text-brand-black dark:text-brand-white focus:outline-none focus:ring-2 focus:ring-[#135B3A] dark:focus:ring-green-600 focus:border-transparent text-sm transition-all"
+                          required
                         />
-                        <div>
-                          <p className="font-bold text-gray-900 dark:text-white">Request a Call to Order</p>
-                          <p className="text-xs text-gray-500">We will call you on your phone number to finalize your order.</p>
-                        </div>
-                      </label>
+                      </div>
+                      <div className="flex flex-col gap-1">
+                        <label className="text-xs font-semibold text-brand-black/85 dark:text-gray-300">State</label>
+                        <input
+                          type="text"
+                          name="state"
+                          placeholder="State"
+                          value={formData.state || ''}
+                          onChange={handleInputChange}
+                          className="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-brand-white dark:bg-[#1a2e23]/30 text-brand-black dark:text-brand-white focus:outline-none focus:ring-2 focus:ring-[#135B3A] dark:focus:ring-green-600 focus:border-transparent text-sm transition-all"
+                          required
+                        />
+                      </div>
                     </div>
-                  </div>
 
-                  {paymentMethod === 'bank_transfer' && (
-                    <div className="mt-4 p-4 bg-yellow-500/10 border border-[#A37E2C]/50 rounded-lg text-sm text-gray-700 dark:text-gray-300">
-                      <p className="font-bold mb-2 text-[#A37E2C]">Corporate Bank Account Details:</p>
-                      <p><strong>Account Name:</strong> George Wood Casket</p>
-                      <p><strong>Account Number:</strong> 8143904414</p>
-                      <p><strong>Bank:</strong> Moniepoint Microfinance Bank</p>
-                      <p className="text-xs text-gray-500 mt-2">* Please send proof of payment to our support team.</p>
+                    <div className="flex flex-col gap-1">
+                      <label className="text-xs font-semibold text-brand-black/85 dark:text-gray-300">How did you hear about Us <span className="text-gray-400 font-normal">(Optional)</span></label>
+                      <input
+                        type="text"
+                        name="referredBy"
+                        value={formData.referredBy}
+                        onChange={handleInputChange}
+                        className="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-brand-white dark:bg-[#1a2e23]/30 text-brand-black dark:text-brand-white focus:outline-none focus:ring-2 focus:ring-[#135B3A] dark:focus:ring-green-600 focus:border-transparent text-sm transition-all"
+                      />
                     </div>
-                  )}
 
-                  {cart.length > 0 && (
-                    <button
-                      type="button"
-                      onClick={handleCompleteOrder}
-                      className="bg-[#135B3A] text-white w-full h-[56px] rounded-lg mt-4 text-lg font-bold hover:bg-[#0e422b] transition-colors shadow-lg disabled:bg-gray-400 dark:disabled:bg-gray-600"
-                      disabled={isSubmitting}
-                    >
-                      {isSubmitting
-                        ? 'Placing Order...'
-                        : paymentMethod === 'paystack'
-                          ? 'Pay with Paystack'
-                          : paymentMethod === 'bank_transfer'
-                            ? 'Complete Order (Bank Transfer)'
-                            : 'Request Call to Order'}
-                    </button>
-                  )}
-                  <p className="text-xs text-center text-gray-500 dark:text-gray-400 mt-2">
-                    Your checkout process is safe and secure.
-                  </p>
+                    {/* Payment Method Selector */}
+                    <div className="flex flex-col gap-2 mt-4">
+                      <label className="text-xs font-bold text-brand-black/85 dark:text-gray-300 uppercase tracking-wider">Select Payment Method</label>
+                      <div className="grid grid-cols-1 gap-2">
+                        <label className={`flex items-center gap-3 p-3 border rounded-xl cursor-pointer transition-colors ${paymentMethod === 'paystack' ? 'border-[#135B3A] bg-[#135B3A]/5' : 'border-[#135B3A]/10 dark:border-gray-700'}`}>
+                          <input
+                            type="radio"
+                            name="paymentMethod"
+                            value="paystack"
+                            checked={paymentMethod === 'paystack'}
+                            onChange={() => setPaymentMethod('paystack')}
+                            className="accent-[#135B3A]"
+                          />
+                          <div>
+                            <p className="font-bold text-[#135B3A] dark:text-green-500 text-sm">Pay Online (Paystack)</p>
+                            <p className="text-xs text-brand-black/60 dark:text-gray-400 font-light">Pay securely with card, bank transfer, or USSD.</p>
+                          </div>
+                        </label>
 
-                </form>
+                        <label className={`flex items-center gap-3 p-3 border rounded-xl cursor-pointer transition-colors ${paymentMethod === 'bank_transfer' ? 'border-[#135B3A] bg-[#135B3A]/5' : 'border-[#135B3A]/10 dark:border-gray-700'}`}>
+                          <input
+                            type="radio"
+                            name="paymentMethod"
+                            value="bank_transfer"
+                            checked={paymentMethod === 'bank_transfer'}
+                            onChange={() => setPaymentMethod('bank_transfer')}
+                            className="accent-[#135B3A]"
+                          />
+                          <div>
+                            <p className="font-bold text-[#135B3A] dark:text-green-500 text-sm">Bank Transfer / Cash Deposit</p>
+                            <p className="text-xs text-brand-black/60 dark:text-gray-400 font-light">Transfer directly to our corporate bank account.</p>
+                          </div>
+                        </label>
+
+                        <label className={`flex items-center gap-3 p-3 border rounded-xl cursor-pointer transition-colors ${paymentMethod === 'call_to_order' ? 'border-[#135B3A] bg-[#135B3A]/5' : 'border-[#135B3A]/10 dark:border-gray-700'}`}>
+                          <input
+                            type="radio"
+                            name="paymentMethod"
+                            value="call_to_order"
+                            checked={paymentMethod === 'call_to_order'}
+                            onChange={() => setPaymentMethod('call_to_order')}
+                            className="accent-[#135B3A]"
+                          />
+                          <div>
+                            <p className="font-bold text-[#135B3A] dark:text-green-500 text-sm">Request a Call to Order</p>
+                            <p className="text-xs text-brand-black/60 dark:text-gray-400 font-light">We will call you on your phone number to finalize your order.</p>
+                          </div>
+                        </label>
+                      </div>
+                    </div>
+
+                    {paymentMethod === 'bank_transfer' && (
+                      <div className="mt-4 p-4 bg-amber-500/10 border border-[#A37E2C]/30 rounded-xl text-sm text-brand-black/90 dark:text-gray-300">
+                        <p className="font-bold mb-2 text-[#A37E2C]">Corporate Bank Account Details:</p>
+                        <p><strong>Account Name:</strong> George Wood Casket</p>
+                        <p><strong>Account Number:</strong> 8143904414</p>
+                        <p><strong>Bank:</strong> Moniepoint Microfinance Bank</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">* Please send proof of payment to our support team.</p>
+                      </div>
+                    )}
+
+                    {cart.length > 0 && (
+                      <button
+                        type="button"
+                        onClick={handleCompleteOrder}
+                        className="bg-[#135B3A] hover:bg-[#0E462D] text-white w-full h-[56px] rounded-xl mt-4 text-sm font-bold transition-all shadow-md uppercase tracking-wider disabled:opacity-50"
+                        disabled={isSubmitting}
+                      >
+                        {isSubmitting
+                          ? 'Placing Order...'
+                          : paymentMethod === 'paystack'
+                            ? 'Pay with Paystack'
+                            : paymentMethod === 'bank_transfer'
+                              ? 'Complete Order (Bank Transfer)'
+                              : 'Request Call to Order'}
+                      </button>
+                    )}
+                    <p className="text-xs text-center text-gray-400 dark:text-gray-500 mt-2 font-light">
+                      Your checkout process is safe and secure.
+                    </p>
+
+                  </form>
+                </ScrollReveal>
               </aside>
             </>
           ) : (
-            <div className="w-full bg-white dark:bg-gray-800 p-10 rounded-lg shadow-sm text-center border border-gray-100 dark:border-gray-700">
-              <div className="w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-4xl">🎉</span>
-              </div>
-              <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Order Placed Successfully!</h2>
-              <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-md inline-block mb-6">
-                <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">Your Tracking ID</p>
-                <p className="text-2xl font-mono font-bold text-[#135B3A] dark:text-green-400">{trackingId}</p>
-              </div>
-              <p className="text-gray-600 dark:text-gray-300 max-w-lg mx-auto">
-                Thank you for choosing George Wood Caskets. We have sent a confirmation email to <strong>{formData.email}</strong> with your order details.
-              </p>
-              <Link to="/tracking">
-                <button className="mt-8 bg-[#135B3A] text-white px-8 py-3 rounded-lg font-bold hover:bg-[#0e422b] transition-colors">
-                  Track Your Order
-                </button>
-              </Link>
+            <div className="w-full bg-brand-card dark:bg-brand-card-dark p-10 rounded-2xl shadow-xl text-center border border-[#135B3A]/10 dark:border-white/5 transition-colors duration-300">
+              <ScrollReveal>
+                <div className="w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <span className="text-4xl">🎉</span>
+                </div>
+                <h2 className="text-3xl font-serif font-bold mb-4 text-[#135B3A] dark:text-green-500">Order Placed Successfully!</h2>
+                <div className="bg-brand-white dark:bg-gray-800 p-4 rounded-xl inline-block mb-6 border border-gray-200/50 dark:border-gray-700/50">
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Your Tracking ID</p>
+                  <p className="text-2xl font-mono font-bold text-[#135B3A] dark:text-green-400">{trackingId}</p>
+                </div>
+                <p className="text-brand-black/80 dark:text-gray-300 max-w-lg mx-auto leading-relaxed font-light">
+                  Thank you for choosing George Wood Caskets. We have sent a confirmation email to <strong>{formData.email}</strong> with your order details.
+                </p>
+                <Link to="/track-order">
+                  <button className="mt-8 bg-[#135B3A] hover:bg-[#0E462D] text-white px-8 py-3.5 rounded-xl font-bold transition-all shadow-md text-sm uppercase tracking-wider">
+                    Track Your Order
+                  </button>
+                </Link>
+              </ScrollReveal>
             </div>
           )}
         </section>

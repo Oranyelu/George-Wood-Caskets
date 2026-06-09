@@ -1,5 +1,5 @@
 import { Suspense, lazy, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { Layout } from "./Layout";
 import PrivateRoute from "./Components/PrivateRoute";
 import FloatingContact from "./Components/FloatingContact";
@@ -87,6 +87,19 @@ export default function App() {
             <Route path="signup" element={<SignupPage />} />
             <Route path="bonds" element={<Bonds />} />
             <Route path="charity" element={<Charity />} />
+
+            {/* Legacy SEO and Sitemap redirection routes */}
+            <Route path="accessibility" element={<Navigate to="/info/accessibility" replace />} />
+            <Route path="cookies" element={<Navigate to="/info/cookies" replace />} />
+            <Route path="help" element={<Navigate to="/info/help" replace />} />
+            <Route path="report" element={<Navigate to="/info/report" replace />} />
+            <Route path="safety" element={<Navigate to="/info/safety" replace />} />
+            <Route path="hiring" element={<Navigate to="/info/hiring" replace />} />
+            <Route path="get-involved" element={<Navigate to="/info/get-involved" replace />} />
+            <Route path="terms" element={<Navigate to="/terms-and-conditions" replace />} />
+            <Route path="privacy" element={<Navigate to="/privacy-policy" replace />} />
+            <Route path="giving" element={<Navigate to="/charity" replace />} />
+
             <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>

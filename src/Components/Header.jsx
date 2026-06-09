@@ -117,7 +117,7 @@ export default function Header() {
                 { name: t("products"), path: "/products" },
                 { name: t("services"), path: "/services" },
                 { name: t("about_us"), path: "/about-us" },
-                { name: t("giving"), path: "/giving" },
+                { name: t("giving"), path: "/charity" },
                 { name: t("track_order"), path: "/track-order" },
                 { name: t("xclusive"), path: "/xclusive" },
                 { name: t("bonds"), path: "/bonds" },
@@ -126,7 +126,7 @@ export default function Header() {
                   key={path}
                   to={path}
                   className={({ isActive }) =>
-                    `relative hover:text-[#F0B52E] transition-colors ${isActive ? "text-[#F0B52E]" : ""}`
+                    `relative hover:text-[#C29E2E] transition-colors ${isActive ? "text-[#C29E2E]" : ""}`
                   }
                 >
                   {name}
@@ -146,7 +146,7 @@ export default function Header() {
                 ${isExpanded ? "max-w-[50px] opacity-100" : "max-w-0 opacity-0"}
               `}
             >
-              <NavLink to="/cart" className="flex items-center hover:text-[#F0B52E] transition-colors">
+              <NavLink to="/cart" className="flex items-center hover:text-[#C29E2E] transition-colors">
                 <BsBag size={22} />
                 {cartItemCount > 0 && (
                   <span className="absolute -top-1 -right-1 bg-red-500 text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center">
@@ -168,7 +168,7 @@ export default function Header() {
                 <>
                   <button
                     onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                    className="flex items-center hover:text-[#F0B52E] focus:outline-none"
+                    className="flex items-center hover:text-[#C29E2E] focus:outline-none"
                     aria-label="User Menu"
                     aria-expanded={isUserMenuOpen}
                   >

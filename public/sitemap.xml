@@ -14,7 +14,7 @@
 </url>
 
 <url>
-  <loc>https://georgewoodcasket.com/accessibility</loc>
+  <loc>https://georgewoodcasket.com/info/accessibility</loc>
   <changefreq>monthly</changefreq>
   <priority>0.7</priority>
 </url>
@@ -26,7 +26,7 @@
 </url>
 
 <url>
-  <loc>https://georgewoodcasket.com/cookies</loc>
+  <loc>https://georgewoodcasket.com/info/cookies</loc>
   <changefreq>yearly</changefreq>
   <priority>0.5</priority>
 </url>
@@ -38,31 +38,31 @@
 </url>
 
 <url>
-  <loc>https://georgewoodcasket.com/get-involved</loc>
+  <loc>https://georgewoodcasket.com/info/get-involved</loc>
   <changefreq>monthly</changefreq>
   <priority>0.7</priority>
 </url>
 
 <url>
-  <loc>https://georgewoodcasket.com/help</loc>
+  <loc>https://georgewoodcasket.com/info/help</loc>
   <changefreq>monthly</changefreq>
   <priority>0.8</priority>
 </url>
 
 <url>
-  <loc>https://georgewoodcasket.com/privacy</loc>
+  <loc>https://georgewoodcasket.com/privacy-policy</loc>
   <changefreq>yearly</changefreq>
   <priority>0.6</priority>
 </url>
 
 <url>
-  <loc>https://georgewoodcasket.com/report</loc>
+  <loc>https://georgewoodcasket.com/info/report</loc>
   <changefreq>monthly</changefreq>
   <priority>0.5</priority>
 </url>
 
 <url>
-  <loc>https://georgewoodcasket.com/safety</loc>
+  <loc>https://georgewoodcasket.com/info/safety</loc>
   <changefreq>yearly</changefreq>
   <priority>0.6</priority>
 </url>
@@ -74,7 +74,7 @@
 </url>
 
 <url>
-  <loc>https://georgewoodcasket.com/terms</loc>
+  <loc>https://georgewoodcasket.com/terms-and-conditions</loc>
   <changefreq>yearly</changefreq>
   <priority>0.6</priority>
 </url>
@@ -86,7 +86,7 @@
 </url>
 
 <url>
-  <loc>https://georgewoodcasket.com/hiring</loc>
+  <loc>https://georgewoodcasket.com/info/hiring</loc>
   <changefreq>monthly</changefreq>
   <priority>0.7</priority>
 </url>
@@ -117,7 +117,7 @@
 </url>
 
 <url>
-  <loc>https://georgewoodcasket.com/giving</loc>
+  <loc>https://georgewoodcasket.com/charity</loc>
   <changefreq>monthly</changefreq>
   <priority>0.7</priority>
 </url>

@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
+import ScrollReveal from '../Components/ScrollReveal';
 
 const Charity = () => {
     const { t } = useTranslation();
@@ -26,36 +27,42 @@ const Charity = () => {
             </Helmet>
 
             <div className="container mx-auto px-4 max-w-[1300px]">
-                <div className="text-center mb-12">
-                    <h1 className="text-4xl md:text-5xl font-bold text-[#135B3A] dark:text-green-500 mb-4">{t('charity')}</h1>
-                    <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                <ScrollReveal className="text-center mb-12">
+                    <h1 className="text-4xl md:text-5xl font-serif font-bold text-[#135B3A] dark:text-green-500 mb-4">{t('charity')}</h1>
+                    <p className="text-lg text-brand-black/80 dark:text-gray-300 max-w-2xl mx-auto font-light">
                         We believe in giving back to the community that has supported us for generations. Join us in our mission to make a difference.
                     </p>
-                </div>
+                </ScrollReveal>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                    <div className="bg-[#F0B52E] p-6 rounded-lg shadow-md border border-white/10 transition-colors">
-                        <div className="h-48 bg-white/20 mb-4 rounded flex items-center justify-center text-white/50 text-sm">Image Placeholder</div>
-                        <h3 className="text-xl font-bold text-white mb-2">Community Support</h3>
-                        <p className="text-white/80">Providing assistance to families in need during difficult times.</p>
+                <ScrollReveal className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                    <div className="bg-brand-card dark:bg-brand-card-dark p-8 rounded-2xl shadow-md border border-[#135B3A]/10 dark:border-white/5 text-brand-black dark:text-brand-white transition-colors">
+                        <div className="h-40 bg-[#135B3A]/5 dark:bg-white/5 mb-6 rounded-2xl flex items-center justify-center text-4xl">
+                            🤝
+                        </div>
+                        <h3 className="text-xl font-serif font-bold mb-3 text-primary dark:text-green-400">Community Support</h3>
+                        <p className="text-brand-black/80 dark:text-gray-300 text-sm leading-relaxed">Providing physical, emotional, and financial assistance to families in need during difficult moments.</p>
                     </div>
-                    <div className="bg-[#F0B52E] p-6 rounded-lg shadow-md border border-white/10 transition-colors">
-                        <div className="h-48 bg-white/20 mb-4 rounded flex items-center justify-center text-white/50 text-sm">Image Placeholder</div>
-                        <h3 className="text-xl font-bold text-white mb-2">Education Initiative</h3>
-                        <p className="text-white/80">Scholarships and training programs for local youth.</p>
+                    <div className="bg-brand-card dark:bg-brand-card-dark p-8 rounded-2xl shadow-md border border-[#135B3A]/10 dark:border-white/5 text-brand-black dark:text-brand-white transition-colors">
+                        <div className="h-40 bg-[#135B3A]/5 dark:bg-white/5 mb-6 rounded-2xl flex items-center justify-center text-4xl">
+                            📚
+                        </div>
+                        <h3 className="text-xl font-serif font-bold mb-3 text-primary dark:text-green-400">Education Initiative</h3>
+                        <p className="text-brand-black/80 dark:text-gray-300 text-sm leading-relaxed">Offering scholarships, vocational training, and mentorship programs for local youth to shape future leaders.</p>
                     </div>
-                    <div className="bg-[#F0B52E] p-6 rounded-lg shadow-md border border-white/10 transition-colors">
-                        <div className="h-48 bg-white/20 mb-4 rounded flex items-center justify-center text-white/50 text-sm">Image Placeholder</div>
-                        <h3 className="text-xl font-bold text-white mb-2">Heritage Preservation</h3>
-                        <p className="text-white/80">Projects dedicated to maintaining our cultural history and traditions.</p>
+                    <div className="bg-brand-card dark:bg-brand-card-dark p-8 rounded-2xl shadow-md border border-[#135B3A]/10 dark:border-white/5 text-brand-black dark:text-brand-white transition-colors">
+                        <div className="h-40 bg-[#135B3A]/5 dark:bg-white/5 mb-6 rounded-2xl flex items-center justify-center text-4xl">
+                            🏛️
+                        </div>
+                        <h3 className="text-xl font-serif font-bold mb-3 text-primary dark:text-green-400">Heritage Preservation</h3>
+                        <p className="text-brand-black/80 dark:text-gray-300 text-sm leading-relaxed">Sponsoring civic projects dedicated to preserving our rich cultural history, landmarks, and traditions.</p>
                     </div>
-                </div>
+                </ScrollReveal>
 
-                <div className="text-center mt-12">
-                    <button className="bg-[#D4AF37] text-white text-xl font-bold px-8 py-3 rounded hover:bg-[#b5952f] transition-colors shadow-lg">
+                <ScrollReveal className="text-center mt-12">
+                    <button className="bg-[#135B3A] dark:bg-green-700 hover:bg-[#0E462D] dark:hover:bg-green-800 text-white text-lg font-bold px-8 py-3.5 rounded-xl transition-colors shadow-lg">
                         Donate Now
                     </button>
-                </div>
+                </ScrollReveal>
             </div>
         </div>
     );

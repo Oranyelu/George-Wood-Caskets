@@ -1,6 +1,7 @@
 import { Outlet, useLocation } from "react-router-dom";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
+import CookieConsent from "../Components/CookieConsent";
 
 export default function Layout() {
   const location = useLocation();
@@ -13,7 +14,9 @@ export default function Layout() {
         <Outlet /> {/* This renders child routes */}
       </main>
       <Footer />
+      <CookieConsent />
     </div>
   );
 }
+
 

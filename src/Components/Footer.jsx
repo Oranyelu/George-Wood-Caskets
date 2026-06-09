@@ -41,119 +41,104 @@ function Footer() {
   return (
     <div className="bg-transparent">
       <hr className="border-t-2 border-gray-300 dark:border-white/10" />
-      <footer className="flex justify-evenly pt-5 flex-wrap p-6 bg-[#135B3A] text-white transition-colors duration-300">
-        <div className="flex flex-col sm:flex-row sm:justify-evenly text-left w-full">
-          {/* Company Info Section */}
-          <nav className="flex flex-col mb-6 md:mb-4">
-            <h2 className="font-bold text-lg mb-2 text-secondary">
-              Company Info
+      <footer className="pt-12 pb-8 px-6 md:px-12 bg-[#135B3A] text-white transition-colors duration-300">
+        <div className="max-w-[1300px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 text-left">
+          {/* Company Legacy Section */}
+          <nav className="flex flex-col gap-3">
+            <h2 className="font-serif font-bold text-lg mb-2 text-[#D4AF37]">
+              Our Legacy
             </h2>
-            <Link to="/about-us" className="hover:text-secondary">
+            <Link to="/about-us" className="text-gray-200 hover:text-[#D4AF37] transition-colors text-sm">
               About Us
             </Link>
-            <Link to="/info/get-involved" className="hover:text-secondary">
-              Get Involved
-            </Link>
-            <Link to="/book-of-life" className="hover:text-secondary">
+            <Link to="/book-of-life" className="text-gray-200 hover:text-[#D4AF37] transition-colors text-sm">
               Book of Life
             </Link>
-            <Link to="/info/hiring" className="hover:text-secondary">
-              We are hiring
+            <Link to="/bonds" className="text-gray-200 hover:text-[#D4AF37] transition-colors text-sm">
+              The George Wood Bond
             </Link>
-            <Link to="/bonds" className="hover:text-secondary">
-              Bonds
+            <Link to="/charity" className="text-gray-200 hover:text-[#D4AF37] transition-colors text-sm">
+              Charity Foundation
+            </Link>
+          </nav>
+
+          {/* Services Section */}
+          <nav className="flex flex-col gap-3">
+            <h2 className="font-serif font-bold text-lg mb-2 text-[#D4AF37]">
+              Services
+            </h2>
+            <Link to="/products" className="text-gray-200 hover:text-[#D4AF37] transition-colors text-sm">
+              View Collection
+            </Link>
+            <Link to="/services" className="text-gray-200 hover:text-[#D4AF37] transition-colors text-sm">
+              Our Services
+            </Link>
+            <Link to="/track-order" className="text-gray-200 hover:text-[#D4AF37] transition-colors text-sm">
+              Track Order
+            </Link>
+            <Link to="/blog" className="text-gray-200 hover:text-[#D4AF37] transition-colors text-sm">
+              Articles & Updates
             </Link>
           </nav>
 
           {/* Legal Section */}
-          <nav className="flex flex-col mb-6 md:mb-4">
-            <h2 className="font-bold text-lg mb-2 text-secondary">Legal</h2>
-            <Link to="/terms-and-conditions" className="hover:text-secondary">
-              Terms and Conditions
+          <nav className="flex flex-col gap-3">
+            <h2 className="font-serif font-bold text-lg mb-2 text-[#D4AF37]">
+              Legal & Support
+            </h2>
+            <Link to="/terms-and-conditions" className="text-gray-200 hover:text-[#D4AF37] transition-colors text-sm">
+              Terms & Conditions
             </Link>
-            <Link to="/privacy-policy" className="hover:text-secondary">
+            <Link to="/privacy-policy" className="text-gray-200 hover:text-[#D4AF37] transition-colors text-sm">
               Privacy Policy
             </Link>
-            <Link to="/refund-policy" className="hover:text-secondary">
+            <Link to="/refund-policy" className="text-gray-200 hover:text-[#D4AF37] transition-colors text-sm">
               Refund Policy
             </Link>
-            <Link to="/info/cookies" className="hover:text-secondary">
+            <Link to="/info/cookies" className="text-gray-200 hover:text-[#D4AF37] transition-colors text-sm">
               Cookies Policy
             </Link>
-            <Link to="/info/accessibility" className="hover:text-secondary">
-              Accessibility
-            </Link>
-          </nav>
-
-          {/* Support Section */}
-          <nav className="flex flex-col mb-6 md:mb-4">
-            <h2 className="font-bold text-lg mb-2 text-secondary">Support</h2>
-            <Link to="/info/help" className="hover:text-secondary">
-              Help Center
-            </Link>
-            <Link to="/contacts" className="hover:text-secondary">
-              Contact Us
-            </Link>
-            <Link to="/info/safety" className="hover:text-secondary">
-              Safety Center
-            </Link>
-            <Link to="/info/report" className="hover:text-secondary">
-              Report an Issue
-            </Link>
-          </nav>
-
-          {/* Features Section */}
-          <nav className="flex flex-col mb-6 md:mb-4">
-            <h2 className="font-bold text-lg mb-2 text-secondary">Features</h2>
-            <Link to="/staff" className="hover:text-secondary">
-              Meet our Team
-            </Link>
-            <Link to="/track-order" className="hover:text-secondary">
-              Track Order
-            </Link>
-            <Link to="/blog" className="hover:text-secondary">
-              Articles
-            </Link>
-            <Link to="/events" className="hover:text-secondary">
-              Events
+            <Link to="/info/accessibility" className="text-gray-200 hover:text-[#D4AF37] transition-colors text-sm">
+              Accessibility Statement
             </Link>
           </nav>
 
           {/* Contact Form Section */}
           <form
-            className="flex flex-col mb-6 md:mb-4 max-w-xs w-full"
+            className="flex flex-col gap-3 max-w-xs w-full"
             onSubmit={handleSubmit}
           >
-            <h2 className="font-bold text-lg mb-2 text-secondary">Contact Us</h2>
+            <h2 className="font-serif font-bold text-lg mb-2 text-[#D4AF37]">Speak with Us</h2>
             <label htmlFor="contact-email" className="sr-only">Your Email</label>
             <input
               type="email"
               name="email"
               id="contact-email"
-              placeholder="Your Email"
+              placeholder="Your Email Address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="mb-2 p-2 rounded text-brand-black bg-white dark:bg-gray-800 dark:text-brand-white dark:border dark:border-gray-700/50 focus:outline-none focus:ring-2 focus:ring-secondary"
+              className="p-3 rounded-xl text-brand-black bg-white dark:bg-gray-800 dark:text-brand-white dark:border dark:border-gray-700/50 focus:outline-none focus:ring-2 focus:ring-[#8C6A1C] text-sm shadow-sm"
               required
             />
             <label htmlFor="contact-message" className="sr-only">Your Message</label>
             <textarea
               name="message"
               id="contact-message"
-              placeholder="Your Message"
+              placeholder="Your Message / Request"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              className="mb-2 p-2 rounded text-brand-black bg-white dark:bg-gray-800 dark:text-brand-white dark:border dark:border-gray-700/50 focus:outline-none focus:ring-2 focus:ring-secondary"
+              className="p-3 rounded-xl text-brand-black bg-white dark:bg-gray-800 dark:text-brand-white dark:border dark:border-gray-700/50 focus:outline-none focus:ring-2 focus:ring-[#8C6A1C] text-sm shadow-sm"
+              rows="3"
               required
             />
             <button
               type="submit"
-              className="bg-secondary dark:bg-secondary-bronze text-brand-white font-bold py-2 px-4 rounded hover:bg-yellow-600 dark:hover:bg-yellow-700 transition-colors"
+              className="bg-[#A37E2C] text-white font-bold py-3 rounded-xl hover:bg-amber-800 transition-colors shadow-md text-xs uppercase tracking-wider"
             >
-              Send
+              Send Message
             </button>
             {isSubmitted && (
-              <span className="text-green-300 mt-2">Message sent!</span>
+              <span className="text-green-300 text-xs text-center mt-1">Thank you! Message sent with care.</span>
             )}
           </form>
         </div>

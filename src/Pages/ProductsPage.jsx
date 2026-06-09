@@ -44,9 +44,27 @@ const ProductsPage = () => {
   return (
     <div className="pt-24 pb-12 min-h-screen transition-colors duration-300">
       <Helmet>
-        <title>Our Products | George Wood Caskets</title>
-        <meta name="description" content="Browse our premium selection of handcrafted caskets. Find the perfect final resting place for your loved ones." />
+        <title>Our Casket Collection | George Wood Caskets</title>
+        <meta name="description" content="Browse our premium selection of handcrafted solid wood and metal caskets. Designed with care and dignity to serve as a comforting final resting place." />
         <link rel="canonical" href="https://georgewoodcasket.com/products" />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            "name": "Our Casket Collection",
+            "description": "Premium handcrafted caskets by George Wood Casket.",
+            "url": "https://georgewoodcasket.com/products",
+            "mainEntity": {
+              "@type": "ItemList",
+              "itemListElement": products.map((p, idx) => ({
+                "@type": "ListItem",
+                "position": idx + 1,
+                "url": `https://georgewoodcasket.com/product/${p.id}`,
+                "name": p.name
+              }))
+            }
+          })}
+        </script>
       </Helmet>
       <div className="max-w-[1300px] mx-auto px-4 md:px-8">
         <h1 className="text-4xl font-serif font-bold text-center text-primary dark:text-green-500 mb-8">Our Collection</h1>
@@ -54,15 +72,15 @@ const ProductsPage = () => {
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Mobile Filter Toggle */}
           <button
-            className="lg:hidden flex items-center gap-2 bg-primary text-white px-4 py-2 rounded"
+            className="lg:hidden flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-xl"
             onClick={() => setShowFilters(!showFilters)}
           >
             <FaFilter /> Filters
           </button>
 
           {/* Sidebar Filters */}
-          <aside className={`lg:w-1/4 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm h-fit ${showFilters ? 'block' : 'hidden lg:block'}`}>
-            <h2 className="text-xl font-bold mb-4 text-primary dark:text-green-400">Filters</h2>
+          <aside className={`lg:w-1/4 bg-brand-card dark:bg-brand-card-dark p-6 rounded-2xl border border-[#135B3A]/10 dark:border-white/5 shadow-sm h-fit ${showFilters ? 'block' : 'hidden lg:block'}`}>
+            <h2 className="text-xl font-serif font-bold mb-4 text-primary dark:text-green-400">Filters</h2>
 
             {/* Search */}
             <div className="mb-6">
@@ -70,7 +88,7 @@ const ProductsPage = () => {
               <input
                 type="text"
                 placeholder="Search products..."
-                className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
@@ -80,7 +98,7 @@ const ProductsPage = () => {
             <div className="mb-6">
               <label className="block text-sm font-bold mb-2 text-gray-700 dark:text-gray-300">Category (Model)</label>
               <select
-                className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary"
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
               >
@@ -92,7 +110,7 @@ const ProductsPage = () => {
             <div className="mb-6">
               <label className="block text-sm font-bold mb-2 text-gray-700 dark:text-gray-300">Label (Tier)</label>
               <select
-                className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary"
                 value={selectedLabel}
                 onChange={(e) => setSelectedLabel(e.target.value)}
               >
@@ -104,7 +122,7 @@ const ProductsPage = () => {
             <div className="mb-6">
               <label className="block text-sm font-bold mb-2 text-gray-700 dark:text-gray-300">Material</label>
               <select
-                className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary"
                 value={selectedMaterial}
                 onChange={(e) => setSelectedMaterial(e.target.value)}
               >
@@ -122,7 +140,7 @@ const ProductsPage = () => {
                 step="50000"
                 value={priceRange}
                 onChange={(e) => setPriceRange(Number(e.target.value))}
-                className="w-full accent-primary"
+                className="w-full accent-primary mt-2"
               />
             </div>
           </aside>
@@ -143,7 +161,7 @@ const ProductsPage = () => {
                     <button
                       onClick={() => fetchProducts(true)}
                       disabled={loading}
-                      className="bg-[#A37E2C] text-white px-6 py-2 rounded hover:bg-[#8e6e26] transition-colors disabled:opacity-50"
+                      className="bg-[#135B3A] hover:bg-[#0E462D] text-white px-8 py-3 rounded-xl transition-all shadow-md font-bold disabled:opacity-50"
                     >
                       {loading ? 'Loading...' : 'Load More'}
                     </button>

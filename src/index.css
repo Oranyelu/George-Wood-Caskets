@@ -4,11 +4,14 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-brand-cream: #F9F9F7;
-  --color-brand-black: #011309;
-  --color-brand-white: #FFFFFF;
-  --color-primary-dark: #011309;
-  --color-secondary-bronze: #A37E2C;
+  --color-brand-cream: #FAF7F0; /* Soft warm cream background */
+  --color-brand-black: #16221B; /* Comforting dark slate green-black */
+  --color-brand-white: #FDFBF7; /* Soothing warm white */
+  --color-primary-dark: #06100B; /* Cozy forest dark background */
+  --color-secondary-bronze: #8C6A1C; /* Softer bronze accent */
+  --color-secondary-gold: #C29E2E; /* Softer gold highlight */
+  --color-brand-card: #FAF2E2; /* Gentle warm light card background */
+  --color-brand-card-dark: #0E261A; /* Cozy dark forest card background */
 }
 
 @layer base {

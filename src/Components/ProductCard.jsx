@@ -29,11 +29,11 @@ const ProductCard = ({ product }) => {
     const mainImage = product.thumbnail || product.image || (product.images && product.images.length > 0 ? product.images[0] : null) || "https://placehold.co/600x400?text=No+Image";
 
     return (
-        <div className="bg-[#F0B52E] p-4 rounded-lg shadow-lg flex flex-col transition-transform hover:scale-105 duration-300 relative group">
+        <div className="bg-brand-card dark:bg-brand-card-dark p-5 rounded-2xl shadow-md border border-[#135B3A]/10 dark:border-white/5 flex flex-col transition-all duration-300 hover:scale-102 hover:shadow-xl relative group">
             {/* Favorite Button */}
             <button
                 onClick={handleToggleFavorite}
-                className={`absolute top-2 right-2 p-2 rounded-full transition-colors z-10 ${isFavorite(product.id) ? 'text-[#135B3A]' : 'text-[#011309]/20 hover:text-[#135B3A]'}`}
+                className={`absolute top-3 right-3 p-2 rounded-full transition-colors z-10 ${isFavorite(product.id) ? 'text-secondary-gold dark:text-yellow-400' : 'text-brand-black/20 dark:text-brand-white/20 hover:text-[#135B3A] dark:hover:text-green-400'}`}
                 title={isFavorite(product.id) ? "Remove from Favorites" : "Add to Favorites"}
             >
                 <FaStar className="w-6 h-6 drop-shadow-sm" />
@@ -41,40 +41,40 @@ const ProductCard = ({ product }) => {
 
             {/* Label */}
             {product.label && (
-                <span className="absolute top-2 left-2 bg-black/50 text-white text-xs font-bold px-2 py-1 rounded backdrop-blur-sm z-10">
+                <span className="absolute top-3 left-3 bg-[#135B3A]/90 text-white text-xs font-bold px-2.5 py-1 rounded-full backdrop-blur-sm z-10 shadow-sm">
                     {product.label}
                 </span>
             )}
 
             <Link
                 to={`/product/${product.id}`}
-                className="overflow-hidden rounded-md"
+                className="overflow-hidden rounded-xl bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800"
             >
                 <img
                     src={mainImage}
                     alt={product.name}
-                    className="w-full h-48 object-cover rounded-md"
+                    className="w-full h-48 object-cover rounded-xl transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
                 />
             </Link>
 
-            <div className="mt-3 flex flex-col flex-1">
+            <div className="mt-4 flex flex-col flex-1">
                 <Link to={`/product/${product.id}`}>
-                    <h1 className="text-lg font-semibold text-[#011309] hover:text-[#135B3A] transition-colors">
+                    <h1 className="text-lg font-serif font-bold text-brand-black dark:text-brand-white hover:text-[#135B3A] dark:hover:text-green-400 transition-colors">
                         {product.name}
                     </h1>
                 </Link>
-                <p className="text-[#011309] font-medium mt-1">
+                <p className="text-brand-black dark:text-brand-white font-medium mt-1">
                     Price: {product.price.toLocaleString()} NGN
                 </p>
-                <p className="text-[#011309]/80 mt-1">
+                <p className="text-brand-black/80 dark:text-brand-white/80 text-sm mt-1">
                     Color: {product.colors?.join(', ') || 'N/A'}
                 </p>
             </div>
 
-            <div className="mt-4 flex justify-center">
+            <div className="mt-5 flex justify-center">
                 <button
-                    className="bg-[#135B3A] text-white px-4 py-2 rounded w-full hover:bg-[#0E462D] transition-colors font-bold"
+                    className="bg-[#135B3A] hover:bg-[#0E462D] dark:bg-[#135B3A] dark:hover:bg-[#1E7C52] text-white px-4 py-2.5 rounded-xl w-full transition-colors font-bold shadow-md hover:shadow-lg"
                     onClick={handleAddToCart}
                 >
                     Order Now

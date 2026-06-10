@@ -34,15 +34,14 @@ const Checkout = () => {
       [name]: value,
     }));
   };
-
   const config = {
     reference: (new Date()).getTime().toString(),
-    email: formData.email,
+    email: formData.email || "guest@georgewoodcaskets.com",
     amount: Math.round(totalPrice * 1.08 * 100), // Paystack expects amount in kobo, incl. 8% VAT
     publicKey: import.meta.env.VITE_PAYSTACK_PUBLIC_KEY,
     firstname: formData.firstName,
     lastname: formData.lastName,
-    phone: formData.phone,
+    phone: formData.phone || "0000000000",
   };
 
   const onSuccess = async (reference) => {
@@ -56,7 +55,14 @@ const Checkout = () => {
         }
       };
       
-      const orderId = await checkout(orderDataWithPayment);
+      // Implement a 15-second Promise timeout to prevent infinite database hangs
+      const checkoutPromise = checkout(orderDataWithPayment);
+      const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error("Order processing timed out. Your payment was confirmed. Please contact support with reference: " + (reference.reference || reference))), 15000)
+      );
+
+      const orderId = await Promise.race([checkoutPromise, timeoutPromise]);
+      
       setTrackingId(orderId);
       setOrderSuccess(true);
       toast.success("Order Placed Successfully!");
@@ -65,8 +71,8 @@ const Checkout = () => {
       sendOrderEmail({
         firstName: formData.firstName,
         lastName: formData.lastName,
-        email: formData.email,
-        phone: formData.phone,
+        email: formData.email || "guest@georgewoodcaskets.com",
+        phone: formData.phone || "0000000000",
         cart: cart,
         totalPrice: totalPrice,
         trackingId: orderId,
@@ -93,8 +99,9 @@ const Checkout = () => {
   const handleCompleteOrder = async () => {
     if (isSubmitting) return;
 
-    if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone || !formData.address || !formData.city || !formData.state) {
-      toast.error("Please fill in all required fields.");
+    // Only First Name, Last Name, and Delivery Address are compulsory
+    if (!formData.firstName || !formData.lastName || !formData.address) {
+      toast.error("Please fill in the required fields: First Name, Last Name, and Delivery Address.");
       return;
     }
 
@@ -113,7 +120,14 @@ const Checkout = () => {
           }
         };
 
-        const orderId = await checkout(orderData);
+        // Implement a 15-second Promise timeout to prevent infinite database hangs
+        const checkoutPromise = checkout(orderData);
+        const timeoutPromise = new Promise((_, reject) =>
+          setTimeout(() => reject(new Error("Order processing timed out. Please check your network connection and try again.")), 15000)
+        );
+
+        const orderId = await Promise.race([checkoutPromise, timeoutPromise]);
+        
         setTrackingId(orderId);
         setOrderSuccess(true);
         toast.success("Order Placed Successfully!");
@@ -122,8 +136,8 @@ const Checkout = () => {
         sendOrderEmail({
           firstName: formData.firstName,
           lastName: formData.lastName,
-          email: formData.email,
-          phone: formData.phone,
+          email: formData.email || "guest@georgewoodcaskets.com",
+          phone: formData.phone || "0000000000",
           cart: cart,
           totalPrice: totalPrice,
           trackingId: orderId,
@@ -243,26 +257,24 @@ const Checkout = () => {
                     </div>
 
                     <div className="flex flex-col gap-1">
-                      <label className="text-xs font-semibold text-brand-black/85 dark:text-gray-300">Email Address</label>
+                      <label className="text-xs font-semibold text-brand-black/85 dark:text-gray-300">Email Address <span className="text-gray-400 font-normal">(Optional)</span></label>
                       <input
                         type="email"
                         name="email"
                         value={formData.email}
                         onChange={handleInputChange}
                         className="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-brand-white dark:bg-[#1a2e23]/30 text-brand-black dark:text-brand-white focus:outline-none focus:ring-2 focus:ring-[#135B3A] dark:focus:ring-green-600 focus:border-transparent text-sm transition-all"
-                        required
                       />
                     </div>
 
                     <div className="flex flex-col gap-1">
-                      <label className="text-xs font-semibold text-brand-black/85 dark:text-gray-300">Phone Number</label>
+                      <label className="text-xs font-semibold text-brand-black/85 dark:text-gray-300">Phone Number <span className="text-gray-400 font-normal">(Optional)</span></label>
                       <input
                         type="tel"
                         name="phone"
                         value={formData.phone}
                         onChange={handleInputChange}
                         className="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-brand-white dark:bg-[#1a2e23]/30 text-brand-black dark:text-brand-white focus:outline-none focus:ring-2 focus:ring-[#135B3A] dark:focus:ring-green-600 focus:border-transparent text-sm transition-all"
-                        required
                       />
                     </div>
 
@@ -282,7 +294,7 @@ const Checkout = () => {
 
                     <div className="grid grid-cols-2 gap-4">
                       <div className="flex flex-col gap-1">
-                        <label className="text-xs font-semibold text-brand-black/85 dark:text-gray-300">City</label>
+                        <label className="text-xs font-semibold text-brand-black/85 dark:text-gray-300">City <span className="text-gray-400 font-normal">(Optional)</span></label>
                         <input
                           type="text"
                           name="city"
@@ -290,11 +302,10 @@ const Checkout = () => {
                           value={formData.city || ''}
                           onChange={handleInputChange}
                           className="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-brand-white dark:bg-[#1a2e23]/30 text-brand-black dark:text-brand-white focus:outline-none focus:ring-2 focus:ring-[#135B3A] dark:focus:ring-green-600 focus:border-transparent text-sm transition-all"
-                          required
                         />
                       </div>
                       <div className="flex flex-col gap-1">
-                        <label className="text-xs font-semibold text-brand-black/85 dark:text-gray-300">State</label>
+                        <label className="text-xs font-semibold text-brand-black/85 dark:text-gray-300">State <span className="text-gray-400 font-normal">(Optional)</span></label>
                         <input
                           type="text"
                           name="state"
@@ -302,7 +313,6 @@ const Checkout = () => {
                           value={formData.state || ''}
                           onChange={handleInputChange}
                           className="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-brand-white dark:bg-[#1a2e23]/30 text-brand-black dark:text-brand-white focus:outline-none focus:ring-2 focus:ring-[#135B3A] dark:focus:ring-green-600 focus:border-transparent text-sm transition-all"
-                          required
                         />
                       </div>
                     </div>
@@ -415,7 +425,7 @@ const Checkout = () => {
                   <p className="text-2xl font-mono font-bold text-[#135B3A] dark:text-green-400">{trackingId}</p>
                 </div>
                 <p className="text-brand-black/80 dark:text-gray-300 max-w-lg mx-auto leading-relaxed font-light">
-                  Thank you for choosing George Wood Caskets. We have sent a confirmation email to <strong>{formData.email}</strong> with your order details.
+                  Thank you for choosing George Wood Caskets. {formData.email ? <span>We have sent a confirmation email to <strong>{formData.email}</strong> with your order details.</span> : <span>Your order details have been saved successfully.</span>}
                 </p>
                 <Link to="/track-order">
                   <button className="mt-8 bg-[#135B3A] hover:bg-[#0E462D] text-white px-8 py-3.5 rounded-xl font-bold transition-all shadow-md text-sm uppercase tracking-wider">

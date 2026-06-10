@@ -1,10 +1,11 @@
 import { useEffect, useState, useContext } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 import { ProductContext } from "../Providers/ProductProvider";
 import { FaPlus, FaStar, FaShareAlt, FaCheck } from "react-icons/fa";
 import { Helmet } from "react-helmet-async";
+import ProductCard from "../Components/ProductCard";
 
 const ProductDetail = () => {
   const { productId } = useParams();
@@ -346,33 +347,16 @@ const ProductDetail = () => {
             </div>
           </div>
         </div>
-
-        {/* Related Products & Services (Reused from original) */}
+        {/* Related Products & Services */}
         <section className="mt-16 border-t border-gray-200 dark:border-gray-700 pt-10">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">You May Also Like</h2>
-          <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-            {products.slice(0, 4).map((item) => (
-              <div key={item.id} className="group relative">
-                <div className="w-full min-h-80 bg-gray-200 dark:bg-gray-700 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
-                  <img
-                    src={item.thumbnail}
-                    alt={item.name}
-                    className="w-full h-full object-center object-cover lg:w-full lg:h-full"
-                  />
-                </div>
-                <div className="mt-4 flex justify-between">
-                  <div>
-                    <h3 className="text-sm text-gray-700 dark:text-gray-200">
-                      <Link to={`/product/${item.id}`}>
-                        <span aria-hidden="true" className="absolute inset-0" />
-                        {item.name}
-                      </Link>
-                    </h3>
-                  </div>
-                  <p className="text-sm font-medium text-gray-900 dark:text-green-400">{item.price.toLocaleString()} NGN</p>
-                </div>
-              </div>
-            ))}
+          <h2 className="text-2xl font-serif font-bold text-[#135B3A] dark:text-green-500 mb-8">You May Also Like</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {products
+              .filter((item) => item.id !== product.id)
+              .slice(0, 4)
+              .map((item) => (
+                <ProductCard key={item.id} product={item} />
+              ))}
           </div>
         </section>
       </div>

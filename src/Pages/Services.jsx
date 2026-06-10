@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import Services from "../assets/service-api"; // Importing the service data
+import ScrollReveal from "../Components/ScrollReveal";
 
 const ServicesPage = () => {
   const { servicesData } = Services;
@@ -34,54 +35,59 @@ const ServicesPage = () => {
   }, []);
 
   return (
-    <div className="min-h-screen font-montserrat pt-24 pb-12 transition-colors duration-300">
+    <div className="min-h-screen bg-brand-cream dark:bg-primary-dark font-montserrat pt-24 pb-12 transition-colors duration-300">
       <Helmet>
         <title>Funeral Services | George Wood Caskets</title>
         <meta name="description" content="Professional funeral services including ambulance, hearse, and pallbearers in Enugu, Nigeria." />
         <link rel="canonical" href="https://georgewoodcasket.com/services" />
       </Helmet>
       <div className="max-w-[1300px] mx-auto w-full px-4 md:px-8">
-        <h1 className="text-3xl md:text-5xl font-bold text-center mb-12 text-[#135B3A] dark:text-green-500 font-serif">All Services</h1>
+        <ScrollReveal>
+          <h1 className="text-3xl md:text-5xl font-bold text-center mb-12 text-[#135B3A] dark:text-green-500 font-serif">All Services</h1>
+        </ScrollReveal>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {visibleServices.map((service) => (
-            <Link
-              key={service.id}
-              to={`/book-service/${service.name.replace(/\s+/g, '-').toLowerCase()}`}
-              className="group"
-            >
-              <div className="bg-[#F0B52E] p-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform group-hover:-translate-y-1 border border-white/10 flex flex-col h-full">
-                <div className="overflow-hidden rounded-md mb-4 flex-shrink-0">
-                  <img
-                    src={service.thumbnail}
-                    alt={service.name}
-                    className="w-full h-48 object-cover transform group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                <div className="flex flex-col flex-1">
-                  <h2 className="text-lg font-bold mt-2 text-[#011309] mb-2">{service.name}</h2>
-                  <p className="text-[#011309]/80 text-sm mb-4 line-clamp-3 flex-1 font-medium">{service.description}</p>
-                  <div className="mt-auto">
-                    <div className="inline-block px-3 py-1 text-xs font-bold bg-[#135B3A]/10 text-[#135B3A] rounded-full mb-3">
-                      Price on Request
+            <ScrollReveal key={service.id}>
+              <Link
+                to={`/book-service/${service.name.replace(/\s+/g, '-').toLowerCase()}`}
+                className="group block h-full"
+              >
+                <div className="bg-brand-card dark:bg-brand-card-dark p-5 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-102 border border-[#135B3A]/10 dark:border-white/5 flex flex-col h-full">
+                  <div className="overflow-hidden rounded-xl mb-4 flex-shrink-0 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800">
+                    <img
+                      src={service.thumbnail}
+                      alt={service.name}
+                      className="w-full h-48 object-cover transform group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                  <div className="flex flex-col flex-1">
+                    <h2 className="text-lg font-bold font-serif text-brand-black dark:text-brand-white group-hover:text-[#135B3A] dark:group-hover:text-green-400 transition-colors mb-2">{service.name}</h2>
+                    <p className="text-brand-black/70 dark:text-gray-300 text-sm mb-4 line-clamp-3 flex-1 font-light leading-relaxed">{service.description}</p>
+                    <div className="mt-auto">
+                      <div className="inline-block px-3 py-1 text-xs font-bold bg-[#135B3A]/10 dark:bg-green-500/10 text-[#135B3A] dark:text-green-400 rounded-full mb-3">
+                        Price on Request
+                      </div>
+                      <button className="w-full bg-[#135B3A] text-white py-3 rounded-xl hover:bg-[#0E462D] dark:bg-[#135B3A] dark:hover:bg-[#1E7C52] transition-colors font-bold shadow-md">
+                        Book Now
+                      </button>
                     </div>
-                    <button className="w-full bg-[#135B3A] text-white py-2.5 rounded hover:bg-[#0E462D] transition-colors font-bold shadow-md">
-                      Book Now
-                    </button>
                   </div>
                 </div>
-              </div>
-            </Link>
+              </Link>
+            </ScrollReveal>
           ))}
         </div>
         {visibleServices.length < servicesData.length && (
-          <div className="flex justify-center mt-10">
-            <button
-              onClick={loadMoreServices}
-              className="px-6 py-3 bg-[#135B3A] text-white rounded-full hover:bg-green-800 transition-colors shadow-lg"
-            >
-              Load More
-            </button>
-          </div>
+          <ScrollReveal>
+            <div className="flex justify-center mt-10">
+              <button
+                onClick={loadMoreServices}
+                className="px-8 py-3 bg-[#135B3A] hover:bg-[#0E462D] dark:bg-[#135B3A] dark:hover:bg-[#1E7C52] text-white rounded-xl transition-colors shadow-md font-bold"
+              >
+                Load More
+              </button>
+            </div>
+          </ScrollReveal>
         )}
       </div>
     </div>
@@ -89,3 +95,4 @@ const ServicesPage = () => {
 };
 
 export default ServicesPage;
+

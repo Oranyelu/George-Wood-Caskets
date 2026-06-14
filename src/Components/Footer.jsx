@@ -2,9 +2,10 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../firebase";
-import { API_MODE, createMessage } from "../utils/api";
+import { API_MODE, createMessage, sendMessageEmail } from "../utils/api";
 
 function Footer() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -14,6 +15,7 @@ function Footer() {
 
     try {
       const messageData = {
+        name,
         email,
         message,
         createdAt: new Date().toISOString(),
@@ -26,7 +28,15 @@ function Footer() {
         await addDoc(collection(db, "messages"), messageData);
       }
 
+      // Notify admin immediately
+      try {
+        await sendMessageEmail(messageData);
+      } catch (emailErr) {
+        console.error("Email notification failed:", emailErr);
+      }
+
       setIsSubmitted(true);
+      setName("");
       setEmail("");
       setMessage("");
 
@@ -109,6 +119,17 @@ function Footer() {
             onSubmit={handleSubmit}
           >
             <h2 className="font-serif font-bold text-lg mb-2 text-[#D4AF37]">Speak with Us</h2>
+            <label htmlFor="contact-name" className="sr-only">Your Name</label>
+            <input
+              type="text"
+              name="name"
+              id="contact-name"
+              placeholder="Your Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="p-3 rounded-xl text-brand-black bg-white dark:bg-gray-800 dark:text-brand-white dark:border dark:border-gray-700/50 focus:outline-none focus:ring-2 focus:ring-[#8C6A1C] text-sm shadow-sm"
+              required
+            />
             <label htmlFor="contact-email" className="sr-only">Your Email</label>
             <input
               type="email"

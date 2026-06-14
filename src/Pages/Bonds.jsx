@@ -4,7 +4,7 @@ import Modal from 'react-modal';
 import { usePaystackPayment } from 'react-paystack';
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../firebase';
-import { sendBondInquiryEmail } from "../utils/api";
+import { sendBondInquiryEmail, sendBondSubEmail } from "../utils/api";
 import ScrollReveal from "../Components/ScrollReveal";
 import toast from 'react-hot-toast';
 
@@ -166,6 +166,20 @@ const Bonds = () => {
             };
 
             await addDoc(collection(db, "payments"), paymentData);
+
+            // Send notification to Admin
+            try {
+                await sendBondSubEmail({
+                    name: formData.name,
+                    email: formData.email,
+                    phone: formData.phone,
+                    planType: planName,
+                    monthlyPrice: price,
+                    paymentReference: reference.reference || reference
+                });
+            } catch (emailErr) {
+                console.error("Bond subscription admin email notification failed:", emailErr);
+            }
             
             setTxRef(reference.reference || 'Success');
             setPaymentSuccess(true);

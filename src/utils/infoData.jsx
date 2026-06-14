@@ -54,8 +54,15 @@ const ReportPage = () => {
         const { collection, addDoc } = await import('firebase/firestore');
         await addDoc(collection(db, 'reports'), {
           ...formData,
-          createdAt: new Date().toISOString()
+          createdAt: new Date().toISOString(),
+          status: 'new'
         });
+
+        try {
+          await sendReportEmail(formData);
+        } catch (emailErr) {
+          console.error('Report notification email failed:', emailErr);
+        }
       }
       setIsSubmitted(true);
       setFormData({ name: '', email: '', issue: '' });
@@ -180,19 +187,28 @@ const VolunteerPage = () => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
+      const emailPayload = {
+        name: formData.name,
+        email: formData.email,
+        subject: 'Volunteer Application',
+        message: `Phone: ${formData.phone}\n\nMessage: ${formData.message}`
+      };
+
       if (API_MODE === 'backend') {
-        await sendContactEmail({
-          name: formData.name,
-          email: formData.email,
-          subject: 'Volunteer Application',
-          message: `Phone: ${formData.phone}\n\nMessage: ${formData.message}`
-        });
+        await sendContactEmail(emailPayload);
       } else {
         const { collection, addDoc } = await import('firebase/firestore');
         await addDoc(collection(db, 'volunteers'), {
           ...formData,
-          createdAt: new Date().toISOString()
+          createdAt: new Date().toISOString(),
+          status: 'new'
         });
+
+        try {
+          await sendContactEmail(emailPayload);
+        } catch (emailErr) {
+          console.error('Volunteer notification email failed:', emailErr);
+        }
       }
       setIsSubmitted(true);
       setFormData({ name: '', email: '', phone: '', message: '' });

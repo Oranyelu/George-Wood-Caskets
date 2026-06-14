@@ -42,7 +42,47 @@ service cloud.firestore {
       allow read: if isAdmin();
     }
 
-    // Blog Posts: Public read, Admin write
+    // Inquiries: Public create, Admin read/write
+    match /inquiries/{inquiryId} {
+      allow create: if true;
+      allow read, write: if isAdmin();
+    }
+
+    // Volunteers: Public create, Admin read/write
+    match /volunteers/{volunteerId} {
+      allow create: if true;
+      allow read, write: if isAdmin();
+    }
+
+    // Reports: Public create, Admin read/write
+    match /reports/{reportId} {
+      allow create: if true;
+      allow read, write: if isAdmin();
+    }
+
+    // Donations: Public create, Admin read/write
+    match /donations/{donationId} {
+      allow create: if true;
+      allow read, write: if isAdmin();
+    }
+
+    // Bonds & Payments: Public create, Admin read/write
+    match /bonds/{bondId} {
+      allow create: if true;
+      allow read, write: if isAdmin();
+    }
+    match /payments/{paymentId} {
+      allow create: if true;
+      allow read, write: if isAdmin();
+    }
+
+    // Charity Projects: Public read, Admin write
+    match /charityProjects/{projectId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Blog Posts & Memorials: Public read, Admin write
     match /memorials/{memorialId} {
       allow read: if true;
       allow write: if isAdmin();

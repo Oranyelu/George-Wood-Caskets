@@ -370,6 +370,62 @@ export const createMessage = async (messageData) => {
     return await response.json();
 };
 
+export const sendMessageEmail = async (messageData) => {
+    try {
+        const response = await fetch(`${EMAIL_API_URL}/message`, {
+            method: "POST",
+            headers: getHeaders(),
+            body: JSON.stringify(messageData),
+        });
+        return await response.json();
+    } catch (error) {
+        console.error("Error sending footer message email alert:", error);
+        throw error;
+    }
+};
+
+export const sendReplyEmail = async (replyData) => {
+    try {
+        const response = await fetch(`${EMAIL_API_URL}/reply`, {
+            method: "POST",
+            headers: getHeaders(),
+            body: JSON.stringify(replyData),
+        });
+        return await response.json();
+    } catch (error) {
+        console.error("Error sending admin email reply:", error);
+        throw error;
+    }
+};
+
+export const sendDonationEmail = async (donationData) => {
+    try {
+        const response = await fetch(`${EMAIL_API_URL}/donation`, {
+            method: "POST",
+            headers: getHeaders(),
+            body: JSON.stringify(donationData),
+        });
+        return await response.json();
+    } catch (error) {
+        console.error("Error sending donation notification email:", error);
+        throw error;
+    }
+};
+
+export const sendBondSubEmail = async (subData) => {
+    try {
+        const response = await fetch(`${EMAIL_API_URL}/bond-sub`, {
+            method: "POST",
+            headers: getHeaders(),
+            body: JSON.stringify(subData),
+        });
+        return await response.json();
+    } catch (error) {
+        console.error("Error sending bond subscription notification email:", error);
+        throw error;
+    }
+};
+
 // --- File/Asset Storage Service ---
 export const uploadFile = async (file, folder = "general") => {
     const formData = new FormData();

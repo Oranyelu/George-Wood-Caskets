@@ -29,7 +29,7 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'georgechime91@icloud.com';
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'georgewoodcasket@gmail.com';
 
 // Verify transporter
 transporter.verify(function (error, success) {
@@ -401,6 +401,151 @@ app.post('/api/email/booking', async (req, res) => {
     } catch (error) {
         console.error('Error sending booking email:', error);
         res.status(500).json({ message: 'Failed to send booking request', error: error.message });
+    }
+});
+
+// 7. Footer Contact Messages (Alert to Admin)
+app.post('/api/email/message', async (req, res) => {
+    try {
+        const { name, email, message } = req.body;
+        if (!email || !message) {
+            return res.status(400).json({ message: "Missing required fields" });
+        }
+
+        const adminEmailBody = `
+        <div style="font-family: Arial, sans-serif; padding: 20px;">
+            <h2 style="color: #135b3a; border-bottom: 2px solid #135b3a; padding-bottom: 10px;">New Footer Contact Inquiry</h2>
+            <p><strong>From:</strong> ${name || 'N/A'} (${email})</p>
+            <hr style="border: none; border-top: 1px solid #ccc; margin: 15px 0;" />
+            <h3>Message / Request:</h3>
+            <p style="white-space: pre-wrap; background-color: #f5f5f5; padding: 15px; border-radius: 4px;">${message}</p>
+        </div>
+        `;
+
+        await transporter.sendMail({
+            from: process.env.EMAIL_USER,
+            to: ADMIN_EMAIL,
+            subject: `New Message from ${name || email}`,
+            html: adminEmailBody
+        });
+
+        res.status(200).json({ message: 'Message email sent successfully' });
+    } catch (error) {
+        console.error('Error sending message email:', error);
+        res.status(500).json({ message: 'Failed to send email', error: error.message });
+    }
+});
+
+// 8. Admin Reply to Messages (To Customer)
+app.post('/api/email/reply', async (req, res) => {
+    try {
+        const { toEmail, toName, originalMessage, replyMessage } = req.body;
+        if (!toEmail || !replyMessage) {
+            return res.status(400).json({ message: "Missing required fields" });
+        }
+
+        const replyBody = `
+        <div style="font-family: Arial, sans-serif; color: #000; padding: 20px; max-width: 600px; margin: 0 auto; border: 1px solid #eee; border-radius: 8px;">
+            <header style="background-color: #135b3a; color: #fff; padding: 15px; text-align: center; border-radius: 6px 6px 0 0;">
+                <h2 style="margin: 0; font-size: 1.5em;">George Wood Caskets</h2>
+            </header>
+            <div style="padding: 20px 0;">
+                <p>Hello ${toName || 'there'},</p>
+                <p>${replyMessage.replace(/\n/g, '<br/>')}</p>
+                
+                <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;" />
+                
+                <div style="background-color: #f9f9f9; padding: 15px; border-radius: 6px; font-size: 0.9em; color: #666;">
+                    <p style="margin: 0 0 8px 0; font-weight: bold;">Original Message:</p>
+                    <p style="margin: 0; font-style: italic;">"${originalMessage}"</p>
+                </div>
+            </div>
+            <footer style="font-size: 0.8em; color: #888; text-align: center; border-top: 1px solid #eee; padding-top: 15px;">
+                <p>George Wood Caskets | 11 Senator Avenue, Enugu</p>
+                <p>Call: 08143904414 | Email: georgewoodcasket@gmail.com</p>
+            </footer>
+        </div>
+        `;
+
+        await transporter.sendMail({
+            from: process.env.EMAIL_USER,
+            to: toEmail,
+            subject: 'Reply from George Wood Caskets',
+            html: replyBody
+        });
+
+        res.status(200).json({ message: 'Reply email sent successfully' });
+    } catch (error) {
+        console.error('Error sending reply email:', error);
+        res.status(500).json({ message: 'Failed to send reply email', error: error.message });
+    }
+});
+
+// 9. Donation Notification (Alert to Admin)
+app.post('/api/email/donation', async (req, res) => {
+    try {
+        const { name, email, phone, amount, tier, paymentReference } = req.body;
+        if (!email || !amount) {
+            return res.status(400).json({ message: "Missing required fields" });
+        }
+
+        const adminEmailBody = `
+        <div style="font-family: Arial, sans-serif; padding: 20px;">
+            <h2 style="color: #135b3a; border-bottom: 2px solid #135b3a; padding-bottom: 10px;">New Donation Received</h2>
+            <p><strong>Donor Name:</strong> ${name}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Phone:</strong> ${phone || 'N/A'}</p>
+            <p><strong>Amount:</strong> ${amount.toLocaleString()} NGN</p>
+            <p><strong>Tier:</strong> ${tier || 'custom'}</p>
+            <p><strong>Reference:</strong> ${paymentReference}</p>
+        </div>
+        `;
+
+        await transporter.sendMail({
+            from: process.env.EMAIL_USER,
+            to: ADMIN_EMAIL,
+            subject: `Donation Alert: ${amount.toLocaleString()} NGN from ${name}`,
+            html: adminEmailBody
+        });
+
+        res.status(200).json({ message: 'Donation notification sent successfully' });
+    } catch (error) {
+        console.error('Error sending donation email:', error);
+        res.status(500).json({ message: 'Failed to send donation notification', error: error.message });
+    }
+});
+
+// 10. Bond Subscription Notification (Alert to Admin)
+app.post('/api/email/bond-sub', async (req, res) => {
+    try {
+        const { name, email, phone, planType, monthlyPrice, paymentReference } = req.body;
+        if (!email || !planType) {
+            return res.status(400).json({ message: "Missing required fields" });
+        }
+
+        const adminEmailBody = `
+        <div style="font-family: Arial, sans-serif; padding: 20px;">
+            <h2 style="color: #135b3a; border-bottom: 2px solid #135b3a; padding-bottom: 10px;">New Bond Subscription</h2>
+            <p><strong>Subscriber Name:</strong> ${name}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Phone:</strong> ${phone}</p>
+            <p><strong>Plan Type:</strong> ${planType}</p>
+            <p><strong>Monthly Cost:</strong> ${monthlyPrice.toLocaleString()} NGN</p>
+            <p><strong>Reference:</strong> ${paymentReference}</p>
+        </div>
+        `;
+
+        await transporter.sendMail({
+            from: process.env.EMAIL_USER,
+            to: ADMIN_EMAIL,
+            subject: `New Bond Subscription Alert: ${planType} - ${name}`,
+            html: adminEmailBody
+        });
+
+        res.status(200).json({ message: 'Bond subscription notification sent successfully' });
+    } catch (error) {
+        console.error('Error sending bond subscription email:', error);
+        res.status(500).json({ message: 'Failed to send subscription notification', error: error.message });
     }
 });
 

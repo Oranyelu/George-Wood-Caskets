@@ -6,6 +6,7 @@ import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import ScrollReveal from '../Components/ScrollReveal';
 import toast from 'react-hot-toast';
+import { sendDonationEmail } from '../utils/api';
 
 const Charity = () => {
   const { t } = useTranslation();
@@ -118,6 +119,21 @@ const Charity = () => {
       };
       
       await addDoc(collection(db, "donations"), donationRecord);
+
+      // Send email alert to Admin
+      try {
+        await sendDonationEmail({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          amount: parseFloat(formData.amount),
+          tier: formData.tier,
+          paymentReference: reference.reference || reference
+        });
+      } catch (emailErr) {
+        console.error("Donation email notification failed:", emailErr);
+      }
+      
       setTxRef(reference.reference || reference.trans || 'Success');
       setDonationSuccess(true);
       toast.success("Thank you for your generous contribution!");

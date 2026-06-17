@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Link } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../firebase";
+import { supabase } from "../supabase";
 import { ProductContext } from "../Providers/ProductProvider";
 import { Helmet } from "react-helmet-async";
 import ProductCard from "../Components/ProductCard";
@@ -144,21 +143,25 @@ function Home() {
 
   // --- Load blog posts ---
   useEffect(() => {
-    const fetchPosts = async () => {
+    const fetchPostsFromSupabase = async () => {
       try {
-        const postsCollection = collection(db, "posts");
-        const postsSnapshot = await getDocs(postsCollection);
-        const postsList = postsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-
-        const sortedPosts = postsList.sort(
-          (a, b) => new Date(b.date) - new Date(a.date)
-        );
-        setPosts(sortedPosts.slice(0, 4));
+        const { data, error } = await supabase
+          .from('posts')
+          .select('*')
+          .order('created_at', { ascending: false })
+          .limit(4);
+        if (error) throw error;
+        
+        const mappedPosts = (data || []).map(post => ({
+          ...post,
+          date: post.created_at
+        }));
+        setPosts(mappedPosts);
       } catch (error) {
         console.error("Error fetching posts:", error);
       }
     };
-    fetchPosts();
+    fetchPostsFromSupabase();
   }, []);
 
   return (

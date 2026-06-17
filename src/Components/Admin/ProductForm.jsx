@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
-import { doc, addDoc, updateDoc, collection } from "firebase/firestore";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { db, storage } from "../../firebase";
+import { supabase, uploadToSupabase } from "../../supabase";
 import { API_MODE, createProduct, updateProduct, uploadFile } from "../../utils/api";
 import PropTypes from 'prop-types';
 import { FaTimes } from "react-icons/fa";
@@ -151,19 +149,8 @@ const ProductForm = ({ initialData, onSuccess, onCancel }) => {
                             const url = await uploadFile(img.file, "products");
                             return url;
                         } else {
-                            const storageRef = ref(storage, `products/${Date.now()}_${img.file.name}`);
-
-                            // Add timeout to upload
-                            const uploadTask = uploadBytes(storageRef, img.file);
-                            const timeoutPromise = new Promise((_, reject) =>
-                                setTimeout(() => reject(new Error("Upload timed out")), 15000) // 15 seconds timeout
-                            );
-
-                            await Promise.race([uploadTask, timeoutPromise]);
-
+                            const url = await uploadToSupabase(img.file, "products");
                             console.log(`File uploaded: ${img.file.name}, getting URL...`);
-                            const url = await getDownloadURL(storageRef);
-                            console.log(`Got URL for: ${img.file.name}`);
                             return url;
                         }
                     } catch (uploadErr) {
@@ -202,7 +189,28 @@ const ProductForm = ({ initialData, onSuccess, onCancel }) => {
                 updatedAt: new Date().toISOString(),
             };
 
-            console.log("Saving product data...", productData);
+            const dbProductData = {
+                name: formData.name,
+                price: Number(formData.price),
+                description: formData.description,
+                category: formData.category,
+                label: formData.label,
+                material: formData.material,
+                colors: formData.colors.split(",").map((c) => c.trim()).filter(c => c),
+                hardware: formData.hardware,
+                handle: formData.handle,
+                interior_color: formData.interiorColor,
+                finish: formData.finish,
+                shell_shape: formData.shellShape,
+                shell_cover: formData.shellCover,
+                couch: formData.couch,
+                size: formData.size,
+                weight: formData.weight,
+                thumbnail: finalImageUrls.length > 0 ? finalImageUrls[0] : "",
+                images: finalImageUrls,
+            };
+
+            console.log("Saving product data...", dbProductData);
             if (API_MODE === 'backend') {
                 if (initialData) {
                     await updateProduct(initialData.id, productData);
@@ -213,14 +221,19 @@ const ProductForm = ({ initialData, onSuccess, onCancel }) => {
                     console.log("Product created successfully via API.");
                 }
             } else {
-                productData.updatedAt = new Date();
                 if (initialData) {
-                    const productRef = doc(db, "products", initialData.id);
-                    await updateDoc(productRef, productData);
+                    const { error } = await supabase
+                        .from("products")
+                        .update(dbProductData)
+                        .eq("id", initialData.id);
+                    if (error) throw error;
                     console.log("Product updated successfully.");
                 } else {
-                    productData.createdAt = new Date();
-                    await addDoc(collection(db, "products"), productData);
+                    const productId = formData.name.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '-' + Date.now();
+                    const { error } = await supabase
+                        .from("products")
+                        .insert({ id: productId, ...dbProductData });
+                    if (error) throw error;
                     console.log("Product created successfully.");
                 }
             }

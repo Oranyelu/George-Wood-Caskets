@@ -6,6 +6,8 @@ import { ProductContext } from "../Providers/ProductProvider";
 import { FaPlus, FaStar, FaShareAlt, FaCheck } from "react-icons/fa";
 import { Helmet } from "react-helmet-async";
 import ProductCard from "../Components/ProductCard";
+import { useAuth } from "../Providers/AuthProvider";
+import { supabase } from "../supabase";
 
 const ProductDetail = () => {
   const { productId } = useParams();
@@ -15,7 +17,7 @@ const ProductDetail = () => {
   const [activeImage, setActiveImage] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const { products, addToCart, toggleFavorite, isFavorite } = useContext(ProductContext);
-
+  const { user } = useAuth();
 
   useEffect(() => {
     const foundProduct = products.find((item) => item.id === productId);
@@ -27,6 +29,40 @@ const ProductDetail = () => {
       }
     }
   }, [productId, products]);
+
+  useEffect(() => {
+    if (product) {
+      const recordView = async () => {
+        if (user) {
+          try {
+            const { error } = await supabase
+              .from("view_history")
+              .insert({
+                user_id: user.id,
+                product_id: product.id,
+                product_details: product
+              });
+            if (error) {
+              console.error("Error logging product view to Supabase:", error);
+            }
+          } catch (err) {
+            console.error("Failed to log product view:", err);
+          }
+        } else {
+          try {
+            const savedHistory = localStorage.getItem("viewHistory");
+            const history = savedHistory ? JSON.parse(savedHistory) : [];
+            const filtered = history.filter(item => item.id !== product.id);
+            const updated = [product, ...filtered].slice(0, 50);
+            localStorage.setItem("viewHistory", JSON.stringify(updated));
+          } catch (err) {
+            console.error("Failed to save view history to local storage:", err);
+          }
+        }
+      };
+      recordView();
+    }
+  }, [user, product]);
 
   if (!product) return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
 

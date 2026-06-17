@@ -1,7 +1,5 @@
-
 import { useEffect, useState, useCallback } from "react";
-import { collection, getDocs, doc, updateDoc } from "firebase/firestore";
-import { db } from "../firebase"; // Import the initialized db from your firebase config
+import { supabase } from "../supabase";
 import ProductList from "../Components/Admin/ProductList";
 import ProductForm from "../Components/Admin/ProductForm";
 import PostList from "../Components/Admin/PostList";
@@ -34,16 +32,26 @@ const AdminDashboard = () => {
     setLoading(true);
     setError(null);
     try {
-      const ordersCollection = collection(db, "orders");
-      const ordersSnapshot = await getDocs(ordersCollection);
-      const ordersList = ordersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      const { data, error: dbError } = await supabase
+        .from("orders")
+        .select("*")
+        .order("created_at", { ascending: false });
 
-      const sortedOrders = ordersList.sort((a, b) => {
-        const dateA = a.createdAt?.seconds || 0;
-        const dateB = b.createdAt?.seconds || 0;
-        return dateB - dateA;
-      });
-      setOrders(sortedOrders);
+      if (dbError) throw dbError;
+
+      const ordersList = data.map(item => ({
+        id: item.id,
+        userId: item.user_id,
+        items: item.items,
+        customerInfo: item.customer_info,
+        paymentInfo: item.payment_info,
+        subtotal: item.subtotal,
+        tax: item.tax,
+        totalPrice: item.total_price,
+        status: item.status,
+        createdAt: item.created_at
+      }));
+      setOrders(ordersList);
     } catch (err) {
       console.error("Error fetching orders:", err);
       setError(`Failed to fetch orders: ${err.message}`);
@@ -56,18 +64,47 @@ const AdminDashboard = () => {
     setLoading(true);
     setError(null);
     try {
-      const msgSnap = await getDocs(collection(db, "messages"));
-      const inqSnap = await getDocs(collection(db, "inquiries"));
-      
-      const msgs = msgSnap.docs.map(doc => ({ id: doc.id, source: 'Footer', ...doc.data() }));
-      const inqs = inqSnap.docs.map(doc => ({ id: doc.id, source: 'Contact Page', ...doc.data() }));
-      
+      const { data: messagesData, error: messagesError } = await supabase
+        .from("messages")
+        .select("*");
+      if (messagesError) throw messagesError;
+
+      const { data: inquiriesData, error: inquiriesError } = await supabase
+        .from("inquiries")
+        .select("*");
+      if (inquiriesError) throw inquiriesError;
+
+      const msgs = messagesData.map(item => ({
+        id: item.id,
+        source: 'Footer',
+        name: item.name,
+        email: item.email,
+        message: item.message,
+        status: item.status,
+        createdAt: item.created_at,
+        replyText: item.reply_text,
+        repliedAt: item.replied_at
+      }));
+
+      const inqs = inquiriesData.map(item => ({
+        id: item.id,
+        source: 'Contact Page',
+        name: item.name,
+        email: item.email,
+        subject: item.subject,
+        message: item.message,
+        status: item.status,
+        createdAt: item.created_at,
+        replyText: item.reply_text,
+        repliedAt: item.replied_at
+      }));
+
       const combined = [...msgs, ...inqs].sort((a, b) => {
-        const dateA = new Date(a.createdAt?.seconds ? a.createdAt.seconds * 1000 : a.createdAt || 0);
-        const dateB = new Date(b.createdAt?.seconds ? b.createdAt.seconds * 1000 : b.createdAt || 0);
+        const dateA = new Date(a.createdAt || 0);
+        const dateB = new Date(b.createdAt || 0);
         return dateB - dateA;
       });
-      
+
       setMessages(combined);
     } catch (err) {
       console.error("Error fetching messages:", err);
@@ -81,8 +118,20 @@ const AdminDashboard = () => {
     setLoading(true);
     setError(null);
     try {
-      const snap = await getDocs(collection(db, "volunteers"));
-      const list = snap.docs.map(doc => ({ id: doc.id, ...doc.data() })).sort((a, b) => {
+      const { data, error: dbError } = await supabase
+        .from("volunteers")
+        .select("*");
+      if (dbError) throw dbError;
+
+      const list = data.map(item => ({
+        id: item.id,
+        name: item.name,
+        email: item.email,
+        phone: item.phone,
+        message: item.message,
+        status: item.status,
+        createdAt: item.created_at
+      })).sort((a, b) => {
         const dateA = new Date(a.createdAt || 0);
         const dateB = new Date(b.createdAt || 0);
         return dateB - dateA;
@@ -100,8 +149,19 @@ const AdminDashboard = () => {
     setLoading(true);
     setError(null);
     try {
-      const snap = await getDocs(collection(db, "reports"));
-      const list = snap.docs.map(doc => ({ id: doc.id, ...doc.data() })).sort((a, b) => {
+      const { data, error: dbError } = await supabase
+        .from("reports")
+        .select("*");
+      if (dbError) throw dbError;
+
+      const list = data.map(item => ({
+        id: item.id,
+        name: item.name,
+        email: item.email,
+        issue: item.issue,
+        status: item.status,
+        createdAt: item.created_at
+      })).sort((a, b) => {
         const dateA = new Date(a.createdAt || 0);
         const dateB = new Date(b.createdAt || 0);
         return dateB - dateA;
@@ -119,8 +179,23 @@ const AdminDashboard = () => {
     setLoading(true);
     setError(null);
     try {
-      const snap = await getDocs(collection(db, "donations"));
-      const list = snap.docs.map(doc => ({ id: doc.id, ...doc.data() })).sort((a, b) => {
+      const { data, error: dbError } = await supabase
+        .from("donations")
+        .select("*");
+      if (dbError) throw dbError;
+
+      const list = data.map(item => ({
+        id: item.id,
+        userId: item.user_id,
+        name: item.name,
+        email: item.email,
+        phone: item.phone,
+        amount: item.amount,
+        tier: item.tier,
+        paymentReference: item.payment_reference,
+        status: item.status,
+        createdAt: item.created_at
+      })).sort((a, b) => {
         const dateA = new Date(a.createdAt || 0);
         const dateB = new Date(b.createdAt || 0);
         return dateB - dateA;
@@ -138,8 +213,25 @@ const AdminDashboard = () => {
     setLoading(true);
     setError(null);
     try {
-      const snap = await getDocs(collection(db, "bonds"));
-      const list = snap.docs.map(doc => ({ id: doc.id, ...doc.data() })).sort((a, b) => {
+      const { data, error: dbError } = await supabase
+        .from("bonds")
+        .select("*");
+      if (dbError) throw dbError;
+
+      const list = data.map(item => ({
+        id: item.id,
+        userId: item.user_id,
+        name: item.name,
+        email: item.email,
+        phone: item.phone,
+        planType: item.plan_type,
+        status: item.status,
+        startDate: item.start_date,
+        nextPaymentDate: item.next_payment_date,
+        monthlyPrice: item.monthly_price,
+        paymentReference: item.payment_reference,
+        createdAt: item.created_at
+      })).sort((a, b) => {
         const dateA = new Date(a.startDate || a.createdAt || 0);
         const dateB = new Date(b.startDate || b.createdAt || 0);
         return dateB - dateA;
@@ -171,10 +263,11 @@ const AdminDashboard = () => {
 
   const handleUpdateStatus = async (orderId, newStatus) => {
     try {
-      const orderRef = doc(db, "orders", orderId);
-      await updateDoc(orderRef, {
-        status: newStatus,
-      });
+      const { error: dbError } = await supabase
+        .from("orders")
+        .update({ status: newStatus })
+        .eq("id", orderId);
+      if (dbError) throw dbError;
       fetchOrders();
     } catch (err) {
       console.error("Error updating order status:", err);
@@ -184,8 +277,11 @@ const AdminDashboard = () => {
 
   const handleUpdateVolunteerStatus = async (id, newStatus) => {
     try {
-      const docRef = doc(db, "volunteers", id);
-      await updateDoc(docRef, { status: newStatus });
+      const { error: dbError } = await supabase
+        .from("volunteers")
+        .update({ status: newStatus })
+        .eq("id", id);
+      if (dbError) throw dbError;
       fetchVolunteers();
     } catch (err) {
       console.error("Error updating volunteer status:", err);
@@ -195,8 +291,11 @@ const AdminDashboard = () => {
 
   const handleUpdateReportStatus = async (id, newStatus) => {
     try {
-      const docRef = doc(db, "reports", id);
-      await updateDoc(docRef, { status: newStatus });
+      const { error: dbError } = await supabase
+        .from("reports")
+        .update({ status: newStatus })
+        .eq("id", id);
+      if (dbError) throw dbError;
       fetchReports();
     } catch (err) {
       console.error("Error updating report status:", err);
@@ -218,14 +317,18 @@ const AdminDashboard = () => {
         replyMessage: replyText
       });
 
-      // Update Firestore document with reply details
-      const collectionName = selectedMessage.source === 'Footer' ? 'messages' : 'inquiries';
-      const docRef = doc(db, collectionName, selectedMessage.id);
-      await updateDoc(docRef, {
-        status: 'replied',
-        replyText: replyText,
-        repliedAt: new Date().toISOString()
-      });
+      // Update Supabase table with reply details
+      const tableName = selectedMessage.source === 'Footer' ? 'messages' : 'inquiries';
+      const { error: dbError } = await supabase
+        .from(tableName)
+        .update({
+          status: 'replied',
+          reply_text: replyText,
+          replied_at: new Date().toISOString()
+        })
+        .eq('id', selectedMessage.id);
+
+      if (dbError) throw dbError;
 
       alert("Reply sent successfully via email!");
       setReplyText("");

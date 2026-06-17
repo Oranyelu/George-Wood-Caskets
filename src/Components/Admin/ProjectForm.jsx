@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
-import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { db, storage } from "../../firebase";
+import { supabase, uploadToSupabase } from "../../supabase";
 import { API_MODE, createCharityProject, updateCharityProject, uploadFile } from "../../utils/api";
 import PropTypes from 'prop-types';
 
@@ -56,9 +54,7 @@ const ProjectForm = ({ initialData, onSuccess, onCancel }) => {
                 if (API_MODE === 'backend') {
                     imageUrl = await uploadFile(formData.image, "projects");
                 } else {
-                    const imageRef = ref(storage, `projects/${Date.now()}_${formData.image.name}`);
-                    const snapshot = await uploadBytes(imageRef, formData.image);
-                    imageUrl = await getDownloadURL(snapshot.ref);
+                    imageUrl = await uploadToSupabase(formData.image, "projects");
                 }
             }
 
@@ -73,6 +69,16 @@ const ProjectForm = ({ initialData, onSuccess, onCancel }) => {
                 updatedAt: new Date().toISOString(),
             };
 
+            const dbProjectData = {
+                title: formData.title,
+                description: formData.description,
+                target_amount: parseFloat(formData.targetAmount),
+                raised_amount: parseFloat(formData.raisedAmount),
+                status: formData.status,
+                article_link: formData.articleLink,
+                image: imageUrl,
+            };
+
             if (API_MODE === 'backend') {
                 if (initialData) {
                     await updateCharityProject(initialData.id, projectData);
@@ -81,14 +87,17 @@ const ProjectForm = ({ initialData, onSuccess, onCancel }) => {
                     await createCharityProject(projectData);
                 }
             } else {
-                projectData.updatedAt = new Date();
                 if (initialData) {
-                    await updateDoc(doc(db, "charityProjects", initialData.id), projectData);
+                    const { error } = await supabase
+                        .from("charity_projects")
+                        .update(dbProjectData)
+                        .eq("id", initialData.id);
+                    if (error) throw error;
                 } else {
-                    await addDoc(collection(db, "charityProjects"), {
-                        ...projectData,
-                        createdAt: new Date(),
-                    });
+                    const { error } = await supabase
+                        .from("charity_projects")
+                        .insert(dbProjectData);
+                    if (error) throw error;
                 }
             }
 

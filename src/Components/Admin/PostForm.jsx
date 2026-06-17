@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { collection, addDoc, updateDoc, doc } from "firebase/firestore";
-import { db } from "../../firebase";
+import { supabase } from "../../supabase";
 import PropTypes from 'prop-types';
 
 const PostForm = ({ initialData, onSuccess, onCancel }) => {
@@ -38,16 +37,26 @@ const PostForm = ({ initialData, onSuccess, onCancel }) => {
         setLoading(true);
 
         try {
-            const postData = {
-                ...formData,
-                date: initialData ? initialData.date : new Date().toISOString(),
+            const dbPostData = {
+                title: formData.title,
+                description: formData.description,
+                content: formData.content,
+                image: formData.image,
+                is_recommended: formData.isRecommended,
                 views: initialData ? (initialData.views || 0) : 0,
             };
 
             if (initialData) {
-                await updateDoc(doc(db, "posts", initialData.id), postData);
+                const { error } = await supabase
+                    .from("posts")
+                    .update(dbPostData)
+                    .eq("id", initialData.id);
+                if (error) throw error;
             } else {
-                await addDoc(collection(db, "posts"), postData);
+                const { error } = await supabase
+                    .from("posts")
+                    .insert(dbPostData);
+                if (error) throw error;
             }
             onSuccess();
         } catch (error) {

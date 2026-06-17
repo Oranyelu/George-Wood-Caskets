@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { FaHandsHelping, FaCalendarAlt, FaBullhorn, FaHeart, FaCopy, FaFacebookF, FaTwitter, FaWhatsapp, FaLinkedinIn } from 'react-icons/fa';
 import Modal from 'react-modal';
 import { API_MODE, sendReportEmail, sendContactEmail } from './api';
-import { db } from '../firebase';
+import { supabase } from '../supabase';
 
 // Bind Modal to #root for accessibility
 Modal.setAppElement('#root');
@@ -51,12 +51,15 @@ const ReportPage = () => {
       if (API_MODE === 'backend') {
         await sendReportEmail(formData);
       } else {
-        const { collection, addDoc } = await import('firebase/firestore');
-        await addDoc(collection(db, 'reports'), {
-          ...formData,
-          createdAt: new Date().toISOString(),
-          status: 'new'
-        });
+        const { error } = await supabase
+          .from('reports')
+          .insert({
+            name: formData.name,
+            email: formData.email,
+            issue: formData.issue,
+            status: 'new'
+          });
+        if (error) throw error;
 
         try {
           await sendReportEmail(formData);
@@ -197,12 +200,16 @@ const VolunteerPage = () => {
       if (API_MODE === 'backend') {
         await sendContactEmail(emailPayload);
       } else {
-        const { collection, addDoc } = await import('firebase/firestore');
-        await addDoc(collection(db, 'volunteers'), {
-          ...formData,
-          createdAt: new Date().toISOString(),
-          status: 'new'
-        });
+        const { error } = await supabase
+          .from('volunteers')
+          .insert({
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone,
+            message: formData.message,
+            status: 'new'
+          });
+        if (error) throw error;
 
         try {
           await sendContactEmail(emailPayload);

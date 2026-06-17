@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { collection, onSnapshot, deleteDoc, doc } from "firebase/firestore";
-import { db } from "../../firebase";
+import { supabase } from "../../supabase";
 import PropTypes from 'prop-types';
 import { FaEdit, FaTrash } from "react-icons/fa";
 
@@ -8,26 +7,66 @@ const ProductList = ({ onEdit }) => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const unsubscribe = onSnapshot(collection(db, "products"), (snapshot) => {
-            const productList = snapshot.docs.map((doc) => ({
-                id: doc.id,
-                ...doc.data(),
+    const loadProducts = async () => {
+        try {
+            const { data, error } = await supabase
+                .from("products")
+                .select("*");
+            if (error) throw error;
+            const mapped = data.map(item => ({
+                id: item.id,
+                name: item.name,
+                price: Number(item.price),
+                description: item.description,
+                category: item.category,
+                label: item.label,
+                material: item.material,
+                size: item.size,
+                weight: item.weight,
+                hardware: item.hardware,
+                handle: item.handle,
+                interiorColor: item.interior_color,
+                finish: item.finish,
+                shellShape: item.shell_shape,
+                shellCover: item.shell_cover,
+                couch: item.couch,
+                thumbnail: item.thumbnail,
+                images: item.images,
+                colors: item.colors,
+                features: item.features,
+                story: item.story
             }));
-            setProducts(productList);
+            setProducts(mapped);
             setLoading(false);
-        }, (error) => {
-            console.error("Error fetching products:", error);
+        } catch (err) {
+            console.error("Error fetching products:", err);
             setLoading(false);
-        });
+        }
+    };
 
-        return () => unsubscribe();
+    useEffect(() => {
+        loadProducts();
+
+        const channel = supabase
+            .channel("products_realtime")
+            .on("postgres_changes", { event: "*", schema: "public", table: "products" }, () => {
+                loadProducts();
+            })
+            .subscribe();
+
+        return () => {
+            supabase.removeChannel(channel);
+        };
     }, []);
 
     const handleDelete = async (id) => {
         if (window.confirm("Are you sure you want to delete this product?")) {
             try {
-                await deleteDoc(doc(db, "products", id));
+                const { error } = await supabase
+                    .from("products")
+                    .delete()
+                    .eq("id", id);
+                if (error) throw error;
             } catch (err) {
                 console.error("Error deleting product:", err);
                 alert("Failed to delete product.");

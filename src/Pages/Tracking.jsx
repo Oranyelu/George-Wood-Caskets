@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { db } from "../firebase";
+import { supabase } from "../supabase";
 import { FaBoxOpen, FaShippingFast, FaCheckCircle, FaClipboardList } from "react-icons/fa";
 import ScrollReveal from "../Components/ScrollReveal";
 import toast from 'react-hot-toast';
@@ -12,6 +11,18 @@ const OrderTracking = () => {
   const [error, setError] = useState(null);
   const [expediteLoading, setExpediteLoading] = useState(false);
 
+  const mapOrder = (dbOrder) => {
+    if (!dbOrder) return null;
+    return {
+      ...dbOrder,
+      createdAt: dbOrder.created_at,
+      totalPrice: dbOrder.total_price,
+      customerInfo: dbOrder.customer_info,
+      paymentInfo: dbOrder.payment_info,
+      expediteRequested: dbOrder.expedite_requested
+    };
+  };
+
   const handleTrackOrder = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -19,11 +30,16 @@ const OrderTracking = () => {
     setOrder(null);
 
     try {
-      const docRef = doc(db, "orders", orderId.trim());
-      const docSnap = await getDoc(docRef);
+      const { data, error } = await supabase
+        .from('orders')
+        .select('*')
+        .eq('id', orderId.trim())
+        .maybeSingle();
 
-      if (docSnap.exists()) {
-        setOrder({ id: docSnap.id, ...docSnap.data() });
+      if (error) throw error;
+
+      if (data) {
+        setOrder(mapOrder(data));
         toast.success("Order retrieved successfully!");
       } else {
         setError("Order not found. Please check the ID and try again.");
@@ -42,10 +58,12 @@ const OrderTracking = () => {
     if (!order) return;
     setExpediteLoading(true);
     try {
-      const orderRef = doc(db, "orders", order.id);
-      await updateDoc(orderRef, {
-        expediteRequested: true
-      });
+      const { error } = await supabase
+        .from('orders')
+        .update({ expedite_requested: true })
+        .eq('id', order.id);
+
+      if (error) throw error;
       setOrder(prev => ({ ...prev, expediteRequested: true }));
       toast.success("Expedite request sent! We will prioritize your order.");
     } catch (err) {

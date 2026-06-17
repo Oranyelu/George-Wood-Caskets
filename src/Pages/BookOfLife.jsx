@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
-import { collection, onSnapshot, addDoc, doc, updateDoc, arrayUnion } from "firebase/firestore";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { db, storage } from "../firebase";
+import { supabase, uploadToSupabase } from '../supabase';
 import { API_MODE, fetchMemorials, createMemorial, updateMemorial, uploadFile } from "../utils/api";
 import Modal from 'react-modal';
 import { FaSearch, FaFire, FaPenFancy, FaPrint } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import { useAuth } from '../Providers/AuthProvider';
 
 const customStyles = {
   content: {
@@ -28,7 +27,20 @@ const customStyles = {
   }
 };
 
+export const mapMemorialFromDB = (dbMemorial) => {
+  if (!dbMemorial) return null;
+  return {
+    ...dbMemorial,
+    birthYear: dbMemorial.birth_year,
+    deathYear: dbMemorial.death_year,
+    submittedBy: dbMemorial.submitted_by,
+    contactEmail: dbMemorial.contact_email,
+    createdAt: dbMemorial.created_at,
+  };
+};
+
 const BookOfLife = () => {
+  const { user } = useAuth();
   const [memorials, setMemorials] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedPerson, setSelectedPerson] = useState(null);
@@ -58,13 +70,38 @@ const BookOfLife = () => {
       return;
     }
 
-    const unsubscribe = onSnapshot(collection(db, "memorials"), (snapshot) => {
-      const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      // Filter only approved memorials for public view
-      const approved = data.filter(m => m.status === 'approved');
-      setMemorials(approved);
-    });
-    return () => unsubscribe();
+    const loadSupabaseMemorials = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('memorials')
+          .select('*')
+          .eq('status', 'approved')
+          .order('created_at', { ascending: false });
+
+        if (error) throw error;
+        setMemorials((data || []).map(mapMemorialFromDB));
+      } catch (err) {
+        console.error("Error loading memorials from Supabase:", err);
+      }
+    };
+
+    loadSupabaseMemorials();
+
+    // Subscribe to changes to memorials table
+    const channel = supabase
+      .channel('public-approved-memorials')
+      .on('postgres_changes', {
+        event: '*',
+        schema: 'public',
+        table: 'memorials'
+      }, () => {
+        loadSupabaseMemorials();
+      })
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   // Filter Logic
@@ -88,25 +125,33 @@ const BookOfLife = () => {
         if (API_MODE === 'backend') {
           imageUrl = await uploadFile(newMemorial.image, "memorials");
         } else {
-          const imageRef = ref(storage, `memorials/${Date.now()}_${newMemorial.image.name}`);
-          const snapshot = await uploadBytes(imageRef, newMemorial.image);
-          imageUrl = await getDownloadURL(snapshot.ref);
+          imageUrl = await uploadToSupabase(newMemorial.image, 'memorials');
         }
       }
 
       const memorialData = {
-        ...newMemorial,
+        name: newMemorial.name,
+        birth_year: newMemorial.birthYear,
+        death_year: newMemorial.deathYear,
+        bio: newMemorial.bio,
+        submitted_by: newMemorial.submittedBy,
+        contact_email: newMemorial.contactEmail,
         image: imageUrl,
         status: 'pending', // Requires admin approval
-        createdAt: new Date().toISOString(),
+        created_at: new Date().toISOString(),
         tributes: [],
         candles: 0
       };
 
+      if (user) {
+        memorialData.user_id = user.id;
+      }
+
       if (API_MODE === 'backend') {
         await createMemorial(memorialData);
       } else {
-        await addDoc(collection(db, "memorials"), memorialData);
+        const { error } = await supabase.from('memorials').insert(memorialData);
+        if (error) throw error;
       }
 
       toast.success("Memorial submitted successfully! It will be visible after admin approval.");
@@ -129,10 +174,11 @@ const BookOfLife = () => {
       if (API_MODE === 'backend') {
         await updateMemorial(person.id, { candles: updatedCandles });
       } else {
-        const personRef = doc(db, "memorials", person.id);
-        await updateDoc(personRef, {
-          candles: updatedCandles
-        });
+        const { error } = await supabase
+          .from('memorials')
+          .update({ candles: updatedCandles })
+          .eq('id', person.id);
+        if (error) throw error;
       }
     } catch (error) {
       console.error("Error lighting candle:", error);
@@ -158,10 +204,11 @@ const BookOfLife = () => {
       if (API_MODE === 'backend') {
         await updateMemorial(selectedPerson.id, { tributes: updatedTributes });
       } else {
-        const personRef = doc(db, "memorials", selectedPerson.id);
-        await updateDoc(personRef, {
-          tributes: arrayUnion(newTribute)
-        });
+        const { error } = await supabase
+          .from('memorials')
+          .update({ tributes: updatedTributes })
+          .eq('id', selectedPerson.id);
+        if (error) throw error;
       }
 
       setTributeText("");

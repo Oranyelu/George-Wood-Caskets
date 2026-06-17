@@ -1,38 +1,84 @@
 import { useState, useEffect } from "react";
-import { collection, deleteDoc, doc, onSnapshot, updateDoc } from "firebase/firestore";
-import { db } from "../../firebase";
-
+import { supabase } from "../../supabase";
 import PropTypes from 'prop-types';
 
 const MemorialList = ({ onEdit }) => {
     const [memorials, setMemorials] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const unsubscribe = onSnapshot(collection(db, "memorials"), (snapshot) => {
-            const memorialsData = snapshot.docs.map((doc) => ({
-                id: doc.id,
-                ...doc.data(),
+    const loadMemorials = async () => {
+        try {
+            const { data, error } = await supabase
+                .from("memorials")
+                .select("*");
+            if (error) throw error;
+            const mapped = data.map(item => ({
+                id: item.id,
+                name: item.name,
+                birthYear: item.birth_year,
+                deathYear: item.death_year,
+                bio: item.bio,
+                status: item.status,
+                image: item.image,
+                submittedBy: item.submitted_by,
+                contactEmail: item.contact_email,
+                tributes: item.tributes,
+                candles: item.candles,
+                createdAt: item.created_at
             }));
-            setMemorials(memorialsData);
+            setMemorials(mapped);
             setLoading(false);
-        });
+        } catch (err) {
+            console.error("Error fetching memorials:", err);
+            setLoading(false);
+        }
+    };
 
-        return () => unsubscribe();
+    useEffect(() => {
+        loadMemorials();
+
+        const channel = supabase
+            .channel("memorials_realtime")
+            .on("postgres_changes", { event: "*", schema: "public", table: "memorials" }, () => {
+                loadMemorials();
+            })
+            .subscribe();
+
+        return () => {
+            supabase.removeChannel(channel);
+        };
     }, []);
 
     const handleDelete = async (id) => {
         if (window.confirm("Are you sure you want to delete this memorial?")) {
-            await deleteDoc(doc(db, "memorials", id));
+            try {
+                const { error } = await supabase
+                    .from("memorials")
+                    .delete()
+                    .eq("id", id);
+                if (error) throw error;
+            } catch (err) {
+                console.error("Error deleting memorial:", err);
+                alert("Failed to delete memorial.");
+            }
         }
     };
 
     const handleApprove = async (id, currentStatus) => {
         const newStatus = currentStatus === 'approved' ? 'pending' : 'approved';
         if (window.confirm(`Are you sure you want to change status to ${newStatus}?`)) {
-            await updateDoc(doc(db, "memorials", id), { status: newStatus });
+            try {
+                const { error } = await supabase
+                    .from("memorials")
+                    .update({ status: newStatus })
+                    .eq("id", id);
+                if (error) throw error;
+            } catch (err) {
+                console.error("Error updating status:", err);
+                alert("Failed to update status.");
+            }
         }
-    }
+    };
 
     if (loading) return <div>Loading Memorials...</div>;
 

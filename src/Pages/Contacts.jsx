@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { collection, addDoc } from 'firebase/firestore';
-import { db } from '../firebase';
+import { supabase } from '../supabase';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock } from 'react-icons/fa';
 import { Helmet } from 'react-helmet-async';
 import { sendContactEmail } from "../utils/api";
@@ -22,15 +21,20 @@ const Contacts = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    loading || setLoading(true);
     setStatus({ type: '', message: '' });
 
     try {
-      await addDoc(collection(db, 'inquiries'), {
-        ...formData,
-        createdAt: new Date(),
+      const { error } = await supabase.from('inquiries').insert({
+        name: formData.name,
+        email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+        created_at: new Date().toISOString(),
         status: 'new'
       });
+
+      if (error) throw error;
 
       // Send Email Notification
       await sendContactEmail(formData);

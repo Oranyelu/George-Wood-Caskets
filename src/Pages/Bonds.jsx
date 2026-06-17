@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Modal from 'react-modal';
 import { usePaystackPayment } from 'react-paystack';
-import { collection, addDoc } from 'firebase/firestore';
-import { db } from '../firebase';
+import { supabase } from '../supabase';
 import { sendBondInquiryEmail, sendBondSubEmail } from "../utils/api";
 import ScrollReveal from "../Components/ScrollReveal";
 import toast from 'react-hot-toast';
+import { useAuth } from '../Providers/AuthProvider';
 
 const customStyles = {
     content: {
@@ -36,6 +36,7 @@ const customStyles = {
 Modal.setAppElement('#root');
 
 const Bonds = () => {
+    const { user } = useAuth();
     const [modalIsOpen, setIsOpen] = useState(false);
     const [loading, setLoading] = useState(false);
     const [selectedBond, setSelectedBond] = useState('');
@@ -138,34 +139,52 @@ const Bonds = () => {
             const nextDate = new Date();
             nextDate.setDate(nextDate.getDate() + 30);
 
-            // Log Subscription details to Firestore
+            // Log Subscription details to Supabase
             const subscriptionData = {
                 name: formData.name,
                 email: formData.email,
                 phone: formData.phone,
-                planType: planName,
+                plan_type: planName,
                 status: "active",
-                startDate: new Date().toISOString(),
-                nextPaymentDate: nextDate.toISOString(),
-                monthlyPrice: price,
-                paymentReference: reference.reference || reference
+                start_date: new Date().toISOString(),
+                next_payment_date: nextDate.toISOString(),
+                monthly_price: price,
+                payment_reference: reference.reference || reference
             };
 
-            const bondDoc = await addDoc(collection(db, "bonds"), subscriptionData);
+            if (user) {
+                subscriptionData.user_id = user.id;
+            }
+
+            const { data: bondDoc, error: bondErr } = await supabase
+                .from('bonds')
+                .insert(subscriptionData)
+                .select('id')
+                .single();
+
+            if (bondErr) throw bondErr;
 
             // Log initial subscription payment
             const paymentData = {
-                subscriptionId: bondDoc.id,
+                subscription_id: bondDoc.id,
                 name: formData.name,
                 email: formData.email,
                 amount: price,
                 reference: reference.reference || reference,
                 status: "success",
-                paidAt: new Date().toISOString(),
-                planType: planName
+                paid_at: new Date().toISOString(),
+                plan_type: planName
             };
 
-            await addDoc(collection(db, "payments"), paymentData);
+            if (user) {
+                paymentData.user_id = user.id;
+            }
+
+            const { error: paymentErr } = await supabase
+                .from('payments')
+                .insert(paymentData);
+
+            if (paymentErr) throw paymentErr;
 
             // Send notification to Admin
             try {

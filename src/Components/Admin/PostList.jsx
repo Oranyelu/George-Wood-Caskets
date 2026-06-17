@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { collection, onSnapshot, deleteDoc, doc } from "firebase/firestore";
-import { db } from "../../firebase";
+import { supabase } from "../../supabase";
 import PropTypes from 'prop-types';
 import { FaEdit, FaTrash, FaEye } from "react-icons/fa";
 
@@ -8,28 +7,53 @@ const PostList = ({ onEdit }) => {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const unsubscribe = onSnapshot(collection(db, "posts"), (snapshot) => {
-            const postList = snapshot.docs.map((doc) => ({
-                id: doc.id,
-                ...doc.data(),
-            }));
-            // Sort by date descending
-            postList.sort((a, b) => new Date(b.date) - new Date(a.date));
-            setPosts(postList);
+    const loadPosts = async () => {
+        try {
+            const { data, error } = await supabase
+                .from("posts")
+                .select("*");
+            if (error) throw error;
+            const mapped = data.map(item => ({
+                id: item.id,
+                title: item.title,
+                description: item.description,
+                content: item.content,
+                image: item.image,
+                isRecommended: item.is_recommended,
+                views: item.views || 0,
+                date: item.created_at
+            })).sort((a, b) => new Date(b.date) - new Date(a.date));
+            setPosts(mapped);
             setLoading(false);
-        }, (error) => {
-            console.error("Error fetching posts:", error);
+        } catch (err) {
+            console.error("Error fetching posts:", err);
             setLoading(false);
-        });
+        }
+    };
 
-        return () => unsubscribe();
+    useEffect(() => {
+        loadPosts();
+
+        const channel = supabase
+            .channel("posts_realtime")
+            .on("postgres_changes", { event: "*", schema: "public", table: "posts" }, () => {
+                loadPosts();
+            })
+            .subscribe();
+
+        return () => {
+            supabase.removeChannel(channel);
+        };
     }, []);
 
     const handleDelete = async (id) => {
         if (window.confirm("Are you sure you want to delete this post?")) {
             try {
-                await deleteDoc(doc(db, "posts", id));
+                const { error } = await supabase
+                    .from("posts")
+                    .delete()
+                    .eq("id", id);
+                if (error) throw error;
             } catch (err) {
                 console.error("Error deleting post:", err);
                 alert("Failed to delete post.");

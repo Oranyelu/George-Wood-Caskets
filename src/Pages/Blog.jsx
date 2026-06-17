@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { collection, getDocs, doc, updateDoc, increment } from "firebase/firestore";
-import { db } from "../firebase";
+import { supabase } from "../supabase";
 import { Link } from "react-router-dom";
 import { FaEye, FaCalendarAlt, FaFire } from "react-icons/fa";
 
@@ -11,10 +10,17 @@ function Blog() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const postsCollection = collection(db, "posts");
-        const postsSnapshot = await getDocs(postsCollection);
-        const postsList = postsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        setPosts(postsList);
+        const { data, error } = await supabase
+          .from('posts')
+          .select('*')
+          .order('created_at', { ascending: false });
+
+        if (error) throw error;
+        const mappedList = (data || []).map(post => ({
+          ...post,
+          date: post.created_at
+        }));
+        setPosts(mappedList);
       } catch (error) {
         console.error("Error fetching posts:", error);
       } finally {
@@ -26,10 +32,18 @@ function Blog() {
 
   const handlePostClick = async (postId) => {
     try {
-      const postRef = doc(db, "posts", postId);
-      await updateDoc(postRef, {
-        views: increment(1)
-      });
+      // Get current views and update
+      const { data } = await supabase
+        .from('posts')
+        .select('views')
+        .eq('id', postId)
+        .single();
+      
+      const currentViews = (data?.views || 0) + 1;
+      await supabase
+        .from('posts')
+        .update({ views: currentViews })
+        .eq('id', postId);
     } catch (error) {
       console.error("Error updating views:", error);
     }

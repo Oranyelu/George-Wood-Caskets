@@ -1,14 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut
-} from 'firebase/auth';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { auth, db } from '../firebase';
+import { supabase } from '../supabase';
 import { API_MODE, loginUser, signupUser, getCurrentUser, logoutUser } from '../utils/api';
 
 export const AuthContext = createContext();
@@ -22,35 +15,62 @@ const AuthProvider = ({ children }) => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  // Helper to alias uid to id for compatibility
+  const mapUser = (supabaseUser) => {
+    if (!supabaseUser) return null;
+    return {
+      ...supabaseUser,
+      uid: supabaseUser.id
+    };
+  };
+
   const signup = async (email, password, additionalData = {}) => {
     if (API_MODE === 'backend') {
       const data = await signupUser(email, password, additionalData);
-      setUser(data.user);
+      setUser(mapUser(data.user));
       setIsAdmin(data.user.role === 'admin');
       return data;
     }
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    try {
-      await setDoc(doc(db, "users", userCredential.user.uid), {
-        email,
-        role: "user",
-        createdAt: new Date().toISOString(),
-        ...additionalData
-      });
-    } catch (dbError) {
-      console.error("Error creating user document in Firestore during signup:", dbError);
+
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+    });
+    if (error) throw error;
+
+    if (data.user) {
+      try {
+        const { error: dbError } = await supabase
+          .from('profiles')
+          .insert({
+            id: data.user.id,
+            email,
+            role: "user",
+            ...additionalData
+          });
+        if (dbError) {
+          console.error("Error creating profile document in Supabase:", dbError);
+        }
+      } catch (dbError) {
+        console.error("Error creating profile document in Supabase during signup:", dbError);
+      }
     }
-    return userCredential;
+    return data;
   };
 
   const login = async (email, password) => {
     if (API_MODE === 'backend') {
       const data = await loginUser(email, password);
-      setUser(data.user);
+      setUser(mapUser(data.user));
       setIsAdmin(data.user.role === 'admin');
       return data;
     }
-    return signInWithEmailAndPassword(auth, email, password);
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+    if (error) throw error;
+    return data;
   };
 
   const logout = () => {
@@ -59,7 +79,7 @@ const AuthProvider = ({ children }) => {
       setIsAdmin(false);
       return logoutUser();
     }
-    return signOut(auth);
+    return supabase.auth.signOut();
   };
 
   useEffect(() => {
@@ -68,7 +88,7 @@ const AuthProvider = ({ children }) => {
         try {
           const data = await getCurrentUser();
           if (data && data.user) {
-            setUser(data.user);
+            setUser(mapUser(data.user));
             setIsAdmin(data.user.role === 'admin');
           } else {
             setUser(null);
@@ -86,40 +106,51 @@ const AuthProvider = ({ children }) => {
       return;
     }
 
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+    const checkCurrentUser = async () => {
       try {
-        setUser(user);
-        if (user) {
-          const userDocRef = doc(db, "users", user.uid);
-          console.log("Checking admin role for:", user.uid);
-
-          const userDoc = await getDoc(userDocRef);
-          console.log("User Doc Exists:", userDoc.exists());
-
-          if (userDoc.exists()) {
-            console.log("User Data:", userDoc.data());
-            const role = userDoc.data().role;
-            console.log("Role found:", role);
-            if (role === 'admin') {
-              setIsAdmin(true);
-            } else {
-              setIsAdmin(false);
-            }
-          } else {
-            console.log("No user document found in 'users' collection.");
-            setIsAdmin(false);
-          }
+        const { data: { session } } = await supabase.auth.getSession();
+        const currentUser = mapUser(session?.user || null);
+        setUser(currentUser);
+        if (currentUser) {
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('role')
+            .eq('id', currentUser.id)
+            .single();
+          setIsAdmin(profile?.role === 'admin');
         } else {
           setIsAdmin(false);
         }
       } catch (error) {
-        console.error("Error in auth state change:", error);
+        console.error("Error checking current user session:", error);
       } finally {
         setLoading(false);
       }
+    };
+
+    checkCurrentUser();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      const currentUser = mapUser(session?.user || null);
+      setUser(currentUser);
+      if (currentUser) {
+        try {
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('role')
+            .eq('id', currentUser.id)
+            .single();
+          setIsAdmin(profile?.role === 'admin');
+        } catch (err) {
+          console.error("Error checking role on auth change:", err);
+          setIsAdmin(false);
+        }
+      } else {
+        setIsAdmin(false);
+      }
     });
 
-    return unsubscribe;
+    return () => subscription.unsubscribe();
   }, []);
 
 

@@ -1,29 +1,63 @@
 import { useState, useEffect } from "react";
-import { collection, deleteDoc, doc, onSnapshot } from "firebase/firestore";
-import { db } from "../../firebase";
-
+import { supabase } from "../../supabase";
 import PropTypes from 'prop-types';
 
 const ProjectList = ({ onEdit }) => {
     const [projects, setProjects] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const unsubscribe = onSnapshot(collection(db, "charityProjects"), (snapshot) => {
-            const projectsData = snapshot.docs.map((doc) => ({
-                id: doc.id,
-                ...doc.data(),
+    const loadProjects = async () => {
+        try {
+            const { data, error } = await supabase
+                .from("charity_projects")
+                .select("*");
+            if (error) throw error;
+            const mapped = data.map(item => ({
+                id: item.id,
+                title: item.title,
+                description: item.description,
+                image: item.image,
+                targetAmount: item.target_amount,
+                raisedAmount: item.raised_amount,
+                status: item.status,
+                articleLink: item.article_link,
+                createdAt: item.created_at
             }));
-            setProjects(projectsData);
+            setProjects(mapped);
             setLoading(false);
-        });
+        } catch (err) {
+            console.error("Error fetching charity projects:", err);
+            setLoading(false);
+        }
+    };
 
-        return () => unsubscribe();
+    useEffect(() => {
+        loadProjects();
+
+        const channel = supabase
+            .channel("charity_projects_realtime")
+            .on("postgres_changes", { event: "*", schema: "public", table: "charity_projects" }, () => {
+                loadProjects();
+            })
+            .subscribe();
+
+        return () => {
+            supabase.removeChannel(channel);
+        };
     }, []);
 
     const handleDelete = async (id) => {
         if (window.confirm("Are you sure you want to delete this project?")) {
-            await deleteDoc(doc(db, "charityProjects", id));
+            try {
+                const { error } = await supabase
+                    .from("charity_projects")
+                    .delete()
+                    .eq("id", id);
+                if (error) throw error;
+            } catch (err) {
+                console.error("Error deleting project:", err);
+                alert("Failed to delete project.");
+            }
         }
     };
 

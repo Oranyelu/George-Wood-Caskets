@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "../firebase";
+import { supabase } from "../supabase";
 import { FaCalendarAlt, FaEye, FaArrowLeft } from "react-icons/fa";
 
 const BlogPost = () => {
@@ -13,11 +12,19 @@ const BlogPost = () => {
     useEffect(() => {
         const fetchPost = async () => {
             try {
-                const docRef = doc(db, "posts", id);
-                const docSnap = await getDoc(docRef);
+                const { data, error } = await supabase
+                    .from('posts')
+                    .select('*')
+                    .eq('id', id)
+                    .single();
 
-                if (docSnap.exists()) {
-                    setPost({ id: docSnap.id, ...docSnap.data() });
+                if (error) throw error;
+
+                if (data) {
+                    setPost({
+                        ...data,
+                        date: data.created_at
+                    });
                 } else {
                     setError("Post not found");
                 }

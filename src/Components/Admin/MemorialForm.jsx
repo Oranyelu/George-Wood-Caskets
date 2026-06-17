@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
-import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { db, storage } from "../../firebase";
+import { supabase, uploadToSupabase } from "../../supabase";
 import { API_MODE, createMemorial, updateMemorial, uploadFile } from "../../utils/api";
 import PropTypes from 'prop-types';
 
@@ -58,9 +56,7 @@ const MemorialForm = ({ initialData, onSuccess, onCancel }) => {
                 if (API_MODE === 'backend') {
                     imageUrl = await uploadFile(formData.image, "memorials");
                 } else {
-                    const imageRef = ref(storage, `memorials/${Date.now()}_${formData.image.name}`);
-                    const snapshot = await uploadBytes(imageRef, formData.image);
-                    imageUrl = await getDownloadURL(snapshot.ref);
+                    imageUrl = await uploadToSupabase(formData.image, "memorials");
                 }
             }
 
@@ -76,6 +72,17 @@ const MemorialForm = ({ initialData, onSuccess, onCancel }) => {
                 updatedAt: new Date().toISOString(),
             };
 
+            const dbMemorialData = {
+                name: formData.name,
+                birth_year: formData.birthYear,
+                death_year: formData.deathYear,
+                bio: formData.bio,
+                status: formData.status,
+                image: imageUrl,
+                submitted_by: formData.submittedBy,
+                contact_email: formData.contactEmail,
+            };
+
             if (API_MODE === 'backend') {
                 if (initialData) {
                     await updateMemorial(initialData.id, memorialData);
@@ -85,15 +92,21 @@ const MemorialForm = ({ initialData, onSuccess, onCancel }) => {
                     await createMemorial(memorialData);
                 }
             } else {
-                memorialData.updatedAt = new Date();
                 if (initialData) {
-                    await updateDoc(doc(db, "memorials", initialData.id), memorialData);
+                    const { error } = await supabase
+                        .from("memorials")
+                        .update(dbMemorialData)
+                        .eq("id", initialData.id);
+                    if (error) throw error;
                 } else {
-                    await addDoc(collection(db, "memorials"), {
-                        ...memorialData,
-                        createdAt: new Date(),
-                        tributes: [] // Initialize empty tributes
-                    });
+                    const { error } = await supabase
+                        .from("memorials")
+                        .insert({
+                            ...dbMemorialData,
+                            tributes: [],
+                            candles: 0
+                        });
+                    if (error) throw error;
                 }
             }
 

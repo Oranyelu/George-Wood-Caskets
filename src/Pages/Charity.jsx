@@ -2,14 +2,15 @@ import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { usePaystackPayment } from 'react-paystack';
-import { collection, addDoc } from 'firebase/firestore';
-import { db } from '../firebase';
+import { supabase } from '../supabase';
 import ScrollReveal from '../Components/ScrollReveal';
 import toast from 'react-hot-toast';
 import { sendDonationEmail } from '../utils/api';
+import { useAuth } from '../Providers/AuthProvider';
 
 const Charity = () => {
   const { t } = useTranslation();
+  const { user } = useAuth();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -113,12 +114,20 @@ const Charity = () => {
         phone: formData.phone,
         amount: parseFloat(formData.amount),
         tier: formData.tier,
-        paymentReference: reference.reference || reference,
+        payment_reference: reference.reference || reference,
         status: "success",
-        createdAt: new Date().toISOString()
+        created_at: new Date().toISOString()
       };
       
-      await addDoc(collection(db, "donations"), donationRecord);
+      if (user) {
+        donationRecord.user_id = user.id;
+      }
+
+      const { error } = await supabase
+        .from('donations')
+        .insert(donationRecord);
+
+      if (error) throw error;
 
       // Send email alert to Admin
       try {

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { collection, addDoc } from "firebase/firestore";
-import { db } from "../firebase";
+import { supabase } from "../supabase";
 import { API_MODE, createMessage, sendMessageEmail } from "../utils/api";
 
 function Footer() {
@@ -25,7 +24,14 @@ function Footer() {
       if (API_MODE === 'backend') {
         await createMessage(messageData);
       } else {
-        await addDoc(collection(db, "messages"), messageData);
+        const { error } = await supabase.from('messages').insert({
+          name: messageData.name,
+          email: messageData.email,
+          message: messageData.message,
+          created_at: messageData.createdAt,
+          status: 'unread'
+        });
+        if (error) throw error;
       }
 
       // Notify admin immediately

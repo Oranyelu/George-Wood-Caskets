@@ -1,5 +1,5 @@
 const BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
-export const API_MODE = import.meta.env.VITE_API_MODE || "firebase";
+export const API_MODE = import.meta.env.VITE_API_MODE || "supabase";
 
 // Helper to get auth headers with JWT token
 const getHeaders = (extraHeaders = {}) => {

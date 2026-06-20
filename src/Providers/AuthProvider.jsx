@@ -112,11 +112,24 @@ const AuthProvider = ({ children }) => {
         const currentUser = mapUser(session?.user || null);
         setUser(currentUser);
         if (currentUser) {
-          const { data: profile } = await supabase
+          let { data: profile, error: profileErr } = await supabase
             .from('profiles')
             .select('role')
             .eq('id', currentUser.id)
-            .single();
+            .maybeSingle();
+
+          if (!profile && !profileErr) {
+            const { data: newProfile } = await supabase
+              .from('profiles')
+              .insert({
+                id: currentUser.id,
+                email: currentUser.email,
+                role: 'user'
+              })
+              .select('role')
+              .maybeSingle();
+            profile = newProfile;
+          }
           setIsAdmin(profile?.role === 'admin');
         } else {
           setIsAdmin(false);
@@ -135,11 +148,24 @@ const AuthProvider = ({ children }) => {
       setUser(currentUser);
       if (currentUser) {
         try {
-          const { data: profile } = await supabase
+          let { data: profile, error: profileErr } = await supabase
             .from('profiles')
             .select('role')
             .eq('id', currentUser.id)
-            .single();
+            .maybeSingle();
+
+          if (!profile && !profileErr) {
+            const { data: newProfile } = await supabase
+              .from('profiles')
+              .insert({
+                id: currentUser.id,
+                email: currentUser.email,
+                role: 'user'
+              })
+              .select('role')
+              .maybeSingle();
+            profile = newProfile;
+          }
           setIsAdmin(profile?.role === 'admin');
         } catch (err) {
           console.error("Error checking role on auth change:", err);
@@ -182,12 +208,27 @@ const AuthProvider = ({ children }) => {
     };
   }, [user]);
 
+  const loginWithGoogle = async () => {
+    if (API_MODE === 'backend') {
+      throw new Error("Google login not supported in backend API mode");
+    }
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: window.location.origin + '/user/dashboard'
+      }
+    });
+    if (error) throw error;
+    return data;
+  };
+
   const value = {
     user,
     isAdmin,
     signup,
     login,
     logout,
+    loginWithGoogle,
   };
 
   return (

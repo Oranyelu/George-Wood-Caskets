@@ -1,15 +1,53 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { supabase } from "../supabase";
 import { FaBoxOpen, FaShippingFast, FaCheckCircle, FaClipboardList } from "react-icons/fa";
 import ScrollReveal from "../Components/ScrollReveal";
 import toast from 'react-hot-toast';
 
 const OrderTracking = () => {
+  const [searchParams] = useSearchParams();
   const [orderId, setOrderId] = useState("");
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [expediteLoading, setExpediteLoading] = useState(false);
+
+  useEffect(() => {
+    const idParam = searchParams.get("id");
+    if (idParam) {
+      setOrderId(idParam);
+      const autoTrack = async () => {
+        setLoading(true);
+        setError(null);
+        setOrder(null);
+        try {
+          const { data, error } = await supabase
+            .from('orders')
+            .select('*')
+            .eq('id', idParam.trim())
+            .maybeSingle();
+
+          if (error) throw error;
+
+          if (data) {
+            setOrder(mapOrder(data));
+            toast.success("Order retrieved successfully!");
+          } else {
+            setError("Order not found. Please check the ID and try again.");
+            toast.error("Order not found.");
+          }
+        } catch (err) {
+          console.error("Error tracking order:", err);
+          setError(`Failed to track order: ${err.message}`);
+          toast.error("Error retrieving order.");
+        } finally {
+          setLoading(false);
+        }
+      };
+      autoTrack();
+    }
+  }, [searchParams]);
 
   const mapOrder = (dbOrder) => {
     if (!dbOrder) return null;

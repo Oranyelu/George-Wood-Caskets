@@ -428,7 +428,13 @@ const Checkout = () => {
                   Thank you for choosing George Wood Caskets. {formData.email ? <span>We have sent a confirmation email to <strong>{formData.email}</strong> with your order details.</span> : <span>Your order details have been saved successfully.</span>}
                 </p>
                 <Link to="/track-order">
-                  <button className="mt-8 bg-[#135B3A] hover:bg-[#0E462D] text-white px-8 py-3.5 rounded-xl font-bold transition-all shadow-md text-sm uppercase tracking-wider">
+                  <button
+                    onClick={() => {
+                      navigator.clipboard.writeText(trackingId);
+                      toast.success("Tracking ID copied to clipboard!");
+                    }}
+                    className="mt-8 bg-[#135B3A] hover:bg-[#0E462D] text-white px-8 py-3.5 rounded-xl font-bold transition-all shadow-md text-sm uppercase tracking-wider"
+                  >
                     Track Your Order
                   </button>
                 </Link>

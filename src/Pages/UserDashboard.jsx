@@ -58,12 +58,49 @@ const UserDashboard = () => {
     const [dataLoading, setDataLoading] = useState(true);
     const [activeSection, setActiveSection] = useState("favorites");
 
+    // Profile settings states
+    const [profile, setProfile] = useState({ name: "", phone: "", address: "" });
+    const [profileLoading, setProfileLoading] = useState(false);
+    const [profileSuccess, setProfileSuccess] = useState("");
+    const [profileError, setProfileError] = useState("");
+
     useEffect(() => {
         if (!user) return;
 
         const loadDashboardData = async () => {
             setDataLoading(true);
             try {
+                // Fetch Profile details
+                let { data: profileData, error: profileErr } = await supabase
+                    .from("profiles")
+                    .select("name, phone, address")
+                    .eq("id", user.id)
+                    .maybeSingle();
+
+                if (profileErr) {
+                    console.error("Error loading profile:", profileErr);
+                } else if (profileData) {
+                    setProfile({
+                        name: profileData.name || "",
+                        phone: profileData.phone || "",
+                        address: profileData.address || ""
+                    });
+                } else {
+                    // Profile row doesn't exist yet (e.g. signup via OAuth redirect callback)
+                    const { data: newProfile } = await supabase
+                        .from("profiles")
+                        .insert({ id: user.id, email: user.email, role: "user" })
+                        .select("name, phone, address")
+                        .maybeSingle();
+                    if (newProfile) {
+                        setProfile({
+                            name: newProfile.name || "",
+                            phone: newProfile.phone || "",
+                            address: newProfile.address || ""
+                        });
+                    }
+                }
+
                 // 1. Fetch Orders
                 const { data: ordersData } = await supabase
                     .from("orders")
@@ -169,6 +206,30 @@ const UserDashboard = () => {
         loadDashboardData();
     }, [user]);
 
+    const handleUpdateProfile = async (e) => {
+        e.preventDefault();
+        setProfileLoading(true);
+        setProfileSuccess("");
+        setProfileError("");
+        try {
+            const { error } = await supabase
+                .from("profiles")
+                .update({
+                    name: profile.name,
+                    phone: profile.phone,
+                    address: profile.address
+                })
+                .eq("id", user.id);
+            if (error) throw error;
+            setProfileSuccess("Profile updated successfully!");
+        } catch (err) {
+            console.error("Error updating profile:", err);
+            setProfileError(`Failed to update profile: ${err.message}`);
+        } finally {
+            setProfileLoading(false);
+        }
+    };
+
     if (!user) {
         return (
             <div className="min-h-screen pt-32 text-center">
@@ -258,6 +319,12 @@ const UserDashboard = () => {
                             label="Legacy Donations" 
                             icon={<FaAward />} 
                             onClick={() => setActiveSection("donations")} 
+                        />
+                        <TabButton 
+                            active={activeSection === "profile"} 
+                            label="Profile Settings" 
+                            icon={<FaUserCircle />} 
+                            onClick={() => setActiveSection("profile")} 
                         />
                     </div>
 
@@ -576,6 +643,73 @@ const UserDashboard = () => {
                                                 </table>
                                             </div>
                                         )}
+                                    </div>
+                                )}
+
+                                {/* PROFILE SETTINGS SECTION */}
+                                {activeSection === "profile" && (
+                                    <div className="max-w-xl mx-auto">
+                                        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6 font-serif">Profile Settings</h3>
+                                        {profileSuccess && (
+                                            <div className="text-green-750 dark:text-green-400 bg-green-50 dark:bg-green-950/20 py-2.5 px-4 rounded-xl text-sm mb-6 text-center border border-green-150 dark:border-green-900/30">
+                                                {profileSuccess}
+                                            </div>
+                                        )}
+                                        {profileError && (
+                                            <div className="text-red-650 dark:text-red-400 bg-red-50 dark:bg-red-950/20 py-2.5 px-4 rounded-xl text-sm mb-6 text-center border border-red-155 dark:border-red-900/30">
+                                                {profileError}
+                                            </div>
+                                        )}
+                                        <form onSubmit={handleUpdateProfile} className="space-y-5">
+                                            <div>
+                                                <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Email Address (Non-editable)</label>
+                                                <input
+                                                    type="text"
+                                                    disabled
+                                                    className="w-full p-3 rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-100 dark:bg-gray-900/30 text-gray-500 cursor-not-allowed text-sm focus:outline-none"
+                                                    value={user.email}
+                                                />
+                                            </div>
+                                            <div>
+                                                <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Full Name</label>
+                                                <input
+                                                    type="text"
+                                                    className="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#135B3A] text-sm"
+                                                    value={profile.name}
+                                                    onChange={(e) => setProfile({ ...profile, name: e.target.value })}
+                                                    placeholder="Enter your full name"
+                                                />
+                                            </div>
+                                            <div>
+                                                <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Phone Number</label>
+                                                <input
+                                                    type="tel"
+                                                    className="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#135B3A] text-sm"
+                                                    value={profile.phone}
+                                                    onChange={(e) => setProfile({ ...profile, phone: e.target.value })}
+                                                    placeholder="Enter your phone number"
+                                                />
+                                            </div>
+                                            <div>
+                                                <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Shipping / Contact Address</label>
+                                                <textarea
+                                                    rows="4"
+                                                    className="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#135B3A] text-sm"
+                                                    value={profile.address}
+                                                    onChange={(e) => setProfile({ ...profile, address: e.target.value })}
+                                                    placeholder="Enter your primary address"
+                                                ></textarea>
+                                            </div>
+                                            <div className="pt-2">
+                                                <button
+                                                    type="submit"
+                                                    disabled={profileLoading}
+                                                    className="w-full bg-[#135B3A] hover:bg-[#0E462D] dark:bg-green-700 dark:hover:bg-green-800 text-white font-bold py-3.5 px-4 rounded-xl transition-all shadow-md text-sm uppercase tracking-wider disabled:opacity-50"
+                                                >
+                                                    {profileLoading ? "Saving Changes..." : "Save Profile Settings"}
+                                                </button>
+                                            </div>
+                                        </form>
                                     </div>
                                 )}
                             </>

@@ -87,6 +87,8 @@ const slides = [
 
 function HeroSection() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -95,48 +97,91 @@ function HeroSection() {
     return () => clearInterval(timer);
   }, [currentSlide]);
 
+  const handleTouchStart = (e) => {
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const minSwipeDistance = 50;
+    
+    if (distance > minSwipeDistance) {
+      // Swipe left (next slide)
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    } else if (distance < -minSwipeDistance) {
+      // Swipe right (previous slide)
+      setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+    }
+
+    setTouchStart(null);
+    setTouchEnd(null);
+  };
+
   return (
-    <section className="bg-[#135B3A] rounded-b-[50px] w-full pt-28 pb-24 md:pb-32 relative z-0 overflow-hidden min-h-[720px] sm:min-h-[640px] md:min-h-[520px] lg:min-h-[580px] flex items-center">
+    <section 
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      className="bg-[#135B3A] rounded-b-[50px] w-full pt-24 pb-20 md:py-0 relative z-0 overflow-hidden min-h-[75vh] md:h-[75vh] md:max-h-[700px] lg:max-h-[800px] flex items-center select-none"
+    >
       {/* Slides Track */}
       <div 
-        className="flex transition-transform duration-1000 ease-in-out w-full"
-        style={{ transform: `translateX(-${currentSlide * 100}%)`, width: `${slides.length * 100}%` }}
+        className="flex transition-transform duration-1000 ease-in-out h-full items-center shrink-0"
+        style={{ 
+          transform: `translateX(-${currentSlide * (100 / slides.length)}%)`, 
+          width: `${slides.length * 100}%` 
+        }}
       >
         {slides.map((slide, index) => {
           const isActive = currentSlide === index;
           const isReverse = index % 2 === 1;
 
-          // Each slide has a width equal to 1 / slides.length of the total flex container width
+          // Each slide takes exactly 1/5th (20%) of the total width
           return (
-            <div key={slide.id} style={{ width: `${100 / slides.length}%` }} className="shrink-0 flex justify-center px-6 md:px-10 lg:px-20">
-              <div className={`max-w-[1300px] w-full flex flex-col ${isReverse ? 'md:flex-row-reverse' : 'md:flex-row'} items-center justify-between text-white gap-10 md:gap-16`}>
+            <div 
+              key={slide.id} 
+              style={{ width: `${100 / slides.length}%` }} 
+              className="shrink-0 flex justify-center px-6 md:px-10 lg:px-20"
+            >
+              <div className={`max-w-[1300px] w-full flex flex-col ${isReverse ? 'md:flex-row-reverse' : 'md:flex-row'} items-center justify-between text-white gap-8 md:gap-16`}>
                 
-                {/* Image Column */}
+                {/* Image Column - Feathered with Background */}
                 <div className={`w-full md:w-1/2 flex justify-center transition-all duration-1000 ${isActive ? 'scale-100 opacity-100 translate-x-0' : 'scale-95 opacity-0 ' + (isReverse ? 'translate-x-8' : '-translate-x-8')}`}>
-                  <img 
-                    src={slide.image} 
-                    alt={slide.imageAlt}
-                    className={`w-full max-w-md md:max-w-lg h-60 sm:h-72 md:h-[350px] lg:h-[400px] rounded-3xl shadow-2xl border border-white/10 transform hover:scale-[1.02] transition-transform duration-500 bg-white/5 ${slide.isSvg ? 'object-contain p-6' : 'object-cover'}`} 
-                  />
+                  <div className="relative w-full max-w-md md:max-w-lg h-60 sm:h-72 md:h-[320px] lg:h-[380px] overflow-hidden rounded-3xl">
+                    <img 
+                      src={slide.image} 
+                      alt={slide.imageAlt}
+                      className={`w-full h-full transition-transform duration-[5000ms] ease-out ${isActive ? 'scale-110' : 'scale-100'} ${slide.isSvg ? 'object-contain p-6' : 'object-cover'}`} 
+                      draggable="false"
+                    />
+                    {/* Feathering overlays to blend borders into solid green background #135B3A */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#135B3A] via-transparent to-[#135B3A] pointer-events-none"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#135B3A] via-transparent to-[#135B3A] pointer-events-none"></div>
+                  </div>
                 </div>
 
                 {/* Text Column */}
-                <div className="w-full md:w-1/2 text-center md:text-left flex flex-col justify-center pb-20 md:pb-0">
+                <div className="w-full md:w-1/2 text-center md:text-left flex flex-col justify-center pb-16 md:pb-0 px-2 md:px-0">
                   <span className={`text-[#A37E2C] font-bold text-xs md:text-sm uppercase tracking-widest mb-2 block transition-all duration-700 delay-100 ${isActive ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}>
                     {slide.subtitle}
                   </span>
                   
-                  <h2 className={`text-3xl md:text-5xl font-extrabold leading-tight text-white mb-6 transition-all duration-700 delay-200 ${isActive ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}>
+                  <h2 className={`text-3xl md:text-5xl font-extrabold leading-tight text-white mb-4 md:mb-6 transition-all duration-700 delay-200 ${isActive ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}>
                     {index === 0 ? <ShinyText text={slide.title} /> : slide.title}
                   </h2>
                   
-                  <p className={`text-base md:text-lg text-gray-200 leading-relaxed mb-8 transition-all duration-700 delay-300 ${isActive ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}>
+                  <p className={`text-sm md:text-lg text-gray-200 leading-relaxed mb-6 md:mb-8 transition-all duration-700 delay-300 ${isActive ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}>
                     {slide.description}
                   </p>
                   
                   <div className={`transition-all duration-700 delay-300 ${isActive ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}>
                     <Link to={slide.link}>
-                      <button className="bg-[#A37E2C] hover:bg-[#C29E2E] text-white font-bold py-3.5 px-8 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 text-sm tracking-wide">
+                      <button className="bg-[#A37E2C] hover:bg-[#C29E2E] text-white font-bold py-3 px-6 md:py-3.5 md:px-8 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 text-xs md:text-sm tracking-wide">
                         {slide.linkText}
                       </button>
                     </Link>
@@ -152,7 +197,7 @@ function HeroSection() {
       {/* Floating Speak with Us Button */}
       <Link 
         to="/contacts" 
-        className="absolute bottom-6 left-6 md:left-10 lg:left-20 z-20 bg-white/10 hover:bg-white/20 text-white font-bold py-3.5 px-6 rounded-xl border border-white/20 hover:border-white/40 shadow-lg backdrop-blur-md transition-all duration-300 transform hover:scale-105 hover:-translate-y-0.5 flex items-center gap-2 text-sm"
+        className="absolute bottom-6 left-6 md:left-10 lg:left-20 z-20 bg-white/10 hover:bg-white/20 text-white font-bold py-3 px-5 md:py-3.5 md:px-6 rounded-xl border border-white/20 hover:border-white/40 shadow-lg backdrop-blur-md transition-all duration-300 transform hover:scale-105 hover:-translate-y-0.5 flex items-center gap-2 text-xs md:text-sm"
       >
         Speak with Us
       </Link>
@@ -163,7 +208,7 @@ function HeroSection() {
           <button 
             key={index}
             onClick={() => setCurrentSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${currentSlide === index ? 'bg-[#A37E2C] w-8' : 'bg-white/40 hover:bg-white/60'}`}
+            className={`w-2.5 h-2.5 md:w-3 md:h-3 rounded-full transition-all duration-300 ${currentSlide === index ? 'bg-[#A37E2C] w-6 md:w-8' : 'bg-white/40 hover:bg-white/60'}`}
             aria-label={`Go to slide ${index + 1}`}
           />
         ))}

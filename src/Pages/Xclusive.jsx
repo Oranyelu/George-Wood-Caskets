@@ -84,10 +84,6 @@ const Xclusive = () => {
                   </div>
 
                   <div className="mt-auto">
-                    <p className="text-2xl text-[#135B3A] dark:text-[#D4AF37] font-serif font-bold mb-6">
-                      {product.price.toLocaleString()} <span className="text-xs align-top font-sans font-normal">NGN</span>
-                    </p>
-
                     <button
                       onClick={() => handleAddToCart(product)}
                       className="w-full py-3 px-6 border border-[#135B3A] dark:border-[#D4AF37] text-[#135B3A] dark:text-[#D4AF37] hover:bg-[#135B3A] hover:text-white hover:dark:bg-[#D4AF37] hover:dark:text-black rounded-xl transition-all duration-350 uppercase tracking-widest text-xs font-bold"

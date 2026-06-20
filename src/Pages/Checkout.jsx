@@ -25,7 +25,7 @@ const Checkout = () => {
   const [orderSuccess, setOrderSuccess] = useState(false);
   const [trackingId, setTrackingId] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [paymentMethod, setPaymentMethod] = useState("paystack"); // paystack, bank_transfer, call_to_order
+  const [paymentMethod, setPaymentMethod] = useState("call_to_order"); // bank_transfer, call_to_order
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -180,8 +180,7 @@ const Checkout = () => {
                 <ScrollReveal>
                   <h1 className="text-2xl font-serif font-bold mb-6 text-[#135B3A] dark:text-green-500">Review your Order</h1>
                   <div className="bg-[#135B3A] text-white flex justify-between py-3.5 px-6 rounded-xl mb-4 hidden md:flex font-semibold text-sm">
-                    <p className="w-1/2">Item</p>
-                    <p className="w-1/2 text-right">Price</p>
+                    <p className="w-full">Item</p>
                   </div>
                   <ul className="space-y-4">
                     {cart.map((item, index) => (
@@ -197,7 +196,6 @@ const Checkout = () => {
                           </div>
                         </div>
                         <div className="flex items-center gap-4">
-                          <p className="font-semibold text-brand-black/90 dark:text-gray-200">{item.price.toLocaleString()} NGN</p>
                           <button
                             onClick={() => removeFromCart(item)}
                             className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 px-2.5 py-1 rounded-xl transition-colors font-medium text-sm"
@@ -210,17 +208,9 @@ const Checkout = () => {
                   </ul>
 
                   <div className="mt-8 space-y-3 text-brand-black/90 dark:text-gray-300 text-sm">
-                    <div className="flex justify-between text-base">
-                      <p>Subtotal:</p>
-                      <p className="font-semibold">{totalPrice.toLocaleString()} NGN</p>
-                    </div>
-                    <div className="flex justify-between text-base">
-                      <p>VAT (8%):</p>
-                      <p className="font-semibold">{(totalPrice * 0.08).toLocaleString()} NGN</p>
-                    </div>
-                    <div className="flex justify-between mt-4 pt-4 border-t border-[#135B3A]/10 dark:border-white/5 text-lg font-bold text-brand-black dark:text-brand-white">
-                      <p>Total Price:</p>
-                      <p className="text-[#135B3A] dark:text-green-400">{(totalPrice * 1.08).toLocaleString()} NGN</p>
+                    <div className="flex justify-between text-base font-bold text-brand-black dark:text-brand-white">
+                      <p>Pricing:</p>
+                      <p className="text-[#135B3A] dark:text-green-400">On Request</p>
                     </div>
                   </div>
                 </ScrollReveal>
@@ -330,20 +320,20 @@ const Checkout = () => {
 
                     {/* Payment Method Selector */}
                     <div className="flex flex-col gap-2 mt-4">
-                      <label className="text-xs font-bold text-brand-black/85 dark:text-gray-300 uppercase tracking-wider">Select Payment Method</label>
+                      <label className="text-xs font-bold text-brand-black/85 dark:text-gray-300 uppercase tracking-wider">Select Order Method</label>
                       <div className="grid grid-cols-1 gap-2">
-                        <label className={`flex items-center gap-3 p-3 border rounded-xl cursor-pointer transition-colors ${paymentMethod === 'paystack' ? 'border-[#135B3A] bg-[#135B3A]/5' : 'border-[#135B3A]/10 dark:border-gray-700'}`}>
+                        <label className={`flex items-center gap-3 p-3 border rounded-xl cursor-pointer transition-colors ${paymentMethod === 'call_to_order' ? 'border-[#135B3A] bg-[#135B3A]/5' : 'border-[#135B3A]/10 dark:border-gray-700'}`}>
                           <input
                             type="radio"
                             name="paymentMethod"
-                            value="paystack"
-                            checked={paymentMethod === 'paystack'}
-                            onChange={() => setPaymentMethod('paystack')}
+                            value="call_to_order"
+                            checked={paymentMethod === 'call_to_order'}
+                            onChange={() => setPaymentMethod('call_to_order')}
                             className="accent-[#135B3A]"
                           />
                           <div>
-                            <p className="font-bold text-[#135B3A] dark:text-green-500 text-sm">Pay Online (Paystack)</p>
-                            <p className="text-xs text-brand-black/60 dark:text-gray-400 font-light">Pay securely with card, bank transfer, or USSD.</p>
+                            <p className="font-bold text-[#135B3A] dark:text-green-500 text-sm">Request a Call to Order</p>
+                            <p className="text-xs text-brand-black/60 dark:text-gray-400 font-light">We will call you on your phone number to finalize details and pricing.</p>
                           </div>
                         </label>
 
@@ -358,22 +348,7 @@ const Checkout = () => {
                           />
                           <div>
                             <p className="font-bold text-[#135B3A] dark:text-green-500 text-sm">Bank Transfer / Cash Deposit</p>
-                            <p className="text-xs text-brand-black/60 dark:text-gray-400 font-light">Transfer directly to our corporate bank account.</p>
-                          </div>
-                        </label>
-
-                        <label className={`flex items-center gap-3 p-3 border rounded-xl cursor-pointer transition-colors ${paymentMethod === 'call_to_order' ? 'border-[#135B3A] bg-[#135B3A]/5' : 'border-[#135B3A]/10 dark:border-gray-700'}`}>
-                          <input
-                            type="radio"
-                            name="paymentMethod"
-                            value="call_to_order"
-                            checked={paymentMethod === 'call_to_order'}
-                            onChange={() => setPaymentMethod('call_to_order')}
-                            className="accent-[#135B3A]"
-                          />
-                          <div>
-                            <p className="font-bold text-[#135B3A] dark:text-green-500 text-sm">Request a Call to Order</p>
-                            <p className="text-xs text-brand-black/60 dark:text-gray-400 font-light">We will call you on your phone number to finalize your order.</p>
+                            <p className="text-xs text-brand-black/60 dark:text-gray-400 font-light">Transfer directly to our corporate bank account once we confirm details.</p>
                           </div>
                         </label>
                       </div>

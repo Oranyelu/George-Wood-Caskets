@@ -43,9 +43,6 @@ const FavoritesPage = () => {
                                     </div>
                                     <div className="p-4">
                                         <h3 className="text-lg font-bold text-gray-900 dark:text-white truncate">{product.name}</h3>
-                                        <p className="text-[#A37E2C] font-semibold mt-1">
-                                            {product.price ? `₦${product.price.toLocaleString()}` : "Price On Request"}
-                                        </p>
                                     </div>
                                 </Link>
                             </div>

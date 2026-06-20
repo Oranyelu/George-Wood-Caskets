@@ -25,7 +25,6 @@ const RefundPolicy = lazy(() => import("./Pages/RefundPolicy"));
 const ProductDetail = lazy(() => import("./Pages/ProductDetail"));
 const ProductsPage = lazy(() => import("./Pages/ProductsPage"));
 const Services = lazy(() => import("./Pages/Services"));
-const Staff = lazy(() => import("./Pages/Staff"));
 const Tracking = lazy(() => import("./Pages/Tracking"));
 const Xclusive = lazy(() => import("./Pages/Xclusive"));
 const LoginPage = lazy(() => import("./Pages/LoginPage"));
@@ -72,7 +71,6 @@ export default function App() {
             <Route path="events" element={<Events />} />
             <Route path="services" element={<Services />} />
             <Route path="book-service/:serviceId" element={<BookService />} />
-            <Route path="staff" element={<Staff />} />
             <Route path="privacy-policy" element={<PrivacyPolicy />} />
             <Route path="terms-and-conditions" element={<TermsAndConditions />} />
             <Route path="refund-policy" element={<RefundPolicy />} />

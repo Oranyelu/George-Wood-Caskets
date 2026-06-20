@@ -51,8 +51,7 @@ const Cart = () => {
 
             <div className="bg-[#135B3A] text-white flex justify-between py-3.5 px-6 rounded-xl mb-4 hidden md:flex font-semibold text-sm">
               <p className="w-1/2">Item</p>
-              <p className="w-1/4 text-center">Quantity</p>
-              <p className="w-1/4 text-right">Price</p>
+              <p className="w-1/2 text-right">Quantity</p>
             </div>
 
             <ul className="space-y-4">
@@ -68,9 +67,8 @@ const Cart = () => {
                   </div>
 
                   <div className="flex justify-between w-full md:w-1/2 md:items-center mt-4 md:mt-0">
-                    <p className="text-brand-black/70 dark:text-gray-300 md:w-1/2 md:text-center font-light">x {item.quantity}</p>
+                    <p className="text-brand-black/70 dark:text-gray-300 md:w-1/2 md:text-right font-light">x {item.quantity}</p>
                     <div className="flex items-center gap-4 md:w-1/2 justify-end">
-                      <p className="font-bold text-brand-black dark:text-brand-white">{item.price.toLocaleString()} NGN</p>
                       <button
                         onClick={() => removeFromCart(item)}
                         className="bg-red-50 text-red-600 dark:bg-red-950/20 dark:text-red-400 px-3.5 py-1.5 rounded-xl hover:bg-red-100 dark:hover:bg-red-950/40 transition-colors text-xs font-semibold border border-red-100/50 dark:border-red-900/30"
@@ -93,23 +91,9 @@ const Cart = () => {
               <h2 className="text-xl font-bold font-serif mb-6 text-[#135B3A] dark:text-green-500">Order Summary</h2>
 
               <div className="space-y-4 text-brand-black/90 dark:text-gray-300 text-sm">
-                <div className="flex justify-between">
-                  <p>{cart.length} items</p>
-                  <p className="font-semibold">{totalPrice.toLocaleString()} NGN</p>
-                </div>
-                <div className="h-px bg-[#135B3A]/10 dark:bg-white/10 my-2"></div>
-                <div className="flex justify-between">
-                  <p>Subtotal</p>
-                  <p className="font-semibold">{totalPrice.toLocaleString()} NGN</p>
-                </div>
-                <div className="flex justify-between">
-                  <p>VAT (8%)</p>
-                  <p className="font-semibold">{vat.toLocaleString()} NGN</p>
-                </div>
-                <div className="h-px bg-[#135B3A]/10 dark:bg-white/10 my-2"></div>
                 <div className="flex justify-between text-base font-bold text-brand-black dark:text-brand-white">
-                  <p>Total</p>
-                  <p className="text-[#135B3A] dark:text-green-400">{finalTotal.toLocaleString()} NGN</p>
+                  <p>{cart.length} items</p>
+                  <p className="text-[#135B3A] dark:text-green-400">Price on Request</p>
                 </div>
               </div>
 

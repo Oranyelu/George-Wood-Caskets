@@ -64,9 +64,6 @@ const ProductCard = ({ product }) => {
                         {product.name}
                     </h1>
                 </Link>
-                <p className="text-brand-black dark:text-brand-white font-medium mt-1">
-                    Price: {product.price.toLocaleString()} NGN
-                </p>
                 <p className="text-brand-black/80 dark:text-brand-white/80 text-sm mt-1">
                     Color: {product.colors?.join(', ') || 'N/A'}
                 </p>

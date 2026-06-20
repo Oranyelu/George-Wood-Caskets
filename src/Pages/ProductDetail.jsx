@@ -125,10 +125,6 @@ const ProductDetail = () => {
               </p>
 
               <div className="space-y-4">
-                <p className="text-3xl text-[#D4AF37] font-light">
-                  {product.price.toLocaleString()} <span className="text-sm">NGN</span>
-                </p>
-
                 <button
                   onClick={() => handleAddToCart(product)}
                   className="bg-[#D4AF37] text-black px-8 py-4 text-sm uppercase tracking-widest font-bold hover:bg-white transition-colors duration-300 w-full md:w-auto"
@@ -231,7 +227,6 @@ const ProductDetail = () => {
 
             <div className="mt-3">
               <h2 className="sr-only">Product information</h2>
-              <p className="text-3xl text-[#135B3A] dark:text-green-400 font-bold">{product.price.toLocaleString()} NGN</p>
             </div>
 
             <div className="mt-6">

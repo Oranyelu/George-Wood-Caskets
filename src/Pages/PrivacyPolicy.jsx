@@ -51,8 +51,13 @@ const PrivacyPolicy = () => {
                     <section className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 transition-colors">
                         <h2 className="text-2xl font-semibold mb-3 text-gray-900 dark:text-white">5. Contact Us</h2>
                         <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                            If you have any questions about this privacy policy or our privacy practices, please contact us.
+                            If you have any questions about this privacy policy or our privacy practices, please contact us through any of the following channels:
                         </p>
+                        <ul className="list-disc list-inside ml-4 mt-2 text-gray-700 dark:text-gray-300 space-y-1">
+                            <li><strong>Email:</strong> georgewoodcasket@gmail.com</li>
+                            <li><strong>Phone:</strong> 08143904414</li>
+                            <li><strong>Location:</strong> 11 Senator Avenue, Opposite Milestone Hospital, Along Old Enugu-Onitsha Express Road, Okwojo Ngwo, Enugu, Nigeria</li>
+                        </ul>
                     </section>
                 </div>
             </div>

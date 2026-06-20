@@ -7,17 +7,16 @@ const RefundPolicy = () => {
             <p className="mb-6 text-gray-500 dark:text-gray-400">Last updated: {new Date().toLocaleDateString()}</p>
 
             <section className="mb-6 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 transition-colors">
-                <h2 className="text-2xl font-semibold mb-3 text-gray-900 dark:text-white">1. Returns</h2>
+                <h2 className="text-2xl font-semibold mb-3 text-gray-900 dark:text-white">1. Refunds Policy</h2>
                 <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                    We have a [Number]-day return policy, which means you have [Number] days after receiving your item to request a return.
-                    To be eligible for a return, your item must be in the same condition that you received it, unworn or unused, with tags, and in its original packaging. You’ll also need the receipt or proof of purchase.
+                    Please note that we have a strict refund policy. Due to the nature of our products and services, <strong>no refunds are allowed or issued after 24 hours of placing an order.</strong>
                 </p>
             </section>
 
             <section className="mb-6 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 transition-colors">
-                <h2 className="text-2xl font-semibold mb-3 text-gray-900 dark:text-white">2. Refunds</h2>
+                <h2 className="text-2xl font-semibold mb-3 text-gray-900 dark:text-white">2. Cancellation Within 24 Hours</h2>
                 <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                    We will notify you once we’ve received and inspected your return, and let you know if the refund was approved or not. If approved, you’ll be automatically refunded on your original payment method. Please remember it can take some time for your bank or credit card company to process and post the refund too.
+                    If you wish to cancel your order, you must request the cancellation within 24 hours of purchase. Once approved, you’ll be automatically refunded on your original payment method. Please remember it can take some time for your bank or credit card company to process and post the refund as well.
                 </p>
             </section>
 

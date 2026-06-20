@@ -353,8 +353,7 @@ const UserDashboard = () => {
                                                                 <span className="text-xs text-gray-400 dark:text-gray-550 font-bold uppercase">{prod.category}</span>
                                                             </div>
                                                         </div>
-                                                        <div className="flex items-center justify-between border-t border-gray-100 dark:border-gray-850 pt-3 mt-2">
-                                                            <span className="font-bold text-[#135B3A] dark:text-green-500 text-sm">{prod.price.toLocaleString()} NGN</span>
+                                                        <div className="flex items-center justify-end border-t border-gray-100 dark:border-gray-850 pt-3 mt-2">
                                                             <Link to={`/product/${prod.id}`} className="text-xs font-bold text-gray-650 hover:text-black dark:text-gray-400 dark:hover:text-white uppercase tracking-wider">View Product</Link>
                                                         </div>
                                                     </div>
@@ -403,16 +402,11 @@ const UserDashboard = () => {
                                                             {(ord.items || []).map((item, index) => (
                                                                 <li key={index} className="flex justify-between items-center text-sm">
                                                                     <span className="text-gray-900 dark:text-white font-medium">{item.name} {item.selectedColor ? `(${item.selectedColor})` : ""}</span>
-                                                                    <span className="text-gray-500 font-semibold">{item.price?.toLocaleString()} NGN</span>
                                                                 </li>
                                                             ))}
                                                         </ul>
                                                     </div>
-                                                    <div className="flex flex-col sm:flex-row justify-between items-center border-t border-gray-150 dark:border-gray-800 pt-4 mt-2 gap-4">
-                                                        <div className="flex items-baseline">
-                                                            <span className="text-xs text-gray-400 font-bold uppercase tracking-wider mr-2">Total Paid:</span>
-                                                            <span className="text-lg font-bold text-[#135B3A] dark:text-green-500">{(ord.total_price || ord.totalPrice || 0).toLocaleString()} NGN</span>
-                                                        </div>
+                                                    <div className="flex flex-col sm:flex-row justify-end items-center border-t border-gray-150 dark:border-gray-800 pt-4 mt-2 gap-4">
                                                         <Link 
                                                             to={`/track-order?id=${ord.id}`} 
                                                             className="text-xs font-bold bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-750 dark:text-gray-300 px-4 py-2 rounded-xl transition-all uppercase tracking-wider"
@@ -446,8 +440,7 @@ const UserDashboard = () => {
                                                                 </p>
                                                             </div>
                                                         </div>
-                                                        <div className="flex items-center justify-between border-t border-gray-100 dark:border-gray-850 pt-3 mt-2">
-                                                            <span className="font-bold text-[#135B3A] dark:text-green-500 text-sm">{vh.price?.toLocaleString()} NGN</span>
+                                                        <div className="flex items-center justify-end border-t border-gray-100 dark:border-gray-850 pt-3 mt-2">
                                                             <Link to={`/product/${vh.id}`} className="text-xs font-bold text-gray-650 hover:text-black dark:text-gray-400 dark:hover:text-white uppercase tracking-wider">View Page</Link>
                                                         </div>
                                                     </div>

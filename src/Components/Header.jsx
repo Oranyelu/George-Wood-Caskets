@@ -44,18 +44,6 @@ export default function Header() {
             <p>georgewoodcasket@gmail.com</p>
           </div>
           <div className="flex items-center gap-4">
-            <p>
-              Follow us:{" "}
-              <a
-                href="https://www.instagram.com/georgewoodcaskets?igsh=MWttbHNsMmdreHhoNA=="
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-black transition-colors font-semibold"
-              >
-                @georgewoodcaskets
-              </a>
-            </p>
-            <div className="h-4 w-px bg-white/30"></div>
             <LanguageSwitcher />
             <button
               onClick={toggleTheme}

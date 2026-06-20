@@ -9,93 +9,169 @@ import { Helmet } from "react-helmet-async";
 import ProductCard from "../Components/ProductCard";
 import Services from "../assets/service-api"; // service data
 import TestimonialsData from "../assets/Testinonials-api"; // testimonials
-import Logo from "../assets/Favicon.svg"; // hero logo
 import BKOL from "../assets/book_of_life.png"; // Book of Life image
 import ScrollReveal from "../Components/ScrollReveal";
 
+// Carousel Slide Assets
+import woodworkingWorkshop from "../assets/woodworking_workshop.png";
+import mercedesSvg from "../assets/serivices svgs/mercedes.svg";
+import loweringDeviceSvg from "../assets/serivices svgs/loweringDevice.svg";
+import photographyService from "../assets/photography_service.png";
+import nigerianWorkshopTeam from "../assets/nigerian_workshop_team.png";
+
 const ShinyText = ({ text }) => {
-  return <div className="shiny-text">{text}</div>;
+  return <span className="shiny-text">{text}</span>;
 };
 
 ShinyText.propTypes = {
   text: PropTypes.string.isRequired,
 };
 
+const slides = [
+  {
+    id: 1,
+    subtitle: "Premium Craftsmanship",
+    title: "Honouring Life & Legacies since 1984",
+    description: `At George Wood Casket, every creation tells a story. For over ${new Date().getFullYear() - 1984} years, we have refined the art of craftsmanship, creating timeless pieces that embody love, dignity, and remembrance.`,
+    image: woodworkingWorkshop,
+    imageAlt: "George Wood Woodworking Workshop",
+    isSvg: false,
+    link: "/products",
+    linkText: "Browse Our Caskets"
+  },
+  {
+    id: 2,
+    subtitle: "Emergency & Transport",
+    title: "Dignified Ambulance Services",
+    description: "Offering professional, swift, and respectful transport solutions. Our modern vehicles and compassionate medical staff are equipped to support your family during critical moments.",
+    image: mercedesSvg,
+    imageAlt: "George Wood Mercedes Ambulance Service",
+    isSvg: true,
+    link: "/services",
+    linkText: "Our Services"
+  },
+  {
+    id: 3,
+    subtitle: "Graveside Ceremony",
+    title: "Solemn Graveside Lowering Services",
+    description: "Providing state-of-the-art lowering devices and graveside setup. We ensure a seamless, respectful, and dignified final transition for your loved ones.",
+    image: loweringDeviceSvg,
+    imageAlt: "Graveside Lowering Device",
+    isSvg: true,
+    link: "/services",
+    linkText: "Our Services"
+  },
+  {
+    id: 4,
+    subtitle: "Memorial Capture",
+    title: "Preserving Precious Memories",
+    description: "Cherish the legacy of those you hold dear. Our professional memorial photography captures family bonds, solemn moments, and the celebration of a life beautifully lived.",
+    image: photographyService,
+    imageAlt: "Family Memorial Photography",
+    isSvg: false,
+    link: "/services",
+    linkText: "Our Services"
+  },
+  {
+    id: 5,
+    subtitle: "Professional Care",
+    title: "Compassionate Undertakers & Staff",
+    description: "Our dedicated and professional undertakers guide you step-by-step with empathy. We manage every detail of the service, ensuring absolute peace of mind.",
+    image: nigerianWorkshopTeam,
+    imageAlt: "George Wood Undertakers and Staff Team",
+    isSvg: false,
+    link: "/services",
+    linkText: "Our Services"
+  }
+];
 
 function HeroSection() {
-  const foundingYear = 1984;
-  const [years, setYears] = useState(new Date().getFullYear() - foundingYear);
-  const [isVisible, setIsVisible] = useState(false);
-  const logoRef = useRef(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setYears(new Date().getFullYear() - foundingYear);
-    }, 1000 * 60 * 60 * 24); // Update daily just in case
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        } else {
-          setIsVisible(false);
-        }
-      },
-      { threshold: 0.5 } // Trigger when 50% visible
-    );
-    const currentLogo = logoRef.current;
-    if (currentLogo) observer.observe(currentLogo);
-    return () => {
-      if (currentLogo) observer.unobserve(currentLogo);
-    };
-  }, []);
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [currentSlide]);
 
   return (
-    <section className="bg-[#135B3A] rounded-b-[50px] w-full pt-28 pb-20 relative z-0">
+    <section className="bg-[#135B3A] rounded-b-[50px] w-full pt-28 pb-24 md:pb-32 relative z-0 overflow-hidden min-h-[720px] sm:min-h-[640px] md:min-h-[520px] lg:min-h-[580px] flex items-center">
+      {/* Slides Track */}
+      <div 
+        className="flex transition-transform duration-1000 ease-in-out w-full"
+        style={{ transform: `translateX(-${currentSlide * 100}%)`, width: `${slides.length * 100}%` }}
+      >
+        {slides.map((slide, index) => {
+          const isActive = currentSlide === index;
+          const isReverse = index % 2 === 1;
 
-      <div className="max-w-[1300px] mx-auto px-6 md:px-10 lg:px-20 flex flex-col md:flex-row items-center justify-between text-white gap-10">
-        {/* Left Content */}
-        <div className="max-w-xl text-center md:text-left">
-          <h1 className="text-3xl md:text-5xl font-extrabold leading-tight">
-            <ShinyText text="Honouring Life and Legacies since 1984" />
-          </h1>
-          <p className="mt-6 text-base md:text-lg text-gray-200">
-            At George Wood Casket, every creation tells a story. For over four
-            decades, we have refined the art of craftsmanship, creating timeless
-            pieces that embody love, dignity, and remembrance.
-          </p>
-        </div>
+          // Each slide has a width equal to 1 / slides.length of the total flex container width
+          return (
+            <div key={slide.id} style={{ width: `${100 / slides.length}%` }} className="shrink-0 flex justify-center px-6 md:px-10 lg:px-20">
+              <div className={`max-w-[1300px] w-full flex flex-col ${isReverse ? 'md:flex-row-reverse' : 'md:flex-row'} items-center justify-between text-white gap-10 md:gap-16`}>
+                
+                {/* Image Column */}
+                <div className={`w-full md:w-1/2 flex justify-center transition-all duration-1000 ${isActive ? 'scale-100 opacity-100 translate-x-0' : 'scale-95 opacity-0 ' + (isReverse ? 'translate-x-8' : '-translate-x-8')}`}>
+                  <img 
+                    src={slide.image} 
+                    alt={slide.imageAlt}
+                    className={`w-full max-w-md md:max-w-lg h-60 sm:h-72 md:h-[350px] lg:h-[400px] rounded-3xl shadow-2xl border border-white/10 transform hover:scale-[1.02] transition-transform duration-500 bg-white/5 ${slide.isSvg ? 'object-contain p-6' : 'object-cover'}`} 
+                  />
+                </div>
 
-        {/* Right Logo with Years */}
-        <div className="flex flex-col items-center perspective-[1000px]">
-          <div ref={logoRef} className={`relative w-48 h-48 md:w-56 md:h-56 transition-transform duration-1000 transform-style-3d ${isVisible ? 'animate-spin-stop' : ''}`}>
-            {/* Front Face */}
-            <img
-              src={Logo}
-              alt="George Wood Logo"
-              className="absolute inset-0 w-full h-full object-contain backface-hidden"
-            />
-            {/* Back Face - Grayscale Logo */}
-            <div
-              className="absolute inset-0 w-full h-full backface-hidden flex items-center justify-center p-2"
-              style={{ transform: 'rotateY(180deg)' }}
-            >
-              <img
-                src={Logo}
-                alt="George Wood Logo Back"
-                className="w-full h-full object-contain grayscale brightness-50 contrast-125 drop-shadow-xl"
-              />
+                {/* Text Column */}
+                <div className="w-full md:w-1/2 text-center md:text-left flex flex-col justify-center pb-20 md:pb-0">
+                  <span className={`text-[#A37E2C] font-bold text-xs md:text-sm uppercase tracking-widest mb-2 block transition-all duration-700 delay-100 ${isActive ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}>
+                    {slide.subtitle}
+                  </span>
+                  
+                  <h2 className={`text-3xl md:text-5xl font-extrabold leading-tight text-white mb-6 transition-all duration-700 delay-200 ${isActive ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}>
+                    {index === 0 ? <ShinyText text={slide.title} /> : slide.title}
+                  </h2>
+                  
+                  <p className={`text-base md:text-lg text-gray-200 leading-relaxed mb-8 transition-all duration-700 delay-300 ${isActive ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}>
+                    {slide.description}
+                  </p>
+                  
+                  <div className={`transition-all duration-700 delay-300 ${isActive ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}>
+                    <Link to={slide.link}>
+                      <button className="bg-[#A37E2C] hover:bg-[#C29E2E] text-white font-bold py-3.5 px-8 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 text-sm tracking-wide">
+                        {slide.linkText}
+                      </button>
+                    </Link>
+                  </div>
+                </div>
+
+              </div>
             </div>
-          </div>
-          <p className="mt-4 text-5xl font-bold text-[#A37E2C]">{years} Years</p>
-        </div>
+          );
+        })}
+      </div>
+
+      {/* Floating Speak with Us Button */}
+      <Link 
+        to="/contacts" 
+        className="absolute bottom-6 left-6 md:left-10 lg:left-20 z-20 bg-white/10 hover:bg-white/20 text-white font-bold py-3.5 px-6 rounded-xl border border-white/20 hover:border-white/40 shadow-lg backdrop-blur-md transition-all duration-300 transform hover:scale-105 hover:-translate-y-0.5 flex items-center gap-2 text-sm"
+      >
+        Speak with Us
+      </Link>
+
+      {/* Navigation Dots */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+        {slides.map((_, index) => (
+          <button 
+            key={index}
+            onClick={() => setCurrentSlide(index)}
+            className={`w-3 h-3 rounded-full transition-all duration-300 ${currentSlide === index ? 'bg-[#A37E2C] w-8' : 'bg-white/40 hover:bg-white/60'}`}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
       </div>
     </section>
   );
 }
+
 
 function Home() {
   const { products, fetchProducts } = useContext(ProductContext);

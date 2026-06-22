@@ -127,7 +127,7 @@ function HeroSection() {
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
-      className="bg-[#135B3A] rounded-b-[50px] w-full pt-24 pb-20 md:py-0 relative z-0 overflow-hidden min-h-[75vh] md:h-[75vh] md:max-h-[700px] lg:max-h-[800px] flex items-center select-none"
+      className="bg-[#135B3A] rounded-b-[50px] w-full pt-28 pb-20 md:pt-36 md:pb-24 relative z-0 overflow-hidden min-h-[75vh] md:h-[75vh] md:max-h-[700px] lg:max-h-[800px] flex items-center select-none"
     >
       {/* Slides Track */}
       <div 

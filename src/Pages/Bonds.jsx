@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Modal from 'react-modal';
 import { usePaystackPayment } from 'react-paystack';
@@ -46,6 +46,46 @@ const Bonds = () => {
     const [formData, setFormData] = useState({
         name: '', email: '', phone: '', message: ''
     });
+    const [userProfile, setUserProfile] = useState(null);
+
+    useEffect(() => {
+        if (!user) return;
+        
+        const fetchProfile = async () => {
+            try {
+                const { data } = await supabase
+                    .from('profiles')
+                    .select('name, phone')
+                    .eq('id', user.id)
+                    .maybeSingle();
+                
+                if (data) {
+                    const profileData = {
+                        name: data.name || '',
+                        email: user.email || '',
+                        phone: data.phone || ''
+                    };
+                    setUserProfile(profileData);
+                    setFormData(prev => ({
+                        ...prev,
+                        ...profileData
+                    }));
+                } else {
+                    const profileData = {
+                        email: user.email || ''
+                    };
+                    setUserProfile(profileData);
+                    setFormData(prev => ({
+                        ...prev,
+                        email: user.email || ''
+                    }));
+                }
+            } catch (err) {
+                console.error("Error fetching user profile for Bonds:", err);
+            }
+        };
+        fetchProfile();
+    }, [user]);
 
     const getPlanDetails = (bondType) => {
         let price = 15000;
@@ -72,7 +112,12 @@ const Bonds = () => {
 
     const closeModal = () => {
         setIsOpen(false);
-        setFormData({ name: '', email: '', phone: '', message: '' });
+        setFormData({
+            name: userProfile?.name || '',
+            email: userProfile?.email || '',
+            phone: userProfile?.phone || '',
+            message: ''
+        });
     };
 
     const handleChange = (e) => {
@@ -88,6 +133,22 @@ const Bonds = () => {
                 ...formData,
                 bondType: selectedBond
             });
+
+            // Sync/update profile details if logged in
+            if (user) {
+                try {
+                    await supabase
+                        .from('profiles')
+                        .update({
+                            name: formData.name,
+                            phone: formData.phone
+                        })
+                        .eq('id', user.id);
+                } catch (profileUpdateErr) {
+                    console.error("Failed to sync profile details during inquiry:", profileUpdateErr);
+                }
+            }
+
             toast.success("Your inquiry has been sent. Our team will contact you shortly.");
             closeModal();
         } catch (error) {
@@ -154,6 +215,19 @@ const Bonds = () => {
 
             if (user) {
                 subscriptionData.user_id = user.id;
+
+                // Sync/update profile details if logged in
+                try {
+                    await supabase
+                        .from('profiles')
+                        .update({
+                            name: formData.name,
+                            phone: formData.phone
+                        })
+                        .eq('id', user.id);
+                } catch (profileUpdateErr) {
+                    console.error("Failed to sync profile details during bond payment success:", profileUpdateErr);
+                }
             }
 
             const { data: bondDoc, error: bondErr } = await supabase

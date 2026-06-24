@@ -2,8 +2,12 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "../supabase";
 import { API_MODE, createMessage, sendMessageEmail } from "../utils/api";
+import { useTheme } from "../Providers/ThemeContext";
+import { FaSun, FaMoon, FaPhoneAlt, FaEnvelope } from "react-icons/fa";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 function Footer() {
+  const { theme, toggleTheme } = useTheme();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -168,6 +172,36 @@ function Footer() {
               <span className="text-green-300 text-xs text-center mt-1">Thank you! Message sent with care.</span>
             )}
           </form>
+        </div>
+
+        {/* Contact and Settings Row */}
+        <div className="mt-12 pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-gray-300">
+          <div className="flex flex-col sm:flex-row gap-6 items-center">
+            <a
+              href="tel:08143904414"
+              className="hover:text-[#D4AF37] transition-colors flex items-center gap-2"
+            >
+              <FaPhoneAlt size={14} className="text-[#D4AF37]" />
+              <span>08143904414</span>
+            </a>
+            <a
+              href="mailto:georgewoodcasket@gmail.com"
+              className="hover:text-[#D4AF37] transition-colors flex items-center gap-2"
+            >
+              <FaEnvelope size={14} className="text-[#D4AF37]" />
+              <span>georgewoodcasket@gmail.com</span>
+            </a>
+          </div>
+          <div className="flex items-center gap-4 font-sans">
+            <LanguageSwitcher />
+            <button
+              onClick={toggleTheme}
+              className="bg-transparent p-2 rounded-lg border border-white/20 hover:border-white transition-colors"
+              aria-label="Toggle Dark Mode"
+            >
+              {theme === "light" ? <FaMoon className="text-white text-sm" /> : <FaSun className="text-yellow-300 text-sm" />}
+            </button>
+          </div>
         </div>
       </footer>
       <article className="flex flex-col sm:flex-row text-center justify-around p-4 text-primary">

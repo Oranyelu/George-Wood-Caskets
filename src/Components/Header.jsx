@@ -2,19 +2,15 @@ import { useContext, useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import Logo from "../assets/Favicon.svg";
 import HamburgerMenu from "./HamburgerMenu";
-import { BsBag } from "react-icons/bs";
-import { FaUserCircle, FaSun, FaMoon } from "react-icons/fa";
+import { FaUserCircle, FaTruck } from "react-icons/fa";
 import { ProductContext } from "../Providers/ProductProvider";
 import { useAuth } from "../Providers/AuthProvider";
-import LanguageSwitcher from "./LanguageSwitcher";
-import { useTheme } from "../Providers/ThemeContext";
 import { useTranslation } from "react-i18next";
 
 export default function Header() {
   const { cart } = useContext(ProductContext);
   const { user, isAdmin, logout } = useAuth();
   const cartItemCount = cart.length;
-  const { theme, toggleTheme } = useTheme();
   const { t } = useTranslation();
   const [isHovered, setIsHovered] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -34,28 +30,6 @@ export default function Header() {
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50 text-[1rem] font-sans">
-      {/* Top Strip */}
-      <div
-        className={`hidden lg:block relative z-40 bg-[#A37E2C] text-white text-sm transition-all duration-500 ease-in-out origin-top border-b border-white/10 ${!isScrolled ? 'h-10 opacity-100' : 'h-0 opacity-0 overflow-hidden'}`}
-      >
-        <div className="max-w-[1300px] mx-auto flex justify-between items-center h-full px-8">
-          <div className="flex gap-6">
-            <p>08143904414</p>
-            <p>georgewoodcasket@gmail.com</p>
-          </div>
-          <div className="flex items-center gap-4">
-            <LanguageSwitcher />
-            <button
-              onClick={toggleTheme}
-              className="bg-transparent p-1 rounded hover:bg-white/10 transition-colors"
-              aria-label="Toggle Dark Mode"
-            >
-              {theme === "light" ? <FaMoon className="text-white" /> : <FaSun className="text-yellow-300" />}
-            </button>
-          </div>
-        </div>
-      </div>
-
       {/* Spacing Placeholder */}
       <div className={`transition-all duration-500 ease-in-out ${!isScrolled ? 'h-4' : 'h-2'}`}></div>
 
@@ -130,12 +104,12 @@ export default function Header() {
             {/* Cart Icon */}
             <div
               className={`
-                relative transition-all duration-500 ease-in-out overflow-hidden
+                relative transition-all duration-500 ease-in-out overflow-hidden hover-truck-animate
                 ${isExpanded ? "max-w-[50px] opacity-100" : "max-w-0 opacity-0"}
               `}
             >
-              <NavLink to="/cart" className="flex items-center hover:text-[#C29E2E] transition-colors">
-                <BsBag size={22} />
+              <NavLink to="/cart" className="flex items-center hover:text-[#C29E2E] transition-colors" title="Cart">
+                <FaTruck size={24} />
                 {cartItemCount > 0 && (
                   <span className="absolute -top-1 -right-1 bg-red-500 text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center">
                     {cartItemCount}
@@ -156,11 +130,19 @@ export default function Header() {
                 <>
                   <button
                     onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                    className="flex items-center hover:text-[#C29E2E] focus:outline-none"
+                    className="flex items-center hover:text-[#C29E2E] focus:outline-none rounded-full overflow-hidden"
                     aria-label="User Menu"
                     aria-expanded={isUserMenuOpen}
                   >
-                    <FaUserCircle size={24} />
+                    {user?.user_metadata?.avatar_url || user?.user_metadata?.picture ? (
+                      <img
+                        src={user.user_metadata.avatar_url || user.user_metadata.picture}
+                        alt="User profile"
+                        className="h-6 w-6 rounded-full object-cover border border-white/20"
+                      />
+                    ) : (
+                      <FaUserCircle size={24} />
+                    )}
                   </button>
                   {/* Dropdown */}
                   {isExpanded && isUserMenuOpen && (

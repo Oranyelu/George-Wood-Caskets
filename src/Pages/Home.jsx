@@ -127,7 +127,7 @@ function HeroSection() {
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
-      className="bg-[#135B3A] rounded-b-[50px] w-full pt-28 pb-20 md:pt-36 md:pb-24 relative z-0 overflow-hidden min-h-[75vh] md:h-[75vh] md:max-h-[700px] lg:max-h-[800px] flex items-center select-none"
+      className="bg-[#135B3A] rounded-b-[50px] w-full pt-36 pb-24 md:pt-48 md:pb-32 relative z-0 overflow-hidden min-h-[85vh] md:h-[85vh] md:max-h-[800px] lg:max-h-[900px] flex items-center select-none"
     >
       {/* Slides Track */}
       <div 
@@ -193,14 +193,6 @@ function HeroSection() {
           );
         })}
       </div>
-
-      {/* Floating Speak with Us Button */}
-      <Link 
-        to="/contacts" 
-        className="absolute bottom-6 left-6 md:left-10 lg:left-20 z-20 bg-white/10 hover:bg-white/20 text-white font-bold py-3 px-5 md:py-3.5 md:px-6 rounded-xl border border-white/20 hover:border-white/40 shadow-lg backdrop-blur-md transition-all duration-300 transform hover:scale-105 hover:-translate-y-0.5 flex items-center gap-2 text-xs md:text-sm"
-      >
-        Speak with Us
-      </Link>
 
       {/* Navigation Dots */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">

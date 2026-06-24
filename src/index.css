@@ -157,3 +157,16 @@ img {
   -webkit-user-select: none;
   pointer-events: auto;
 }
+
+/* Animated Truck for Cart */
+@keyframes truck-drive {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(2px) translateY(-1px); }
+  50% { transform: translateX(4px) translateY(0); }
+  75% { transform: translateX(2px) translateY(1px); }
+  100% { transform: translateX(0); }
+}
+
+.hover-truck-animate:hover svg {
+  animation: truck-drive 0.6s ease-in-out infinite;
+}

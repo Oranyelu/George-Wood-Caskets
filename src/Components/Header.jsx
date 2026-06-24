@@ -1,8 +1,8 @@
 import { useContext, useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import Logo from "../assets/Favicon.svg";
 import HamburgerMenu from "./HamburgerMenu";
-import { FaUserCircle, FaTruck } from "react-icons/fa";
+import { FaUserCircle, FaTruck, FaTruckLoading } from "react-icons/fa";
 import { ProductContext } from "../Providers/ProductProvider";
 import { useAuth } from "../Providers/AuthProvider";
 import { useTranslation } from "react-i18next";
@@ -12,10 +12,14 @@ export default function Header() {
   const { user, isAdmin, logout } = useAuth();
   const cartItemCount = cart.length;
   const { t } = useTranslation();
+  const location = useLocation();
   const [isHovered, setIsHovered] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+
+  const isCheckout = location.pathname === "/checkout";
+  const hasItems = cartItemCount > 0;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -104,14 +108,34 @@ export default function Header() {
             {/* Cart Icon */}
             <div
               className={`
-                relative transition-all duration-500 ease-in-out overflow-hidden hover-truck-animate
+                relative transition-all duration-500 ease-in-out
                 ${isExpanded ? "max-w-[50px] opacity-100" : "max-w-0 opacity-0"}
               `}
             >
-              <NavLink to="/cart" className="flex items-center hover:text-[#C29E2E] transition-colors" title="Cart">
-                <FaTruck size={24} />
+              <NavLink 
+                to="/cart" 
+                className="group flex flex-col items-center hover:text-[#C29E2E] transition-colors relative py-1" 
+                title="Cart"
+              >
+                <div className="relative flex flex-col items-center">
+                  {isCheckout ? (
+                    <FaTruck size={24} className="animate-engine" />
+                  ) : hasItems ? (
+                    <FaTruckLoading size={24} />
+                  ) : (
+                    <FaTruck size={24} />
+                  )}
+                  
+                  {/* Moving Road Line under the wheels */}
+                  {isCheckout && (
+                    <div className="w-6 h-[2px] mt-0.5 overflow-hidden relative rounded-full">
+                      <div className="absolute inset-0 bg-[linear-gradient(to_right,white_50%,transparent_50%)] bg-[length:6px_100%] animate-road-move"></div>
+                    </div>
+                  )}
+                </div>
+
                 {cartItemCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center">
+                  <span className="absolute -top-1 -right-2 bg-red-500 text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center text-white">
                     {cartItemCount}
                   </span>
                 )}

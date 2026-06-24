@@ -12,7 +12,7 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['Favicon.svg'],
       devOptions: {
-        enabled: true
+        enabled: false
       },
       manifest: {
         name: 'George Wood Casket',

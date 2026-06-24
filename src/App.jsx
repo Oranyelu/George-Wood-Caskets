@@ -34,6 +34,7 @@ const FavoritesPage = lazy(() => import("./Pages/FavoritesPage"));
 const Bonds = lazy(() => import("./Pages/Bonds"));
 const Charity = lazy(() => import("./Pages/Charity"));
 const InfoPage = lazy(() => import("./Pages/InfoPage"));
+const PrintCatalog = lazy(() => import("./Pages/PrintCatalog"));
 
 export default function App() {
   // === Image Protection ===
@@ -101,6 +102,7 @@ export default function App() {
 
             <Route path="*" element={<NotFoundPage />} />
           </Route>
+          <Route path="print-catalog" element={<PrintCatalog />} />
         </Routes>
       </Suspense>
       <FloatingContact />

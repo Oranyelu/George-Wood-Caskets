@@ -1,7 +1,7 @@
 import { useState, useContext, useMemo, useEffect } from "react";
 import { ProductContext } from "../Providers/ProductProvider";
 import ProductCard from "../Components/ProductCard";
-import { FaFilter } from "react-icons/fa";
+import { FaFilter, FaFilePdf } from "react-icons/fa";
 import { Helmet } from "react-helmet-async";
 
 const ProductsPage = () => {
@@ -67,7 +67,16 @@ const ProductsPage = () => {
         </script>
       </Helmet>
       <div className="max-w-[1300px] mx-auto px-4 md:px-8">
-        <h1 className="text-4xl font-serif font-bold text-center text-primary dark:text-green-500 mb-8">Our Collection</h1>
+        <div className="flex flex-col items-center mb-8 gap-4">
+          <h1 className="text-4xl font-serif font-bold text-center text-primary dark:text-green-500">Our Collection</h1>
+          <button
+            onClick={() => window.open("/print-catalog", "_blank")}
+            className="flex items-center gap-2 bg-[#A37E2C] hover:bg-[#C29E2E] text-white font-bold py-2.5 px-6 rounded-xl shadow-md transition-all transform hover:scale-105 text-sm cursor-pointer"
+          >
+            <FaFilePdf size={16} />
+            <span>Download Catalog (PDF)</span>
+          </button>
+        </div>
 
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Mobile Filter Toggle */}
